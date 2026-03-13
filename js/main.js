@@ -15,9 +15,10 @@ function navigate(viewId) {
     if (targetSection) {
         setTimeout(() => {
             targetSection.style.display = 'block';
-            // force reflow
-            void targetSection.offsetWidth;
-            targetSection.classList.add('active');
+            // Let browser paint first, then activate transition without forcing layout sync.
+            requestAnimationFrame(() => {
+                targetSection.classList.add('active');
+            });
         }, 310);
     }
 
@@ -111,17 +112,30 @@ function navigateCalc(calcId) {
     }, 400);
 }
 
-// Navbar scroll effect
+// Navbar scroll effect (rAF-throttled to minimize style recalculation on scroll)
+const navElement = document.querySelector('nav');
+let navScrolled = false;
+let navTicking = false;
+
+function updateNavOnScroll() {
+    if (!navElement) return;
+
+    const shouldBeScrolled = window.scrollY > 50;
+    if (shouldBeScrolled === navScrolled) return;
+
+    navScrolled = shouldBeScrolled;
+    navElement.classList.toggle('shadow-lg', shouldBeScrolled);
+    navElement.classList.toggle('bg-opacity-95', shouldBeScrolled);
+}
+
 window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    if (window.scrollY > 50) {
-        nav.classList.add('shadow-lg');
-        nav.classList.add('bg-opacity-95');
-    } else {
-        nav.classList.remove('shadow-lg');
-        nav.classList.remove('bg-opacity-95');
-    }
-});
+    if (navTicking) return;
+    navTicking = true;
+    requestAnimationFrame(() => {
+        updateNavOnScroll();
+        navTicking = false;
+    });
+}, { passive: true });
 
 // Initial Router based on Hash on load
 window.addEventListener('DOMContentLoaded', () => {
@@ -136,11 +150,15 @@ window.addEventListener('DOMContentLoaded', () => {
         });
         const target = document.getElementById(`view-${hash}`);
         target.style.display = 'block';
-        setTimeout(() => target.classList.add('active'), 50);
+        requestAnimationFrame(() => {
+            target.classList.add('active');
+        });
     } else if (viewHome) {
         // default to home if we are in the SPA
         viewHome.style.display = 'block';
     }
+
+    updateNavOnScroll();
 
     // Initialize Hero Carousel
     if (document.getElementById('hero-carousel')) initHeroCarousel();
@@ -250,11 +268,43 @@ function prevSlide(manual = true) {
 // --- Services Carousel Logic ---
 let currentServSlide = 0;
 let servCarouselInterval;
+let servCardOffset = 0;
+let servMaxSlide = 0;
+let servResizeTimer = null;
+
+function computeServCarouselMetrics() {
+    const track = document.getElementById('services-track');
+    if (!track) return false;
+
+    const cards = track.children;
+    if (cards.length < 2) {
+        servCardOffset = 0;
+        servMaxSlide = 0;
+        return false;
+    }
+
+    const cardWidth = cards[0].getBoundingClientRect().width;
+    if (cardWidth <= 0) return false;
+
+    const trackContainerWidth = track.parentElement.getBoundingClientRect().width;
+    const visibleCards = Math.max(1, Math.round(trackContainerWidth / cardWidth));
+
+    servCardOffset = cardWidth;
+    servMaxSlide = Math.max(0, cards.length - visibleCards);
+
+    if (currentServSlide > servMaxSlide) currentServSlide = 0;
+    if (currentServSlide < 0) currentServSlide = servMaxSlide;
+
+    return true;
+}
 
 function initServCarousel() {
     const track = document.getElementById('services-track');
     const container = document.getElementById('services-slider-container');
     if (!track || !container) return;
+
+    computeServCarouselMetrics();
+    updateServCarousel();
 
     // Start autoplay
     startServCarousel();
@@ -263,10 +313,15 @@ function initServCarousel() {
     container.addEventListener('mouseenter', stopServCarousel);
     container.addEventListener('mouseleave', startServCarousel);
 
-    // Keep aligned on resize
+    // Keep aligned on resize (debounced)
     window.addEventListener('resize', () => {
-        setTimeout(updateServCarousel, 100);
-    });
+        clearTimeout(servResizeTimer);
+        servResizeTimer = setTimeout(() => {
+            servCardOffset = 0;
+            computeServCarouselMetrics();
+            updateServCarousel();
+        }, 120);
+    }, { passive: true });
 }
 
 function startServCarousel() {
@@ -283,30 +338,14 @@ function stopServCarousel() {
 function updateServCarousel() {
     const track = document.getElementById('services-track');
     if (!track) return;
-    const cards = track.children;
-    if (cards.length < 2) return;
 
-    // Calculate how much to slide (width of exactly one card)
-    const cardRect = cards[0].getBoundingClientRect();
-    const offset = cardRect.width;
-
-    if (offset <= 0) return;
-
-    // Calculate visible cards to prevent sliding past the end
-    const trackContainerWidth = track.parentElement.offsetWidth;
-    const visibleCards = Math.max(1, Math.round(trackContainerWidth / offset));
-
-    const maxSlide = Math.max(0, cards.length - visibleCards);
+    if (!servCardOffset && !computeServCarouselMetrics()) return;
 
     // Enforce limits and wrap around
-    if (currentServSlide > maxSlide) {
-        currentServSlide = 0;
-    }
-    if (currentServSlide < 0) {
-        currentServSlide = maxSlide;
-    }
+    if (currentServSlide > servMaxSlide) currentServSlide = 0;
+    if (currentServSlide < 0) currentServSlide = servMaxSlide;
 
-    track.style.transform = `translateX(-${currentServSlide * offset}px)`;
+    track.style.transform = `translateX(-${currentServSlide * servCardOffset}px)`;
 }
 
 function nextServSlide(manual = true) {
@@ -320,4 +359,3 @@ function prevServSlide(manual = true) {
     updateServCarousel();
     if (manual) startServCarousel(); // Reset timer if clicked manually
 }
-
