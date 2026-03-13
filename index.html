@@ -4,11 +4,14 @@
 
 <head>
 <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PWWC3D8D');</script>
+<script>
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+    'gtm.start': new Date().getTime(),
+    event: 'gtm.js'
+});
+</script>
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PWWC3D8D"></script>
 <!-- End Google Tag Manager -->
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -1467,121 +1470,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </div>
 
-    <script>
-        const typing = document.getElementById("typing");
-        const msg1 = document.getElementById("msg1");
-        const msg2 = document.getElementById("msg2");
-        const chatBox = document.getElementById("chat-box");
-        const input = document.getElementById("chat-input");
-        let hasOpened = false;
-
-        // TB Abogados WhatsApp Number
-        const currentWA = "5491122511243";
-
-        let fallbackText = "Hola! Necesito asesoramiento legal";
-
-        function updateChatProfile() {
-            const path = window.location.pathname;
-            let dynamicMsg2 = "¿Buscás asesoramiento legal?";
-
-            // Subpages logic
-            if (path.includes('marcas.html')) {
-                dynamicMsg2 = "¿Necesitas ayuda con tu marca?";
-                fallbackText = "Hola, necesito asesoramiento con una marca";
-            } else if (path.includes('despidos.html')) {
-                dynamicMsg2 = "¿Necesitas ayuda con un despido?";
-                fallbackText = "Hola, me despidieron y necesito asesoramiento";
-            } else if (path.includes('diferencia-salarial.html')) {
-                dynamicMsg2 = "¿Necesitas reclamar diferencias salariales?";
-                fallbackText = "Hola, quiero reclamar diferencias salariales";
-            } else if (path.includes('accidente-trabajo.html')) {
-                dynamicMsg2 = "¿Sufriste un accidente de trabajo?";
-                fallbackText = "Hola, tuve un accidente de trabajo y necesito asesoramiento";
-            } else if (path.includes('accidente-transito.html')) {
-                dynamicMsg2 = "¿Sufriste un accidente de tránsito?";
-                fallbackText = "Hola, tuve un accidente de tránsito y busco asesoramiento";
-            } else if (path.includes('divorcios.html')) {
-                dynamicMsg2 = "¿Necesitas iniciar un divorcio?";
-                fallbackText = "Hola, necesito asesoramiento para un divorcio";
-            } else if (path.includes('sucesiones.html')) {
-                dynamicMsg2 = "¿Necesitas iniciar una sucesión?";
-                fallbackText = "Hola, necesito iniciar una sucesión";
-            } else if (path.includes('alquileres.html')) {
-                dynamicMsg2 = "¿Necesitas ayuda con un alquiler?";
-                fallbackText = "Hola, tengo un problema con un alquiler";
-            } else if (path.includes('mediaciones.html')) {
-                dynamicMsg2 = "¿Necesitas iniciar una mediación?";
-                fallbackText = "Hola, necesito asesoramiento para una mediación";
-            } else if (path.includes('jubilaciones.html')) {
-                dynamicMsg2 = "¿Necesitas asesoramiento sobre jubilaciones?";
-                fallbackText = "Hola, necesito asesoramiento para jubilarme";
-            }
-
-            msg2.textContent = dynamicMsg2;
-        }
-
-        function simulateChat() {
-            if (hasOpened) return;
-            hasOpened = true;
-
-            setTimeout(() => { typing.style.display = "block"; }, 1000);
-            setTimeout(() => {
-                typing.style.display = "none";
-                msg1.style.display = "block";
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }, 3000);
-            setTimeout(() => { typing.style.display = "block"; }, 4000);
-            setTimeout(() => {
-                typing.style.display = "none";
-                msg2.style.display = "block";
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }, 6000);
-        }
-
-        // Auto open after 5 minutes (300 seconds), only on Desktop
-        setTimeout(() => {
-            const isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
-            if (!isMobile && !hasOpened && document.getElementById("whatsapp-widget").style.display === "none") {
-                abrirWidget();
-            }
-        }, 300000);
-
-        function enviarMensaje() {
-            let text = input.value.trim();
-            if (!text) {
-                text = fallbackText;
-            }
-
-            const isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
-            let url;
-
-            if (isMobile) {
-                url = `https://wa.me/${currentWA}?text=${encodeURIComponent(text)}`;
-            } else {
-                url = `https://web.whatsapp.com/send?phone=${currentWA}&text=${encodeURIComponent(text)}`;
-            }
-
-            window.open(url, "_blank");
-            input.value = "";
-        }
-
-        function cerrarWidget() {
-            document.getElementById("whatsapp-widget").style.display = "none";
-            document.getElementById("whatsapp-icon").style.display = "flex";
-        }
-
-        function abrirWidget() {
-            document.getElementById("whatsapp-widget").style.display = "block";
-            document.getElementById("whatsapp-icon").style.display = "none";
-            updateChatProfile();
-            simulateChat();
-        }
-
-        document.getElementById("send-button").addEventListener("click", enviarMensaje);
-        input.addEventListener("keydown", e => {
-            if (e.key === "Enter") enviarMensaje();
-        });
-    </script>
+    <script src="./js/whatsapp-widget.js" defer></script>
     <!-- JS -->
     <script src="./js/main.js" defer></script>
     <script src="./js/calculadoras.js" defer></script>
