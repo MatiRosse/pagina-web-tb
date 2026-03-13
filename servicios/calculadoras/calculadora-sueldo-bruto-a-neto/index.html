@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="es-AR" style="background-color:#1e1e1e">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora sueldo bruto a neto 2026 | TB Abogados</title>
+    <meta name="description"
+        content="Calculá tu sueldo bruto a neto en segundos. Ingresá tu bruto, cargas de familia y deducciones y obtené el resultado estimado con impuesto a las ganancias 2026 actualizado (1er semestre).">
+    <link rel="canonical" href="https://tbabogados.com.ar/servicios/calculadoras/calculadora-sueldo-bruto-a-neto.html">
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora sueldo bruto a neto","description":"Calculadora online de sueldo bruto a neto con deducciones y escala de ganancias actualizada Argentina 2025.","url":"https://tbabogados.com.ar/servicios/calculadoras/calculadora-sueldo-bruto-a-neto.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"ARS"},"provider":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"}}</script>
+    <link rel="stylesheet" href="../../../css/styles.css">
+    <link href="https://cdnjs.cloudflare.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap">
+    </noscript>
+    <link href="../../../css/tailwind-compiled.css" rel="stylesheet" />
+    <style>
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, .7)
+            }
+
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(37, 211, 102, 0)
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0)
+            }
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: .3
+            }
+
+            50% {
+                opacity: 1
+            }
+        }
+
+        .nav-glass {
+            background: rgba(30, 30, 30, .92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(197, 160, 89, .2)
+        }
+
+        .btn-solid-gold {
+            background-color: #c5a059;
+            color: #333
+        }
+
+        /* Calculator input styles */
+        .calc-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color .2s, box-shadow .2s;
+            background: #fff;
+            color: #333;
+            outline: none;
+        }
+
+        .calc-input:focus {
+            border-color: #c5a059;
+            box-shadow: 0 0 0 3px rgba(197, 160, 89, .15);
+        }
+
+        .calc-label {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        /* Result panel */
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .result-value {
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .result-total {
+            background: linear-gradient(135deg, #c5a059, #c5a059);
+            border-radius: 12px;
+            padding: 18px 24px;
+            color: white;
+        }
+
+        /* Animated counter */
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .animate-count {
+            animation: countUp .4s ease;
+        }
+
+        /* Range slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #e5e7eb;
+            outline: none;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #c5a059;
+            cursor: pointer;
+            border: 2px solid #fff;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+        }
+
+        /* Progress bar */
+        .bar {
+            height: 10px;
+            border-radius: 5px;
+            transition: width .5s ease;
+        }
+    </style>
+    <link rel="icon" href="../../../assets/img/logotb.ico" type="image/x-icon">
+</head>
+
+<body class="antialiased bg-gray-50 flex flex-col min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="nav-glass fixed w-full z-50 top-0 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="../../../" class="flex-shrink-0 flex items-center">
+                    <div class="logo-shine"><img src="../../../assets/img/logotb_fondoblanco.webp" alt="Logo TB Abogados"
+                            width="48" height="48"
+                            class="h-12 w-12 rounded-full border border-gold mr-3 object-cover shadow-sm"></div>
+                    <span class="font-serif text-white text-2xl font-semibold tracking-wide">TB ABOGADOS</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="../../../"
+                        class="text-gray-300 hover:text-gold transition px-3 py-2 text-base font-medium">Inicio</a>
+                    <div class="relative group">
+                        <button
+                            class="text-gray-300 hover:text-gold transition px-3 py-2 text-base font-medium inline-flex items-center">Servicios
+                            <i class="fa-solid fa-chevron-down ml-1 text-sm"></i></button>
+                        <div
+                            class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <div class="py-1" role="menu">
+                                <a href="../../marcas"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold">Marcas</a>
+                                <a href="../../despidos"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold">Despidos</a>
+                                <a href="../../diferencia-salarial"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold">Diferencias
+                                    Salariales</a>
+                                <a href="../../sucesiones"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold">Sucesiones</a>
+                                <a href="../../divorcios"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold">Divorcios</a>
+                                <a href="../../mediaciones"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold">Mediaciones</a>
+                                <a href="../../jubilaciones"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold">Jubilaciones
+                                    y Pensiones</a>
+                                <a href="../../alquileres"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold">Alquileres</a>
+                                <a href="../../accidente-de-transito"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold">Accidentes
+                                    de Tránsito</a>
+                                <a href="../../accidente-de-trabajo"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold">Accidentes
+                                    de Trabajo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <button
+                            class="text-gray-300 hover:text-gold transition px-3 py-2 text-base font-medium inline-flex items-center">Calculadoras
+                            <i class="fa-solid fa-chevron-down ml-1 text-sm"></i></button>
+                        <div
+                            class="absolute left-0 mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <div class="py-1" role="menu">
+                                <a href=".././calculadora-sueldo-bruto-a-neto"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold">Sueldo
+                                    Bruto a Neto</a>
+                                <a href="../../despidos#calculadora"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold">Indemnización
+                                    por Despido</a>
+                                <a href=".././accidente-trabajo-calculadora"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold">Accidente
+                                    de Trabajo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="../../../guias-legales"
+                        class="text-gray-300 hover:text-gold transition px-3 py-2 text-base font-medium">Guías
+                        Legales</a>
+                    <a href="../../../nosotros/"
+                        class="text-gray-300 hover:text-gold transition px-3 py-2 text-base font-medium">Nosotros</a>
+                    <a href="../../../contacto"
+                        class="btn-solid-gold rounded-full px-6 py-2 text-base font-medium shadow-lg ml-4"> Contacto
+                    </a>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button aria-label="Abrir menú de navegación" onclick="toggleMobileMenu()"
+                        class="text-gray-300 hover:text-white p-2 rounded-md">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mob-menu" class="md:hidden hidden bg-darkblue-900 border-t border-gold border-opacity-20 pb-8 px-4">
+            <div class="pt-10 space-y-6">
+                <a href="../../../" class="text-gray-300 hover:text-gold block text-lg font-medium">Inicio</a>
+
+                <div class="space-y-3">
+                    <button onclick="toggleMobSubmenu('mob-servicios')" id="mob-servicios-btn"
+                        class="flex items-center text-gray-300 hover:text-gold text-lg font-medium transition-colors">
+                        Servicios
+                        <i id="mob-servicios-icon"
+                            class="fa-solid fa-chevron-down ml-2 text-sm transition-transform duration-300"></i>
+                    </button>
+                    <div id="mob-servicios"
+                        class="hidden grid grid-cols-2 gap-x-4 gap-y-2 pl-4 border-l border-gold/20">
+                        <a href="../../../servicios/marcas"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Marcas</a>
+                        <a href="../../../servicios/despidos"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Despidos</a>
+                        <a href="../../../servicios/diferencia-salarial"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Salariales</a>
+                        <a href="../../../servicios/sucesiones"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Sucesiones</a>
+                        <a href="../../../servicios/divorcios"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Divorcios</a>
+                        <a href="../../../servicios/mediaciones"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Mediaciones</a>
+                        <a href="../../../servicios/jubilaciones"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Jubilaciones</a>
+                        <a href="../../../servicios/alquileres"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Alquileres</a>
+                        <a href="../../../servicios/accidente-de-transito"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Accidente tránsito</a>
+                        <a href="../../../servicios/accidente-de-trabajo"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Accidente trabajo</a>
+                        <a href="../../../servicios"
+                            class="col-span-2 text-gold hover:text-white block py-1 text-sm italic mt-1">Ver todos los
+                            servicios...</a>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <button onclick="toggleMobSubmenu('mob-calculadoras')" id="mob-calculadoras-btn"
+                        class="flex items-center text-gray-300 hover:text-gold text-lg font-medium transition-colors">
+                        Calculadoras
+                        <i id="mob-calculadoras-icon"
+                            class="fa-solid fa-chevron-down ml-2 text-sm transition-transform duration-300"></i>
+                    </button>
+                    <div id="mob-calculadoras" class="hidden space-y-2 pl-4 border-l border-gold/20">
+                        <a href="../../../servicios/calculadoras/calculadora-sueldo-bruto-a-neto"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Sueldo Bruto a Neto</a>
+                        <a href="../../../servicios/despidos#calculadora"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Indemnización por Despido</a>
+                        <a href="../../../servicios/calculadoras/accidente-trabajo-calculadora"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Accidente de Trabajo</a>
+                    </div>
+                </div>
+
+                <a href="../../../guias-legales" class="text-gray-300 hover:text-gold block text-lg font-medium">Guías
+                    Legales</a>
+
+                <a href="../../../nosotros/"
+                    class="text-gray-300 hover:text-gold block text-lg font-medium">Nosotros</a>
+
+                <a href="../../../contacto"
+                    class="btn-solid-gold rounded-full w-full block text-center py-3 text-base font-bold shadow-lg">
+                    Contacto
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-28 pb-24 flex-grow w-full">
+
+        <!-- Hero -->
+        <div class="mb-12 text-center">
+            <h2 class="text-gold font-medium tracking-widest uppercase text-base mb-4">HERRAMIENTAS GRATUITAS</h2>
+            <h1 class="font-serif text-4xl md:text-5xl text-darkblue-900 leading-tight mb-6">
+                Calculadora<br>sueldo bruto a neto 2026
+            </h1>
+            <p class="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">
+                Ingresá tu sueldo bruto mensual y tus cargas de familia para conocer cuánto vas a cobrar de bolsillo,
+                con las deducciones y escala de Impuesto a las Ganancias actualizada al 1er semestre 2026.
+            </p>
+            <div class="mt-6 flex flex-wrap justify-center gap-3">
+                <span
+                    class="flex items-center gap-2 bg-white border border-gold rounded-full px-4 py-1.5 text-sm font-medium text-darkblue-900 shadow-sm">
+                    <i class="fa-solid fa-check text-gold"></i> Datos actualizados 1er sem. 2026
+                </span>
+                <span
+                    class="flex items-center gap-2 bg-white border border-gold rounded-full px-4 py-1.5 text-sm font-medium text-darkblue-900 shadow-sm">
+                    <i class="fa-solid fa-check text-gold"></i> Gratuita y sin registro
+                </span>
+                <span
+                    class="flex items-center gap-2 bg-white border border-gold rounded-full px-4 py-1.5 text-sm font-medium text-darkblue-900 shadow-sm">
+                    <i class="fa-solid fa-check text-gold"></i> Incluye Impuesto a las Ganancias
+                </span>
+            </div>
+        </div>
+
+        <!-- Main Calculator Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl mx-auto mb-16 items-start">
+
+            <!-- Form (compact) -->
+            <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-5">
+                <h2 class="font-serif text-xl text-darkblue-900 mb-4 flex items-center gap-2">
+                    <span class="w-8 h-8 rounded-full bg-gold flex items-center justify-center text-white text-sm">
+                        <i class="fa-solid fa-calculator"></i>
+                    </span>
+                    Datos del trabajador
+                </h2>
+
+                <form id="formSueldo" autocomplete="off" class="space-y-3">
+
+                    <!-- Bruto -->
+                    <div>
+                        <label class="calc-label text-xs" for="bruto">
+                            <i class="fa-solid fa-money-bill-wave text-gold mr-1"></i>Sueldo bruto mensual ($)
+                        </label>
+                        <div class="relative">
+                            <input class="calc-input py-2.5 text-sm" type="text" id="bruto" placeholder="Ej: 2.500.000"
+                                inputmode="numeric" oninput="formatBruto(this)">
+                        </div>
+                    </div>
+
+                    <!-- Sindicato + Casado en la misma fila -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="calc-label text-xs" for="sindicato">
+                                <i class="fa-solid fa-building-columns text-gold mr-1"></i>Cuota sindical (%)
+                            </label>
+                            <input class="calc-input py-2.5 text-sm" type="number" id="sindicato" step="0.5" value="0"
+                                min="0" max="10">
+                        </div>
+                        <div>
+                            <label class="calc-label text-xs">&nbsp;</label>
+                            <div
+                                class="flex items-center justify-between bg-gold-light rounded-lg px-3 py-2.5 h-[42px]">
+                                <span id="casado-text" class="text-xs font-medium text-darkblue-900">¿Casado/a?</span>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="casado" class="sr-only peer" aria-labelledby="casado-text"
+                                        aria-label="Casado o casada">
+                                    <div
+                                        class="w-9 h-5 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-gold">
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hijos -->
+                    <div>
+                        <label class="calc-label text-xs" for="hijos">
+                            <i class="fa-solid fa-users text-gold mr-1"></i>Cantidad de hijos
+                        </label>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="cambiarHijos(-1)" aria-label="Disminuir cantidad de hijos"
+                                class="w-8 h-8 rounded-full bg-white border border-gold text-gold font-bold text-base flex-shrink-0">−</button>
+                            <input class="calc-input text-center py-2 text-sm" type="number" id="hijos" value="0"
+                                min="0" step="1">
+                            <button type="button" onclick="cambiarHijos(1)" aria-label="Aumentar cantidad de hijos"
+                                class="w-8 h-8 rounded-full bg-gold text-white font-bold text-base flex-shrink-0">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Deducciones adicionales -->
+                    <details class="group">
+                        <summary
+                            class="flex items-center gap-2 cursor-pointer text-xs font-semibold text-darkblue-900 uppercase tracking-wider py-1 select-none list-none">
+                            <i class="fa-solid fa-receipt text-gold"></i>
+                            Deducciones adicionales
+                            <i
+                                class="fa-solid fa-chevron-down text-gray-500 ml-auto group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-3 space-y-3">
+                            <div class="grid grid-cols-1 gap-3">
+                                <div>
+                                    <label class="calc-label text-xs" for="alquiler">Alquiler mensual ($) <span
+                                            class="text-gray-500 font-normal">— deduce 40%</span></label>
+                                    <input class="calc-input py-2.5 text-sm" type="number" id="alquiler" value="0"
+                                        min="0" step="100">
+                                </div>
+                                <div>
+                                    <label class="calc-label text-xs" for="seguros">Seguros de vida mensual ($) <span
+                                            class="text-gray-500 font-normal">— tope $655.600/año</span></label>
+                                    <input class="calc-input py-2.5 text-sm" type="number" id="seguros" value="0"
+                                        min="0" step="100">
+                                </div>
+                                <div>
+                                    <label class="calc-label text-xs" for="casas">Personal doméstico mensual ($)</label>
+                                    <input class="calc-input py-2.5 text-sm" type="number" id="casas" value="0" min="0"
+                                        step="100">
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+
+                    <button type="button" onclick="recalcular()"
+                        class="w-full bg-gold text-white font-bold py-3 px-4 rounded-xl mt-4 hover:bg-opacity-90 transition shadow-md">
+                        Calcular sueldo neto estimado
+                    </button>
+                </form>
+            </div>
+
+            <!-- Results -->
+            <div id="panelResultado" class="space-y-4 lg:sticky lg:top-28" style="scroll-margin-top: 140px;">
+
+                <!-- Placeholder state -->
+                <div id="resultadoPlaceholder"
+                    class="bg-white rounded-2xl shadow-md border border-gray-100 p-6 flex flex-col items-center justify-center text-center min-h-48">
+                    <div
+                        class="w-16 h-16 rounded-full bg-gold-light flex items-center justify-center text-gold text-2xl mb-3">
+                        <i class="fa-solid fa-calculator"></i>
+                    </div>
+                    <h3 class="font-serif text-lg text-darkblue-900 mb-1">Ingresá tu sueldo bruto</h3>
+                    <p class="text-gray-500 text-xs">El cálculo se actualiza en tiempo real</p>
+                </div>
+
+                <!-- Result panel (hidden initially) -->
+                <div id="resultadoPanel" class="hidden space-y-6">
+                    <!-- Sueldo neto grande -->
+                    <div class="result-total text-center">
+                        <p class="text-white text-sm font-medium mb-1 opacity-80">💰 Sueldo neto estimado</p>
+                        <p id="sueldoNetoValor" class="text-4xl font-bold tracking-tight">$0</p>
+                        <p class="text-white text-sm mt-1 opacity-70">de <span id="sueldoBrutoRef">$0</span> brutos</p>
+                    </div>
+
+                    <!-- Desglose -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                        <h3 class="font-semibold text-darkblue-900 mb-4 text-sm uppercase tracking-wider">Desglose de
+                            retenciones</h3>
+                        <div id="desglose" class="space-y-1"></div>
+                        <div class="mt-4 pt-4 border-t border-gray-100 result-row">
+                            <span class="font-bold text-darkblue-900">Total deducciones</span>
+                            <span id="totalDeducciones" class="font-bold text-red-500"></span>
+                        </div>
+                    </div>
+
+                    <!-- Disclaimer -->
+                    <p class="text-xs text-gray-500 text-center px-4">
+                        * Cálculo estimativo. Los valores finales pueden variar según el convenio colectivo, deducciones
+                        adicionales y situación fiscal individual. Consultá a un profesional para mayor precisión.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info section -->
+        <section class="mb-16 max-w-4xl mx-auto">
+            <div class="text-center mb-8">
+                <h2 class="text-gold font-medium tracking-widest uppercase text-base mb-3">¿SABÍAS QUE?</h2>
+                <h3 class="font-serif text-3xl text-darkblue-900">¿Qué descuentan de tu sueldo?</h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 text-center">
+                    <div class="text-gold text-3xl mb-3"><i class="fa-solid fa-piggy-bank"></i></div>
+                    <h4 class="font-bold text-darkblue-900 mb-1">Jubilación</h4>
+                    <p class="text-2xl font-serif text-gold mb-2">11%</p>
+                    <p class="text-gray-500 text-xs">Aporte obligatorio al sistema previsional ANSES</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 text-center">
+                    <div class="text-gold text-3xl mb-3"><i class="fa-solid fa-heart-pulse"></i></div>
+                    <h4 class="font-bold text-darkblue-900 mb-1">Obra Social</h4>
+                    <p class="text-2xl font-serif text-gold mb-2">3%</p>
+                    <p class="text-gray-500 text-xs">Obligatorio para cobertura médica del trabajador</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 text-center">
+                    <div class="text-gold text-3xl mb-3"><i class="fa-solid fa-wheelchair"></i></div>
+                    <h4 class="font-bold text-darkblue-900 mb-1">PAMI</h4>
+                    <p class="text-2xl font-serif text-gold mb-2">3%</p>
+                    <p class="text-gray-500 text-xs">Cobertura médica para futuros jubilados</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 text-center">
+                    <div class="text-gold text-3xl mb-3"><i class="fa-solid fa-scale-balanced"></i></div>
+                    <h4 class="font-bold text-darkblue-900 mb-1">Ganancias</h4>
+                    <p class="text-2xl font-serif text-gold mb-2">5–35%</p>
+                    <p class="text-gray-500 text-xs">Solo si tu salario supera el mínimo no imponible</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CTA: Diferencias Salariales ===== -->
+        <section class="mb-16 max-w-4xl mx-auto">
+            <div class="bg-darkblue-900 rounded-2xl overflow-hidden shadow-xl">
+                <div class="flex flex-col md:flex-row items-center gap-0">
+                    <div class="md:w-2/3 py-10 px-6 sm:px-12 md:py-12 md:px-16">
+                        <span class="text-gold text-sm font-medium uppercase tracking-widest mb-3 block">¿Te pagan menos
+                            de lo que te corresponde?</span>
+                        <h2 class="font-serif text-3xl text-white mb-4">Reclamá tus diferencias salariales</h2>
+                        <p class="text-gray-400 mb-8 leading-relaxed">Si tu sueldo neto es más bajo de lo que esperabas,
+                            puede que estés cobrando menos de lo que marca la ley o tu convenio colectivo. Muchos
+                            trabajadores lo descubren tarde. Revisamos tu situación.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="../../diferencia-salarial"
+                                class="btn-solid-gold rounded-full px-8 py-4 font-bold text-base inline-flex items-center gap-2 shadow-lg hover:scale-105 transition-all">Diferencias
+                                Salariales<i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="https://wa.me/5491122511243?text=Hola!%20Creo%20que%20me%20pagan%20menos%20de%20lo%20que%20me%20corresponde"
+                                target="_blank"
+                                class="bg-[#25D366] text-white rounded-full px-8 py-4 font-bold text-base inline-flex items-center gap-2 shadow-lg hover:scale-105 transition-all">Contactar
+                                por WhatsApp<i class="fa-brands fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div
+                        class="md:w-1/3 bg-gold/10 p-10 flex flex-col items-center justify-center text-center border-t md:border-t-0 md:border-l border-white/10 min-h-full">
+                        <div
+                            class="w-20 h-20 rounded-full bg-gold/20 flex items-center justify-center text-gold text-4xl mb-4">
+                            <i class="fa-solid fa-file-invoice-dollar"></i>
+                        </div>
+                        <p class="text-white font-serif text-xl mb-2">¿Sabías que...</p>
+                        <p class="text-gray-400 text-sm">podés reclamar diferencias salariales de los <span
+                                class="text-gold font-bold">últimos 2 años</span> antes de que prescriba tu derecho?</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="bg-darkblue-900 text-white pt-20 pb-10 border-t-4 border-gold">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <span class="text-gold text-3xl mr-2"><i class="fa-solid fa-scale-balanced"></i></span>
+                        <span class="font-serif text-2xl font-semibold tracking-wide">TB Abogados</span>
+                    </div>
+                    <p class="text-gray-300 mb-6 max-w-md">
+                        En defensa de tus derechos. Estudio jurídico con más de 30 años acompañando a nuestros clientes
+                        con excelencia, integridad y resultados reales en CABA y toda Argentina.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-300 hover:bg-gold hover:text-white transition"
+                            href="https://www.facebook.com/estudiotbabogados/" target="_blank"
+                            aria-label="Visita nuestro Facebook">
+                            <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+                        </a>
+                        <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-300 hover:bg-gold hover:text-white transition"
+                            href="https://www.instagram.com/tbabogados/" target="_blank"
+                            aria-label="Visita nuestro Instagram">
+                            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                        </a>
+                        <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-300 hover:bg-gold hover:text-white transition"
+                            href="https://www.linkedin.com/company/tbabogados/" target="_blank"
+                            aria-label="Síguenos en LinkedIn">
+                            <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-serif text-xl mb-6 text-gold">Enlaces Rápidos</h3>
+                    <ul class="space-y-3">
+                        <li><a class="text-gray-300 hover:text-white transition" href="../../../">Inicio</a></li>
+                        <li><a class="text-gray-300 hover:text-white transition" href="../../../nosotros/">Estudio</a>
+                        </li>
+                        <li><a class="text-gray-300 hover:text-white transition" href="../../../servicios">Áreas de
+                                Práctica</a></li>
+                        <li><a class="text-gray-300 hover:text-white transition" href="../../../guias-legales">Guías
+                                Legales</a></li>
+                        <li><a class="text-gray-300 hover:text-white transition"
+                                href="../../despidos#calculadora">Calculadoras
+                                Legales</a></li>
+                        <li><a class="text-gray-300 hover:text-white transition" href="../../../contacto">Contacto</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-serif text-xl mb-6 text-gold">Contáctenos</h3>
+                    <ul class="space-y-4">
+                        <li>
+                            <a href="https://maps.app.goo.gl/xHdZT67tbKFbgXrE7" target="_blank" class="text-gray-300 hover:text-white transition flex items-start">
+                                <i class="fa-solid fa-location-dot mt-1 text-gold mr-3"></i>
+                                <span>Paraná 439,<br />C1017 Cdad. Autónoma de Buenos Aires</span>
+                            </a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-phone text-gold mr-3"></i>
+                            <a href="tel:+5491122511243" class="text-gray-300 hover:text-white transition">+54 9 11
+                                2251-1243</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-envelope text-gold mr-3"></i>
+                            <a class="text-gray-300 hover:text-white transition"
+                                href="mailto:consultas@tbabogados.com.ar">consultas@tbabogados.com.ar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between text-gray-400 text-sm">
+                <p>© 2026 TB ABOGADOS (Estudio Tassara &amp; Bulgheroni). Todos los derechos reservados.</p>
+                <div class="mt-4 md:mt-0 space-x-4">
+                    <a class="text-gray-400 hover:text-white transition" href="../../../terminos-y-condiciones">Términos
+                        y
+                        Condiciones</a>
+                    <a class="text-gray-400 hover:text-white transition" href="../../../politica-privacidad">Política
+                        de
+                        Privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function cambiarHijos(delta) {
+            const input = document.getElementById('hijos');
+            const v = parseInt(input.value) || 0;
+            input.value = Math.max(0, v + delta);
+            recalcular();
+        }
+
+        function formatBruto(input) {
+            // Strip everything except digits
+            let raw = input.value.replace(/[^\d]/g, '');
+            if (!raw) { input.value = ''; return; }
+            // Format with dots as thousands separators (es-AR style)
+            let num = parseInt(raw, 10);
+            input.value = num.toLocaleString('es-AR', { maximumFractionDigits: 0 });
+        }
+
+        function formatearNumero(n) {
+            return n.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        }
+
+        function recalcular() {
+            const brutoMensual = parseFloat((document.getElementById('bruto').value || '0').replace(/\./g, '').replace(',', '.')) || 0;
+            if (!brutoMensual) return;
+            const sindicatoPorc = parseFloat(document.getElementById('sindicato').value) || 0;
+            const casado = document.getElementById('casado').checked;
+            const hijos = parseInt(document.getElementById('hijos').value) || 0;
+            const alquilerMensual = parseFloat(document.getElementById('alquiler').value) || 0;
+            const segurosMensual = parseFloat(document.getElementById('seguros').value) || 0;
+            const casasMensual = parseFloat(document.getElementById('casas').value) || 0;
+
+            const brutoAnual = brutoMensual * 12;
+            const jubilacion = brutoMensual * 0.11;
+            const obraSocial = brutoMensual * 0.03;
+            const pami = brutoMensual * 0.03;
+            const sindicato = brutoMensual * (sindicatoPorc / 100);
+
+            const minimoNoImponible = 5151802.50;
+            const deduccionEspecial = 24728652.02;
+            const conyuge = casado ? 4851964.66 : 0;
+            const hijosDeduccion = hijos * 2446863.48;
+            const alquilerAnual = Math.min(alquilerMensual * 12 * 0.4, minimoNoImponible);
+            const segurosAnual = Math.min(segurosMensual * 12, 655600);
+            const casasAnual = Math.min(casasMensual * 12, minimoNoImponible);
+
+            const totalDeducciones = minimoNoImponible + deduccionEspecial + conyuge + hijosDeduccion + alquilerAnual + segurosAnual + casasAnual;
+            const gananciaNetaImponible = brutoAnual - totalDeducciones;
+
+            const escalas = [
+                { desde: 0, hasta: 2000030.09, fijo: 0, porc: 0.05 },
+                { desde: 2000030.09, hasta: 4000060.17, fijo: 100001.50, porc: 0.09 },
+                { desde: 4000060.17, hasta: 6000090.26, fijo: 280004.21, porc: 0.12 },
+                { desde: 6000090.26, hasta: 9000135.40, fijo: 520007.82, porc: 0.15 },
+                { desde: 9000135.40, hasta: 18000270.80, fijo: 970014.59, porc: 0.19 },
+                { desde: 18000270.80, hasta: 27000406.20, fijo: 2680040.32, porc: 0.23 },
+                { desde: 27000406.20, hasta: 40500609.30, fijo: 4750071.46, porc: 0.27 },
+                { desde: 40500609.30, hasta: 60750913.96, fijo: 8395126.30, porc: 0.31 },
+                { desde: 60750913.96, hasta: Infinity, fijo: 14672720.74, porc: 0.35 }
+            ];
+
+            let impuestoGananciasAnual = 0;
+            if (gananciaNetaImponible > 0) {
+                for (const tramo of escalas) {
+                    if (gananciaNetaImponible > tramo.desde && gananciaNetaImponible <= tramo.hasta) {
+                        impuestoGananciasAnual = tramo.fijo + (gananciaNetaImponible - tramo.desde) * tramo.porc;
+                        break;
+                    }
+                }
+            }
+
+            const impuestoGananciasMensual = impuestoGananciasAnual / 12;
+            const totalDeduccionesMensual = jubilacion + obraSocial + pami + sindicato + impuestoGananciasMensual;
+            const sueldoNeto = brutoMensual - totalDeduccionesMensual;
+
+            document.getElementById('resultadoPlaceholder').classList.add('hidden');
+            document.getElementById('resultadoPanel').classList.remove('hidden');
+            document.getElementById('sueldoNetoValor').textContent = '$' + formatearNumero(sueldoNeto);
+            document.getElementById('sueldoBrutoRef').textContent = '$' + formatearNumero(brutoMensual);
+
+            const items = [
+                { icon: '🧾', label: `Jubilación (11%)`, value: jubilacion },
+                { icon: '🧾', label: `Obra Social (3%)`, value: obraSocial },
+                { icon: '🧾', label: `PAMI (3%)`, value: pami },
+                { icon: '🧾', label: `Sindicato (${sindicatoPorc}%)`, value: sindicato },
+                { icon: '🧾', label: `Impuesto a las Ganancias`, value: impuestoGananciasMensual }
+            ];
+
+            const desgloseEl = document.getElementById('desglose');
+            desgloseEl.innerHTML = items.map(item => `
+                <div class="result-row animate-count">
+                    <span class="result-label">${item.icon} ${item.label}</span>
+                    <span class="result-value text-red-500">-$${formatearNumero(item.value)}</span>
+                </div>
+            `).join('');
+
+            document.getElementById('totalDeducciones').textContent = '-$' + formatearNumero(totalDeduccionesMensual);
+
+            if (window.innerWidth < 1024) {
+                document.getElementById('panelResultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    </script>
+    <div id="wa-wrapper" style="position: fixed; z-index: 9999; bottom: 0; right: 0; width: 0; height: 0;">
+        <!-- Whatsapp Floating Widget -->
+        <div id="whatsapp-widget"
+            style="display:none;position:fixed;bottom:20px;right:20px;width:336px;font-family:sans-serif;z-index:9999;box-shadow:0 2px 10px rgba(0,0,0,0.2);border-radius:10px;overflow:hidden;background:#f0f2f5;">
+            <div style="background:#075E54;color:#fff;padding:12px;display:flex;align-items:center;position:relative;">
+                <div style="position:relative;">
+                    <img alt="Perfil" id="chat-profile-img" src="../../../assets/img/logotb_fondoblanco.webp"
+                        style="height:40px;width:40px;border-radius:50%;border:2px solid #fff;object-fit:cover;" />
+                    <span
+                        style="position:absolute;bottom:0;right:0;width:10px;height:10px;background:#25D366;border:2px solid white;border-radius:50%;"></span>
+                </div>
+                <div style="margin-left:10px;">
+                    <strong id="chat-profile-name" style="font-size:15px;display:flex;align-items:center;">
+                        TB Abogados
+                        <svg fill="#1DA1F2" height="14px" style="margin-left:6px;vertical-align:middle;"
+                            viewbox="0 0 24 24" width="14px" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M22.5 12c0 5.8-4.7 10.5-10.5 10.5S1.5 17.8 1.5 12 6.2 1.5 12 1.5 22.5 6.2 22.5 12z">
+                            </path>
+                            <path d="M10.2 16.2l-3.2-3.2 1.4-1.4 1.8 1.8 5-5 1.4 1.4z" fill="#fff"></path>
+                        </svg>
+                    </strong>
+                    <span id="chat-profile-sub" style="font-size:12px;">En línea</span>
+                </div>
+                <div onclick="cerrarWidget()" style="margin-left:auto;font-size:20px;cursor:pointer;">×</div>
+            </div>
+            <div id="chat-box"
+                style="background: url('https://i.pinimg.com/736x/31/04/e0/3104e02012ee109335a5ca2fc52b81db.jpg') no-repeat center center; background-size: cover; padding: 10px; height: 160px; overflow-y: auto;">
+                <div id="msg1"
+                    style="display:none;background:#fff;padding:8px 12px;margin:8px 0;border-radius:7.5px;max-width:80%;width:fit-content;word-wrap:break-word;">
+                    Hola 👋
+                </div>
+                <div id="msg2"
+                    style="display:none;background:#fff;padding:8px 12px;margin:8px 0;border-radius:7.5px;max-width:80%;width:fit-content;word-wrap:break-word;">
+                    ¿Buscás asesoramiento legal?
+                </div>
+                <div id="typing"
+                    style="display:none;background:#fff;padding:8px 12px;margin:8px 0;border-radius:7.5px;width:fit-content;">
+                    <span
+                        style="display:inline-block;width:8px;height:8px;margin-right:2px;background:#bbb;border-radius:50%;animation:blink 1s infinite alternate;"></span>
+                    <span
+                        style="display:inline-block;width:8px;height:8px;margin-right:2px;background:#bbb;border-radius:50%;animation:blink 1s 0.3s infinite alternate;"></span>
+                    <span
+                        style="display:inline-block;width:8px;height:8px;background:#bbb;border-radius:50%;animation:blink 1s 0.6s infinite alternate;"></span>
+                </div>
+            </div>
+            <div style="background:#fff;padding:10px;display:flex;align-items:center;">
+                <input id="chat-input" placeholder="Escribí tu mensaje acá..." aria-label="Escribí tu mensaje para WhatsApp"
+                    style="flex:1;border:none;outline:none;font-size:14px;font-family:sans-serif;background:#fff;"
+                    type="text" />
+                <button id="send-button" aria-label="Enviar mensaje por WhatsApp"
+                    style="background:#25D366;border:none;padding:10px;border-radius:50%;margin-left:8px;cursor:pointer;">
+                    <img alt="Enviar" src="../../../assets/img/WhatsApp.svg" style="width:20px;height:20px;"
+                        loading="lazy" decoding="async">
+                </button>
+            </div>
+        </div>
+        <!-- Botón flotante para reabrir -->
+        <div id="whatsapp-icon" onclick="abrirWidget()"
+            style="display:flex;position:fixed;bottom:20px;right:20px;background:#25D366;width:56px;height:56px;border-radius:50%;box-shadow:0 2px 5px rgba(0,0,0,0.3);cursor:pointer;z-index:9999;animation: pulse 1.5s infinite;align-items:center;justify-content:center;">
+            <img alt="Abrir WhatsApp" src="../../../assets/img/WhatsApp.svg" style="width:28px;height:28px;"
+                loading="lazy" decoding="async">
+        </div>
+    </div>
+        <style>
+            /* Infinite Scrolling Carousel */
+            .scroller {
+                max-width: 100%;
+                overflow: hidden;
+                -webkit-mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
+                mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
+            }
+
+            .scroller__inner {
+                display: flex;
+                gap: 2rem;
+                width: max-content;
+                animation: scroll 40s linear infinite;
+            }
+
+            .scroller__inner:hover {
+                animation-play-state: paused;
+            }
+
+            @keyframes scroll {
+                to {
+                    transform: translate(calc(-50% - 1rem));
+                }
+            }
+
+            @keyframes blink {
+
+                0%,
+                100% {
+                    opacity: 0.3;
+                }
+
+                50% {
+                    opacity: 1;
+                }
+            }
+
+            @keyframes pulse {
+                0% {
+                    transform: scale(1);
+                    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+                }
+
+                70% {
+                    transform: scale(1.05);
+                    box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+                }
+
+                100% {
+                    transform: scale(1);
+                    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+                }
+            }
+        </style>
+        <script defer src="../../../js/whatsapp-widget.js"></script>
+        <script defer src="../../../js/main.js"></script>
+</body>
+
+</html>
