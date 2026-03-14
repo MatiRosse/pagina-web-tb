@@ -116,11 +116,12 @@ function navigateCalc(calcId) {
 const navElement = document.querySelector('nav');
 let navScrolled = false;
 let navTicking = false;
+let lastKnownScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
 
-function updateNavOnScroll() {
+function updateNavOnScroll(scrollYValue = lastKnownScrollY) {
     if (!navElement) return;
 
-    const shouldBeScrolled = window.scrollY > 50;
+    const shouldBeScrolled = scrollYValue > 50;
     if (shouldBeScrolled === navScrolled) return;
 
     navScrolled = shouldBeScrolled;
@@ -129,10 +130,11 @@ function updateNavOnScroll() {
 }
 
 window.addEventListener('scroll', () => {
+    lastKnownScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
     if (navTicking) return;
     navTicking = true;
     requestAnimationFrame(() => {
-        updateNavOnScroll();
+        updateNavOnScroll(lastKnownScrollY);
         navTicking = false;
     });
 }, { passive: true });
@@ -141,6 +143,10 @@ window.addEventListener('scroll', () => {
 window.addEventListener('DOMContentLoaded', () => {
     const hash = window.location.hash.substring(1);
     const viewHome = document.getElementById('view-home');
+    const initialScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+
+    // Run before major DOM writes to avoid forced reflow after style invalidation.
+    updateNavOnScroll(initialScrollY);
 
     if (hash && document.getElementById(`view-${hash}`)) {
         // immediately show without animation for initial load
@@ -157,8 +163,6 @@ window.addEventListener('DOMContentLoaded', () => {
         // default to home if we are in the SPA
         viewHome.style.display = 'block';
     }
-
-    updateNavOnScroll();
 
     // Initialize Hero Carousel
     if (document.getElementById('hero-carousel')) initHeroCarousel();
