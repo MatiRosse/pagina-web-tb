@@ -1,6 +1,57 @@
 // SPA Navigation Logic
+let calculadorasScriptPromise = null;
+
+function ensureCalculadorasScriptLoaded() {
+    if (typeof window.calcularSueldoNeto === 'function') return;
+
+    const scriptSrc = window.__TB_CALCULADORAS_SRC;
+    if (!scriptSrc || calculadorasScriptPromise) return;
+
+    calculadorasScriptPromise = new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = scriptSrc;
+        script.async = true;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
+function ensureLazyView(viewId) {
+    const viewDomId = `view-${viewId}`;
+    let section = document.getElementById(viewDomId);
+
+    if (section) {
+        if (viewId === 'calculadoras') ensureCalculadorasScriptLoaded();
+        return section;
+    }
+
+    const template = document.getElementById(`template-view-${viewId}`);
+    const mainContent = document.getElementById('main-content');
+    if (!template || !mainContent || !template.content) return null;
+
+    const fragment = template.content.cloneNode(true);
+    mainContent.appendChild(fragment);
+    section = document.getElementById(viewDomId);
+
+    // Template is no longer needed after first hydration.
+    template.remove();
+
+    if (viewId === 'calculadoras') ensureCalculadorasScriptLoaded();
+    return section;
+}
+
+function runAfterFirstPaint(callback) {
+    if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(callback, { timeout: 1200 });
+    } else {
+        setTimeout(callback, 300);
+    }
+}
 
 function navigate(viewId) {
+    const ensuredTarget = ensureLazyView(viewId);
+
     // Hide all views
     document.querySelectorAll('.view-section').forEach(section => {
         section.classList.remove('active');
@@ -11,7 +62,7 @@ function navigate(viewId) {
     });
 
     // Show target view
-    const targetSection = document.getElementById(`view-${viewId}`);
+    const targetSection = ensuredTarget || document.getElementById(`view-${viewId}`);
     if (targetSection) {
         setTimeout(() => {
             targetSection.style.display = 'block';
@@ -116,7 +167,8 @@ function navigateCalc(calcId) {
 const navElement = document.querySelector('nav');
 let navScrolled = false;
 let navTicking = false;
-let lastKnownScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+const getScrollY = () => window.scrollY || window.pageYOffset || 0;
+let lastKnownScrollY = getScrollY();
 
 function updateNavOnScroll(scrollYValue = lastKnownScrollY) {
     if (!navElement) return;
@@ -130,7 +182,7 @@ function updateNavOnScroll(scrollYValue = lastKnownScrollY) {
 }
 
 window.addEventListener('scroll', () => {
-    lastKnownScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    lastKnownScrollY = getScrollY();
     if (navTicking) return;
     navTicking = true;
     requestAnimationFrame(() => {
@@ -143,10 +195,12 @@ window.addEventListener('scroll', () => {
 window.addEventListener('DOMContentLoaded', () => {
     const hash = window.location.hash.substring(1);
     const viewHome = document.getElementById('view-home');
-    const initialScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    const initialScrollY = getScrollY();
 
     // Run before major DOM writes to avoid forced reflow after style invalidation.
     updateNavOnScroll(initialScrollY);
+
+    if (hash) ensureLazyView(hash);
 
     if (hash && document.getElementById(`view-${hash}`)) {
         // immediately show without animation for initial load
@@ -164,11 +218,11 @@ window.addEventListener('DOMContentLoaded', () => {
         viewHome.style.display = 'block';
     }
 
-    // Initialize Hero Carousel
-    if (document.getElementById('hero-carousel')) initHeroCarousel();
-
-    // Initialize Services Carousel
-    if (document.getElementById('services-track')) initServCarousel();
+    // Defer non-critical UI init until the browser has painted first content.
+    runAfterFirstPaint(() => {
+        if (document.getElementById('hero-carousel')) initHeroCarousel();
+        if (document.getElementById('services-track')) initServCarousel();
+    });
 
     // Smooth scroll if hash is present (not for SPA views)
     if (hash && !document.getElementById(`view-${hash}`)) {
@@ -190,6 +244,8 @@ window.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('hashchange', () => {
     let hash = window.location.hash.substring(1);
     if (!hash || hash === 'home') hash = 'home';
+
+    ensureLazyView(hash);
 
     if (document.getElementById(`view-${hash}`)) {
         navigate(hash);

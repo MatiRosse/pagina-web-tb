@@ -1032,7 +1032,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="flex justify-between items-center h-20">
                 <a href="./" class="flex-shrink-0 flex items-center">
                     <div class="logo-shine"><img src="./assets/img/logotb_fondoblanco.webp" alt="Logo TB Abogados"
-                            width="48" height="48"
+                            width="48" height="48" loading="eager" fetchpriority="high" decoding="async"
                             class="h-12 w-12 rounded-full border border-gold mr-3 object-cover shadow-sm"></div>
                     <span class="font-serif text-white text-2xl font-semibold tracking-wide">TB ABOGADOS</span>
                 </a>
@@ -1814,7 +1814,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </section>
         <!-- ================= MARCAS VIEW ================= -->
-        <section class="view-section hidden pt-32 pb-24 max-w-7xl mx-auto min-h-screen" id="view-marcas">
+        <template id="template-view-marcas">
+            <section class="view-section hidden pt-32 pb-24 max-w-7xl mx-auto min-h-screen" id="view-marcas">
             <!-- Hero Interno -->
             <div class="px-4 sm:px-6 lg:px-8 mb-16 text-center">
                 <h2 class="text-[#c5a059] font-medium tracking-widest uppercase text-sm mb-4">ESPECIALIDAD LEGAL</h2>
@@ -2042,79 +2043,82 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             class="flex items-center justify-center px-8 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
                             <img alt="Marca 1" class="h-14 md:h-16 w-auto object-contain"
                                 src="https://i.postimg.cc/PqMmvFD5/Captura-de-pantalla-2025-11-29-a-la(s)-10-00-06-a-m.png"
-                                / loading="lazy" decoding="async">
+                                loading="lazy" decoding="async">
                         </div>
                         <div
                             class="flex items-center justify-center px-8 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
                             <img alt="Marca 2" class="h-14 md:h-16 w-auto object-contain"
                                 src="https://i.postimg.cc/SXq83CHp/Captura-de-pantalla-2025-11-29-a-la(s)-9-52-39-a-m.png"
-                                / loading="lazy" decoding="async">
+                                loading="lazy" decoding="async">
                         </div>
                         <div
                             class="flex items-center justify-center px-8 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
                             <img alt="Marca 3" class="h-14 md:h-16 w-auto object-contain"
                                 src="https://i.postimg.cc/8kZ6S6Rr/Captura-de-pantalla-2025-11-29-a-la(s)-9-54-27-a-m.png"
-                                / loading="lazy" decoding="async">
+                                loading="lazy" decoding="async">
                         </div>
                         <div
                             class="flex items-center justify-center px-8 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
                             <img alt="MV" class="h-14 md:h-16 w-auto object-contain"
-                                src="https://i.postimg.cc/JtwmLxPG/mv.png" / loading="lazy" decoding="async">
+                                src="https://i.postimg.cc/JtwmLxPG/mv.png" loading="lazy" decoding="async">
                         </div>
                         <div
                             class="flex items-center justify-center px-8 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
                             <img alt="Pampa y Brasa" class="h-14 md:h-16 w-auto object-contain"
-                                src="https://i.postimg.cc/7hSPbjCz/pampaybrasa.png" / loading="lazy" decoding="async">
+                                src="https://i.postimg.cc/7hSPbjCz/pampaybrasa.png" loading="lazy" decoding="async">
                         </div>
                         <div
                             class="flex items-center justify-center px-8 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
                             <img alt="Binaria" class="h-14 md:h-16 w-auto object-contain"
-                                src="https://i.postimg.cc/52JLJZCc/binaria.jpg" / loading="lazy" decoding="async">
+                                src="https://i.postimg.cc/52JLJZCc/binaria.jpg" loading="lazy" decoding="async">
                         </div>
                         <!-- Set 2 (Duplicate for infinite looping smoothly) -->
                         <div
                             class="flex items-center justify-center px-8 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
                             <img alt="Marca 1" class="h-14 md:h-16 w-auto object-contain"
                                 src="https://i.postimg.cc/PqMmvFD5/Captura-de-pantalla-2025-11-29-a-la(s)-10-00-06-a-m.png"
-                                / loading="lazy" decoding="async">
+                                loading="lazy" decoding="async">
                         </div>
                         <div
                             class="flex items-center justify-center px-8 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
                             <img alt="Marca 2" class="h-14 md:h-16 w-auto object-contain"
                                 src="https://i.postimg.cc/SXq83CHp/Captura-de-pantalla-2025-11-29-a-la(s)-9-52-39-a-m.png"
-                                / loading="lazy" decoding="async">
+                                loading="lazy" decoding="async">
                         </div>
                         <div
                             class="flex items-center justify-center px-8 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
                             <img alt="Marca 3" class="h-14 md:h-16 w-auto object-contain"
                                 src="https://i.postimg.cc/8kZ6S6Rr/Captura-de-pantalla-2025-11-29-a-la(s)-9-54-27-a-m.png"
-                                / loading="lazy" decoding="async">
+                                loading="lazy" decoding="async">
                         </div>
                         <div
                             class="flex items-center justify-center px-8 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
                             <img alt="MV" class="h-14 md:h-16 w-auto object-contain"
-                                src="https://i.postimg.cc/JtwmLxPG/mv.png" / loading="lazy" decoding="async">
+                                src="https://i.postimg.cc/JtwmLxPG/mv.png" loading="lazy" decoding="async">
                         </div>
                         <div
                             class="flex items-center justify-center px-8 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
                             <img alt="Pampa y Brasa" class="h-14 md:h-16 w-auto object-contain"
-                                src="https://i.postimg.cc/7hSPbjCz/pampaybrasa.png" / loading="lazy" decoding="async">
+                                src="https://i.postimg.cc/7hSPbjCz/pampaybrasa.png" loading="lazy" decoding="async">
                         </div>
                         <div
                             class="flex items-center justify-center px-8 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-pointer">
                             <img alt="Binaria" class="h-14 md:h-16 w-auto object-contain"
-                                src="https://i.postimg.cc/52JLJZCc/binaria.jpg" / loading="lazy" decoding="async">
+                                src="https://i.postimg.cc/52JLJZCc/binaria.jpg" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+            </section>
+        </template>
         <!-- ================= CALCULADORAS VIEW ================= -->
-        <section class="view-section pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen"
-            id="view-calculadoras">
-            <h1 class="font-serif text-5xl text-darkblue-900 mb-10 text-center">Calculadoras Legales</h1>
-            <div class="text-center text-gray-500" id="calculadoras-content">Cargando calculadoras...</div>
-        </section>
+        <template id="template-view-calculadoras">
+            <section class="view-section pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen"
+                id="view-calculadoras">
+                <h1 class="font-serif text-5xl text-darkblue-900 mb-10 text-center">Calculadoras Legales</h1>
+                <div class="text-center text-gray-500" id="calculadoras-content">Cargando calculadoras...</div>
+            </section>
+        </template>
 
     </main>
     <!-- Global Footer -->
@@ -2318,8 +2322,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <script src="./js/whatsapp-widget.js" defer></script>
     <!-- JS -->
+    <script>
+        window.__TB_CALCULADORAS_SRC = "./js/calculadoras.js";
+    </script>
     <script src="./js/main.js" defer></script>
-    <script src="./js/calculadoras.js" defer></script>
 </body>
 
 </html>
