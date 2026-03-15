@@ -50,11 +50,11 @@ window.dataLayer.push({
 
     <!-- FUENTES WPO -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=optional"
         rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <noscript>
         <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap">
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=optional">
     </noscript>
 
     <!-- CSS -->
@@ -208,6 +208,8 @@ h6,
 
 /* Critical LCP styles: ensure hero title paints correctly before full Tailwind CSS is applied */
 .lcp-hero-title {
+    /* Use a local serif stack for the LCP element to avoid waiting on remote font swaps */
+    font-family: Georgia, "Times New Roman", Times, serif;
     font-size: 3rem;
     line-height: 1.25;
 }
@@ -1442,10 +1444,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <div
                             class="relative w-full h-[400px] lg:h-[500px] rounded-xl overflow-hidden shadow-2xl order-2 lg:order-1 fade-in">
                             <img 
-                                src="./assets/img/socios-abogados.avif" 
-                                alt="Estudio Tassara & Bulgheroni" 
+                                src="./assets/img/socios-abogados-507w.avif"
+                                srcset="
+                                    ./assets/img/socios-abogados-507w.avif  507w,
+                                    ./assets/img/socios-abogados-760w.avif  760w,
+                                    ./assets/img/socios-abogados-1014w.avif 1014w
+                                "
+                                sizes="(max-width: 600px) 100vw, 507px"
+                                alt="Estudio Tassara &amp; Bulgheroni"
                                 class="object-cover w-full h-full"
-                                width="600" 
+                                width="600"
                                 height="474"
                                 fetchpriority="high"
                                 style="aspect-ratio: 1200 / 948;"
