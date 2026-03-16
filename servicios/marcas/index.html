@@ -49,8 +49,11 @@ window.dataLayer.push({
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="https://i.postimg.cc">
 
-    <!-- CSS -->
-    <link href="../../css/styles.css" rel="stylesheet" />
+    <!-- CSS (deferred to reduce critical request chains from icon webfonts) -->
+    <link href="../../css/styles.css" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+        <link href="../../css/styles.css" rel="stylesheet" />
+    </noscript>
 <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap"
@@ -61,7 +64,10 @@ window.dataLayer.push({
             rel="stylesheet" />
     </noscript>
     <!-- Tailwind CSS (Static Build) -->
-    <link href="../../css/tailwind-compiled.css" rel="stylesheet" />
+    <link href="../../css/tailwind-compiled.css" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+        <link href="../../css/tailwind-compiled.css" rel="stylesheet" />
+    </noscript>
     <style>
         /* Infinite Scrolling Carousel */
         .scroller {
