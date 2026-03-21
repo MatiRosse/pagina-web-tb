@@ -1068,6 +1068,131 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </div>
 
+        <script>
+            function formatMiles(input) {
+                const onlyDigits = (input.value || '').replace(/\D/g, '');
+                if (!onlyDigits) {
+                    input.value = '';
+                    return;
+                }
+
+                input.value = parseInt(onlyDigits, 10).toLocaleString('es-AR', {
+                    maximumFractionDigits: 0
+                });
+            }
+
+            function formatCurrency(amount) {
+                return new Intl.NumberFormat('es-AR', {
+                    style: 'currency',
+                    currency: 'ARS',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }).format(Math.max(0, amount || 0));
+            }
+
+            function calcularMesesTrabajados(fechaIngreso, fechaDespido) {
+                const years = fechaDespido.getFullYear() - fechaIngreso.getFullYear();
+                const months = fechaDespido.getMonth() - fechaIngreso.getMonth();
+                let totalMeses = years * 12 + months;
+
+                if (fechaDespido.getDate() < fechaIngreso.getDate()) {
+                    totalMeses -= 1;
+                }
+
+                return Math.max(0, totalMeses);
+            }
+
+            function calcularIndemnizacion() {
+                const ingresoValue = document.getElementById('ingreso').value;
+                const despidoValue = document.getElementById('despido').value;
+                const sueldoRaw = (document.getElementById('sueldo').value || '').replace(/\./g, '').replace(',', '.');
+                const periodoPruebaMeses = parseInt(document.getElementById('tamano-empresa').value, 10) || 6;
+                const otorgoPreaviso = document.getElementById('preaviso').value === 'si';
+
+                const sueldo = parseFloat(sueldoRaw) || 0;
+                if (!ingresoValue || !despidoValue || sueldo <= 0) {
+                    return;
+                }
+
+                const fechaIngreso = new Date(`${ingresoValue}T00:00:00`);
+                const fechaDespido = new Date(`${despidoValue}T00:00:00`);
+                if (Number.isNaN(fechaIngreso.getTime()) || Number.isNaN(fechaDespido.getTime()) || fechaDespido < fechaIngreso) {
+                    return;
+                }
+
+                const mesesTrabajados = calcularMesesTrabajados(fechaIngreso, fechaDespido);
+                const aniosCompletos = Math.floor(mesesTrabajados / 12);
+                const mesesFraccion = mesesTrabajados % 12;
+                const antiguedadComputable = aniosCompletos + (mesesFraccion >= 3 ? 1 : 0);
+                const enPeriodoPrueba = mesesTrabajados < periodoPruebaMeses;
+
+                const indemnizacionAntiguedad = enPeriodoPrueba ? 0 : sueldo * antiguedadComputable;
+
+                const ultimoDiaMes = new Date(fechaDespido.getFullYear(), fechaDespido.getMonth() + 1, 0).getDate();
+                const diasRestantesMes = Math.max(0, ultimoDiaMes - fechaDespido.getDate());
+                const integracionMesDespido = enPeriodoPrueba ? 0 : (sueldo / 30) * diasRestantesMes;
+
+                const inicioSemestreMes = fechaDespido.getMonth() < 6 ? 0 : 6;
+                const mesesSemestre = (fechaDespido.getMonth() - inicioSemestreMes) + 1;
+                const sacProporcional = (sueldo / 12) * mesesSemestre;
+
+                let diasVacacionesAnuales = 14;
+                if (aniosCompletos >= 5 && aniosCompletos < 10) diasVacacionesAnuales = 21;
+                if (aniosCompletos >= 10 && aniosCompletos < 20) diasVacacionesAnuales = 28;
+                if (aniosCompletos >= 20) diasVacacionesAnuales = 35;
+
+                const mesesAnioEnCurso = fechaDespido.getMonth() + 1;
+                const diasVacacionesProporcionales = (diasVacacionesAnuales / 12) * mesesAnioEnCurso;
+                const vacacionesNoGozadas = (sueldo / 25) * diasVacacionesProporcionales;
+
+                const proporcionMesDespido = (sueldo / 30) * fechaDespido.getDate();
+
+                const preaviso = otorgoPreaviso || enPeriodoPrueba
+                    ? 0
+                    : (aniosCompletos >= 5 ? sueldo * 2 : sueldo);
+
+                const total = indemnizacionAntiguedad
+                    + integracionMesDespido
+                    + sacProporcional
+                    + vacacionesNoGozadas
+                    + proporcionMesDespido
+                    + preaviso;
+
+                const placeholder = document.getElementById('resultadoPlaceholder');
+                const resultadoPanel = document.getElementById('resultadoPanel');
+                const totalEl = document.getElementById('calc-total-valor');
+                const itemsEl = document.getElementById('calc-items');
+                const waEl = document.getElementById('calc-wa');
+
+                placeholder.classList.add('hidden');
+                resultadoPanel.classList.remove('hidden');
+                totalEl.textContent = formatCurrency(total);
+
+                const conceptos = [
+                    { label: 'Indemnización por antigüedad (Art. 245)', value: indemnizacionAntiguedad },
+                    { label: 'Integración mes de despido', value: integracionMesDespido },
+                    { label: 'SAC proporcional', value: sacProporcional },
+                    { label: 'Vacaciones no gozadas', value: vacacionesNoGozadas },
+                    { label: 'Días trabajados del mes', value: proporcionMesDespido },
+                    { label: 'Indemnización sustitutiva de preaviso', value: preaviso }
+                ];
+
+                itemsEl.innerHTML = conceptos.map((item) => `
+                    <div class="flex items-center justify-between py-2 border-b border-gray-100 last:border-0 gap-3">
+                        <span class="text-sm text-gray-600">${item.label}</span>
+                        <span class="text-sm font-semibold text-darkblue-900 whitespace-nowrap">${formatCurrency(item.value)}</span>
+                    </div>
+                `).join('');
+
+                const totalTexto = formatCurrency(total);
+                const mensaje = encodeURIComponent(`Hola! Calculé mi indemnización estimada en ${totalTexto}. ¿Podemos revisar mi caso?`);
+                waEl.href = `https://wa.me/5491122511243?text=${mensaje}`;
+
+                if (window.innerWidth < 1024) {
+                    document.getElementById('panelResultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        </script>
         <script defer src="../../js/whatsapp-widget.js"></script>
         <script defer src="../../js/main.js"></script>
         
