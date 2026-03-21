@@ -815,3 +815,25 @@ h6,
     content: "\f0ad";
 }
 
+/* Mobile navbar spacing fallback:
+   keep this independent from Tailwind utilities to avoid cache/compile mismatches. */
+#mob-menu > .mob-menu-inner,
+#mob-menu > .pt-6,
+#mob-menu > .pt-8,
+#mob-menu > .pt-10,
+#mob-menu > .pt-12,
+#mob-menu > .pt-16 {
+    padding-top: 1.5rem;
+}
+
+/* Unify mobile navbar look across all pages (some pages override these tones inline). */
+@media (max-width: 767px) {
+    .nav-glass {
+        background: rgba(30, 30, 30, 0.92) !important;
+        border-bottom: 1px solid rgba(197, 160, 89, 0.2) !important;
+    }
+
+    #mob-menu {
+        background-color: #333333 !important;
+    }
+}
