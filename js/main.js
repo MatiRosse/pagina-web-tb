@@ -256,6 +256,37 @@ window.addEventListener('hashchange', () => {
 let currentSlide = 0;
 let carouselInterval;
 const slideCount = 6;
+const SWIPE_THRESHOLD_PX = 40;
+
+function bindHorizontalSwipe(element, onSwipeLeft, onSwipeRight) {
+    if (!element) return;
+
+    let startX = 0;
+    let startY = 0;
+
+    element.addEventListener('touchstart', (event) => {
+        const touch = event.changedTouches && event.changedTouches[0];
+        if (!touch) return;
+        startX = touch.clientX;
+        startY = touch.clientY;
+    }, { passive: true });
+
+    element.addEventListener('touchend', (event) => {
+        const touch = event.changedTouches && event.changedTouches[0];
+        if (!touch) return;
+
+        const deltaX = touch.clientX - startX;
+        const deltaY = touch.clientY - startY;
+        const absX = Math.abs(deltaX);
+        const absY = Math.abs(deltaY);
+
+        // Only react to clear horizontal gestures so vertical page scroll keeps working.
+        if (absX < SWIPE_THRESHOLD_PX || absX <= absY) return;
+
+        if (deltaX < 0) onSwipeLeft();
+        else onSwipeRight();
+    }, { passive: true });
+}
 
 function initHeroCarousel() {
     const carousel = document.getElementById('hero-carousel');
@@ -267,6 +298,13 @@ function initHeroCarousel() {
     // Pause on hover
     carousel.addEventListener('mouseenter', stopCarousel);
     carousel.addEventListener('mouseleave', startCarousel);
+
+    // Swipe navigation on touch devices
+    bindHorizontalSwipe(
+        carousel,
+        () => nextSlide(true),
+        () => prevSlide(true)
+    );
 }
 
 function startCarousel() {
@@ -372,6 +410,13 @@ function initServCarousel() {
     // Pause on hover
     container.addEventListener('mouseenter', stopServCarousel);
     container.addEventListener('mouseleave', startServCarousel);
+
+    // Swipe navigation on touch devices
+    bindHorizontalSwipe(
+        container,
+        () => nextServSlide(true),
+        () => prevServSlide(true)
+    );
 
     // Keep aligned on resize (debounced)
     window.addEventListener('resize', () => {
