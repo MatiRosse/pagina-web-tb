@@ -1,5 +1,7 @@
 // SPA Navigation Logic
 let calculadorasScriptPromise = null;
+const MOBILE_MENU_TRANSITION_MS = 220;
+const MOBILE_MENU_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
 function ensureCalculadorasScriptLoaded() {
     if (typeof window.calcularSueldoNeto === 'function') return;
@@ -76,11 +78,8 @@ function navigate(viewId) {
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // Close mobile menu if open (safely checking if it exists)
-    const mobileMenu = document.getElementById('mob-ag'); // id used in the unified navbar
-    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-        mobileMenu.classList.add('hidden');
-    }
+    // Close mobile menu if open
+    closeMobileMenu();
 
     // Update URL hash safely without triggering infinite loops
     if (window.location.hash.substring(1) !== viewId) {
@@ -88,12 +87,124 @@ function navigate(viewId) {
     }
 }
 
+function getMobileMenuElement() {
+    // Keep backward compatibility with previous id naming.
+    return document.getElementById('mob-menu') || document.getElementById('mob-ag');
+}
+
+function prefersReducedMotion() {
+    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function removeMobileMenuTransitionHandler(mobileMenu) {
+    if (!mobileMenu || !mobileMenu._tbMenuTransitionHandler) return;
+    mobileMenu.removeEventListener('transitionend', mobileMenu._tbMenuTransitionHandler);
+    mobileMenu._tbMenuTransitionHandler = null;
+}
+
+function clearMobileMenuInlineStyles(mobileMenu) {
+    if (!mobileMenu) return;
+    mobileMenu.style.transition = '';
+    mobileMenu.style.overflow = '';
+    mobileMenu.style.height = '';
+    mobileMenu.style.opacity = '';
+    mobileMenu.style.transform = '';
+}
+
+function animateMobileMenu(openMenu) {
+    const mobileMenu = getMobileMenuElement();
+    if (!mobileMenu) return;
+
+    const isHidden = mobileMenu.classList.contains('hidden');
+    if (openMenu && !isHidden) return;
+    if (!openMenu && isHidden) return;
+
+    removeMobileMenuTransitionHandler(mobileMenu);
+    clearMobileMenuInlineStyles(mobileMenu);
+
+    if (prefersReducedMotion()) {
+        if (openMenu) mobileMenu.classList.remove('hidden');
+        else mobileMenu.classList.add('hidden');
+        return;
+    }
+
+    const transitionValue = `height ${MOBILE_MENU_TRANSITION_MS}ms ${MOBILE_MENU_EASING}, opacity ${Math.round(MOBILE_MENU_TRANSITION_MS * 0.85)}ms ease, transform ${MOBILE_MENU_TRANSITION_MS}ms ${MOBILE_MENU_EASING}`;
+
+    if (openMenu) {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.style.overflow = 'hidden';
+        mobileMenu.style.height = '0px';
+        mobileMenu.style.opacity = '0';
+        mobileMenu.style.transform = 'translateY(-6px)';
+
+        // Force reflow so the browser applies start styles before transition.
+        void mobileMenu.offsetHeight;
+
+        mobileMenu.style.transition = transitionValue;
+        mobileMenu.style.height = `${mobileMenu.scrollHeight}px`;
+        mobileMenu.style.opacity = '1';
+        mobileMenu.style.transform = 'translateY(0)';
+
+        const onOpenEnd = (event) => {
+            if (event.propertyName !== 'height') return;
+            removeMobileMenuTransitionHandler(mobileMenu);
+            clearMobileMenuInlineStyles(mobileMenu);
+        };
+        mobileMenu._tbMenuTransitionHandler = onOpenEnd;
+        mobileMenu.addEventListener('transitionend', onOpenEnd);
+        return;
+    }
+
+    mobileMenu.style.overflow = 'hidden';
+    mobileMenu.style.height = `${mobileMenu.scrollHeight}px`;
+    mobileMenu.style.opacity = '1';
+    mobileMenu.style.transform = 'translateY(0)';
+
+    // Force reflow so close animation starts from the current rendered state.
+    void mobileMenu.offsetHeight;
+
+    mobileMenu.style.transition = transitionValue;
+    mobileMenu.style.height = '0px';
+    mobileMenu.style.opacity = '0';
+    mobileMenu.style.transform = 'translateY(-6px)';
+
+    const onCloseEnd = (event) => {
+        if (event.propertyName !== 'height') return;
+        removeMobileMenuTransitionHandler(mobileMenu);
+        mobileMenu.classList.add('hidden');
+        clearMobileMenuInlineStyles(mobileMenu);
+    };
+    mobileMenu._tbMenuTransitionHandler = onCloseEnd;
+    mobileMenu.addEventListener('transitionend', onCloseEnd);
+}
+
+function closeMobileMenu() {
+    animateMobileMenu(false);
+}
+
 // Mobile Menu Toggle
 function toggleMobileMenu() {
-    const mobileMenu = document.getElementById('mob-menu');
-    if (mobileMenu) {
-        mobileMenu.classList.toggle('hidden');
-    }
+    const mobileMenu = getMobileMenuElement();
+    if (!mobileMenu) return;
+    animateMobileMenu(mobileMenu.classList.contains('hidden'));
+}
+
+function bindCloseMobileMenuOnOutsideTap() {
+    const nav = document.querySelector('nav');
+    if (!nav) return;
+
+    document.addEventListener('pointerdown', (event) => {
+        const mobileMenu = getMobileMenuElement();
+        if (!mobileMenu || mobileMenu.classList.contains('hidden')) return;
+
+        const target = event.target;
+        if (!(target instanceof Node)) return;
+
+        // Keep menu open while interacting inside navbar/mobile menu.
+        if (nav.contains(target)) return;
+
+        closeMobileMenu();
+    });
 }
 
 // Mobile Submenu Accordion Toggle
@@ -196,6 +307,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const hash = window.location.hash.substring(1);
     const viewHome = document.getElementById('view-home');
     const initialScrollY = getScrollY();
+
+    bindCloseMobileMenuOnOutsideTap();
 
     // Run before major DOM writes to avoid forced reflow after style invalidation.
     updateNavOnScroll(initialScrollY);
