@@ -1,6 +1,6 @@
 // SPA Navigation Logic
 let calculadorasScriptPromise = null;
-const MOBILE_MENU_TRANSITION_MS = 220;
+const MOBILE_MENU_TRANSITION_MS = 320;
 const MOBILE_MENU_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
 function ensureCalculadorasScriptLoaded() {
