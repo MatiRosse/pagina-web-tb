@@ -826,6 +826,15 @@ h6,
     padding-top: 1.5rem;
 }
 
+#mob-menu > .mob-menu-inner,
+#mob-menu > .pb-6,
+#mob-menu > .pb-8,
+#mob-menu > .pb-10,
+#mob-menu > .pb-12,
+#mob-menu > .pb-16 {
+    padding-bottom: 1.5rem;
+}
+
 /* Unify mobile navbar look across all pages (some pages override these tones inline). */
 @media (max-width: 767px) {
     .nav-glass {
@@ -835,5 +844,25 @@ h6,
 
     #mob-menu {
         background-color: #333333 !important;
+    }
+
+    #mob-menu .mob-menu-inner > a.btn-solid-gold {
+        background: transparent;
+        color: #d1d5db;
+        display: block;
+        width: auto;
+        padding: 0;
+        border-radius: 0;
+        box-shadow: none;
+        text-align: left;
+        font-size: 1.125rem;
+        font-weight: 500;
+        line-height: 1.75rem;
+    }
+
+    #mob-menu .mob-menu-inner > a.btn-solid-gold:hover {
+        background: transparent;
+        color: #c5a059;
+        transform: none;
     }
 }
