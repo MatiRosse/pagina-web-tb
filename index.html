@@ -142,6 +142,15 @@ h6,
         padding-bottom: 4rem;
     }
 
+    #why-choose-us-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.5rem;
+    }
+
+    #why-choose-us-grid > div {
+        min-width: 0;
+    }
+
     #mob-menu .mob-menu-inner > a.btn-solid-gold {
         background: transparent;
         color: #d1d5db;
@@ -1722,7 +1731,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="max-w-7xl mx-auto text-center relative z-10">
                     <h2 class="text-gold font-medium tracking-widest uppercase text-base mb-4">NUESTROS VALORES</h2>
                     <h2 class="font-serif text-3xl md:text-4xl text-white mb-10">¿Por qué elegirnos?</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-center">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-center" id="why-choose-us-grid">
                         <!-- Item 1 -->
                         <div class="flex flex-col items-center group">
                             <div
