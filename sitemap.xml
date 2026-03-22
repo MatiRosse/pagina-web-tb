@@ -111,9 +111,15 @@
     <!-- Legal Guides -->
     <url>
         <loc>https://tbabogados.com.ar/guias-legales</loc>
-        <lastmod>2026-03-12</lastmod>
+        <lastmod>2026-03-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://tbabogados.com.ar/guias-legales/cambios-tramite-marcas-inpi</loc>
+        <lastmod>2026-03-22</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://tbabogados.com.ar/guias-legales/accidentes-in-itinere</loc>
