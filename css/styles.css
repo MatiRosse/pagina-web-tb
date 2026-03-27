@@ -176,6 +176,136 @@ h6,
     line-height: 1;
 }
 
+.ymyl-meta-card,
+.ymyl-sources-card,
+.ymyl-disclaimer-card {
+    background: #ffffff;
+    border-radius: 1rem;
+}
+
+.ymyl-meta-card,
+.ymyl-sources-card {
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 18px 40px -32px rgba(15, 23, 42, 0.35);
+}
+
+.ymyl-meta-card {
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.ymyl-meta-intro {
+    margin: 0 0 1rem;
+    color: #475569;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.ymyl-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 0.875rem;
+}
+
+.ymyl-meta-item {
+    padding: 0.9rem 1rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.9rem;
+}
+
+.ymyl-meta-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #c5a059;
+}
+
+.ymyl-meta-value {
+    display: block;
+    color: #334155;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.ymyl-meta-value a,
+.ymyl-sources-card a {
+    color: #334155;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.4);
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.ymyl-meta-value a:hover,
+.ymyl-sources-card a:hover {
+    color: #c5a059;
+    border-color: rgba(197, 160, 89, 0.75);
+}
+
+.ymyl-sources-card {
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+.ymyl-sources-eyebrow {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #c5a059;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.ymyl-sources-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.75rem;
+    color: #333333;
+}
+
+.ymyl-sources-text {
+    margin: 0 0 1rem;
+    color: #64748b;
+    line-height: 1.75;
+}
+
+.ymyl-sources-list {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.ymyl-sources-list li {
+    margin-bottom: 0.75rem;
+    color: #475569;
+    line-height: 1.7;
+}
+
+.ymyl-sources-list li:last-child {
+    margin-bottom: 0;
+}
+
+.ymyl-disclaimer-card {
+    margin-top: 2rem;
+    padding: 1.15rem 1.25rem;
+    border: 1px solid rgba(197, 160, 89, 0.35);
+    border-left: 4px solid #c5a059;
+    background: #fffcf5;
+    color: #475569;
+}
+
+.ymyl-disclaimer-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.75;
+}
+
+.ymyl-disclaimer-card strong {
+    color: #333333;
+}
+
 @media (min-width: 768px) {
     .profile-portrait-frame {
         width: 16rem;
@@ -201,6 +331,14 @@ h6,
     .profile-meta-actions {
         gap: 0.75rem;
         font-size: 1.5rem;
+    }
+
+    .ymyl-meta-card {
+        padding: 1.5rem;
+    }
+
+    .ymyl-sources-card {
+        padding: 1.75rem;
     }
 }
 
