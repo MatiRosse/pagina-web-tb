@@ -128,6 +128,82 @@ h6,
     background-color: #b08d4b;
 }
 
+.profile-portrait-frame {
+    width: 12rem;
+    height: 12rem;
+    min-width: 12rem;
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 9999px;
+    border: 4px solid rgba(197, 160, 89, 0.2);
+}
+
+.profile-portrait-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.profile-hero-copy {
+    text-align: center;
+}
+
+.profile-meta-row {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    max-width: 100%;
+}
+
+.profile-meta-text {
+    margin-bottom: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    white-space: nowrap;
+}
+
+.profile-meta-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.125rem;
+    line-height: 1;
+}
+
+@media (min-width: 768px) {
+    .profile-portrait-frame {
+        width: 16rem;
+        height: 16rem;
+        min-width: 16rem;
+    }
+
+    .profile-hero-copy {
+        text-align: left;
+        padding-left: 1.5rem;
+    }
+
+    .profile-meta-row {
+        justify-content: flex-start;
+        gap: 0.75rem;
+    }
+
+    .profile-meta-text {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+    }
+
+    .profile-meta-actions {
+        gap: 0.75rem;
+        font-size: 1.5rem;
+    }
+}
+
 .btn-outline-gold {
     border: 1px solid #c5a059;
     color: #c5a059;
