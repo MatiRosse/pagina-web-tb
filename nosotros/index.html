@@ -42,9 +42,19 @@ window.dataLayer.push({
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preload"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2"
+        as="font" type="font/woff2" crossorigin>
+    <link rel="preload"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2"
+        as="font" type="font/woff2" crossorigin>
+    <link rel="preload" as="image" href="../assets/img/socios-abogados.avif" type="image/avif">
 
     <!-- CSS -->
-    <link href="../css/styles.css" rel="stylesheet" />
+    <link href="../css/styles.css" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+        <link href="../css/styles.css" rel="stylesheet" />
+    </noscript>
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap"
         rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" />
@@ -54,7 +64,10 @@ window.dataLayer.push({
             rel="stylesheet" />
     </noscript>
     <!-- Tailwind CSS (Compiled) -->
-    <link href="../css/tailwind-compiled.css" rel="stylesheet" />
+    <link href="../css/tailwind-compiled.css" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+        <link href="../css/tailwind-compiled.css" rel="stylesheet" />
+    </noscript>
     <style>
         .nav-glass {
             background: rgba(30, 30, 30, 0.92);
@@ -275,7 +288,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     class="object-cover object-center w-full h-full"
                     width="506" 
                     height="400"
-                    loading="lazy"
+                    fetchpriority="high"
+                    loading="eager"
                     decoding="async">
                 <div class="absolute inset-0 bg-darkblue-900/10 mix-blend-overlay"></div>
                 <div class="absolute bottom-0 left-0 bg-gold text-white px-8 py-6 rounded-tr-3xl shadow-lg">
@@ -285,7 +299,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <!-- Text side -->
             <div class="fade-in">
-                <h2 class="text-gold font-medium tracking-widest uppercase text-base mb-4">NUESTRA EXPERIENCIA</h2>
+                <p class="text-gold font-medium tracking-widest uppercase text-base mb-4">NUESTRA EXPERIENCIA</p>
                 <h1 class="font-serif text-4xl md:text-5xl text-darkblue-900 leading-tight mb-8">Estudio Tassara
                     <span class="font-sans font-medium text-4xl md:text-5xl align-baseline">&amp;</span>
                     Bulgheroni
@@ -329,7 +343,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
 
         <!-- Partners Profiles Section -->
-        <div class="mt-24 max-w-7xl mx-auto">
+        <section class="mt-24 max-w-7xl mx-auto" aria-labelledby="equipo-heading">
+            <h2 id="equipo-heading" class="sr-only">Socios del estudio</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 fade-in">
 
                 <!-- Florencia -->
@@ -344,8 +359,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <h3 class="font-serif text-2xl text-darkblue-900 font-bold mb-1 hover:text-gold transition-colors">
                         <a href="../dra-bulgheroni">Bulgheroni, Florencia</a>
                         <a href="https://www.linkedin.com/in/florencia-bulgheroni/" target="_blank"
+                            rel="noopener noreferrer" aria-label="Ver perfil de LinkedIn de Florencia Bulgheroni"
                             class="text-[#0a66c2] hover:text-[#004182] ml-1 transition-colors"><i
-                                class="fa-brands fa-linkedin"></i></a>
+                                class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
                     </h3>
                     <p class="text-gold font-medium uppercase tracking-wider text-base mb-4">Socia Abogada<br><span
                             class="text-xs text-gray-500 lowercase normal-case tracking-normal">Matrícula: CPACF Tº
@@ -365,8 +381,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <h3 class="font-serif text-2xl text-darkblue-900 font-bold mb-1 hover:text-gold transition-colors">
                         <a href="../dra-tassara">Tassara, Victoria</a>
                         <a href="https://www.linkedin.com/in/victoria-tassara-87158a27/" target="_blank"
+                            rel="noopener noreferrer" aria-label="Ver perfil de LinkedIn de Victoria Tassara"
                             class="text-[#0a66c2] hover:text-[#004182] ml-1 transition-colors"><i
-                                class="fa-brands fa-linkedin"></i></a>
+                                class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
                     </h3>
                     <p class="text-gold font-medium uppercase tracking-wider text-base mb-4">Socia Abogada<br><span
                             class="text-xs text-gray-500 lowercase normal-case tracking-normal">Matrícula: CPACF Tº
@@ -388,8 +405,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <h3 class="font-serif text-2xl text-darkblue-900 font-bold mb-1 hover:text-gold transition-colors">
                         <a href="../dr-bulgheroni">Bulgheroni, Daniel</a>
                         <a href="https://www.linkedin.com/in/danielbulgheroni/" target="_blank"
+                            rel="noopener noreferrer" aria-label="Ver perfil de LinkedIn de Daniel Bulgheroni"
                             class="text-[#0a66c2] hover:text-[#004182] ml-1 transition-colors"><i
-                                class="fa-brands fa-linkedin"></i></a>
+                                class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
                     </h3>
                     <p class="text-gold font-medium uppercase tracking-wider text-base mb-4">Socio Abogado<br><span
                             class="text-xs text-gray-500 lowercase normal-case tracking-normal">Matrícula: CPACF Tº
@@ -399,13 +417,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
 
             </div>
-        </div>
+        </section>
 
         <!-- Reviews Section (Nosotros) -->
         <div class="mt-24 bg-gray-50 py-16 px-4 rounded-3xl border border-gray-100">
             <div class="max-w-7xl mx-auto text-center mb-12">
-                <h2 class="text-gold font-medium tracking-widest uppercase text-base mb-4">CONFIANZA Y RESULTADOS</h2>
-                <h3 class="font-serif text-4xl text-darkblue-900 leading-tight">Lo que dicen nuestros clientes</h3>
+                <p class="text-gold font-medium tracking-widest uppercase text-base mb-4">CONFIANZA Y RESULTADOS</p>
+                <h2 class="font-serif text-4xl text-darkblue-900 leading-tight">Lo que dicen nuestros clientes</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Review 1 -->
@@ -730,8 +748,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 }
             }
         }
+
+        const nav = document.querySelector('nav');
+        let navTicking = false;
+
+        function updateNavOnScroll() {
+            if (!nav) return;
+
+            const isScrolled = (window.scrollY || window.pageYOffset || 0) > 50;
+            nav.classList.toggle('shadow-lg', isScrolled);
+            nav.classList.toggle('bg-opacity-95', isScrolled);
+        }
+
+        window.addEventListener('scroll', () => {
+            if (navTicking) return;
+
+            navTicking = true;
+            requestAnimationFrame(() => {
+                updateNavOnScroll();
+                navTicking = false;
+            });
+        }, { passive: true });
+
+        window.addEventListener('DOMContentLoaded', updateNavOnScroll);
+
+        document.addEventListener('pointerdown', (event) => {
+            const mobileMenu = document.getElementById('mob-menu');
+            if (!nav || !mobileMenu || mobileMenu.classList.contains('hidden')) return;
+
+            if (event.target instanceof Node && !nav.contains(event.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
     </script>
-    <script defer src="../js/main.js"></script>
 </body>
 
 </html>
