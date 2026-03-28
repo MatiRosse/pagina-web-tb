@@ -51,6 +51,21 @@ function runAfterFirstPaint(callback) {
     }
 }
 
+function queueMenuAnimationFrame(mobileMenu, callback) {
+    if (!mobileMenu) return;
+
+    if (mobileMenu._tbMenuFrameA) cancelAnimationFrame(mobileMenu._tbMenuFrameA);
+    if (mobileMenu._tbMenuFrameB) cancelAnimationFrame(mobileMenu._tbMenuFrameB);
+
+    mobileMenu._tbMenuFrameA = requestAnimationFrame(() => {
+        mobileMenu._tbMenuFrameA = null;
+        mobileMenu._tbMenuFrameB = requestAnimationFrame(() => {
+            mobileMenu._tbMenuFrameB = null;
+            callback();
+        });
+    });
+}
+
 function navigate(viewId) {
     const ensuredTarget = ensureLazyView(viewId);
 
@@ -104,6 +119,10 @@ function removeMobileMenuTransitionHandler(mobileMenu) {
 
 function clearMobileMenuInlineStyles(mobileMenu) {
     if (!mobileMenu) return;
+    if (mobileMenu._tbMenuFrameA) cancelAnimationFrame(mobileMenu._tbMenuFrameA);
+    if (mobileMenu._tbMenuFrameB) cancelAnimationFrame(mobileMenu._tbMenuFrameB);
+    mobileMenu._tbMenuFrameA = null;
+    mobileMenu._tbMenuFrameB = null;
     mobileMenu.style.transition = '';
     mobileMenu.style.overflow = '';
     mobileMenu.style.height = '';
@@ -132,18 +151,19 @@ function animateMobileMenu(openMenu) {
 
     if (openMenu) {
         mobileMenu.classList.remove('hidden');
+        const targetHeight = mobileMenu.scrollHeight;
         mobileMenu.style.overflow = 'hidden';
+        mobileMenu.style.transition = 'none';
         mobileMenu.style.height = '0px';
         mobileMenu.style.opacity = '0';
         mobileMenu.style.transform = 'translateY(-6px)';
 
-        // Force reflow so the browser applies start styles before transition.
-        void mobileMenu.offsetHeight;
-
-        mobileMenu.style.transition = transitionValue;
-        mobileMenu.style.height = `${mobileMenu.scrollHeight}px`;
-        mobileMenu.style.opacity = '1';
-        mobileMenu.style.transform = 'translateY(0)';
+        queueMenuAnimationFrame(mobileMenu, () => {
+            mobileMenu.style.transition = transitionValue;
+            mobileMenu.style.height = `${targetHeight}px`;
+            mobileMenu.style.opacity = '1';
+            mobileMenu.style.transform = 'translateY(0)';
+        });
 
         const onOpenEnd = (event) => {
             if (event.propertyName !== 'height') return;
@@ -155,18 +175,19 @@ function animateMobileMenu(openMenu) {
         return;
     }
 
+    const currentHeight = mobileMenu.scrollHeight;
     mobileMenu.style.overflow = 'hidden';
-    mobileMenu.style.height = `${mobileMenu.scrollHeight}px`;
+    mobileMenu.style.transition = 'none';
+    mobileMenu.style.height = `${currentHeight}px`;
     mobileMenu.style.opacity = '1';
     mobileMenu.style.transform = 'translateY(0)';
 
-    // Force reflow so close animation starts from the current rendered state.
-    void mobileMenu.offsetHeight;
-
-    mobileMenu.style.transition = transitionValue;
-    mobileMenu.style.height = '0px';
-    mobileMenu.style.opacity = '0';
-    mobileMenu.style.transform = 'translateY(-6px)';
+    queueMenuAnimationFrame(mobileMenu, () => {
+        mobileMenu.style.transition = transitionValue;
+        mobileMenu.style.height = '0px';
+        mobileMenu.style.opacity = '0';
+        mobileMenu.style.transform = 'translateY(-6px)';
+    });
 
     const onCloseEnd = (event) => {
         if (event.propertyName !== 'height') return;
