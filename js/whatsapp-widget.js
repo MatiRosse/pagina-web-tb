@@ -3,15 +3,19 @@
     const msg1 = document.getElementById("msg1");
     const msg2 = document.getElementById("msg2");
     const chatBox = document.getElementById("chat-box");
-    const input = document.getElementById("chat-input");
+    let input = document.getElementById("chat-input");
     const sendButton = document.getElementById("send-button");
     const widget = document.getElementById("whatsapp-widget");
     const icon = document.getElementById("whatsapp-icon");
 
     let hasOpened = false;
+    let hasUnreadNotification = false;
+    let firstMessageShown = false;
+    let secondMessageSequenceStarted = false;
     const currentWA = "5491122511243";
     const isMobileDevice = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
     let fallbackText = "Hola! Necesito asesoramiento legal";
+    let lastPrefilledText = "";
 
     const serviceProfiles = [
         {
@@ -66,6 +70,166 @@
         },
     ];
 
+    function scrollChatToBottom() {
+        if (chatBox) {
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    }
+
+    function upgradeInputToTextarea() {
+        if (!input || input.tagName !== "INPUT") {
+            return;
+        }
+
+        const textarea = document.createElement("textarea");
+        for (const attr of input.attributes) {
+            if (attr.name !== "type" && attr.name !== "value") {
+                textarea.setAttribute(attr.name, attr.value);
+            }
+        }
+
+        textarea.value = input.value;
+        textarea.rows = 1;
+        textarea.style.cssText = `${input.getAttribute("style") || ""};resize:none;overflow:hidden;min-height:24px;max-height:96px;line-height:1.4;display:block;padding:0;margin:0;box-sizing:border-box;`;
+
+        const parent = input.parentElement;
+        if (parent) {
+            parent.style.alignItems = "flex-end";
+        }
+
+        input.replaceWith(textarea);
+        input = textarea;
+    }
+
+    function resizeChatInput() {
+        if (!input || input.tagName !== "TEXTAREA") {
+            return;
+        }
+
+        input.style.height = "24px";
+        const nextHeight = Math.min(input.scrollHeight, 96);
+        input.style.height = `${nextHeight}px`;
+        input.style.overflowY = input.scrollHeight > 96 ? "auto" : "hidden";
+    }
+
+    function ensureNotificationStyles() {
+        if (document.getElementById("tb-wa-notification-styles")) {
+            return;
+        }
+
+        const styles = document.createElement("style");
+        styles.id = "tb-wa-notification-styles";
+        styles.textContent = `
+            @keyframes tb-wa-badge-pop {
+                0% { transform: scale(0.5); opacity: 0; }
+                70% { transform: scale(1.1); opacity: 1; }
+                100% { transform: scale(1); opacity: 1; }
+            }
+
+            @keyframes tb-wa-icon-nudge {
+                0%, 100% { transform: rotate(0deg); }
+                20% { transform: rotate(-10deg); }
+                40% { transform: rotate(10deg); }
+                60% { transform: rotate(-6deg); }
+                80% { transform: rotate(6deg); }
+            }
+        `;
+        document.head.appendChild(styles);
+    }
+
+    function getNotificationBadge() {
+        if (!icon) {
+            return null;
+        }
+
+        let badge = icon.querySelector("[data-wa-notification-badge]");
+        if (!badge) {
+            badge = document.createElement("span");
+            badge.setAttribute("data-wa-notification-badge", "true");
+            badge.textContent = "1";
+            Object.assign(badge.style, {
+                position: "absolute",
+                top: "-4px",
+                right: "-4px",
+                minWidth: "20px",
+                height: "20px",
+                padding: "0 5px",
+                borderRadius: "999px",
+                background: "#ff3b30",
+                color: "#fff",
+                display: "none",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "11px",
+                fontWeight: "700",
+                lineHeight: "1",
+                border: "2px solid #fff",
+                boxSizing: "border-box",
+                pointerEvents: "none",
+                transformOrigin: "center",
+            });
+            icon.style.overflow = "visible";
+            icon.appendChild(badge);
+        }
+
+        return badge;
+    }
+
+    function showNotificationBadge() {
+        const badge = getNotificationBadge();
+        if (!badge || hasUnreadNotification) {
+            return;
+        }
+
+        ensureNotificationStyles();
+        badge.style.display = "flex";
+        badge.style.animation = "tb-wa-badge-pop 0.35s ease-out";
+        if (icon) {
+            icon.style.animation = "pulse 1.2s infinite, tb-wa-icon-nudge 1.5s ease-in-out 3";
+        }
+        hasUnreadNotification = true;
+    }
+
+    function hideNotificationBadge() {
+        const badge = icon ? icon.querySelector("[data-wa-notification-badge]") : null;
+        if (badge) {
+            badge.style.display = "none";
+            badge.style.animation = "";
+        }
+        if (icon) {
+            icon.style.animation = "pulse 1.5s infinite";
+        }
+        hasUnreadNotification = false;
+    }
+
+    function showFirstMessage() {
+        if (!msg1) {
+            return;
+        }
+
+        if (typing) {
+            typing.style.display = "none";
+        }
+
+        msg1.style.display = "block";
+        firstMessageShown = true;
+        scrollChatToBottom();
+    }
+
+    function syncInputWithFallback() {
+        if (!input) {
+            return;
+        }
+
+        const currentText = input.value.trim();
+        if (!currentText || currentText === lastPrefilledText) {
+            input.value = fallbackText;
+        }
+
+        lastPrefilledText = fallbackText;
+        resizeChatInput();
+    }
+
     function updateChatProfile() {
         const path = window.location.pathname.toLowerCase();
         let dynamicMsg2 = "¿Buscás asesoramiento legal?";
@@ -88,34 +252,35 @@
         if (msg2) {
             msg2.textContent = dynamicMsg2;
         }
+
+        syncInputWithFallback();
     }
 
     function simulateChat() {
-        if (hasOpened || !typing || !msg1 || !msg2 || !chatBox) {
+        if (!msg1 || !msg2 || !chatBox) {
             return;
         }
 
-        hasOpened = true;
+        if (!firstMessageShown) {
+            showFirstMessage();
+        }
+
+        if (secondMessageSequenceStarted || msg2.style.display === "block" || !typing) {
+            return;
+        }
+
+        secondMessageSequenceStarted = true;
 
         setTimeout(() => {
             typing.style.display = "block";
-        }, 1000);
-
-        setTimeout(() => {
-            typing.style.display = "none";
-            msg1.style.display = "block";
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }, 3000);
-
-        setTimeout(() => {
-            typing.style.display = "block";
-        }, 4000);
+            scrollChatToBottom();
+        }, 800);
 
         setTimeout(() => {
             typing.style.display = "none";
             msg2.style.display = "block";
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }, 6000);
+            scrollChatToBottom();
+        }, 2000);
     }
 
     function enviarMensaje() {
@@ -133,7 +298,7 @@
             : `https://web.whatsapp.com/send?phone=${currentWA}&text=${encodeURIComponent(text)}`;
 
         window.open(url, "_blank");
-        input.value = "";
+        syncInputWithFallback();
     }
 
     function cerrarWidget() {
@@ -152,32 +317,41 @@
         if (icon) {
             icon.style.display = "none";
         }
+        hideNotificationBadge();
         updateChatProfile();
+        hasOpened = true;
         simulateChat();
     }
 
     window.abrirWidget = abrirWidget;
     window.cerrarWidget = cerrarWidget;
 
+    upgradeInputToTextarea();
+
     if (sendButton) {
         sendButton.addEventListener("click", enviarMensaje);
     }
 
     if (input) {
+        input.addEventListener("input", resizeChatInput);
         input.addEventListener("keydown", (event) => {
-            if (event.key === "Enter") {
+            if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault();
                 enviarMensaje();
             }
         });
     }
 
+    updateChatProfile();
+
     setTimeout(() => {
-        if (!widget) {
+        if (!widget || !icon || hasOpened) {
             return;
         }
 
-        if (!isMobileDevice && !hasOpened && widget.style.display === "none") {
-            abrirWidget();
+        if (widget.style.display === "none") {
+            showFirstMessage();
+            showNotificationBadge();
         }
-    }, 300000);
+    }, 45000);
 })();

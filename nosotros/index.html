@@ -632,88 +632,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </div>
 
+    <script defer src=".././js/whatsapp-widget.js"></script>
     <script>
-        const typing = document.getElementById("typing");
-        const msg1 = document.getElementById("msg1");
-        const msg2 = document.getElementById("msg2");
-        const chatBox = document.getElementById("chat-box");
-        const input = document.getElementById("chat-input");
-        let hasOpened = false;
-
-        // TB Abogados WhatsApp Number
-        const currentWA = "5491122511243";
-
-        let fallbackText = "Hola! Necesito asesoramiento legal";
-
-        function updateChatProfile() {
-            const path = window.location.pathname;
-            let dynamicMsg2 = "¿Buscás asesoramiento legal?";
-
-            msg2.textContent = dynamicMsg2;
-        }
-
-        function simulateChat() {
-            if (hasOpened) return;
-            hasOpened = true;
-
-            setTimeout(() => { typing.style.display = "block"; }, 1000);
-            setTimeout(() => {
-                typing.style.display = "none";
-                msg1.style.display = "block";
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }, 3000);
-            setTimeout(() => { typing.style.display = "block"; }, 4000);
-            setTimeout(() => {
-                typing.style.display = "none";
-                msg2.style.display = "block";
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }, 6000);
-        }
-
-        // Auto open after 5 minutes (300 seconds), only on Desktop
-        setTimeout(() => {
-            const isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
-            if (!isMobile && !hasOpened && document.getElementById("whatsapp-widget").style.display === "none") {
-                abrirWidget();
-            }
-        }, 300000);
-
-        function enviarMensaje() {
-            let text = input.value.trim();
-            if (!text) {
-                text = fallbackText;
-            }
-
-            const isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
-            let url;
-
-            if (isMobile) {
-                url = `https://wa.me/${currentWA}?text=${encodeURIComponent(text)}`;
-            } else {
-                url = `https://web.whatsapp.com/send?phone=${currentWA}&text=${encodeURIComponent(text)}`;
-            }
-
-            window.open(url, "_blank");
-            input.value = "";
-        }
-
-        function cerrarWidget() {
-            document.getElementById("whatsapp-widget").style.display = "none";
-            document.getElementById("whatsapp-icon").style.display = "flex";
-        }
-
-        function abrirWidget() {
-            document.getElementById("whatsapp-widget").style.display = "block";
-            document.getElementById("whatsapp-icon").style.display = "none";
-            updateChatProfile();
-            simulateChat();
-        }
-
-        document.getElementById("send-button").addEventListener("click", enviarMensaje);
-        input.addEventListener("keydown", e => {
-            if (e.key === "Enter") enviarMensaje();
-        });
-
         // Mobile Menu Toggle
         function toggleMobileMenu() {
             const mobileMenu = document.getElementById('mob-menu');
