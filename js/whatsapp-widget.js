@@ -15,52 +15,52 @@
 
     const serviceProfiles = [
         {
-            matches: ["/servicios/despidos", "/servicios/despidos.html"],
+            matches: ["/servicios/despidos"],
             message: "¿Necesitas ayuda con un despido?",
             fallback: "Hola, me despidieron y necesito asesoramiento",
         },
         {
-            matches: ["/servicios/diferencia-salarial", "/servicios/diferencia-salarial.html"],
+            matches: ["/servicios/diferencia-salarial"],
             message: "¿Necesitas reclamar diferencias salariales?",
             fallback: "Hola, quiero reclamar diferencias salariales",
         },
         {
-            matches: ["/servicios/marcas", "/servicios/marcas.html"],
+            matches: ["/servicios/marcas"],
             message: "¿Necesitas ayuda con tu marca?",
             fallback: "Hola, necesito asesoramiento con una marca",
         },
         {
-            matches: ["/servicios/sucesiones", "/servicios/sucesiones.html"],
+            matches: ["/servicios/sucesiones"],
             message: "¿Necesitas iniciar una sucesión?",
             fallback: "Hola, necesito iniciar una sucesión",
         },
         {
-            matches: ["/servicios/divorcios", "/servicios/divorcios.html"],
+            matches: ["/servicios/divorcios"],
             message: "¿Necesitas iniciar un divorcio?",
             fallback: "Hola, necesito asesoramiento para un divorcio",
         },
         {
-            matches: ["/servicios/mediaciones", "/servicios/mediaciones.html"],
+            matches: ["/servicios/mediaciones"],
             message: "¿Necesitas iniciar una mediación?",
             fallback: "Hola, necesito asesoramiento para una mediación",
         },
         {
-            matches: ["/servicios/jubilaciones", "/servicios/jubilaciones.html"],
+            matches: ["/servicios/jubilaciones"],
             message: "¿Necesitas asesoramiento sobre jubilaciones?",
             fallback: "Hola, necesito asesoramiento para jubilarme",
         },
         {
-            matches: ["/servicios/alquileres", "/servicios/alquileres.html"],
+            matches: ["/servicios/alquileres"],
             message: "¿Necesitas ayuda con un alquiler?",
             fallback: "Hola, tengo un problema con un alquiler",
         },
         {
-            matches: ["/servicios/accidente-de-transito", "/servicios/accidente-de-transito.html"],
+            matches: ["/servicios/accidente-de-transito"],
             message: "¿Sufriste un accidente de tránsito?",
             fallback: "Hola, tuve un accidente de tránsito y busco asesoramiento",
         },
         {
-            matches: ["/servicios/accidente-de-trabajo", "/servicios/accidente-de-trabajo.html"],
+            matches: ["/servicios/accidente-de-trabajo"],
             message: "¿Sufriste un accidente de trabajo?",
             fallback: "Hola, tuve un accidente de trabajo y necesito asesoramiento",
         },
@@ -71,7 +71,7 @@
         let dynamicMsg2 = "¿Buscás asesoramiento legal?";
         fallbackText = "Hola! Necesito asesoramiento legal";
 
-        const isServicesPath = path.includes("/servicios") || path.startsWith("/servicios");
+        const isServicesPath = path.includes("/servicios/") || path.startsWith("/servicios/");
         if (isServicesPath) {
             dynamicMsg2 = "¿En qué servicio legal te podemos ayudar?";
             fallbackText = "Hola, necesito asesoramiento sobre servicios legales";
