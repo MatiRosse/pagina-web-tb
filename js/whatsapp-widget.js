@@ -811,21 +811,15 @@
     }
 
     function adjustWidgetPosition() {
-        if (!window.visualViewport || !isMobileDevice || widget.style.display !== "block") return;
-        
-        const distanceToBottom = Math.max(0, window.innerHeight - (window.visualViewport.offsetTop + window.visualViewport.height));
-        widget.style.bottom = `${20 + distanceToBottom}px`;
-    }
-
-    if (window.visualViewport) {
-        window.visualViewport.addEventListener("resize", adjustWidgetPosition);
-        window.visualViewport.addEventListener("scroll", adjustWidgetPosition);
+        if (!isMobileDevice || widget.style.display !== "block") return;
+        // La lógica se maneja ahora con focus y blur en los event listeners
     }
 
     function cerrarWidget() {
         widget.style.display = "none";
         icon.style.display = "flex";
         if (isMobileDevice) {
+            widget.style.top = "auto";
             widget.style.bottom = "20px";
         }
     }
@@ -847,7 +841,6 @@
         }
 
         focusInput();
-        adjustWidgetPosition();
     }
 
     window.abrirWidget = abrirWidget;
@@ -860,6 +853,21 @@
     }
 
     input.addEventListener("input", resizeChatInput);
+
+    input.addEventListener("focus", () => {
+        if (isMobileDevice) {
+            widget.style.bottom = "auto";
+            widget.style.top = "20px";
+        }
+    });
+
+    input.addEventListener("blur", () => {
+        if (isMobileDevice) {
+            widget.style.top = "auto";
+            widget.style.bottom = "20px";
+        }
+    });
+
     input.addEventListener("keydown", (event) => {
         if (event.key === "Enter" && !event.shiftKey) {
             event.preventDefault();
