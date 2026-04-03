@@ -810,9 +810,24 @@
         syncInputWithFallback();
     }
 
+    function adjustWidgetPosition() {
+        if (!window.visualViewport || !isMobileDevice || widget.style.display !== "block") return;
+        
+        const distanceToBottom = Math.max(0, window.innerHeight - (window.visualViewport.offsetTop + window.visualViewport.height));
+        widget.style.bottom = `${20 + distanceToBottom}px`;
+    }
+
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener("resize", adjustWidgetPosition);
+        window.visualViewport.addEventListener("scroll", adjustWidgetPosition);
+    }
+
     function cerrarWidget() {
         widget.style.display = "none";
         icon.style.display = "flex";
+        if (isMobileDevice) {
+            widget.style.bottom = "20px";
+        }
     }
 
     function abrirWidget() {
@@ -832,6 +847,7 @@
         }
 
         focusInput();
+        adjustWidgetPosition();
     }
 
     window.abrirWidget = abrirWidget;
