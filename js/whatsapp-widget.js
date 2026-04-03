@@ -21,6 +21,10 @@
     const widgetScaleFactor = 1.15;
     const baseWidgetWidth = parseFloat(widget.style.width) || 336;
     const baseChatHeight = parseFloat(chatBox.style.height) || 160;
+    const baseWidgetBottom = parseFloat(widget.style.bottom) || 20;
+    const baseWidgetRight = parseFloat(widget.style.right) || 20;
+    const baseIconBottom = parseFloat(icon.style.bottom) || 20;
+    const baseIconRight = parseFloat(icon.style.right) || 20;
     const defaultSendButtonMarkup = sendButton.innerHTML;
     const offlineSendButtonMarkup = `
         <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none"
@@ -38,6 +42,7 @@
     let fallbackText = "Hola! Necesito asesoramiento legal";
     let lastPrefilledText = "";
     let currentProfile = null;
+    let baselineViewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
 
     const serviceProfiles = [
         {
@@ -116,16 +121,43 @@
         chatBox.scrollTop = chatBox.scrollHeight;
     }
 
-    function updateWidgetSize() {
-        const nextWidgetWidth = intakeState.active
+    function getCurrentWidgetWidth() {
+        return intakeState.active
             ? Math.round(baseWidgetWidth * widgetScaleFactor)
             : baseWidgetWidth;
-        const nextChatHeight = intakeState.active
+    }
+
+    function getCurrentChatHeight() {
+        return intakeState.active
             ? Math.round(baseChatHeight * widgetScaleFactor)
             : baseChatHeight;
+    }
 
-        widget.style.width = `min(${nextWidgetWidth}px, calc(100vw - 40px))`;
-        chatBox.style.height = `${nextChatHeight}px`;
+    function isWidgetInputFocused() {
+        return document.activeElement === input;
+    }
+
+    function updateViewportBaseline(force = false) {
+        const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+        if (force || !isWidgetInputFocused()) {
+            baselineViewportHeight = viewportHeight;
+        }
+    }
+
+    function resetViewportAdjustedLayout() {
+        widget.style.top = "auto";
+        widget.style.bottom = `${baseWidgetBottom}px`;
+        widget.style.right = `${baseWidgetRight}px`;
+        widget.style.maxHeight = "";
+        chatBox.style.height = `${getCurrentChatHeight()}px`;
+        icon.style.bottom = `${baseIconBottom}px`;
+        icon.style.right = `${baseIconRight}px`;
+    }
+
+    function updateWidgetSize() {
+        widget.style.width = `min(${getCurrentWidgetWidth()}px, calc(100vw - 40px))`;
+        chatBox.style.height = `${getCurrentChatHeight()}px`;
+        adjustWidgetPosition();
     }
 
     function updateSendButtonIcon() {
@@ -811,17 +843,51 @@
     }
 
     function adjustWidgetPosition() {
-        if (!isMobileDevice || widget.style.display !== "block") return;
-        // La lógica se maneja ahora con focus y blur en los event listeners
+        if (!isMobileDevice) {
+            return;
+        }
+
+        const viewport = window.visualViewport;
+        if (!viewport) {
+            if (widget.style.display === "block" && isWidgetInputFocused()) {
+                widget.style.top = "20px";
+                widget.style.bottom = "auto";
+            } else {
+                resetViewportAdjustedLayout();
+            }
+            return;
+        }
+
+        const keyboardInset = Math.max(0, baselineViewportHeight - viewport.height - viewport.offsetTop);
+        const keyboardIsVisible =
+            widget.style.display === "block" &&
+            isWidgetInputFocused() &&
+            keyboardInset > 80;
+
+        if (!keyboardIsVisible) {
+            updateViewportBaseline();
+            resetViewportAdjustedLayout();
+            return;
+        }
+
+        const viewportPadding = 12;
+        const availableHeight = Math.max(260, Math.floor(viewport.height - viewportPadding * 2));
+        const chromeHeight = Math.max(0, widget.offsetHeight - chatBox.offsetHeight);
+        const nextChatHeight = Math.max(110, availableHeight - chromeHeight);
+
+        widget.style.top = "auto";
+        widget.style.right = `${baseWidgetRight}px`;
+        widget.style.bottom = `${baseWidgetBottom + keyboardInset}px`;
+        widget.style.maxHeight = `${availableHeight}px`;
+        chatBox.style.height = `${nextChatHeight}px`;
+        scrollChatToBottom();
     }
 
     function cerrarWidget() {
         widget.style.display = "none";
         icon.style.display = "flex";
-        if (isMobileDevice) {
-            widget.style.top = "auto";
-            widget.style.bottom = "20px";
-        }
+        updateViewportBaseline(true);
+        resetViewportAdjustedLayout();
     }
 
     function abrirWidget() {
@@ -855,17 +921,14 @@
     input.addEventListener("input", resizeChatInput);
 
     input.addEventListener("focus", () => {
-        if (isMobileDevice) {
-            widget.style.bottom = "auto";
-            widget.style.top = "20px";
-        }
+        window.setTimeout(adjustWidgetPosition, 80);
     });
 
     input.addEventListener("blur", () => {
-        if (isMobileDevice) {
-            widget.style.top = "auto";
-            widget.style.bottom = "20px";
-        }
+        window.setTimeout(() => {
+            updateViewportBaseline(true);
+            adjustWidgetPosition();
+        }, 80);
     });
 
     input.addEventListener("keydown", (event) => {
@@ -878,6 +941,20 @@
     });
 
     updateWidgetMode();
+    updateViewportBaseline(true);
+    adjustWidgetPosition();
+
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener("resize", adjustWidgetPosition);
+        window.visualViewport.addEventListener("scroll", adjustWidgetPosition);
+    }
+
+    window.addEventListener("orientationchange", () => {
+        window.setTimeout(() => {
+            updateViewportBaseline(true);
+            adjustWidgetPosition();
+        }, 120);
+    });
 
     window.setTimeout(() => {
         if (!hasOpened && widget.style.display === "none") {
