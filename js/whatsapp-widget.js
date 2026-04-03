@@ -7,73 +7,142 @@
     const sendButton = document.getElementById("send-button");
     const widget = document.getElementById("whatsapp-widget");
     const icon = document.getElementById("whatsapp-icon");
+    const chatProfileSub = document.getElementById("chat-profile-sub");
+
+    if (!chatBox || !input || !sendButton || !widget || !icon) {
+        return;
+    }
+
+    const currentWA = "5491122511243";
+    const contactFormEndpoint = "https://formspree.io/f/xdawoyea";
+    const argentinaTimeZone = "America/Argentina/Buenos_Aires";
+    const defaultInputPlaceholder = "Escribí tu mensaje acá...";
+    const isMobileDevice = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
+    const widgetScaleFactor = 1.15;
+    const baseWidgetWidth = parseFloat(widget.style.width) || 336;
+    const baseChatHeight = parseFloat(chatBox.style.height) || 160;
+    const defaultSendButtonMarkup = sendButton.innerHTML;
+    const offlineSendButtonMarkup = `
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none"
+            xmlns="http://www.w3.org/2000/svg" style="display:block">
+            <path
+                d="M4.6 5.3L19.1 11.5C19.6 11.72 19.6 12.28 19.1 12.5L4.6 18.7C4.14 18.89 3.67 18.45 3.81 17.98L5.29 13.24C5.37 12.98 5.6 12.8 5.87 12.77L12.7 12L5.87 11.23C5.6 11.2 5.37 11.02 5.29 10.76L3.81 6.02C3.67 5.55 4.14 5.11 4.6 5.3Z"
+                fill="#ffffff"></path>
+        </svg>
+    `;
 
     let hasOpened = false;
     let hasUnreadNotification = false;
     let firstMessageShown = false;
     let secondMessageSequenceStarted = false;
-    const currentWA = "5491122511243";
-    const isMobileDevice = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
     let fallbackText = "Hola! Necesito asesoramiento legal";
     let lastPrefilledText = "";
+    let currentProfile = null;
 
     const serviceProfiles = [
         {
             matches: ["/servicios/despidos"],
             message: "¿Necesitas ayuda con un despido?",
             fallback: "Hola, me despidieron y necesito asesoramiento",
+            suggestedSubject: "Consulta Laboral / Despido",
         },
         {
             matches: ["/servicios/diferencia-salarial"],
             message: "¿Necesitas reclamar diferencias salariales?",
             fallback: "Hola, quiero reclamar diferencias salariales",
+            suggestedSubject: "Reclamo Diferencia Salarial",
         },
         {
             matches: ["/servicios/marcas"],
             message: "¿Necesitas ayuda con tu marca?",
             fallback: "Hola, necesito asesoramiento con una marca",
+            suggestedSubject: "Registro de Marcas",
         },
         {
             matches: ["/servicios/sucesiones"],
-            message: "¿Necesitas iniciar una sucesión?",
+            message: "¿Necesitás iniciar una sucesión?",
             fallback: "Hola, necesito iniciar una sucesión",
+            suggestedSubject: "Sucesiones / Familia",
         },
         {
             matches: ["/servicios/divorcios"],
             message: "¿Necesitas iniciar un divorcio?",
             fallback: "Hola, necesito asesoramiento para un divorcio",
+            suggestedSubject: "Sucesiones / Familia",
         },
         {
             matches: ["/servicios/mediaciones"],
-            message: "¿Necesitas iniciar una mediación?",
+            message: "¿Necesitás iniciar una mediación?",
             fallback: "Hola, necesito asesoramiento para una mediación",
+            suggestedSubject: "Consulta legal",
         },
         {
             matches: ["/servicios/jubilaciones"],
             message: "¿Necesitas asesoramiento sobre jubilaciones?",
             fallback: "Hola, necesito asesoramiento para jubilarme",
+            suggestedSubject: "Jubilaciones / Previsional",
         },
         {
             matches: ["/servicios/alquileres"],
             message: "¿Necesitas ayuda con un alquiler?",
             fallback: "Hola, tengo un problema con un alquiler",
+            suggestedSubject: "Revisión de Contrato de Alquiler",
         },
         {
             matches: ["/servicios/accidente-de-transito"],
             message: "¿Sufriste un accidente de tránsito?",
             fallback: "Hola, tuve un accidente de tránsito y busco asesoramiento",
+            suggestedSubject: "Accidentes de Tránsito",
         },
         {
             matches: ["/servicios/accidente-de-trabajo"],
             message: "¿Sufriste un accidente de trabajo?",
             fallback: "Hola, tuve un accidente de trabajo y necesito asesoramiento",
+            suggestedSubject: "Accidente de Trabajo ART",
         },
     ];
 
+    const intakeState = {
+        active: false,
+        started: false,
+        completed: false,
+        submitting: false,
+        awaitingRetry: false,
+        currentQuestionIndex: 0,
+        answers: {},
+    };
+
     function scrollChatToBottom() {
-        if (chatBox) {
-            chatBox.scrollTop = chatBox.scrollHeight;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function updateWidgetSize() {
+        const nextWidgetWidth = intakeState.active
+            ? Math.round(baseWidgetWidth * widgetScaleFactor)
+            : baseWidgetWidth;
+        const nextChatHeight = intakeState.active
+            ? Math.round(baseChatHeight * widgetScaleFactor)
+            : baseChatHeight;
+
+        widget.style.width = `min(${nextWidgetWidth}px, calc(100vw - 40px))`;
+        chatBox.style.height = `${nextChatHeight}px`;
+    }
+
+    function updateSendButtonIcon() {
+        if (intakeState.active) {
+            if (sendButton.dataset.iconMode !== "offline") {
+                sendButton.innerHTML = offlineSendButtonMarkup;
+                sendButton.dataset.iconMode = "offline";
+            }
+            sendButton.setAttribute("aria-label", "Enviar consulta");
+            return;
         }
+
+        if (sendButton.dataset.iconMode !== "whatsapp") {
+            sendButton.innerHTML = defaultSendButtonMarkup;
+            sendButton.dataset.iconMode = "whatsapp";
+        }
+        sendButton.setAttribute("aria-label", "Abrir WhatsApp");
     }
 
     function upgradeInputToTextarea() {
@@ -112,6 +181,156 @@
         input.style.overflowY = input.scrollHeight > 96 ? "auto" : "hidden";
     }
 
+    function focusInput() {
+        if (!input || widget.style.display !== "block") {
+            return;
+        }
+
+        window.setTimeout(() => {
+            try {
+                input.focus({ preventScroll: true });
+            } catch (error) {
+                input.focus();
+            }
+        }, 50);
+    }
+
+    function setComposerState(options = {}) {
+        const {
+            inputDisabled = false,
+            sendDisabled = false,
+            placeholder = defaultInputPlaceholder,
+        } = options;
+
+        input.disabled = inputDisabled;
+        input.placeholder = placeholder;
+        sendButton.disabled = sendDisabled;
+        sendButton.style.opacity = sendDisabled ? "0.65" : "1";
+        sendButton.style.cursor = sendDisabled ? "not-allowed" : "pointer";
+
+        if (!inputDisabled) {
+            focusInput();
+        }
+    }
+
+    function showTyping(show) {
+        if (!typing) {
+            return;
+        }
+
+        typing.style.display = show ? "block" : "none";
+        scrollChatToBottom();
+    }
+
+    function normalizeText(text) {
+        return text
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .trim();
+    }
+
+    function getCurrentScheduleSnapshot() {
+        try {
+            const formatter = new Intl.DateTimeFormat("en-US", {
+                timeZone: argentinaTimeZone,
+                weekday: "short",
+                hour: "2-digit",
+                minute: "2-digit",
+                hourCycle: "h23",
+            });
+            const parts = formatter.formatToParts(new Date());
+            const values = {};
+            for (const part of parts) {
+                values[part.type] = part.value;
+            }
+
+            return {
+                weekday: values.weekday || "",
+                hour: Number(values.hour || "0") % 24,
+                minute: Number(values.minute || "0"),
+            };
+        } catch (error) {
+            const now = new Date();
+            const weekdayMap = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+            return {
+                weekday: weekdayMap[now.getDay()],
+                hour: now.getHours(),
+                minute: now.getMinutes(),
+            };
+        }
+    }
+
+    function shouldUseIntakeMode() {
+        const snapshot = getCurrentScheduleSnapshot();
+        const currentMinutes = snapshot.hour * 60 + snapshot.minute;
+        const isSunday = snapshot.weekday === "Sun";
+        const isSaturdayAfternoon = snapshot.weekday === "Sat" && currentMinutes >= 13 * 60;
+        const isNightWindow = currentMinutes >= 21 * 60 || currentMinutes < 6 * 60 + 30;
+
+        if (snapshot.weekday === "Sat") {
+            return isSaturdayAfternoon;
+        }
+
+        return isSunday || isNightWindow;
+    }
+
+    function resolveCurrentProfile() {
+        const path = window.location.pathname.toLowerCase();
+
+        for (const profile of serviceProfiles) {
+            if (profile.matches.some((token) => path.includes(token))) {
+                return profile;
+            }
+        }
+
+        return null;
+    }
+
+    function getAutoSubject() {
+        return currentProfile ? currentProfile.suggestedSubject : "Consulta legal";
+    }
+
+    function appendMessage(text, role = "bot") {
+        const bubble = document.createElement("div");
+        bubble.textContent = text;
+
+        Object.assign(bubble.style, {
+            background: role === "user" ? "#dcf8c6" : "#fff",
+            color: "#111827",
+            padding: "8px 12px",
+            margin: "8px 0",
+            borderRadius: "7.5px",
+            maxWidth: "85%",
+            width: "fit-content",
+            wordBreak: "break-word",
+            whiteSpace: "pre-line",
+            marginLeft: role === "user" ? "auto" : "0",
+            boxShadow: "0 1px 1px rgba(0, 0, 0, 0.08)",
+        });
+
+        chatBox.appendChild(bubble);
+        scrollChatToBottom();
+    }
+
+    function queueBotMessage(text, afterReply, typingDuration = 900) {
+        setComposerState({
+            inputDisabled: true,
+            sendDisabled: true,
+            placeholder: "Esperá un momento...",
+        });
+        showTyping(true);
+
+        window.setTimeout(() => {
+            showTyping(false);
+            appendMessage(text, "bot");
+            if (typeof afterReply === "function") {
+                afterReply();
+            }
+        }, typingDuration);
+    }
+
     function ensureNotificationStyles() {
         if (document.getElementById("tb-wa-notification-styles")) {
             return;
@@ -138,10 +357,6 @@
     }
 
     function getNotificationBadge() {
-        if (!icon) {
-            return null;
-        }
-
         let badge = icon.querySelector("[data-wa-notification-badge]");
         if (!badge) {
             badge = document.createElement("span");
@@ -184,21 +399,18 @@
         ensureNotificationStyles();
         badge.style.display = "flex";
         badge.style.animation = "tb-wa-badge-pop 0.35s ease-out";
-        if (icon) {
-            icon.style.animation = "pulse 1.2s infinite, tb-wa-icon-nudge 1.5s ease-in-out 3";
-        }
+        icon.style.animation = "pulse 1.2s infinite, tb-wa-icon-nudge 1.5s ease-in-out 3";
         hasUnreadNotification = true;
     }
 
     function hideNotificationBadge() {
-        const badge = icon ? icon.querySelector("[data-wa-notification-badge]") : null;
+        const badge = icon.querySelector("[data-wa-notification-badge]");
         if (badge) {
             badge.style.display = "none";
             badge.style.animation = "";
         }
-        if (icon) {
-            icon.style.animation = "pulse 1.5s infinite";
-        }
+
+        icon.style.animation = "pulse 1.5s infinite";
         hasUnreadNotification = false;
     }
 
@@ -207,10 +419,7 @@
             return;
         }
 
-        if (typing) {
-            typing.style.display = "none";
-        }
-
+        showTyping(false);
         msg1.style.display = "block";
         firstMessageShown = true;
         scrollChatToBottom();
@@ -218,6 +427,14 @@
 
     function syncInputWithFallback() {
         if (!input) {
+            return;
+        }
+
+        if (intakeState.active) {
+            if (!intakeState.started && !intakeState.completed) {
+                input.value = "";
+            }
+            resizeChatInput();
             return;
         }
 
@@ -230,23 +447,26 @@
         resizeChatInput();
     }
 
-    function updateChatProfile() {
-        const path = window.location.pathname.toLowerCase();
+    function updateWidgetMode() {
+        currentProfile = resolveCurrentProfile();
+        intakeState.active = intakeState.started || intakeState.completed ? intakeState.active : shouldUseIntakeMode();
+        updateWidgetSize();
+        updateSendButtonIcon();
+
         let dynamicMsg2 = "¿Buscás asesoramiento legal?";
         fallbackText = "Hola! Necesito asesoramiento legal";
 
-        const isServicesPath = path.includes("/servicios/") || path.startsWith("/servicios/");
-        if (isServicesPath) {
-            dynamicMsg2 = "¿En qué servicio legal te podemos ayudar?";
-            fallbackText = "Hola, necesito asesoramiento sobre servicios legales";
+        if (currentProfile) {
+            dynamicMsg2 = currentProfile.message;
+            fallbackText = currentProfile.fallback;
+        }
 
-            for (const profile of serviceProfiles) {
-                if (profile.matches.some((token) => path.includes(token))) {
-                    dynamicMsg2 = profile.message;
-                    fallbackText = profile.fallback;
-                    break;
-                }
+        if (intakeState.active) {
+            if (chatProfileSub) {
+                chatProfileSub.textContent = intakeState.completed ? "Consulta recibida" : "Te respondemos pronto";
             }
+        } else if (chatProfileSub) {
+            chatProfileSub.textContent = "En línea";
         }
 
         if (msg2) {
@@ -254,10 +474,245 @@
         }
 
         syncInputWithFallback();
+
+        if (intakeState.completed) {
+            setComposerState({
+                inputDisabled: true,
+                sendDisabled: true,
+                placeholder: "Consulta enviada",
+            });
+        } else if (intakeState.submitting) {
+            setComposerState({
+                inputDisabled: true,
+                sendDisabled: true,
+                placeholder: "Enviando consulta...",
+            });
+        } else if (intakeState.awaitingRetry) {
+            setComposerState({
+                inputDisabled: true,
+                sendDisabled: false,
+                placeholder: "Tocá enviar para reintentar",
+            });
+        } else if (intakeState.active && !intakeState.started) {
+            setComposerState({
+                inputDisabled: true,
+                sendDisabled: true,
+                placeholder: "Te hacemos unas preguntas...",
+            });
+        } else if (intakeState.active) {
+            const currentQuestion = getCurrentQuestion();
+            setComposerState({
+                inputDisabled: false,
+                sendDisabled: false,
+                placeholder: currentQuestion ? currentQuestion.placeholder : "Escribí tu respuesta",
+            });
+        } else if (!intakeState.active) {
+            setComposerState({
+                inputDisabled: false,
+                sendDisabled: false,
+                placeholder: defaultInputPlaceholder,
+            });
+        }
+    }
+
+    function getIntakeQuestions() {
+        return [
+            {
+                key: "message",
+                prompt: "Por favor, detallanos brevemente tu consulta",
+                placeholder: "Consulta:",
+            },
+            {
+                key: "name",
+                prompt: "Gracias. ¿Cuál es tu nombre?",
+                placeholder: "Escribí tu nombre",
+            },
+            {
+                key: "phone",
+                prompt: "¿Cuál es tu teléfono o celular?",
+                placeholder: "Escribí tu teléfono o celular",
+            },
+            {
+                key: "email",
+                prompt: "¿Cuál es tu correo electrónico?",
+                placeholder: "Escribí tu correo electrónico",
+            },
+        ];
+    }
+
+    function getCurrentQuestion() {
+        return getIntakeQuestions()[intakeState.currentQuestionIndex] || null;
+    }
+
+    function getValidationResult(question, rawText) {
+        const trimmedText = rawText.trim();
+
+        if (!trimmedText) {
+            return {
+                valid: false,
+                error: "Necesito esa información para poder registrar tu consulta.",
+            };
+        }
+
+        if (question.key === "name") {
+            if (trimmedText.length < 3) {
+                return {
+                    valid: false,
+                    error: "Por favor, escribí tu nombre completo.",
+                };
+            }
+
+            return { valid: true, value: trimmedText, display: trimmedText };
+        }
+
+        if (question.key === "phone") {
+            const digits = trimmedText.replace(/\D/g, "");
+
+            if (digits.length < 8) {
+                return {
+                    valid: false,
+                    error: "Necesito un teléfono o celular válido para contactarte.",
+                };
+            }
+
+            return { valid: true, value: trimmedText, display: trimmedText };
+        }
+
+        if (question.key === "email") {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailPattern.test(trimmedText)) {
+                return {
+                    valid: false,
+                    error: "Ese correo no parece válido. ¿Podés escribirlo de nuevo?",
+                };
+            }
+
+            return { valid: true, value: trimmedText, display: trimmedText };
+        }
+
+        return { valid: true, value: trimmedText, display: trimmedText };
+    }
+
+    function askCurrentQuestion() {
+        const question = getCurrentQuestion();
+        if (!question) {
+            submitIntakeForm();
+            return;
+        }
+
+        queueBotMessage(question.prompt, () => {
+            input.value = "";
+            resizeChatInput();
+            setComposerState({
+                inputDisabled: false,
+                sendDisabled: false,
+                placeholder: question.placeholder,
+            });
+        });
+    }
+
+    function startIntakeConversation() {
+        if (!intakeState.active || intakeState.started || intakeState.completed) {
+            return;
+        }
+
+        intakeState.started = true;
+        intakeState.answers = {};
+        intakeState.currentQuestionIndex = 0;
+        input.value = "";
+        resizeChatInput();
+
+        window.setTimeout(() => {
+            askCurrentQuestion();
+        }, 350);
+    }
+
+    async function submitIntakeForm() {
+        if (intakeState.submitting || intakeState.completed) {
+            return;
+        }
+
+        const isRetry = intakeState.awaitingRetry;
+        intakeState.submitting = true;
+        intakeState.awaitingRetry = false;
+        setComposerState({
+            inputDisabled: true,
+            sendDisabled: true,
+            placeholder: "Enviando consulta...",
+        });
+
+        appendMessage(
+            isRetry ? "Estoy reintentando enviar tu consulta." : "Perfecto, estoy enviando tu consulta.",
+            "bot",
+        );
+        showTyping(true);
+
+        const formData = new FormData();
+        formData.append("name", intakeState.answers.name || "");
+        formData.append("phone", intakeState.answers.phone || "");
+        formData.append("email", intakeState.answers.email || "");
+        formData.append("subject", getAutoSubject());
+        formData.append("message", intakeState.answers.message || "");
+        formData.append("source", "Widget WhatsApp fuera de horario");
+        formData.append("page", window.location.href);
+
+        try {
+            const response = await fetch(contactFormEndpoint, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    Accept: "application/json",
+                },
+            });
+
+            showTyping(false);
+
+            if (!response.ok) {
+                throw new Error("FORM_SUBMIT_FAILED");
+            }
+
+            intakeState.completed = true;
+            intakeState.submitting = false;
+
+            appendMessage(
+                "Recibimos tu mensaje. Muchas gracias por escribirnos. Ahora mismo estamos fuera del horario de atención, pero ya tomamos tu consulta y nos vamos a comunicar con vos apenas retomemos la atención.",
+                "bot",
+            );
+
+            if (chatProfileSub) {
+                chatProfileSub.textContent = "Consulta recibida";
+            }
+
+            input.value = "";
+            resizeChatInput();
+            setComposerState({
+                inputDisabled: true,
+                sendDisabled: true,
+                placeholder: "Consulta enviada",
+            });
+        } catch (error) {
+            showTyping(false);
+            intakeState.submitting = false;
+            intakeState.awaitingRetry = true;
+
+            appendMessage(
+                "No pude enviar tu consulta en este momento. Tocá el botón para reintentar y, si el problema continúa, también podés escribirnos a consultas@tbabogados.com.ar.",
+                "bot",
+            );
+
+            input.value = "";
+            resizeChatInput();
+            setComposerState({
+                inputDisabled: true,
+                sendDisabled: false,
+                placeholder: "Tocá enviar para reintentar",
+            });
+        }
     }
 
     function simulateChat() {
-        if (!msg1 || !msg2 || !chatBox) {
+        if (!msg1 || !msg2) {
             return;
         }
 
@@ -271,20 +726,74 @@
 
         secondMessageSequenceStarted = true;
 
-        setTimeout(() => {
-            typing.style.display = "block";
-            scrollChatToBottom();
+        window.setTimeout(() => {
+            showTyping(true);
         }, 800);
 
-        setTimeout(() => {
-            typing.style.display = "none";
+        window.setTimeout(() => {
+            showTyping(false);
             msg2.style.display = "block";
             scrollChatToBottom();
+            if (intakeState.active) {
+                startIntakeConversation();
+            }
         }, 2000);
+    }
+
+    function handleIntakeSubmit() {
+        if (sendButton.disabled) {
+            return;
+        }
+
+        if (intakeState.awaitingRetry) {
+            submitIntakeForm();
+            return;
+        }
+
+        const question = getCurrentQuestion();
+        if (!question) {
+            return;
+        }
+
+        const rawText = input.value;
+        const validation = getValidationResult(question, rawText);
+
+        if (!validation.valid) {
+            queueBotMessage(validation.error, () => {
+                setComposerState({
+                    inputDisabled: false,
+                    sendDisabled: false,
+                    placeholder: question.placeholder,
+                });
+            }, 700);
+            return;
+        }
+
+        appendMessage(validation.display, "user");
+
+        intakeState.answers[question.key] = validation.value;
+        intakeState.currentQuestionIndex += 1;
+        input.value = "";
+        resizeChatInput();
+
+        const nextQuestion = getCurrentQuestion();
+        if (nextQuestion) {
+            askCurrentQuestion();
+            return;
+        }
+
+        submitIntakeForm();
     }
 
     function enviarMensaje() {
         if (!input) {
+            return;
+        }
+
+        updateWidgetMode();
+
+        if (intakeState.active) {
+            handleIntakeSubmit();
             return;
         }
 
@@ -302,25 +811,27 @@
     }
 
     function cerrarWidget() {
-        if (widget) {
-            widget.style.display = "none";
-        }
-        if (icon) {
-            icon.style.display = "flex";
-        }
+        widget.style.display = "none";
+        icon.style.display = "flex";
     }
 
     function abrirWidget() {
-        if (widget) {
-            widget.style.display = "block";
-        }
-        if (icon) {
-            icon.style.display = "none";
-        }
+        widget.style.display = "block";
+        icon.style.display = "none";
         hideNotificationBadge();
-        updateChatProfile();
+        updateWidgetMode();
         hasOpened = true;
         simulateChat();
+
+        if (!intakeState.active && msg2 && msg2.style.display === "block") {
+            setComposerState({
+                inputDisabled: false,
+                sendDisabled: false,
+                placeholder: defaultInputPlaceholder,
+            });
+        }
+
+        focusInput();
     }
 
     window.abrirWidget = abrirWidget;
@@ -332,24 +843,20 @@
         sendButton.addEventListener("click", enviarMensaje);
     }
 
-    if (input) {
-        input.addEventListener("input", resizeChatInput);
-        input.addEventListener("keydown", (event) => {
-            if (event.key === "Enter" && !event.shiftKey) {
-                event.preventDefault();
+    input.addEventListener("input", resizeChatInput);
+    input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault();
+            if (!sendButton.disabled) {
                 enviarMensaje();
             }
-        });
-    }
-
-    updateChatProfile();
-
-    setTimeout(() => {
-        if (!widget || !icon || hasOpened) {
-            return;
         }
+    });
 
-        if (widget.style.display === "none") {
+    updateWidgetMode();
+
+    window.setTimeout(() => {
+        if (!hasOpened && widget.style.display === "none") {
             showFirstMessage();
             showNotificationBadge();
         }
