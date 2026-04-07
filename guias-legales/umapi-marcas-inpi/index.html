@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="es-AR" style="background-color:#1e1e1e">
+
+<head>
+<!-- Google Tag Manager -->
+<script>
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+  'gtm.start': new Date().getTime(),
+  event: 'gtm.js'
+});
+(function (w, d, s, l, i) {
+  var loaded = false;
+
+  function loadGTM() {
+    if (loaded) return;
+    loaded = true;
+    var f = d.getElementsByTagName(s)[0];
+    var j = d.createElement(s);
+    var dl = l !== 'dataLayer' ? '&l=' + l : '';
+    j.async = true;
+    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+    f.parentNode.insertBefore(j, f);
+  }
+
+  ['pointerdown', 'touchstart', 'keydown', 'scroll'].forEach(function (evt) {
+    w.addEventListener(evt, loadGTM, { once: true, passive: true });
+  });
+
+  setTimeout(loadGTM, 12000);
+})(window, document, 'script', 'dataLayer', 'GTM-PWWC3D8D');
+</script>
+<!-- End Google Tag Manager -->
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Marcas y UMAPI en el INPI: qué cambió con los aranceles | TB Abogados ⚖️</title>
+    <meta name="description" content="Guía práctica sobre la UMAPI, los nuevos aranceles de marcas ante el INPI y las fechas clave de la Resolución 75/2026 en Argentina." />
+    <link href="https://tbabogados.com.ar/guias-legales/umapi-marcas-inpi" rel="canonical" />
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Marcas y UMAPI en el INPI: qué cambió con los aranceles en 2026",
+          "description": "Guía práctica sobre la UMAPI, el nuevo cuadro arancelario del INPI y el impacto en solicitudes, renovaciones y oposiciones de marcas en Argentina.",
+          "inLanguage": "es-AR",
+          "mainEntityOfPage": "https://tbabogados.com.ar/guias-legales/umapi-marcas-inpi",
+          "datePublished": "2026-04-06",
+          "dateModified": "2026-04-06",
+          "image": "https://tbabogados.com.ar/assets/img/portadas-guias/marca-imagen.jpg",
+          "author": {
+            "@type": "Person",
+            "name": "Florencia Bulgheroni",
+            "url": "https://tbabogados.com.ar/dra-bulgheroni/"
+          },
+          "reviewedBy": {
+            "@type": "Person",
+            "name": "Daniel Bulgheroni",
+            "url": "https://tbabogados.com.ar/dr-bulgheroni/"
+          },
+          "publisher": {
+            "@type": "LegalService",
+            "name": "TB Abogados",
+            "url": "https://tbabogados.com.ar",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://tbabogados.com.ar/assets/img/logotb.ico"
+            }
+          },
+          "about": [
+            {
+              "@type": "Thing",
+              "name": "Registro de marcas"
+            },
+            {
+              "@type": "Thing",
+              "name": "UMAPI"
+            },
+            {
+              "@type": "Thing",
+              "name": "INPI"
+            }
+          ],
+          "citation": [
+            "https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-75-2026-424092/texto",
+            "https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-78-2026-424197/texto",
+            "https://www.boletinoficial.gob.ar/detalleAviso/primera/339726/20260320"
+          ]
+        }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+    <link href="../../css/styles.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap"
+        rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap"
+            rel="stylesheet" />
+    </noscript>
+    <link href="../../css/tailwind-compiled.css" rel="stylesheet" />
+    <style>
+        .nav-glass {
+            background: rgba(30, 30, 30, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+        }
+
+        .btn-solid-gold {
+            background-color: #c5a059;
+            color: #333333;
+        }
+
+        .prose h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            color: #333333;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .prose h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #4A4A4A;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .prose p {
+            margin-bottom: 1.25rem;
+            line-height: 1.8;
+            color: #5A5A5A;
+        }
+
+        .prose ul {
+            list-style-type: none;
+            margin-bottom: 1.5rem;
+            padding-left: 0;
+        }
+
+        .prose ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #5A5A5A;
+            line-height: 1.6;
+        }
+
+        .prose ul li::before {
+            content: "\f00c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: #c5a059;
+            font-size: 0.875rem;
+        }
+
+        .prose .alert-box {
+            background-color: #f9f6f0;
+            border-left: 4px solid #c5a059;
+            padding: 1.25rem;
+            margin: 2rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+    </style>
+    <link rel="icon" href="../../assets/img/logotb.ico" type="image/x-icon">
+</head>
+
+<body class="antialiased bg-gray-50 flex flex-col min-h-screen">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PWWC3D8D"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <nav class="nav-glass fixed w-full z-50 top-0 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="../../" class="flex-shrink-0 flex items-center">
+                    <div class="logo-shine"><img src="../../assets/img/logo-tb-blanco.svg" alt="Logo TB Abogados"
+                            width="48" height="48"
+                            class="h-12 w-12 rounded-full border border-gold mr-3 object-cover shadow-sm"></div>
+                    <span class="font-serif text-white text-2xl font-semibold tracking-wide">TB ABOGADOS</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="../../"
+                        class="text-gray-300 hover:text-gold transition px-3 py-2 text-base font-medium">Inicio</a>
+                    <div class="relative group">
+                        <button
+                            class="text-gray-300 hover:text-gold transition px-3 py-2 text-base font-medium inline-flex items-center">Servicios
+                            <i class="fa-solid fa-chevron-down ml-1 text-sm"></i></button>
+                        <div
+                            class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <div class="py-1" role="menu">
+                                <a href="../../servicios/marcas/"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-registered text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Marcas</a>
+                                <a href="../../servicios/despidos/"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-file-signature text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Despidos</a>
+                                <a href="../../servicios/diferencia-salarial/"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-file-invoice-dollar text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Diferencias Salariales</a>
+                                <a href="../../servicios/sucesiones/"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-scale-balanced text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Sucesiones</a>
+                                <a href="../../servicios/divorcios/"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-people-roof text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Divorcios</a>
+                                <a href="../../servicios/mediaciones/"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-handshake-simple text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Mediaciones</a>
+                                <a href="../../servicios/jubilaciones/"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-clock-rotate-left text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Jubilaciones</a>
+                                <a href="../../servicios/alquileres/"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-building text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Alquileres</a>
+                                <a href="../../servicios/accidente-de-transito/"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-car-burst text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Accidentes de Tránsito</a>
+                                <a href="../../servicios/accidente-de-trabajo/"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-truck-medical text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Accidentes de Trabajo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <button
+                            class="text-gray-300 hover:text-gold transition px-3 py-2 text-base font-medium inline-flex items-center">Calculadoras
+                            <i class="fa-solid fa-chevron-down ml-1 text-sm"></i></button>
+                        <div
+                            class="absolute left-0 mt-2 w-72 whitespace-nowrap rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <div class="py-1" role="menu">
+                                <a href="../../servicios/calculadoras/calculadora-sueldo-bruto-a-neto/"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-calculator text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Sueldo Bruto a Neto</a>
+                                <a href="../../servicios/despidos/#calculadora" class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-calculator text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Indemnización por Despido</a>
+                                <a href="../../servicios/calculadoras/accidente-trabajo-calculadora/"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-calculator text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Accidente de Trabajo</a>
+                                <a href="../../servicios/calculadoras/calculadora-alquiler/"
+                                    class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-building-circle-check text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Calculadora Alquiler</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="../../guias-legales/"
+                        class="text-gray-300 hover:text-gold transition px-3 py-2 text-base font-medium">Guías
+                        Legales</a>
+                    <a href="../../nosotros/"
+                        class="text-gray-300 hover:text-gold transition px-3 py-2 text-base font-medium">Nosotros</a>
+                    <a href="../../contacto/"
+                        class="btn-solid-gold rounded-full px-6 py-2 text-base font-medium shadow-lg ml-4"> Contacto
+                    </a>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button aria-label="Abrir menú de navegación" onclick="toggleMobileMenu()"
+                        class="text-gray-300 hover:text-white p-2 rounded-md">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mob-menu" class="md:hidden hidden bg-darkblue-900 border-t border-gold border-opacity-20 pb-8 px-4">
+            <div class="mob-menu-inner space-y-6">
+                <a href="../../" class="text-gray-300 hover:text-gold block text-lg font-medium">Inicio</a>
+
+                <div class="space-y-3">
+                    <button onclick="toggleMobSubmenu('mob-servicios')" id="mob-servicios-btn"
+                        class="flex items-center text-gray-300 hover:text-gold text-lg font-medium transition-colors">
+                        Servicios
+                        <i id="mob-servicios-icon"
+                            class="fa-solid fa-chevron-down ml-2 text-sm transition-transform duration-300"></i>
+                    </button>
+                    <div id="mob-servicios"
+                        class="hidden grid grid-cols-2 gap-x-4 gap-y-2 pl-4 border-l border-gold/20">
+                        <a href="../../servicios/marcas/"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Marcas</a>
+                        <a href="../../servicios/despidos/"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Despidos</a>
+                        <a href="../../servicios/diferencia-salarial/"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Dif. Salariales</a>
+                        <a href="../../servicios/sucesiones/"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Sucesiones</a>
+                        <a href="../../servicios/divorcios/"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Divorcios</a>
+                        <a href="../../servicios/mediaciones/"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Mediaciones</a>
+                        <a href="../../servicios/jubilaciones/"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Jubilaciones</a>
+                        <a href="../../servicios/alquileres/"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Alquileres</a>
+                        <a href="../../servicios/accidente-de-transito/"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Accidente tránsito</a>
+                        <a href="../../servicios/accidente-de-trabajo/"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Accidente trabajo</a>
+                        <a href="../../servicios/"
+                            class="col-span-2 text-gold hover:text-white block py-1 text-sm italic mt-1">Ver todos los
+                            servicios...</a>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <button onclick="toggleMobSubmenu('mob-calculadoras')" id="mob-calculadoras-btn"
+                        class="flex items-center text-gray-300 hover:text-gold text-lg font-medium transition-colors">
+                        Calculadoras
+                        <i id="mob-calculadoras-icon"
+                            class="fa-solid fa-chevron-down ml-2 text-sm transition-transform duration-300"></i>
+                    </button>
+                    <div id="mob-calculadoras" class="hidden space-y-2 pl-4 border-l border-gold/20">
+                        <a href="../../servicios/calculadoras/calculadora-sueldo-bruto-a-neto/"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Sueldo Bruto a Neto</a>
+                        <a href="../../servicios/despidos/#calculadora"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Indemnización por Despido</a>
+                        <a href="../../servicios/calculadoras/accidente-trabajo-calculadora/"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Accidente de Trabajo</a>
+                        <a href="../../servicios/calculadoras/calculadora-alquiler/"
+                            class="text-gray-300 hover:text-gold block py-1 text-base">Calculadora Alquiler</a>
+                    </div>
+                </div>
+
+                <a href="../../guias-legales/" class="text-gray-300 hover:text-gold block text-lg font-medium">Guías
+                    Legales</a>
+
+                <a href="../../nosotros/" class="text-gray-300 hover:text-gold block text-lg font-medium">Nosotros</a>
+
+                <a href="../../contacto/"
+                    class="btn-solid-gold rounded-full w-full block text-center py-3 text-base font-bold shadow-lg">
+                    Contacto
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pt-32 pb-12 bg-white border-b border-gray-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex flex-wrap items-center justify-center gap-2 mb-4">
+                <span
+                    class="text-xs font-bold uppercase tracking-wider text-darkblue-900 bg-gray-100 px-3 py-1 rounded-full">Marcas</span>
+                <span class="text-xs text-gray-500">Publicado: 6 de abril de 2026</span>
+                <span class="text-xs text-gray-400">Lectura: 5 min</span>
+            </div>
+            <h1 class="font-serif text-4xl md:text-5xl text-darkblue-900 leading-tight mb-6">Marcas y UMAPI en el INPI: qué cambió con los aranceles en 2026</h1>
+            <p class="text-xl text-gray-500 max-w-2xl mx-auto">
+                Una guía clara para entender el nuevo cuadro arancelario del INPI, la creación de la UMAPI y el impacto práctico en solicitudes, renovaciones y oposiciones de marcas.
+            </p>
+        </div>
+    </header>
+
+    <main class="py-12 bg-gray-50 flex-grow w-full">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-8">
+
+            <article class="md:w-2/3 prose">
+                <img src="../../assets/img/portadas-guias/marca-imagen.jpg"
+                    alt="Aranceles de marcas y UMAPI en el INPI" class="w-full h-auto rounded-xl shadow-md mb-10 object-cover"
+                    loading="lazy" decoding="async">
+
+                <p>El <strong>INPI</strong> actualizó en 2026 su cuadro arancelario y, al mismo tiempo, creó una nueva unidad de referencia para sus trámites: la <strong>Unidad de Medida Arancelaria de la Propiedad Industrial (UMAPI)</strong>. La medida fue dispuesta por la <strong>Resolución INPI 75/2026</strong>, dictada el <strong>18 de marzo de 2026</strong> y publicada en el Boletín Oficial el <strong>20 de marzo de 2026</strong>.</p>
+
+                <p>Para quienes trabajan con marcas, el cambio no es menor: primero subieron los importes en pesos desde el <strong>1 de abril de 2026</strong> y, luego, a partir del <strong>1 de mayo de 2026</strong>, esos aranceles pasan a quedar expresados en UMAPIs, con <strong>actualización mensual por IPC</strong>.</p>
+
+                <h2>¿Qué es la UMAPI?</h2>
+                <p>La UMAPI es una unidad de medida creada para expresar gran parte de los aranceles de propiedad industrial del INPI. Su valor inicial fue fijado como la <strong>centésima parte</strong> del arancel de una <strong>solicitud de marca nueva</strong>, en una clase, con hasta 20 indicaciones de productos o servicios.</p>
+
+                <p>Eso significa que el valor de arranque quedó en <strong>$360 por UMAPI</strong>, porque la solicitud base de marca pasó a <strong>$36.000</strong>. A partir de allí, el valor en pesos de la unidad se actualiza según el <strong>Índice de Precios al Consumidor (IPC)</strong> publicado por el INDEC.</p>
+
+                <h2>¿Desde cuándo cambió el costo de las marcas?</h2>
+                <p>La reforma funciona en dos tiempos. Por un lado, la Resolución 75/2026 actualizó los aranceles en pesos a partir del <strong>1 de abril de 2026</strong>. Por otro, dispuso que el sistema UMAPI sea <strong>operativo desde el 1 de mayo de 2026</strong>, con una actualización automática mensual.</p>
+
+                <p>El propio texto oficial aclara que el valor ajustado rige desde el <strong>primer día del mes siguiente</strong> a la publicación del índice IPC correspondiente. Por eso, desde mayo en adelante ya no alcanza con recordar un monto fijo: habrá que verificar el valor vigente de la UMAPI en el portal de trámites del INPI antes de cada presentación.</p>
+
+                <p>Además, la normativa fue luego complementada por la <strong>Resolución INPI 78/2026</strong>, que sustituyó el anexo por una rectificación vinculada a un arancel de <strong>modelos de utilidad</strong>. Esa corrección no modifica los ejemplos marcarios destacados en esta nota.</p>
+
+                <h2>¿Qué impacto práctico tiene para quienes gestionan marcas?</h2>
+                <p>La principal consecuencia es presupuestaria. Hasta marzo de 2026 los aranceles podían quedar congelados durante largos períodos. Con la UMAPI, en cambio, el valor en pesos deja de ser estático y pasa a moverse con el IPC.</p>
+
+                <ul>
+                    <li><strong>Presupuestos más cortos:</strong> una cotización preparada hoy puede quedar desactualizada al mes siguiente.</li>
+                    <li><strong>Mayor necesidad de control:</strong> antes de presentar una solicitud, renovación u oposición conviene verificar el valor vigente en el portal del INPI.</li>
+                    <li><strong>Planificación de vencimientos:</strong> renovar una marca o sostener una oposición ya requiere mirar calendario y costos con más anticipación.</li>
+                    <li><strong>Seguimiento permanente:</strong> desde mayo de 2026 la referencia útil pasa a ser la cantidad de UMAPIs y no solo el valor nominal en pesos.</li>
+                </ul>
+
+                <h2>¿Cómo podemos ayudarte?</h2>
+                <p>En nuestro estudio asesoramos en <strong>búsquedas previas, solicitudes de marcas, renovaciones, oposiciones, nulidades, caducidades y seguimiento integral ante el INPI</strong>. Frente a un sistema arancelario que ahora se actualiza mensualmente, también acompañamos en la <strong>planificación del costo y del momento de presentación</strong> para cada trámite.</p>
+
+                <div
+                    class="mt-12 p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col sm:flex-row items-center sm:items-start gap-6">
+                    <img src="https://tbabogados.com.ar/assets/img/dra-bulgheroni-portada.avif"
+                        alt="Dra. Florencia Bulgheroni"
+                        class="w-24 h-24 rounded-full object-cover border-2 border-gold/30" loading="lazy"
+                        decoding="async">
+                    <div>
+                        <h4 class="font-serif text-xl text-darkblue-900 mb-1">Dra. Florencia Bulgheroni</h4>
+                        <p class="text-xs text-gold font-semibold uppercase tracking-wider mb-2">Socia Abogada</p>
+                        <p class="text-sm text-gray-600 mb-0">
+                            Abogada egresada de la UBA, matrícula CPACF Tº 137 Fº 145 y Agente de la Propiedad
+                            Industrial, matrícula INPI 2971.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="ymyl-disclaimer-card">
+                    <p><strong>Importante:</strong> Este material brinda información general y no reemplaza el asesoramiento legal personalizado. En materia marcaria, el costo y la estrategia pueden variar según el tipo de trámite, el momento de presentación y el valor mensual vigente de la UMAPI.</p>
+                </div>
+            </article>
+
+            <aside class="md:w-1/3">
+                <div class="space-y-6">
+                    <div class="sticky top-28 bg-white border-t-4 border-gold rounded-xl shadow-lg p-6 text-center">
+                        <div
+                            class="w-16 h-16 bg-gold-light rounded-full flex items-center justify-center text-gold text-3xl mx-auto mb-4">
+                            <i class="fa-solid fa-registered"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl text-darkblue-900 mb-2">¿Necesitás registrar o renovar tu marca?</h3>
+                        <p class="text-gray-500 text-sm mb-6">
+                            Te ayudamos a presupuestar correctamente el trámite, presentar ante el INPI y seguir cada etapa con control de plazos y estrategia.
+                        </p>
+                        <a href="https://wa.me/5491122511243?text=Hola!%20Le%C3%AD%20la%20nota%20sobre%20UMAPI%20y%20aranceles%20de%20marcas%20en%20el%20INPI%20y%20necesito%20asesoramiento"
+                            class="w-full bg-[#25D366] hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 mb-3">
+                            <i class="fa-brands fa-whatsapp text-xl"></i> Consultar por WhatsApp
+                        </a>
+                        <a href="../../servicios/marcas/"
+                            class="w-full block border-2 border-darkblue-900 text-darkblue-900 font-bold py-3 px-4 rounded-lg hover:bg-darkblue-900 hover:text-white transition-colors">
+                            Ver Servicio de Marcas
+                        </a>
+                    </div>
+
+                    <div class="ymyl-meta-card" style="margin-bottom: 0;">
+                        <p class="ymyl-meta-intro">Contenido redactado y revisado por profesionales matriculados de TB Abogados. La última revisión normativa de esta guía se realizó el 6 de abril de 2026.</p>
+                        <div class="ymyl-meta-grid">
+                            <div class="ymyl-meta-item">
+                                <span class="ymyl-meta-label">Redacción</span>
+                                <span class="ymyl-meta-value"><a href="../../dra-bulgheroni/">Dra. Florencia Bulgheroni</a><br>CPACF Tº 137 Fº 145 · INPI 2971</span>
+                            </div>
+                            <div class="ymyl-meta-item">
+                                <span class="ymyl-meta-label">Revisión legal</span>
+                                <span class="ymyl-meta-value"><a href="../../dr-bulgheroni/">Dr. Daniel Bulgheroni</a><br>CPACF Tº 135 Fº 166</span>
+                            </div>
+                            <div class="ymyl-meta-item">
+                                <span class="ymyl-meta-label">Publicado</span>
+                                <span class="ymyl-meta-value">6 de abril de 2026</span>
+                            </div>
+                            <div class="ymyl-meta-item">
+                                <span class="ymyl-meta-label">Actualizado</span>
+                                <span class="ymyl-meta-value">6 de abril de 2026</span>
+                            </div>
+                            <div class="ymyl-meta-item">
+                                <span class="ymyl-meta-label">Jurisdicción</span>
+                                <span class="ymyl-meta-value">Argentina · INPI</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <section class="ymyl-sources-card" style="margin-top: 0;" aria-labelledby="fuentes-umapi-marcas">
+                        <span class="ymyl-sources-eyebrow">Fuentes consultadas</span>
+                        <h2 id="fuentes-umapi-marcas" class="ymyl-sources-title">Normativa y publicaciones oficiales</h2>
+                        <p class="ymyl-sources-text">Esta nota fue contrastada con la normativa vigente y con la publicación oficial del Boletín Oficial de la República Argentina.</p>
+                        <ul class="ymyl-sources-list">
+                            <li><a href="https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-75-2026-424092/texto" target="_blank" rel="noopener noreferrer">Resolución INPI 75/2026 - texto oficial en Argentina.gob.ar</a></li>
+                            <li><a href="https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-78-2026-424197/texto" target="_blank" rel="noopener noreferrer">Resolución INPI 78/2026 - rectificación posterior del anexo oficial</a></li>
+                            <li><a href="https://www.boletinoficial.gob.ar/detalleAviso/primera/339726/20260320" target="_blank" rel="noopener noreferrer">Boletín Oficial - publicación de la Resolución INPI 75/2026</a></li>
+                        </ul>
+                    </section>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="bg-darkblue-900 text-white pt-20 pb-10 border-t-4 border-gold">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <span class="text-gold text-3xl mr-2"><i class="fa-solid fa-scale-balanced"></i></span>
+                        <span class="font-serif text-2xl font-semibold tracking-wide">TB Abogados</span>
+                    </div>
+                    <p class="text-gray-300 mb-6 max-w-md">
+                        En defensa de tus derechos. Estudio jurídico con más de 30 años acompañando a nuestros clientes
+                        con excelencia, integridad y resultados reales en CABA y toda Argentina.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-300 hover:bg-gold hover:text-white transition"
+                            href="https://www.facebook.com/estudiotbabogados/" target="_blank"
+                            aria-label="Visita nuestro Facebook">
+                            <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+                        </a>
+                        <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-300 hover:bg-gold hover:text-white transition"
+                            href="https://www.instagram.com/tbabogados/" target="_blank"
+                            aria-label="Visita nuestro Instagram">
+                            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                        </a>
+                        <a class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-300 hover:bg-gold hover:text-white transition"
+                            href="https://www.linkedin.com/company/tbabogados/" target="_blank"
+                            aria-label="Síguenos en LinkedIn">
+                            <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-serif text-xl mb-6 text-gold">Enlaces Rápidos</h4>
+                    <ul class="space-y-3">
+                        <li><a class="text-gray-300 hover:text-white transition" href="../../">Inicio</a></li>
+                        <li><a class="text-gray-300 hover:text-white transition" href="../../nosotros/">Estudio</a></li>
+                        <li><a class="text-gray-300 hover:text-white transition" href="../../servicios/">Áreas de
+                                Práctica</a></li>
+                        <li><a class="text-gray-300 hover:text-white transition" href="../../guias-legales/">Guías
+                                Legales</a></li>
+                        <li><a class="text-gray-300 hover:text-white transition"
+                                href="../../servicios/despidos/#calculadora">Calculadoras
+                                Legales</a></li>
+                        <li><a class="text-gray-300 hover:text-white transition" href="../../contacto/">Contacto</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-serif text-xl mb-6 text-gold">Contáctenos</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-location-dot mt-1 text-gold mr-3"></i>
+                            <a href="https://maps.app.goo.gl/xHdZT67tbKFbgXrE7" target="_blank"
+                                class="hover:text-white transition">
+                                <span class="text-gray-300 hover:text-white transition">Paraná 439,<br />C1017 Cdad.
+                                    Autónoma de Buenos Aires</span>
+                            </a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-phone text-gold mr-3"></i>
+                            <a href="tel:+5491122511243" class="text-gray-300 hover:text-white transition">+54 9 11
+                                2251-1243</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-envelope text-gold mr-3"></i>
+                            <a class="text-gray-300 hover:text-white transition"
+                                href="mailto:consultas@tbabogados.com.ar">consultas@tbabogados.com.ar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between text-gray-400 text-sm">
+                <p>© 2026 TB ABOGADOS (Estudio Tassara &amp; Bulgheroni). Todos los derechos reservados.</p>
+                <div class="mt-4 md:mt-0 space-x-4">
+                    <a class="text-gray-400 hover:text-white transition" href="../../terminos-y-condiciones/">Términos y
+                        Condiciones</a>
+                    <a class="text-gray-400 hover:text-white transition" href="../../politica-privacidad">Política de
+                        Privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script defer src="../../js/main.js"></script>
+</body>
+
+</html>
