@@ -228,6 +228,89 @@ function bindCloseMobileMenuOnOutsideTap() {
     });
 }
 
+function setWhyChooseItemState(item, isOpen, isMobile) {
+    const content = item.querySelector('.why-choose-content');
+    if (!content) return;
+
+    item.dataset.open = isOpen ? 'true' : 'false';
+    item.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+    if (isMobile) {
+        content.classList.toggle('hidden', !isOpen);
+    } else {
+        content.classList.remove('hidden');
+    }
+}
+
+function initWhyChooseUsMobileToggle() {
+    const grid = document.getElementById('why-choose-us-grid');
+    if (!grid) return;
+
+    const items = Array.from(grid.querySelectorAll('.why-choose-item'));
+    if (!items.length) return;
+
+    const mobileQuery = window.matchMedia('(max-width: 767px)');
+
+    const applyViewportState = () => {
+        const isMobile = mobileQuery.matches;
+
+        items.forEach((item) => {
+            if (isMobile) {
+                item.setAttribute('role', 'button');
+                item.setAttribute('tabindex', '0');
+            } else {
+                item.removeAttribute('role');
+                item.removeAttribute('tabindex');
+            }
+        });
+
+        if (isMobile) {
+            items.forEach((item) => {
+                const isOpen = item.dataset.open === 'true';
+                setWhyChooseItemState(item, isOpen, true);
+            });
+            return;
+        }
+
+        items.forEach((item) => {
+            setWhyChooseItemState(item, true, false);
+        });
+    };
+
+    const toggleItem = (activeItem) => {
+        if (!mobileQuery.matches) return;
+
+        const shouldOpen = activeItem.dataset.open !== 'true';
+
+        items.forEach((item) => {
+            setWhyChooseItemState(item, item === activeItem ? shouldOpen : false, true);
+        });
+    };
+
+    items.forEach((item) => {
+        item.dataset.open = 'false';
+        item.setAttribute('aria-expanded', 'false');
+
+        item.addEventListener('click', () => {
+            toggleItem(item);
+        });
+
+        item.addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            event.preventDefault();
+            toggleItem(item);
+        });
+    });
+
+    if (typeof mobileQuery.addEventListener === 'function') {
+        mobileQuery.addEventListener('change', applyViewportState);
+    } else if (typeof mobileQuery.addListener === 'function') {
+        mobileQuery.addListener(applyViewportState);
+    }
+
+    applyViewportState();
+}
+
 // Mobile Submenu Accordion Toggle
 function toggleMobSubmenu(submenuId) {
     const submenu = document.getElementById(submenuId);
@@ -330,6 +413,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const initialScrollY = getScrollY();
 
     bindCloseMobileMenuOnOutsideTap();
+    initWhyChooseUsMobileToggle();
 
     // Run before major DOM writes to avoid forced reflow after style invalidation.
     updateNavOnScroll(initialScrollY);
