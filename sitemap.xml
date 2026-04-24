@@ -154,6 +154,18 @@
 
     <!-- Calculators -->
     <url>
+        <loc>https://tbabogados.com.ar/servicios/calculadoras/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://tbabogados.com.ar/servicios/calculadoras/calculadora-despido/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
         <loc>https://tbabogados.com.ar/servicios/calculadoras/calculadora-sueldo-bruto-a-neto/</loc>
         <lastmod>2026-03-12</lastmod>
         <changefreq>monthly</changefreq>

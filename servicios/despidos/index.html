@@ -360,7 +360,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             class="absolute left-0 mt-2 w-72 whitespace-nowrap rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
                             <div class="py-1" role="menu">
                                 <a href=".././calculadoras/calculadora-sueldo-bruto-a-neto" class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-calculator text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Sueldo Bruto a Neto</a>
-                                <a href=".././despidos#calculadora" class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-calculator text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Indemnización por Despido</a>
+                                <a href=".././calculadoras/calculadora-despido/" class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-calculator text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Indemnización por Despido</a>
                                 <a href=".././calculadoras/accidente-trabajo-calculadora" class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-calculator text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Accidente de Trabajo</a>
                                 <a href=".././calculadoras/calculadora-alquiler" class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-building-circle-check text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Calculadora Alquiler</a>
                                 <a href=".././calculadoras/calculadora-jubilacion" class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-clock-rotate-left text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Calculadora Jubilación</a>
@@ -433,7 +433,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <div id="mob-calculadoras" class="hidden space-y-2 pl-4 border-l border-gold/20">
                         <a href="../../servicios/calculadoras/calculadora-sueldo-bruto-a-neto/"
                             class="text-gray-300 hover:text-gold block py-1 text-base">Sueldo Bruto a Neto</a>
-                        <a href="../../servicios/despidos/#calculadora"
+                        <a href="../../servicios/calculadoras/calculadora-despido/"
                             class="text-gray-300 hover:text-gold block py-1 text-base">Indemnización por Despido</a>
                         <a href="../../servicios/calculadoras/accidente-trabajo-calculadora/"
                             class="text-gray-300 hover:text-gold block py-1 text-base">Accidente de Trabajo</a>
@@ -474,7 +474,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </p>
             <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <a class="btn-solid-gold px-6 py-3 sm:px-8 sm:py-4 rounded-full font-bold text-base sm:text-lg inline-flex items-center gap-2 shadow-lg transition-all hover:scale-105"
-                    href="#calculadora">
+                    href="../calculadoras/calculadora-despido/">
                     Calcular mi indemnización <i class="fa-solid fa-calculator"></i>
                 </a>
                 <a class="bg-[#25D366] text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full font-bold text-base sm:text-lg inline-flex items-center gap-2 shadow-lg transition-all hover:scale-105"
@@ -554,122 +554,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
             </div>
         </div>
-        <!-- Calculator -->
-        <div class="mb-24 max-w-6xl mx-auto px-4" id="calculadora">
-            <div class="text-center mb-10">
-                <h2 class="text-gold font-medium tracking-widest uppercase text-xs mb-3">HERRAMIENTAS GRATUITAS</h2>
-                <h3 class="font-serif text-3xl md:text-4xl text-darkblue-900 leading-tight">Calculá tu Indemnización
-                </h3>
-                <p class="text-gray-500 mt-2 max-w-2xl mx-auto text-sm">Actualizada según Ley Bases (Ley 27.742) y
-                    Reforma Laboral 2026. El resultado es una estimación orientativa.</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-                <!-- Form -->
-                <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-8">
-                    <h2 class="font-serif text-xl text-darkblue-900 mb-6 flex items-center gap-2">
-                        <span class="w-8 h-8 rounded-full bg-gold flex items-center justify-center text-white text-sm">
-                            <i class="fa-solid fa-calculator"></i>
-                        </span>
-                        Datos para el cálculo
-                    </h2>
-
-                    <div class="space-y-5">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="calc-label text-xs" for="ingreso">Fecha de ingreso</label>
-                                <input class="calc-input py-2.5 text-sm" id="ingreso" type="date" />
-                            </div>
-                            <div>
-                                <label class="calc-label text-xs" for="despido">Fecha de despido</label>
-                                <input class="calc-input py-2.5 text-sm" id="despido" type="date" />
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="calc-label text-xs" for="sueldo">Mejor sueldo bruto mensual ($)</label>
-                            <div class="relative">
-                                <span
-                                    class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-semibold text-sm pointer-events-none"></span>
-                                <input class="calc-input pl-7 py-2.5 text-sm" id="sueldo" placeholder="Ej: 1.500.000"
-                                    type="text" inputmode="numeric" oninput="formatMiles(this)" />
-                            </div>
-                            <p class="text-[10px] text-gray-400 mt-1 italic">Excluir aguinaldo (SAC) y bonos semestrales
-                                según Ley 27.742.</p>
-                        </div>
-
-                        <div>
-                            <label class="calc-label text-xs" for="tamano-empresa">Período de prueba</label>
-                            <select
-                                class="calc-input py-2.5 text-sm appearance-none"
-                                id="tamano-empresa"
-                                style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23c5a059%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C/polyline%3E%3C/svg%3E');">
-                                <option value="6">6 meses (Empresa general)</option>
-                                <option value="8">8 meses (Empresa mediana)</option>
-                                <option value="12">12 meses (Empresa pequeña)</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="calc-label text-xs" for="preaviso">¿El empleador otorgó preaviso?</label>
-                            <select
-                                class="calc-input py-2.5 text-sm appearance-none"
-                                id="preaviso"
-                                style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23c5a059%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C/polyline%3E%3C/svg%3E');">
-                                <option value="no">No</option>
-                                <option value="si">Sí</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button type="button" onclick="calcularIndemnizacion()"
-                        class="w-full bg-gold text-white font-bold py-3 px-4 rounded-xl mt-6 hover:bg-opacity-90 transition shadow-md">
-                        Calcular indemnización estimada
-                    </button>
-                </div>
-
-                <!-- Results Panel -->
-                <div id="panelResultado" class="lg:sticky lg:top-28 space-y-6" style="scroll-margin-top: 140px;">
-                    <!-- Placeholder -->
-                    <div id="resultadoPlaceholder"
-                        class="bg-white rounded-2xl shadow-md border border-gray-100 p-10 flex flex-col items-center justify-center text-center min-h-[350px]">
-                        <div
-                            class="w-20 h-20 rounded-full bg-gold/10 flex items-center justify-center text-gold text-3xl mb-4">
-                            <i class="fa-solid fa-file-invoice-dollar"></i>
-                        </div>
-                        <h3 class="font-serif text-xl text-darkblue-900 mb-2">Tu liquidación estimada</h3>
-                        <p class="text-gray-400 text-sm max-w-xs">Completá los datos del formulario para ver el desglose
-                            detallado de tu indemnización.</p>
-                    </div>
-
-                    <!-- Result Data -->
-                    <div id="resultadoPanel" class="hidden space-y-6">
-                        <div class="result-total text-center shadow-xl">
-                            <p class="text-white text-sm font-medium mb-1 opacity-80">💰 <span
-                                    class="text-orange-500">Total Estimada Bruta</span></p>
-                            <p id="calc-total-valor" class="text-4xl font-bold tracking-tight text-orange-500">$0</p>
-                            <p class="text-white text-xs mt-2 opacity-70 italic">* Sujeto a descuentos de ley y aportes
-                            </p>
-                        </div>
-
-                        <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-8">
-                            <h3
-                                class="font-semibold text-darkblue-900 mb-4 text-xs uppercase tracking-widest flex items-center gap-2">
-                                <i class="fa-solid fa-list-check text-gold"></i> Conceptos incluidos
-                            </h3>
-                            <div id="calc-items" class="space-y-1"></div>
-                        </div>
-
-                        <a id="calc-wa" href="#" target="_blank"
-                            class="flex items-center justify-center gap-3 bg-[#25D366] text-white font-bold text-lg py-4 rounded-xl hover:bg-[#1fba59] transition-all shadow-lg hover:scale-[1.02]">
-                            <i class="fa-brands fa-whatsapp text-2xl"></i> Hablar con un abogado ahora
-                        </a>
-
-                        <p class="text-[10px] text-gray-400 text-center uppercase tracking-widest leading-relaxed px-4">
-                            Cálculo basado en LCT 20.744 y modificaciones Ley 27.742. No constituye una liquidación
-                            definitiva.
-                        </p>
-                    </div>
-                </div>
+        <!-- Calculadora diferenciada -->
+        <div class="mb-24 max-w-5xl mx-auto px-4">
+            <div class="bg-darkblue-900 rounded-2xl shadow-xl p-8 md:p-12 text-center">
+                <p class="text-gold font-medium tracking-widest uppercase text-sm mb-3">Herramienta gratuita</p>
+                <h2 class="font-serif text-3xl text-white mb-4">Calculadora de Indemnización por Despido</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto mb-7">
+                    La calculadora ahora tiene una página propia con SEO, esquema WebApplication, fuentes oficiales y un desglose más claro de la liquidación.
+                </p>
+                <a class="inline-flex btn-solid-gold px-8 py-3 rounded-full font-bold items-center gap-3 shadow-xl transition-all hover:scale-105"
+                    href="../calculadoras/calculadora-despido/">
+                    Abrir calculadora <i class="fa-solid fa-calculator"></i>
+                </a>
             </div>
         </div>
 
@@ -894,7 +790,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <li><a class="text-gray-300 hover:text-white transition" href="../../guias-legales/">Guías
                                     Legales</a></li>
                             <li><a class="text-gray-300 hover:text-white transition"
-                                    href=".././despidos#calculadora">Calculadoras
+                                    href=".././calculadoras/">Calculadoras
                                     Legales</a></li>
                             <li><a class="text-gray-300 hover:text-white transition" href="../../contacto/">Contacto</a>
                             </li>
