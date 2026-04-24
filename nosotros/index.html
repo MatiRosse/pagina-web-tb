@@ -427,66 +427,87 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </section>
 
-        <!-- Reviews Section (Nosotros) -->
-        <div class="mt-24 bg-gray-50 py-16 px-4 rounded-3xl border border-gray-100">
-            <div class="max-w-7xl mx-auto text-center mb-12">
-                <p class="text-gold font-medium tracking-widest uppercase text-base mb-4">CONFIANZA Y RESULTADOS</p>
-                <h2 class="font-serif text-4xl text-darkblue-900 leading-tight">Lo que dicen nuestros clientes</h2>
+        <!-- Google Reviews Section -->
+        <div id="reviews-section" class="bg-white py-16 px-4 sm:px-6 lg:px-8 mb-8 mt-24">
+            <div class="max-w-7xl mx-auto text-center mb-10">
+                <h2 class="text-gold font-medium tracking-widest uppercase text-base mb-4">CONFIANZA Y RESULTADOS</h2>
+                <h3 class="font-serif text-4xl text-darkblue-900 leading-tight">Lo que dicen nuestros clientes</h3>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Review 1 -->
-                <div
-                    class="bg-white p-8 rounded-2xl shadow-sm border border-gray-50 flex flex-col items-center text-center relative hover:shadow-md transition-shadow">
-                    <div
-                        class="absolute -top-5 bg-white p-2 text-[#4285F4] text-3xl rounded-full shadow-sm border border-gray-100">
-                        <i class="fa-brands fa-google"></i>
+            <div class="max-w-7xl mx-auto">
+
+                <!-- Google My Business Rating Summary -->
+                <div class="flex flex-col md:flex-row items-center justify-center gap-6 mb-12">
+                    <div class="flex items-center gap-2 text-gold text-2xl">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
                     </div>
-                    <div class="text-gold text-sm mb-4 mt-2">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="text-gray-600 italic mb-6 leading-relaxed flex-1">"Gracias por la
-                        confidencialidad, profesionalismo y dedicación. Hacen un gran equipo! Excelente
-                        servicio"</p>
-                    <div>
-                        <h3 class="font-bold text-darkblue-900">Ana S.</h3>
-                    </div>
-                </div>
-                <!-- Review 2 -->
-                <div
-                    class="bg-white p-8 rounded-2xl shadow-sm border border-gray-50 flex flex-col items-center text-center relative hover:shadow-md transition-shadow">
-                    <div
-                        class="absolute -top-5 bg-white p-2 text-[#4285F4] text-3xl rounded-full shadow-sm border border-gray-100">
-                        <i class="fa-brands fa-google"></i>
-                    </div>
-                    <div class="text-gold text-sm mb-4 mt-2">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="text-gray-600 italic mb-6 leading-relaxed flex-1">"Excelente servicio y muy
-                        confiables."</p>
-                    <div>
-                        <h3 class="font-bold text-darkblue-900">Nicolás P.</h3>
+                    <div class="text-center md:text-left">
+                        <p class="font-serif text-2xl text-darkblue-900 font-bold mb-1">Excelente 5.0 de 5</p>
+                        <p class="text-gray-500 text-sm">Basado en <a
+                                href="https://www.google.com/maps/place/TB+Abogados/@-34.6036209,-58.3903433,17z/data=!4m8!3m7!1s0x95bccbda1e2e81df:0xdf0ef7c1c500ed15!8m2!3d-34.6036253!4d-58.3877684!9m1!1b1!16s%2Fg%2F11rspfgx3c?entry=ttu&g_ep=EgoyMDI2MDMwNC4xIKXMDSoASAFQAw%3D%3D"
+                                target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-medium">41 opiniones en
+                                Google Maps</a>
+                        </p>
                     </div>
                 </div>
-                <!-- Review 3 -->
-                <div
-                    class="bg-white p-8 rounded-2xl shadow-sm border border-gray-50 flex flex-col items-center text-center relative hover:shadow-md transition-shadow">
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Review 1 -->
                     <div
-                        class="absolute -top-5 bg-white p-2 text-[#4285F4] text-3xl rounded-full shadow-sm border border-gray-100">
-                        <i class="fa-brands fa-google"></i>
+                        class="bg-gray-50 p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center relative hover:shadow-md transition-shadow">
+                        <div
+                            class="absolute -top-5 bg-white p-2 text-[#4285F4] text-3xl rounded-full shadow-sm border border-gray-100">
+                            <i class="fa-brands fa-google"></i>
+                        </div>
+                        <div class="text-gold text-sm mb-4 mt-2">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-600 italic mb-6 leading-relaxed flex-1">"Gracias por la confidencialidad,
+                            profesionalismo y dedicación. Hacen un gran equipo! Excelente servicio"</p>
+                        <div>
+                            <h3 class="font-bold text-darkblue-900">Ana S.</h3>
+                        </div>
                     </div>
-                    <div class="text-gold text-sm mb-4 mt-2">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i>
+                    <!-- Review 2 -->
+                    <div
+                        class="bg-gray-50 p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center relative hover:shadow-md transition-shadow">
+                        <div
+                            class="absolute -top-5 bg-white p-2 text-[#4285F4] text-3xl rounded-full shadow-sm border border-gray-100">
+                            <i class="fa-brands fa-google"></i>
+                        </div>
+                        <div class="text-gold text-sm mb-4 mt-2">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-600 italic mb-6 leading-relaxed flex-1">"Excelente servicio y muy
+                            confiables."</p>
+                        <div>
+                            <h3 class="font-bold text-darkblue-900">Nicolás P.</h3>
+                        </div>
                     </div>
-                    <p class="text-gray-600 italic mb-6 leading-relaxed flex-1">"Excelente servicio, todos muy
-                        amables y eficientes"</p>
-                    <div>
-                        <h3 class="font-bold text-darkblue-900">Lucía N.</h3>
+                    <!-- Review 3 -->
+                    <div
+                        class="bg-gray-50 p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center relative hover:shadow-md transition-shadow">
+                        <div
+                            class="absolute -top-5 bg-white p-2 text-[#4285F4] text-3xl rounded-full shadow-sm border border-gray-100">
+                            <i class="fa-brands fa-google"></i>
+                        </div>
+                        <div class="text-gold text-sm mb-4 mt-2">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-600 italic mb-6 leading-relaxed flex-1">"Excelente servicio, todos muy
+                            amables y eficientes"</p>
+                        <div>
+                            <h3 class="font-bold text-darkblue-900">Lucía N.</h3>
+                        </div>
                     </div>
                 </div>
             </div>

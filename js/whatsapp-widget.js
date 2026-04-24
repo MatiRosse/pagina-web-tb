@@ -564,11 +564,6 @@
                 prompt: "¿Cuál es tu teléfono o celular?",
                 placeholder: "Escribí tu teléfono o celular",
             },
-            {
-                key: "email",
-                prompt: "¿Cuál es tu correo electrónico?",
-                placeholder: "Escribí tu correo electrónico",
-            },
         ];
     }
 
@@ -604,19 +599,6 @@
                 return {
                     valid: false,
                     error: "Necesito un teléfono o celular válido para contactarte.",
-                };
-            }
-
-            return { valid: true, value: trimmedText, display: trimmedText };
-        }
-
-        if (question.key === "email") {
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            if (!emailPattern.test(trimmedText)) {
-                return {
-                    valid: false,
-                    error: "Ese correo no parece válido. ¿Podés escribirlo de nuevo?",
                 };
             }
 
