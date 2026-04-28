@@ -619,12 +619,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label class="calc-label" for="edadActual"><i class="fa-solid fa-calendar-days text-gold mr-1"></i>Edad actual</label>
-                                <input class="calc-input" type="text" id="edadActual" inputmode="numeric" autocomplete="off" enterkeyhint="next" required aria-describedby="edadActualError" aria-invalid="false" placeholder="Ej: 60" oninput="recalcJubilacion()">
+                                <input class="calc-input" type="text" id="edadActual" inputmode="numeric" autocomplete="off" enterkeyhint="next" required aria-describedby="edadActualError" aria-invalid="false" placeholder="Ej: 60">
                                 <p id="edadActualError" class="field-error hidden" aria-live="polite"></p>
                             </div>
                             <div>
                                 <label class="calc-label" for="aniosAportes"><i class="fa-solid fa-briefcase text-gold mr-1"></i>Años de aportes registrados</label>
-                                <input class="calc-input" type="text" id="aniosAportes" inputmode="numeric" autocomplete="off" enterkeyhint="done" required aria-describedby="aniosAportesHelp aniosAportesError" aria-invalid="false" placeholder="Ej: 30" oninput="recalcJubilacion()">
+                                <input class="calc-input" type="text" id="aniosAportes" inputmode="numeric" autocomplete="off" enterkeyhint="done" required aria-describedby="aniosAportesHelp aniosAportesError" aria-invalid="false" placeholder="Ej: 30">
                                 <p id="aniosAportesHelp" class="field-help">Ingresá años completos de aportes.</p>
                                 <p id="aniosAportesError" class="field-error hidden" aria-live="polite"></p>
                             </div>
@@ -633,10 +633,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <div class="info-box">
                             <p class="text-base text-gray-700 leading-relaxed"><strong class="text-darkblue-900">Importante:</strong> esta calculadora es orientativa y usa solo los requisitos generales de jubilación ordinaria.</p>
                         </div>
+
+                        <button type="button" onclick="calcularJubilacion()" class="w-full bg-gold text-white font-bold py-3 px-4 rounded-xl hover:bg-opacity-90 transition shadow-md">
+                            Calcular jubilación estimada
+                        </button>
                     </div>
                 </div>
 
-                <div class="space-y-4 lg:sticky lg:top-28 self-start">
+                <div id="panelResultado" class="space-y-4 lg:sticky lg:top-28 self-start" style="scroll-margin-top: 140px;">
                     <div id="resultadoPlaceholder" class="placeholder-card shadow-lg p-8 text-center">
                         <div class="w-16 h-16 rounded-full bg-gold/10 flex items-center justify-center text-gold text-2xl mb-4 mx-auto">
                             <i class="fa-solid fa-clock-rotate-left"></i>
@@ -941,6 +945,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         };
 
         let currentRegimen = 'mujer';
+        let hasCalculated = false;
 
         function formatYears(value) {
             return new Intl.NumberFormat('es-AR', {
@@ -1049,7 +1054,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             document.querySelectorAll('[data-regimen-card]').forEach((card) => {
                 card.classList.toggle('is-active', card.dataset.regimenCard === regimen);
             });
-            recalcJubilacion();
+            if (hasCalculated) {
+                recalcJubilacion();
+            }
         }
 
         function setMetricBadge(id, isOk) {
@@ -1156,6 +1163,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const aportesOk = computableAportes >= 30;
             setMetricBadge('metricEdadRequeridaStatus', ageOk);
             setMetricBadge('metricFaltantesStatus', aportesOk);
+        }
+
+        function calcularJubilacion() {
+            hasCalculated = true;
+            recalcJubilacion();
+
+            if (window.innerWidth < 1024) {
+                document.getElementById('panelResultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
 
         function toggleFaq(button) {
