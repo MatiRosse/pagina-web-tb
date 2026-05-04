@@ -225,6 +225,10 @@ window.dataLayer.push({
             font-family: 'Inter', sans-serif;
         }
 
+        .calc-form-fields {
+            width: 100%;
+        }
+
         .regimen-grid,
         .metric-grid {
             display: grid;
@@ -258,6 +262,11 @@ window.dataLayer.push({
             border-color: #c5a059;
             background: #f9f6f0;
             box-shadow: 0 18px 38px -28px rgba(197, 160, 89, .45);
+        }
+
+        .regimen-card.is-invalid {
+            border-color: #dc2626;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, .08);
         }
 
         .regimen-title {
@@ -453,6 +462,14 @@ window.dataLayer.push({
                 order: -1;
             }
         }
+
+        @media (max-width: 767px) {
+            .calc-form-fields {
+                max-width: 28rem;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
     </style>
     <link rel="icon" href="../../../assets/img/logotb.ico" type="image/x-icon">
 </head>
@@ -607,19 +624,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div id="calculadoraJubilacionLayout" class="max-w-6xl mx-auto calc-layout">
                 <div class="panel-shell border border-gray-200 shadow-xl p-6 sm:p-8">
                     <div class="mb-8">
-                        <h2 class="font-serif text-3xl text-darkblue-900 mb-3">Completá solo 2 datos</h2>
+                        <h2 class="font-serif text-3xl text-darkblue-900 mb-3">Completá tus datos</h2>
                     </div>
 
-                    <div class="space-y-6">
+                    <div class="calc-form-fields space-y-6">
                         <div>
-                            <div class="regimen-grid">
-                                <button type="button" class="regimen-card is-active" data-regimen-card="mujer" onclick="setRegimen('mujer')">
+                            <div id="regimenGroup" class="regimen-grid" role="group" aria-describedby="regimenError">
+                                <button type="button" class="regimen-card" data-regimen-card="mujer" onclick="setRegimen('mujer')" aria-pressed="false">
                                     <div class="regimen-title"><i class="fa-solid fa-person text-gold mr-2"></i>Mujer</div>
                                 </button>
-                                <button type="button" class="regimen-card" data-regimen-card="varon" onclick="setRegimen('varon')">
+                                <button type="button" class="regimen-card" data-regimen-card="varon" onclick="setRegimen('varon')" aria-pressed="false">
                                     <div class="regimen-title"><i class="fa-solid fa-user text-gold mr-2"></i>Hombre</div>
                                 </button>
                             </div>
+                            <p id="regimenError" class="field-error hidden" aria-live="polite"></p>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -946,7 +964,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             varon: { label: 'Hombre', requiredAge: 65 }
         };
 
-        let currentRegimen = 'mujer';
+        let currentRegimen = '';
         let hasCalculated = false;
 
         function formatYears(value) {
@@ -982,6 +1000,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         function resetFieldErrors() {
             setFieldError('edadActual', '');
             setFieldError('aniosAportes', '');
+            setRegimenError('');
         }
 
         function parseAgeValue() {
@@ -1053,11 +1072,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             panel.textContent = '';
         }
 
+        function setRegimenError(message) {
+            const error = document.getElementById('regimenError');
+
+            document.querySelectorAll('[data-regimen-card]').forEach((card) => {
+                card.classList.toggle('is-invalid', Boolean(message) && !currentRegimen);
+            });
+
+            if (error) {
+                error.textContent = message || '';
+                error.classList.toggle('hidden', !message);
+            }
+        }
+
         function setRegimen(regimen) {
             currentRegimen = regimen;
             document.querySelectorAll('[data-regimen-card]').forEach((card) => {
                 card.classList.toggle('is-active', card.dataset.regimenCard === regimen);
+                card.classList.remove('is-invalid');
+                card.setAttribute('aria-pressed', card.dataset.regimenCard === regimen ? 'true' : 'false');
             });
+            setRegimenError('');
             if (hasCalculated) {
                 recalcJubilacion();
             }
@@ -1075,7 +1110,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }
 
         function recalcJubilacion() {
-            const meta = REGIMEN_META[currentRegimen];
+            const meta = currentRegimen ? REGIMEN_META[currentRegimen] : null;
             const ageState = parseAgeValue();
             const aportesState = parseAportesValue();
 
@@ -1087,6 +1122,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             resetFieldErrors();
 
             let hasValidationError = false;
+
+            if (!meta) {
+                setRegimenError('Seleccioná hombre o mujer para calcular la edad requerida.');
+                hasValidationError = true;
+            }
 
             if (ageState.error) {
                 setFieldError('edadActual', ageState.error);
@@ -1195,7 +1235,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            setRegimen('mujer');
+            resetFieldErrors();
         });
     </script>
     <script defer src="../../../js/whatsapp-widget.js"></script>
