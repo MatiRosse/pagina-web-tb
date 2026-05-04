@@ -82,7 +82,7 @@
             suggestedSubject: "Consulta legal",
         },
         {
-            matches: ["/servicios/jubilaciones"],
+            matches: ["/servicios/jubilaciones", "/servicios/calculadoras/calculadora-jubilacion"],
             message: "¿Necesitas asesoramiento sobre jubilaciones?",
             fallback: "Hola, necesito asesoramiento para jubilarme",
             suggestedSubject: "Jubilaciones / Previsional",

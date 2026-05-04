@@ -54,10 +54,10 @@ window.dataLayer.push({
 <meta property="og:locale" content="es_AR">
 <meta property="og:title" content="Calculadora de jubilación ANSES | TB Abogados ⚖️">
 <meta property="og:url" content="https://tbabogados.com.ar/servicios/calculadoras/calculadora-jubilacion/">
-    <meta property="article:modified_time" content="2026-04-08">
+    <meta property="article:modified_time" content="2026-05-04">
 <meta name="twitter:title" content="Calculadora de jubilación ANSES | TB Abogados ⚖️">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora de Jubilación ANSES","description":"Calculadora simple para estimar si una persona cumple edad y aportes para la jubilación ordinaria en Argentina.","url":"https://tbabogados.com.ar/servicios/calculadoras/calculadora-jubilacion/","applicationCategory":"FinanceApplication","applicationSubCategory":"Jubilaciones","operatingSystem":"Any","inLanguage":"es-AR","dateModified":"2026-04-08","keywords":"calculadora jubilacion, jubilacion anses, edad jubilatoria, aportes jubilacion, plan de pago de deuda previsional, argentina","isAccessibleForFree":true,"audience":{"@type":"Audience","audienceType":"Personas jubiladas o por jubilarse en Argentina"},"offers":{"@type":"Offer","price":"0","priceCurrency":"ARS"},"author":{"@type":"Person","name":"Florencia Bulgheroni","url":"https://tbabogados.com.ar/dra-bulgheroni/"},"reviewedBy":{"@type":"Person","name":"Daniel Bulgheroni","url":"https://tbabogados.com.ar/dr-bulgheroni/"},"provider":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"publisher":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"citation":["https://www.anses.gob.ar/cartilla/jubilacion-ordinaria","https://www.anses.gob.ar/jubilaciones-y-pensiones/como-iniciar-mi-jubilacion","https://www.anses.gob.ar/jubilaciones-y-pensiones/plan-de-pago-de-deuda-previsional"]}</script>
+{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora de Jubilación ANSES","description":"Calculadora simple para estimar si una persona cumple edad y aportes para la jubilación ordinaria en Argentina.","url":"https://tbabogados.com.ar/servicios/calculadoras/calculadora-jubilacion/","applicationCategory":"FinanceApplication","applicationSubCategory":"Jubilaciones","operatingSystem":"Any","inLanguage":"es-AR","dateModified":"2026-05-04","keywords":"calculadora jubilacion, jubilacion anses, edad jubilatoria, aportes jubilacion, plan de pago de deuda previsional, argentina","isAccessibleForFree":true,"audience":{"@type":"Audience","audienceType":"Personas jubiladas o por jubilarse en Argentina"},"offers":{"@type":"Offer","price":"0","priceCurrency":"ARS"},"author":{"@type":"Person","name":"Florencia Bulgheroni","url":"https://tbabogados.com.ar/dra-bulgheroni/"},"reviewedBy":{"@type":"Person","name":"Daniel Bulgheroni","url":"https://tbabogados.com.ar/dr-bulgheroni/"},"provider":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"publisher":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"citation":["https://www.anses.gob.ar/cartilla/jubilacion-ordinaria","https://www.anses.gob.ar/jubilaciones-y-pensiones/como-iniciar-mi-jubilacion","https://www.anses.gob.ar/jubilaciones-y-pensiones/plan-de-pago-de-deuda-previsional"]}</script>
     <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://tbabogados.com.ar/"},{"@type":"ListItem","position":2,"name":"Servicios","item":"https://tbabogados.com.ar/servicios/"},{"@type":"ListItem","position":3,"name":"Jubilaciones","item":"https://tbabogados.com.ar/servicios/jubilaciones/"},{"@type":"ListItem","position":4,"name":"Calculadora Jubilación","item":"https://tbabogados.com.ar/servicios/calculadoras/calculadora-jubilacion/"}]}</script>
     <script type="application/ld+json">
@@ -447,6 +447,12 @@ window.dataLayer.push({
                 grid-template-columns: minmax(0, 1fr) minmax(0, .95fr);
             }
         }
+
+        @media (max-width: 1023px) {
+            .calc-layout.has-mobile-result-first #panelResultado {
+                order: -1;
+            }
+        }
     </style>
     <link rel="icon" href="../../../assets/img/logotb.ico" type="image/x-icon">
 </head>
@@ -598,7 +604,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </section>
 
         <section class="px-4 sm:px-6 lg:px-8 mb-16">
-            <div class="max-w-6xl mx-auto calc-layout">
+            <div id="calculadoraJubilacionLayout" class="max-w-6xl mx-auto calc-layout">
                 <div class="panel-shell border border-gray-200 shadow-xl p-6 sm:p-8">
                     <div class="mb-8">
                         <h2 class="font-serif text-3xl text-darkblue-900 mb-3">Completá solo 2 datos</h2>
@@ -628,10 +634,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 <p id="aniosAportesHelp" class="field-help">Ingresá años completos de aportes.</p>
                                 <p id="aniosAportesError" class="field-error hidden" aria-live="polite"></p>
                             </div>
-                        </div>
-
-                        <div class="info-box">
-                            <p class="text-base text-gray-700 leading-relaxed"><strong class="text-darkblue-900">Importante:</strong> esta calculadora es orientativa y usa solo los requisitos generales de jubilación ordinaria.</p>
                         </div>
 
                         <button type="button" onclick="calcularJubilacion()" class="w-full bg-gold text-white font-bold py-3 px-4 rounded-xl hover:bg-opacity-90 transition shadow-md">
@@ -758,7 +760,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="ymyl-sources-card" aria-labelledby="fuentes-oficiales-calc-jubilacion">
                 <span class="ymyl-sources-eyebrow">Fuentes oficiales</span>
                 <h2 id="fuentes-oficiales-calc-jubilacion" class="ymyl-sources-title">Normativa y páginas de ANSES consultadas</h2>
-                <p class="ymyl-sources-text">La lógica de esta calculadora se apoya en la cartilla oficial de jubilación ordinaria de ANSES, incluida la compensación general de un año de servicios por cada dos años de edad excedente, y en la información pública del organismo sobre inicio del trámite y Plan de Pago de Deuda Previsional. La revisión de contenido más reciente se realizó el <strong>8 de abril de 2026</strong>.</p>
+                <p class="ymyl-sources-text">La lógica de esta calculadora se apoya en la cartilla oficial de jubilación ordinaria de ANSES, incluida la compensación general de un año de servicios por cada dos años de edad excedente, y en la información pública del organismo sobre inicio del trámite y Plan de Pago de Deuda Previsional. La revisión de contenido más reciente se realizó el <strong>4 de mayo de 2026</strong>.</p>
                 <ul class="ymyl-sources-list">
                     <li><a href="https://www.anses.gob.ar/cartilla/jubilacion-ordinaria" target="_blank" rel="noopener noreferrer">ANSES: cartilla de Jubilación Ordinaria</a></li>
                     <li><a href="https://www.anses.gob.ar/jubilaciones-y-pensiones/como-iniciar-mi-jubilacion" target="_blank" rel="noopener noreferrer">ANSES: cómo iniciar mi jubilación</a></li>
@@ -769,7 +771,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="ymyl-meta-card" style="margin-bottom: 0;">
-                <p class="ymyl-meta-intro">Herramienta orientativa basada en información oficial de ANSES sobre jubilación ordinaria y regularización previsional. La revisión legal y de contenido más reciente se realizó el 8 de abril de 2026.</p>
+                <p class="ymyl-meta-intro">Herramienta orientativa basada en información oficial de ANSES sobre jubilación ordinaria y regularización previsional. La revisión legal y de contenido más reciente se realizó el 4 de mayo de 2026.</p>
                 <div class="ymyl-meta-grid">
                     <div class="ymyl-meta-item">
                         <span class="ymyl-meta-label">Redacción legal</span>
@@ -781,7 +783,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                     <div class="ymyl-meta-item">
                         <span class="ymyl-meta-label">Actualizado</span>
-                        <span class="ymyl-meta-value">8 de abril de 2026</span>
+                        <span class="ymyl-meta-value">4 de mayo de 2026</span>
                     </div>
                     <div class="ymyl-meta-item">
                         <span class="ymyl-meta-label">Jurisdicción</span>
@@ -1031,11 +1033,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         function showPlaceholder() {
             hideError();
             resetFieldErrors();
+            document.getElementById('calculadoraJubilacionLayout').classList.remove('has-mobile-result-first');
             document.getElementById('resultadoPanel').classList.add('hidden');
             document.getElementById('resultadoPlaceholder').classList.remove('hidden');
         }
 
         function showError(message) {
+            document.getElementById('calculadoraJubilacionLayout').classList.remove('has-mobile-result-first');
             document.getElementById('resultadoPlaceholder').classList.add('hidden');
             document.getElementById('resultadoPanel').classList.add('hidden');
             const panel = document.getElementById('errorPanel');
@@ -1103,6 +1107,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const aportes = aportesState.value;
 
             hideError();
+            document.getElementById('calculadoraJubilacionLayout').classList.add('has-mobile-result-first');
             document.getElementById('resultadoPlaceholder').classList.add('hidden');
             document.getElementById('resultadoPanel').classList.remove('hidden');
 
@@ -1169,8 +1174,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             hasCalculated = true;
             recalcJubilacion();
 
-            if (window.innerWidth < 1024) {
-                document.getElementById('panelResultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const resultadoPanel = document.getElementById('resultadoPanel');
+            if (window.innerWidth < 1024 && !resultadoPanel.classList.contains('hidden')) {
+                requestAnimationFrame(() => {
+                    document.getElementById('statusCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            } else if (!resultadoPanel.classList.contains('hidden')) {
+                requestAnimationFrame(() => {
+                    document.getElementById('panelResultado').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
             }
         }
 
