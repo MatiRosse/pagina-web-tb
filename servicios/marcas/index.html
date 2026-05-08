@@ -161,6 +161,40 @@ window.dataLayer.push({
         .faq-item.active .faq-chevron {
             transform: rotate(180deg);
         }
+
+        .final-contact-copy {
+            order: 2;
+            padding: 2rem;
+        }
+
+        .final-contact-photo {
+            height: 18rem;
+            order: 1;
+        }
+
+        .final-contact-img {
+            object-position: center 33% !important;
+        }
+
+        @media (min-width: 768px) {
+            .final-contact-card {
+                height: 20rem;
+            }
+
+            .final-contact-copy {
+                order: 1;
+                padding: 2rem 2.5rem;
+            }
+
+            .final-contact-photo {
+                height: 100%;
+                order: 2;
+            }
+
+            .final-contact-img {
+                object-position: center center !important;
+            }
+        }
     </style>
     <link rel="icon" href="../../assets/img/logotb.ico" type="image/x-icon">
 
@@ -174,6 +208,147 @@ window.dataLayer.push({
       "url": "https://tbabogados.com.ar",
       "telephone": "+5491122511243",
       "priceRange": "$$",
+      "description": "Asesoramiento legal en registro, oposición y defensa de marcas ante el INPI en Argentina.",
+      "serviceType": "Registro y defensa de marcas",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Argentina"
+      },
+      "knowsAbout": [
+        "Registro de marcas",
+        "Propiedad industrial",
+        "Oposiciones marcarias",
+        "INPI Argentina"
+      ],
+      "employee": [
+        {
+          "@type": "Person",
+          "name": "Dra. Florencia Bulgheroni",
+          "jobTitle": "Abogada y Agente de la Propiedad Industrial",
+          "url": "https://tbabogados.com.ar/dra-bulgheroni/",
+          "image": "https://tbabogados.com.ar/assets/img/dra-bulgheroni-portada.avif",
+          "knowsAbout": [
+            "Propiedad industrial",
+            "Registro de marcas",
+            "Derecho civil",
+            "Derecho comercial"
+          ],
+          "identifier": [
+            {
+              "@type": "PropertyValue",
+              "propertyID": "CPACF",
+              "value": "Tº 137 Fº 145"
+            },
+            {
+              "@type": "PropertyValue",
+              "propertyID": "INPI",
+              "value": "2971"
+            }
+          ],
+          "hasCredential": [
+            {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "Matrícula profesional",
+              "recognizedBy": {
+                "@type": "Organization",
+                "name": "Colegio Público de la Abogacía de la Capital Federal"
+              },
+              "identifier": "CPACF Tº 137 Fº 145"
+            },
+            {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "Agente de la Propiedad Industrial",
+              "recognizedBy": {
+                "@type": "Organization",
+                "name": "Instituto Nacional de la Propiedad Industrial"
+              },
+              "identifier": "INPI 2971"
+            }
+          ]
+        },
+        {
+          "@type": "Person",
+          "name": "Dr. Daniel Bulgheroni",
+          "jobTitle": "Abogado",
+          "url": "https://tbabogados.com.ar/dr-bulgheroni/",
+          "image": "https://i.postimg.cc/tC31TMCz/086-jpg.jpg",
+          "knowsAbout": [
+            "Derecho civil",
+            "Derecho comercial",
+            "Asesoramiento legal",
+            "Traducción pública"
+          ],
+          "identifier": [
+            {
+              "@type": "PropertyValue",
+              "propertyID": "CPACF",
+              "value": "Tº 135 Fº 166"
+            },
+            {
+              "@type": "PropertyValue",
+              "propertyID": "CTPCBA",
+              "value": "Perfil oficial de traductor público"
+            }
+          ],
+          "hasCredential": [
+            {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "Matrícula profesional",
+              "recognizedBy": {
+                "@type": "Organization",
+                "name": "Colegio Público de la Abogacía de la Capital Federal"
+              },
+              "identifier": "CPACF Tº 135 Fº 166"
+            }
+          ]
+        },
+        {
+          "@type": "Person",
+          "name": "Dra. Victoria Tassara",
+          "jobTitle": "Abogada y mediadora",
+          "url": "https://tbabogados.com.ar/dra-tassara/",
+          "image": "https://i.postimg.cc/dV9486nW/victoria.jpg",
+          "knowsAbout": [
+            "Derecho laboral",
+            "Mediaciones",
+            "Derecho civil",
+            "Sucesiones y familia",
+            "Seguros"
+          ],
+          "identifier": [
+            {
+              "@type": "PropertyValue",
+              "propertyID": "CPACF",
+              "value": "Tº 41 Fº 968"
+            },
+            {
+              "@type": "PropertyValue",
+              "propertyID": "PBA - CAJDM",
+              "value": "Tº 4 Fº 371"
+            }
+          ],
+          "hasCredential": [
+            {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "Matrícula profesional",
+              "recognizedBy": {
+                "@type": "Organization",
+                "name": "Colegio Público de la Abogacía de la Capital Federal"
+              },
+              "identifier": "CPACF Tº 41 Fº 968"
+            },
+            {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "Matrícula profesional",
+              "recognizedBy": {
+                "@type": "Organization",
+                "name": "Colegio de Abogados de Morón"
+              },
+              "identifier": "PBA - CAJDM Tº 4 Fº 371"
+            }
+          ]
+        }
+      ],
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Paraná 439",
@@ -551,13 +726,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                 </div>
             </div>
-            <div class="mt-16 text-center">
-                <a class="inline-flex btn-solid-gold hover:bg-darkblue-900 hover:text-gold px-10 py-5 rounded-full font-bold text-xl items-center gap-3 shadow-2xl transition-all hover:scale-105"
-                    href="https://wa.me/5491122511243?text=Hola!%20Quiero%20empezar%20con%20el%20registro%20de%20mi%20marca"
-                    style="animation: pulse 2s infinite;" target="_blank">
-                    EMPEZAR AHORA <i class="fa-brands fa-whatsapp"></i>
-                </a>
-            </div>
         </div>
         <!-- Pricing Section -->
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
@@ -571,9 +739,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 -->
                 <p class="text-gray-400 text-sm mb-2 uppercase tracking-widest">Registro de <strong class="text-white">1
                         marca en 1 clase</strong></p>
-                <!-- <p class="text-gray-500 line-through text-xl mb-1">$165.000</p> -->
+                <!-- <p class="text-gray-500 line-through text-xl mb-1">$180.000</p> -->
                 <div class="flex items-end gap-3 mb-6">
-                    <span class="font-serif text-5xl md:text-6xl text-white font-bold">$165.000</span>
+                    <span class="font-serif text-5xl md:text-6xl text-white font-bold">$180.000</span>
                     <span class="text-gray-400 text-lg mb-2">final</span>
                 </div>
                 <p class="text-gold text-sm font-semibold uppercase tracking-widest mb-4">Incluye:</p>
@@ -903,17 +1071,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
 
         <!-- Final Contact Invitation -->
-        <div class="mb-24 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-darkblue-900 rounded-2xl text-center shadow-xl" style="padding: 4rem;">
-                <h3 class="font-serif text-3xl text-white mb-4">¿Querés registrar una marca o resolver un conflicto?
-                </h3>
-                <p class="text-gray-300 text-lg leading-relaxed mb-8">Analizamos tu caso y te orientamos sobre la mejor
-                    estrategia para proteger tu marca. Somos agentes de Propiedad Industrial.</p>
-                <a class="inline-flex btn-solid-gold px-10 py-4 rounded-full font-bold text-lg items-center gap-3 shadow-xl transition-all hover:scale-105"
-                    href="https://wa.me/5491122511243?text=Hola!%20Quiero%20registrar%20una%20marca%20o%20tengo%20un%20conflicto%20marcario"
-                    target="_blank">
-                    Contactanos <i class="fa-brands fa-whatsapp"></i>
-                </a>
+        <div class="mb-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div
+                class="final-contact-card grid grid-cols-1 md:grid-cols-3 overflow-hidden rounded-2xl shadow-xl bg-darkblue-900">
+                <div class="final-contact-copy md:col-span-2 text-center flex flex-col items-center justify-center">
+                    <h3 class="font-serif text-3xl md:text-4xl text-white mb-5 max-w-2xl">¿Querés registrar una marca o resolver un conflicto?
+                    </h3>
+                    <p class="text-gray-300 text-lg leading-relaxed mb-8 max-w-2xl">Analizamos tu caso y te orientamos sobre la mejor
+                        estrategia para proteger tu marca. Somos agentes de Propiedad Industrial.</p>
+                    <a class="inline-flex btn-solid-gold px-10 py-4 rounded-full font-bold text-lg items-center gap-3 shadow-xl transition-all hover:scale-105"
+                        href="https://wa.me/5491122511243?text=Hola!%20Quiero%20registrar%20una%20marca%20o%20tengo%20un%20conflicto%20marcario"
+                        target="_blank">
+                        Contactanos <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+                <div class="final-contact-photo overflow-hidden">
+                    <img src="../../assets/img/dra-bulgheroni-portada.avif" alt="Dra. Florencia Bulgheroni"
+                        class="final-contact-img w-full h-full object-cover" loading="lazy" decoding="async">
+                </div>
             </div>
         </div>
 
