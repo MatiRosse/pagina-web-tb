@@ -54,10 +54,10 @@ window.dataLayer.push({
 <meta property="og:locale" content="es_AR">
 <meta property="og:title" content="Calculadora de Indemnización por Despido | TB Abogados ⚖️">
 <meta property="og:url" content="https://tbabogados.com.ar/servicios/calculadoras/calculadora-despido/">
-    <meta property="article:modified_time" content="2026-04-24">
+    <meta property="article:modified_time" content="2026-05-12">
 <meta name="twitter:title" content="Calculadora de Indemnización por Despido | TB Abogados ⚖️">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora de Indemnización por Despido","description":"Calculadora online orientativa de indemnización por despido en Argentina con conceptos de antigüedad, preaviso, integración, SAC proporcional y vacaciones no gozadas.","url":"https://tbabogados.com.ar/servicios/calculadoras/calculadora-despido/","applicationCategory":"FinanceApplication","applicationSubCategory":"Derecho laboral","operatingSystem":"Any","inLanguage":"es-AR","dateModified":"2026-04-24","keywords":"calculadora despido, indemnización por despido, liquidación final, despido sin causa, LCT, Argentina","isAccessibleForFree":true,"audience":{"@type":"Audience","audienceType":"Trabajadores despedidos o con dudas sobre su liquidación laboral en Argentina"},"offers":{"@type":"Offer","price":"0","priceCurrency":"ARS"},"author":{"@type":"Person","name":"Florencia Bulgheroni","url":"https://tbabogados.com.ar/dra-bulgheroni/"},"reviewedBy":{"@type":"Person","name":"Daniel Bulgheroni","url":"https://tbabogados.com.ar/dr-bulgheroni/"},"provider":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"publisher":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"citation":["https://servicios.infoleg.gob.ar/infolegInternet/anexos/25000-29999/25552/texact.htm","https://servicios.infoleg.gob.ar/infolegInternet/anexos/400000-404999/401266/norma.htm"]}</script>
+{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora de Indemnización por Despido","description":"Calculadora online orientativa de indemnización por despido en Argentina con conceptos de antigüedad, preaviso, integración, SAC proporcional y vacaciones no gozadas.","url":"https://tbabogados.com.ar/servicios/calculadoras/calculadora-despido/","applicationCategory":"FinanceApplication","applicationSubCategory":"Derecho laboral","operatingSystem":"Any","inLanguage":"es-AR","dateModified":"2026-05-12","keywords":"calculadora despido, indemnización por despido, liquidación final, despido sin causa, LCT, Argentina","isAccessibleForFree":true,"audience":{"@type":"Audience","audienceType":"Trabajadores despedidos o con dudas sobre su liquidación laboral en Argentina"},"offers":{"@type":"Offer","price":"0","priceCurrency":"ARS"},"author":{"@type":"Person","name":"Florencia Bulgheroni","url":"https://tbabogados.com.ar/dra-bulgheroni/"},"reviewedBy":{"@type":"Person","name":"Daniel Bulgheroni","url":"https://tbabogados.com.ar/dr-bulgheroni/"},"provider":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"publisher":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"citation":["https://servicios.infoleg.gob.ar/infolegInternet/anexos/25000-29999/25552/texact.htm","https://servicios.infoleg.gob.ar/infolegInternet/anexos/400000-404999/401266/norma.htm"]}</script>
     <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://tbabogados.com.ar/"},{"@type":"ListItem","position":2,"name":"Servicios","item":"https://tbabogados.com.ar/servicios/"},{"@type":"ListItem","position":3,"name":"Calculadoras","item":"https://tbabogados.com.ar/servicios/calculadoras/"},{"@type":"ListItem","position":4,"name":"Calculadora de Despido","item":"https://tbabogados.com.ar/servicios/calculadoras/calculadora-despido/"}]}</script>
     <script type="application/ld+json">
@@ -460,7 +460,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <section class="mb-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="ymyl-meta-card">
-                <p class="ymyl-meta-intro">Herramienta orientativa para trabajadores en Argentina. La revisión legal más reciente se realizó el 24 de abril de 2026.</p>
+                <p class="ymyl-meta-intro">Herramienta orientativa para trabajadores en Argentina. La revisión legal más reciente se realizó el 12 de mayo de 2026.</p>
                 <div class="ymyl-meta-grid">
                     <div class="ymyl-meta-item">
                         <span class="ymyl-meta-label">Redacción legal</span>
@@ -472,7 +472,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                     <div class="ymyl-meta-item">
                         <span class="ymyl-meta-label">Actualizado</span>
-                        <span class="ymyl-meta-value">24 de abril de 2026</span>
+                        <span class="ymyl-meta-value">12 de mayo de 2026</span>
                     </div>
                 </div>
             </div>
@@ -669,6 +669,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             if (window.innerWidth < 1024) {
                 document.getElementById('panelResultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            if (window.dispararNotificacionWhatsApp) {
+                window.dispararNotificacionWhatsApp({
+                    message: '¿Necesitás ayuda para revisar tu indemnización?',
+                    fallback: 'Hola, necesito ayuda para revisar mi indemnización por despido'
+                });
             }
         }
     </script>

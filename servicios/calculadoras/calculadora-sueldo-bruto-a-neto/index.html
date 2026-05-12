@@ -51,7 +51,7 @@ window.dataLayer.push({
 
     <meta name="author" content="Florencia Bulgheroni | TB Abogados">
     <script
-        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora sueldo bruto a neto","description":"Calculadora online de sueldo bruto a neto con deducciones y criterios de Ganancias actualizados para Argentina 2026.","url":"https://tbabogados.com.ar/servicios/calculadoras/calculadora-sueldo-bruto-a-neto/","applicationCategory":"FinanceApplication","operatingSystem":"Any","inLanguage":"es-AR","dateModified":"2026-03-27","offers":{"@type":"Offer","price":"0","priceCurrency":"ARS"},"author":{"@type":"Person","name":"Florencia Bulgheroni","url":"https://tbabogados.com.ar/dra-bulgheroni/"},"reviewedBy":{"@type":"Person","name":"Daniel Bulgheroni","url":"https://tbabogados.com.ar/dr-bulgheroni/"},"provider":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"publisher":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"citation":["https://servicios.infoleg.gob.ar/infolegInternet/anexos/10000-14999/10844/texact.htm","https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/62/texact.htm","https://servicios.infoleg.gob.ar/infolegInternet/anexos/15000-19999/16081/texact.htm","https://serviciosweb.arca.gob.ar/genericos/guiasPasoPaso/VerGuia.aspx?id=120","https://serviciosweb.arca.gob.ar/genericos/guiasPasoPaso/VerGuia.aspx?id=467","https://serviciosweb.arca.gob.ar/genericos/guiasPasoPaso/VerGuia.aspx?id=466","https://serviciosweb.arca.gob.ar/genericos/guiasPasoPaso/VerGuia.aspx?id=464"]}</script>
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora sueldo bruto a neto","description":"Calculadora online de sueldo bruto a neto con deducciones y criterios de Ganancias actualizados para Argentina 2026.","url":"https://tbabogados.com.ar/servicios/calculadoras/calculadora-sueldo-bruto-a-neto/","applicationCategory":"FinanceApplication","operatingSystem":"Any","inLanguage":"es-AR","dateModified":"2026-05-12","offers":{"@type":"Offer","price":"0","priceCurrency":"ARS"},"author":{"@type":"Person","name":"Florencia Bulgheroni","url":"https://tbabogados.com.ar/dra-bulgheroni/"},"reviewedBy":{"@type":"Person","name":"Daniel Bulgheroni","url":"https://tbabogados.com.ar/dr-bulgheroni/"},"provider":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"publisher":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"citation":["https://servicios.infoleg.gob.ar/infolegInternet/anexos/10000-14999/10844/texact.htm","https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/62/texact.htm","https://servicios.infoleg.gob.ar/infolegInternet/anexos/15000-19999/16081/texact.htm","https://www.arca.gob.ar/gananciasYBienes/ganancias/personas-humanas-sucesiones-indivisas/deducciones/documentos/Deducciones-personales-art-30-ene-a-jun-2026.pdf","https://serviciosweb.arca.gob.ar/genericos/guiasPasoPaso/VerGuia.aspx?id=120","https://serviciosweb.arca.gob.ar/genericos/guiasPasoPaso/VerGuia.aspx?id=467","https://serviciosweb.arca.gob.ar/genericos/guiasPasoPaso/VerGuia.aspx?id=466","https://serviciosweb.arca.gob.ar/genericos/guiasPasoPaso/VerGuia.aspx?id=464"]}</script>
     <link rel="stylesheet" href="../../../css/styles.css">
     <link href="https://cdnjs.cloudflare.com" rel="preconnect" crossorigin>
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -595,7 +595,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </div>
                     </details>
 
-                    <button type="button" onclick="recalcular()"
+                    <button type="button" onclick="recalcular(true)"
                         class="w-full bg-gold text-white font-bold py-3 px-4 rounded-xl mt-4 hover:bg-opacity-90 transition shadow-md">
                         Calcular sueldo neto estimado
                     </button>
@@ -734,7 +734,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <section class="max-w-4xl mx-auto">
             <div class="ymyl-meta-card" style="margin-bottom: 0;">
-                <p class="ymyl-meta-intro">Herramienta orientativa basada en reglas generales de aportes y en criterios oficiales de carga de deducciones informadas por el trabajador. La revisión normativa más reciente se realizó el 27 de marzo de 2026.</p>
+                <p class="ymyl-meta-intro">Herramienta orientativa basada en reglas generales de aportes y en criterios oficiales de carga de deducciones informadas por el trabajador. La revisión normativa más reciente se realizó el 12 de mayo de 2026.</p>
                 <div class="ymyl-meta-grid">
                     <div class="ymyl-meta-item">
                         <span class="ymyl-meta-label">Redacción legal</span>
@@ -746,7 +746,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                     <div class="ymyl-meta-item">
                         <span class="ymyl-meta-label">Actualizado</span>
-                        <span class="ymyl-meta-value">27 de marzo de 2026</span>
+                        <span class="ymyl-meta-value">12 de mayo de 2026</span>
                     </div>
                     <div class="ymyl-meta-item">
                         <span class="ymyl-meta-label">Jurisdicción</span>
@@ -867,7 +867,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             return n.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
         }
 
-        function recalcular() {
+        function recalcular(dispararWhatsapp = false) {
             const brutoMensual = parseFloat((document.getElementById('bruto').value || '0').replace(/\./g, '').replace(',', '.')) || 0;
             if (!brutoMensual) return;
             const sindicatoPorc = parseFloat(document.getElementById('sindicato').value) || 0;
@@ -945,6 +945,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             if (window.innerWidth < 1024) {
                 document.getElementById('panelResultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            if (dispararWhatsapp && window.dispararNotificacionWhatsApp) {
+                window.dispararNotificacionWhatsApp({
+                    message: '¿Necesitás ayuda para calcular tu sueldo?',
+                    fallback: 'Hola, necesito ayuda para calcular mi sueldo y revisar si está bien liquidado'
+                });
             }
         }
     </script>

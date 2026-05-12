@@ -46,6 +46,42 @@
 
     const serviceProfiles = [
         {
+            matches: ["/servicios/calculadoras/calculadora-sueldo-bruto-a-neto", "/servicios/calculadoras/aguinaldo-calculadora"],
+            message: "¿Necesitás ayuda para calcular tu sueldo?",
+            fallback: "Hola, necesito ayuda para calcular mi sueldo y revisar si está bien liquidado",
+            suggestedSubject: "Consulta Salarial / Calculadora",
+        },
+        {
+            matches: ["/servicios/calculadoras/calculadora-alquiler"],
+            message: "¿Necesitás ayuda para actualizar un alquiler?",
+            fallback: "Hola, necesito ayuda para actualizar un alquiler y revisar el cálculo",
+            suggestedSubject: "Actualización de alquiler",
+        },
+        {
+            matches: ["/servicios/calculadoras/calculadora-jubilacion"],
+            message: "¿Necesitás ayuda para cobrar tu jubilación?",
+            fallback: "Hola, necesito ayuda para saber si puedo cobrar mi jubilación",
+            suggestedSubject: "Jubilaciones / Previsional",
+        },
+        {
+            matches: ["/servicios/calculadoras/accidente-trabajo-calculadora"],
+            message: "¿Necesitás ayuda con tu accidente de trabajo?",
+            fallback: "Hola, necesito ayuda con mi accidente de trabajo y el cálculo de indemnización",
+            suggestedSubject: "Accidente de Trabajo ART",
+        },
+        {
+            matches: ["/servicios/calculadoras/calculadora-despido"],
+            message: "¿Necesitás ayuda para revisar tu indemnización?",
+            fallback: "Hola, necesito ayuda para revisar mi indemnización por despido",
+            suggestedSubject: "Consulta Laboral / Despido",
+        },
+        {
+            matches: ["/servicios/calculadoras/actualizacion-deudas-calculadora"],
+            message: "¿Necesitás ayuda para actualizar una deuda?",
+            fallback: "Hola, necesito ayuda para revisar una actualización de deuda o intereses",
+            suggestedSubject: "Actualización de deuda",
+        },
+        {
             matches: ["/servicios/despidos"],
             message: "¿Necesitas ayuda con un despido?",
             fallback: "Hola, me despidieron y necesito asesoramiento",
@@ -893,6 +929,38 @@
 
     window.abrirWidget = abrirWidget;
     window.cerrarWidget = cerrarWidget;
+    window.dispararNotificacionWhatsApp = function (options = {}) {
+        updateWidgetMode();
+
+        if (options.message) {
+            if (msg2) {
+                msg2.textContent = options.message;
+            }
+        }
+
+        if (options.fallback) {
+            fallbackText = options.fallback;
+        }
+
+        syncInputWithFallback();
+
+        if (widget.style.display === "block") {
+            if (msg2 && msg2.style.display !== "block") {
+                msg2.style.display = "block";
+                secondMessageSequenceStarted = true;
+                scrollChatToBottom();
+            }
+            return;
+        }
+
+        showFirstMessage();
+        if (msg2) {
+            msg2.style.display = "block";
+            secondMessageSequenceStarted = true;
+            scrollChatToBottom();
+        }
+        showNotificationBadge();
+    };
 
     upgradeInputToTextarea();
 

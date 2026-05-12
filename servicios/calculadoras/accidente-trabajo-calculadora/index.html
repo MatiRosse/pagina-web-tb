@@ -51,7 +51,7 @@ window.dataLayer.push({
 
     <meta name="author" content="Florencia Bulgheroni | TB Abogados">
     <script
-        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora de Indemnización por Accidente de Trabajo","description":"Calculadora online de indemnización por accidente laboral según la Ley de Riesgos del Trabajo en Argentina.","url":"https://tbabogados.com.ar/servicios/calculadoras/accidente-trabajo-calculadora/","applicationCategory":"FinanceApplication","operatingSystem":"Any","inLanguage":"es-AR","dateModified":"2026-03-27","offers":{"@type":"Offer","price":"0","priceCurrency":"ARS"},"author":{"@type":"Person","name":"Florencia Bulgheroni","url":"https://tbabogados.com.ar/dra-bulgheroni/"},"reviewedBy":{"@type":"Person","name":"Daniel Bulgheroni","url":"https://tbabogados.com.ar/dr-bulgheroni/"},"provider":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"publisher":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"citation":["https://servicios.infoleg.gob.ar/infolegInternet/anexos/25000-29999/27971/texact.htm","https://www.argentina.gob.ar/srt/comisionesmedicas/tramites","https://www.argentina.gob.ar/trabajo/seguridadsocial/ripte"]}</script>
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora de Indemnización por Accidente de Trabajo","description":"Calculadora online de indemnización por accidente laboral según la Ley de Riesgos del Trabajo en Argentina.","url":"https://tbabogados.com.ar/servicios/calculadoras/accidente-trabajo-calculadora/","applicationCategory":"FinanceApplication","operatingSystem":"Any","inLanguage":"es-AR","dateModified":"2026-05-12","offers":{"@type":"Offer","price":"0","priceCurrency":"ARS"},"author":{"@type":"Person","name":"Florencia Bulgheroni","url":"https://tbabogados.com.ar/dra-bulgheroni/"},"reviewedBy":{"@type":"Person","name":"Daniel Bulgheroni","url":"https://tbabogados.com.ar/dr-bulgheroni/"},"provider":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"publisher":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"citation":["https://servicios.infoleg.gob.ar/infolegInternet/anexos/25000-29999/27971/texact.htm","https://servicios.infoleg.gob.ar/infolegInternet/anexos/200000-204999/203798/norma.htm","https://www.argentina.gob.ar/srt/comisionesmedicas/tramites","https://www.argentina.gob.ar/trabajo/seguridadsocial/ripte"]}</script>
     <link rel="stylesheet" href="../../../css/styles.css">
     <link href="https://cdnjs.cloudflare.com" rel="preconnect" crossorigin>
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -463,7 +463,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </h1>
             <p class="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">
                 Estimá cuánto podría corresponderle según la fórmula de la Ley de Riesgos de Trabajo (LRT). Ingresá el
-                sueldo, antigüedad, porcentaje de incapacidad y edad para obtener un valor orientativo.
+                sueldo, porcentaje de incapacidad, edad y si corresponde el adicional legal para obtener un valor orientativo.
             </p>
             <div class="mt-6 flex flex-wrap justify-center gap-3">
                 <span
@@ -476,7 +476,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </span>
                 <span
                     class="flex items-center gap-2 bg-white border border-gold rounded-full px-4 py-1.5 text-sm font-medium text-darkblue-900 shadow-sm">
-                    <i class="fa-solid fa-check text-gold"></i> Incluye factor antigüedad
+                    <i class="fa-solid fa-check text-gold"></i> Incluye adicional 20% cuando corresponde
                 </span>
             </div>
         </div>
@@ -508,20 +508,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </div>
                     </div>
 
-                    <!-- Antigüedad + Edad en la misma fila -->
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="calc-label" for="antiguedad">
-                                <i class="fa-solid fa-calendar-check text-gold mr-1"></i>Antigüedad (años)
-                            </label>
-                            <input class="calc-input" type="number" id="antiguedad" placeholder="Ej: 5" min="0"
-                                step="1">
-                        </div>
+                    <!-- Edad + tipo de accidente -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                             <label class="calc-label" for="edad">
                                 <i class="fa-solid fa-person text-gold mr-1"></i>Edad al accidente
                             </label>
                             <input class="calc-input" type="number" id="edad" placeholder="Ej: 38" min="18" max="65">
+                        </div>
+                        <div>
+                            <label class="calc-label" for="tipoAccidente">
+                                <i class="fa-solid fa-location-dot text-gold mr-1"></i>Tipo de accidente
+                            </label>
+                            <select class="calc-input" id="tipoAccidente">
+                                <option value="lugar">En el lugar de trabajo</option>
+                                <option value="itinere">In itinere</option>
+                            </select>
                         </div>
                     </div>
 
@@ -537,7 +539,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </div>
                     </div>
 
-                    <button type="button" onclick="recalcularART()"
+                    <button type="button" onclick="recalcularART(true)"
                         class="w-full bg-gold text-white font-bold py-3 px-4 rounded-xl mt-4 hover:bg-opacity-90 transition shadow-md">
                         Calcular indemnización estimada
                     </button>
@@ -578,8 +580,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 <span id="desgloseBase" class="font-semibold text-darkblue-900"></span>
                             </div>
                             <div class="result-row">
-                                <span class="text-gray-500">📅 Ajuste por antigüedad: Sueldo × Antigüedad</span>
-                                <span id="desgloseAntiguedad" class="font-semibold text-darkblue-900"></span>
+                                <span class="text-gray-500">➕ Adicional 20% según tipo de accidente</span>
+                                <span id="desgloseAdicional20" class="font-semibold text-darkblue-900"></span>
                             </div>
                             <div class="result-row font-bold text-darkblue-900 border-t border-gray-200 pt-2 mt-1">
                                 <span>Total estimado</span>
@@ -620,9 +622,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             afectados).</span>
                     </div>
                     <div class="flex items-start gap-2">
-                        <span class="text-gold font-bold mt-0.5">+ Antigüedad</span>
-                        <span>Se suma Sueldo × cantidad de años trabajados como ajuste adicional por la relación
-                            laboral.</span>
+                        <span class="text-gold font-bold mt-0.5">+ 20%</span>
+                        <span>Si el accidente fue en el lugar de trabajo, la calculadora suma el adicional del 20% previsto en la Ley 26.773. Si fue in itinere, calcula la prestación base sin ese adicional.</span>
                     </div>
                     <div class="flex items-start gap-2">
                         <span class="text-gold font-bold mt-0.5">⚠️</span>
@@ -644,6 +645,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <p class="ymyl-sources-text">La lógica de esta calculadora se apoyó en la Ley de Riesgos del Trabajo y en fuentes oficiales del sistema para actualización de parámetros y trámites.</p>
                 <ul class="ymyl-sources-list">
                     <li><a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/25000-29999/27971/texact.htm" target="_blank" rel="noopener noreferrer">Ley 24.557 de Riesgos del Trabajo (InfoLEG)</a></li>
+                    <li><a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/200000-204999/203798/norma.htm" target="_blank" rel="noopener noreferrer">Ley 26.773, art. 3: compensación adicional de pago único (InfoLEG)</a></li>
                     <li><a href="https://www.argentina.gob.ar/srt/comisionesmedicas/tramites" target="_blank" rel="noopener noreferrer">Comisiones Médicas de la SRT: trámites y determinación de incapacidad</a></li>
                     <li><a href="https://www.argentina.gob.ar/trabajo/seguridadsocial/ripte" target="_blank" rel="noopener noreferrer">RIPTE: índice oficial usado en actualizaciones del sistema</a></li>
                 </ul>
@@ -689,7 +691,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <section class="max-w-4xl mx-auto">
             <div class="ymyl-meta-card" style="margin-bottom: 0;">
-                <p class="ymyl-meta-intro">Herramienta orientativa basada en normativa oficial del sistema de riesgos del trabajo. La revisión normativa más reciente se realizó el 27 de marzo de 2026.</p>
+                <p class="ymyl-meta-intro">Herramienta orientativa basada en normativa oficial del sistema de riesgos del trabajo. La revisión normativa más reciente se realizó el 12 de mayo de 2026.</p>
                 <div class="ymyl-meta-grid">
                     <div class="ymyl-meta-item">
                         <span class="ymyl-meta-label">Redacción legal</span>
@@ -701,7 +703,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                     <div class="ymyl-meta-item">
                         <span class="ymyl-meta-label">Actualizado</span>
-                        <span class="ymyl-meta-value">27 de marzo de 2026</span>
+                        <span class="ymyl-meta-value">12 de mayo de 2026</span>
                     </div>
                     <div class="ymyl-meta-item">
                         <span class="ymyl-meta-label">Jurisdicción</span>
@@ -943,15 +945,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             }).format(amount);
         }
 
-        function recalcularART() {
+        function recalcularART(dispararWhatsapp = false) {
             const sueldoRaw = document.getElementById('sueldo').value || "";
-            const antiguedadRaw = document.getElementById('antiguedad').value;
             const edadRaw = document.getElementById('edad').value;
             const incapacidadRaw = document.getElementById('incapacidad').value;
+            const tipoAccidente = document.getElementById('tipoAccidente').value;
+            const aplicarAdicional20 = tipoAccidente === 'lugar';
 
             // Clean salary input - handle empty string
             const sueldo = sueldoRaw ? parseFloat(sueldoRaw.replace(/\./g, '').replace(',', '.')) : 0;
-            const antiguedad = parseFloat(antiguedadRaw) || 0;
             const edad = parseFloat(edadRaw);
             const incapacidad = parseFloat(incapacidadRaw) || 0;
 
@@ -970,19 +972,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             // Formula LRT: Sueldo * 53 * %Incap * (65/Edad)
             const baseART = sueldo * 53 * (incapacidad / 100) * (65 / edad);
-            const montoAntiguedad = sueldo * antiguedad;
-            const total = baseART + montoAntiguedad;
+            const adicional20 = aplicarAdicional20 ? baseART * 0.2 : 0;
+            const total = baseART + adicional20;
 
             // Update UI
             document.getElementById('montoTotal').innerText = formatCurrency(total);
             document.getElementById('desgloseBase').innerText = formatCurrency(baseART);
-            document.getElementById('desgloseAntiguedad').innerText = formatCurrency(montoAntiguedad);
+            document.getElementById('desgloseAdicional20').innerText = formatCurrency(adicional20);
             document.getElementById('desgloseTotalFinal').innerText = formatCurrency(total);
 
             // Update the CTA button if it exists or just provide the dynamic values
 
             if (window.innerWidth < 1024) {
                 document.getElementById('panelResultadoART').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            if (dispararWhatsapp && window.dispararNotificacionWhatsApp) {
+                window.dispararNotificacionWhatsApp({
+                    message: '¿Necesitás ayuda con tu accidente de trabajo?',
+                    fallback: 'Hola, necesito ayuda con mi accidente de trabajo y el cálculo de indemnización'
+                });
             }
         }
 
