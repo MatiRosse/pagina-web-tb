@@ -248,6 +248,41 @@ h6,
     margin-top: 2rem;
 }
 
+@media (min-width: 768px) {
+    .legal-guide-layout {
+        align-items: flex-start;
+    }
+
+    .legal-guide-sidebar {
+        position: sticky;
+        top: 7rem;
+        align-self: flex-start;
+    }
+
+    .legal-guide-sidebar-stack {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 1.5rem;
+    }
+
+    body .legal-guide-sidebar-stack > :not([hidden]) ~ :not([hidden]) {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .legal-guide-sidebar-stack > .sticky,
+    .legal-guide-sidebar-stack > .ymyl-meta-card,
+    .legal-guide-sidebar-stack > .ymyl-sources-card {
+        width: 100%;
+    }
+
+    .legal-guide-sidebar-stack > .sticky {
+        position: static;
+        top: auto;
+    }
+}
+
 .ymyl-sources-eyebrow {
     display: block;
     margin-bottom: 0.5rem;
