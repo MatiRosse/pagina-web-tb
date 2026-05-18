@@ -1100,6 +1100,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </div>
 
+    <script src="../../../js/calculator-result-share.js"></script>
     <script>
         const REGIMEN_META = {
             mujer: { label: 'Mujer', requiredAge: 60 },
@@ -1355,6 +1356,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const aportesOk = computableAportes >= 30;
             setMetricBadge('metricEdadRequeridaStatus', ageOk);
             setMetricBadge('metricFaltantesStatus', aportesOk);
+
+            if (window.TBResultShare) {
+                window.TBResultShare.setData('jubilacion', {
+                    target: '#resultadoPanel .result-total',
+                    filename: 'resultado-jubilacion',
+                    title: 'Resultado previsional',
+                    amount: qualifies ? 'Puede iniciar' : 'Revisar requisitos',
+                    subtitle: title,
+                    breakdownTitle: 'DATOS DEL CALCULO',
+                    rows: [
+                        { label: 'Edad actual', value: formatYearsLabel(age) },
+                        { label: 'Aportes registrados', value: formatYearsLabel(aportes) },
+                        { label: 'Edad requerida', value: formatYearsLabel(meta.requiredAge) },
+                        { label: 'Aportes faltantes', value: missingAportes > 0 ? formatYearsLabel(missingAportes) : 'Ninguno' },
+                        { label: 'Compensación estimada por edad excedente', value: compensationYears > 0 ? formatYearsLabel(compensationYears) : 'No aplica' }
+                    ],
+                    total: {
+                        label: 'Orientación',
+                        value: title
+                    },
+                    footer: 'TB Abogados | Orientación jubilatoria estimativa',
+                    shareText: `Mi resultado previsional estimado: ${title}.`
+                });
+            }
         }
 
         function calcularJubilacion() {

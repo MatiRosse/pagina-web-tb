@@ -924,6 +924,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </div>
 
+    <script src="../../../js/calculator-result-share.js"></script>
     <script>
         // Format thousands separator as user types
         function formatMiles(input) {
@@ -980,6 +981,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             document.getElementById('desgloseBase').innerText = formatCurrency(baseART);
             document.getElementById('desgloseAdicional20').innerText = formatCurrency(adicional20);
             document.getElementById('desgloseTotalFinal').innerText = formatCurrency(total);
+
+            if (window.TBResultShare) {
+                window.TBResultShare.setData('accidente-trabajo', {
+                    target: '#resultadoART .result-total',
+                    filename: 'resultado-accidente-trabajo',
+                    title: 'Indemnización estimada',
+                    amount: formatCurrency(total),
+                    subtitle: 'Accidente de trabajo',
+                    breakdownTitle: 'DESGLOSE DEL CALCULO',
+                    rows: [
+                        { label: 'Fórmula base: Sueldo x 53 x Incapacidad x (65 / Edad)', value: formatCurrency(baseART) },
+                        { label: 'Adicional 20% según tipo de accidente', value: formatCurrency(adicional20) }
+                    ],
+                    total: {
+                        label: 'Total estimado',
+                        value: formatCurrency(total)
+                    },
+                    footer: 'TB Abogados | Estimación orientativa por accidente laboral',
+                    shareText: `Calculé mi indemnización estimada por accidente de trabajo en ${formatCurrency(total)}.`
+                });
+            }
 
             // Update the CTA button if it exists or just provide the dynamic values
 

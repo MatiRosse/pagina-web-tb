@@ -1354,6 +1354,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </div>
 
+    <script src="../../../js/calculator-result-share.js"></script>
     <script>
         const BCRA_API_BASE = 'https://api.bcra.gob.ar/estadisticas/v4.0/monetarias';
         const METHOD_META = {
@@ -1655,6 +1656,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             document.getElementById('desgloseActualizado').textContent = formatCurrency(updatedAmount);
             document.getElementById('fuenteDetalle').textContent = `Último dato oficial utilizado: ${formatDateHuman(result.freshness)}. La consulta se realizó directamente contra la API pública del BCRA.`;
             document.getElementById('fuentePill').innerHTML = `<i class="fa-solid fa-database text-gold"></i>${result.sourceLabel}`;
+
+            if (window.TBResultShare) {
+                window.TBResultShare.setData('actualizacion-deudas', {
+                    target: '#resultadoPanel .result-total',
+                    filename: 'resultado-actualizacion-deuda',
+                    title: 'Monto actualizado estimado',
+                    amount: formatCurrency(updatedAmount),
+                    subtitle: `Período: ${formatDateHuman(requestedStart)} a ${formatDateHuman(requestedEnd)}`,
+                    source: `${result.sourceLabel} · último dato ${formatDateHuman(result.freshness)}`,
+                    breakdownTitle: 'DESGLOSE DEL CALCULO',
+                    rows: [
+                        { label: 'Capital inicial', value: formatCurrency(amount) },
+                        { label: 'Coeficiente aplicado', value: formatNumber(result.factor, 4) },
+                        { label: 'Incremento', value: formatCurrency(increase) },
+                        { label: 'Período aplicado', value: `${days} días` },
+                        { label: 'Índice / serie', value: result.sourceLabel }
+                    ],
+                    total: {
+                        label: 'Capital actualizado',
+                        value: formatCurrency(updatedAmount)
+                    },
+                    footer: 'TB Abogados | Actualización de deuda orientativa',
+                    shareText: `Calculé una deuda actualizada estimada en ${formatCurrency(updatedAmount)}.`
+                });
+            }
 
             const noteWrap = document.getElementById('fuenteNotaWrap');
             const noteContent = document.getElementById('fuenteNota');

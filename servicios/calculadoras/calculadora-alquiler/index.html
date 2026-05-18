@@ -1249,6 +1249,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </div>
 
+    <script src="../../../js/calculator-result-share.js"></script>
     <script>
         const BCRA_API_BASE = 'https://api.bcra.gob.ar/estadisticas/v4.0/monetarias';
         const METHOD_META = {
@@ -1610,6 +1611,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             document.getElementById('fuenteDetalle').textContent = `Último dato oficial: ${formatDateHuman(result.freshness)}.`;
             document.getElementById('fuenteDetalleExtendido').textContent = 'La consulta se realizó directamente contra la API pública del BCRA.';
             document.getElementById('fuentePill').innerHTML = `<i class="fa-solid fa-building-columns text-gold"></i>${result.sourceLabel}`;
+
+            if (window.TBResultShare) {
+                window.TBResultShare.setData('alquiler', {
+                    target: '#resultadoPanel .result-total',
+                    filename: 'resultado-alquiler',
+                    title: 'Alquiler actualizado estimado',
+                    amount: formatCurrency(updatedAmount),
+                    subtitle: `Período: ${formatDateHuman(requestedStart)} a ${formatDateHuman(requestedEnd)}`,
+                    source: `${result.sourceLabel} · último dato ${formatDateHuman(result.freshness)}`,
+                    breakdownTitle: 'DESGLOSE DEL CALCULO',
+                    rows: [
+                        { label: 'Alquiler base', value: formatCurrency(amount) },
+                        { label: 'Coeficiente aplicado', value: formatNumber(result.factor, 4) },
+                        { label: 'Incremento', value: formatCurrency(increase) },
+                        { label: 'Período aplicado', value: `${days} días` },
+                        { label: 'Índice / serie', value: result.sourceLabel }
+                    ],
+                    total: {
+                        label: 'Alquiler actualizado',
+                        value: formatCurrency(updatedAmount)
+                    },
+                    footer: 'TB Abogados | Actualización de alquiler orientativa',
+                    shareText: `Calculé mi alquiler actualizado estimado en ${formatCurrency(updatedAmount)}.`
+                });
+            }
 
             const metaWrap = document.getElementById('fuenteMetaWrap');
             metaWrap.open = false;
