@@ -697,10 +697,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </footer>
 
     <script>
+        let sueldoNetoCalculado = false;
+
+        function debeEsperarCalcularMobile() {
+            return window.innerWidth < 1024 && !sueldoNetoCalculado;
+        }
+
         function cambiarHijos(delta) {
             const input = document.getElementById('hijos');
             const v = parseInt(input.value) || 0;
             input.value = Math.max(0, v + delta);
+            if (debeEsperarCalcularMobile()) return;
             recalcular();
         }
 
@@ -720,6 +727,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         function recalcular() {
             const brutoMensual = parseFloat((document.getElementById('bruto').value || '0').replace(/\./g, '').replace(',', '.')) || 0;
             if (!brutoMensual) return;
+            sueldoNetoCalculado = true;
             const sindicatoPorc = parseFloat(document.getElementById('sindicato').value) || 0;
             const casado = document.getElementById('casado').checked;
             const hijos = parseInt(document.getElementById('hijos').value) || 0;

@@ -162,6 +162,101 @@ window.dataLayer.push({
             border-radius: 12px;
             padding: 18px 24px;
             color: white;
+            position: relative;
+        }
+
+        .result-title {
+            margin-inline: 118px 86px;
+        }
+
+        .currency-toggle {
+            display: flex;
+            position: absolute;
+            top: 16px;
+            left: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, .5);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .12);
+        }
+
+        .currency-toggle button {
+            min-width: 48px;
+            height: 34px;
+            padding: 0 12px;
+            color: rgba(255, 255, 255, .82);
+            font-size: 12px;
+            font-weight: 700;
+            transition: background-color .2s ease, color .2s ease;
+        }
+
+        .currency-toggle button.is-active {
+            background: #fff;
+            color: #9f7a32;
+        }
+
+        .currency-toggle button:disabled {
+            cursor: wait;
+            opacity: .72;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 8px;
+            position: absolute;
+            top: 16px;
+            right: 14px;
+        }
+
+        .result-action-button {
+            width: 34px;
+            height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, .55);
+            background: rgba(255, 255, 255, .14);
+            color: #fff;
+            box-shadow: 0 8px 18px rgba(17, 24, 39, .10);
+            transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease;
+        }
+
+        .result-action-button svg {
+            width: 18px;
+            height: 18px;
+            display: block;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+
+        .result-action-button:hover,
+        .result-action-button:focus-visible {
+            background: rgba(255, 255, 255, .24);
+            box-shadow: 0 10px 24px rgba(17, 24, 39, .16);
+            transform: translateY(-1px);
+            outline: none;
+        }
+
+        @media (max-width: 520px) {
+            .result-total {
+                padding-top: 64px;
+            }
+
+            .result-title {
+                margin-inline: 0;
+            }
+
+            .currency-toggle {
+                top: 14px;
+            }
+
+            .result-actions {
+                top: 14px;
+            }
         }
 
         /* Animated counter */
@@ -620,9 +715,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div id="resultadoPanel" class="hidden space-y-6">
                     <!-- Sueldo neto grande -->
                     <div class="result-total text-center">
-                        <p class="text-white text-sm font-medium mb-1 opacity-80">💰 Sueldo neto estimado</p>
+                        <div class="currency-toggle" aria-label="Moneda del resultado">
+                            <button type="button" id="currencyArsBtn" class="is-active" onclick="setResultadoCurrency('ARS')"
+                                aria-pressed="true">ARS</button>
+                            <button type="button" id="currencyUsdBtn" onclick="setResultadoCurrency('USD')"
+                                aria-pressed="false">USD</button>
+                        </div>
+                        <div class="result-actions" aria-label="Acciones del resultado">
+                            <button type="button" class="result-action-button" onclick="descargarResultadoSueldo()"
+                                aria-label="Descargar resultado como imagen" title="Descargar resultado">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M12 3v12"></path>
+                                    <path d="m7 10 5 5 5-5"></path>
+                                    <path d="M5 21h14"></path>
+                                </svg>
+                            </button>
+                            <button type="button" class="result-action-button" onclick="compartirResultadoSueldo()"
+                                aria-label="Compartir resultado como imagen" title="Compartir resultado">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="18" cy="5" r="3"></circle>
+                                    <circle cx="6" cy="12" r="3"></circle>
+                                    <circle cx="18" cy="19" r="3"></circle>
+                                    <path d="m8.6 10.7 6.8-4.4"></path>
+                                    <path d="m8.6 13.3 6.8 4.4"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <p class="result-title text-white text-sm font-medium mb-1 opacity-80">💰 Sueldo neto estimado</p>
                         <p id="sueldoNetoValor" class="text-4xl font-bold tracking-tight">$0</p>
                         <p class="text-white text-sm mt-1 opacity-70">de <span id="sueldoBrutoRef">$0</span> brutos</p>
+                        <p id="tipoCambioInfo" class="hidden text-white text-xs mt-2 opacity-80"></p>
                     </div>
 
                     <!-- Desglose -->
@@ -847,10 +969,415 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </footer>
 
     <script>
+        const BCRA_API_BASE = 'https://api.bcra.gob.ar/estadisticas/v4.0/monetarias';
+        let sueldoNetoCalculado = false;
+        let ultimoResultadoSueldoNeto = null;
+        let resultadoCurrency = 'ARS';
+        let tipoCambioBcra = null;
+        let tipoCambioPromise = null;
+
+        function debeEsperarCalcularMobile() {
+            return window.innerWidth < 1024 && !sueldoNetoCalculado;
+        }
+
+        function asegurarResultadoSueldo() {
+            if (ultimoResultadoSueldoNeto) return true;
+
+            recalcular(false);
+            if (ultimoResultadoSueldoNeto) return true;
+
+            alert('Ingresá tu sueldo bruto y calculá el resultado primero.');
+            return false;
+        }
+
+        function nombreArchivoResultadoSueldo() {
+            const fecha = new Date().toISOString().slice(0, 10);
+            return `resultado-sueldo-neto-${resultadoCurrency.toLowerCase()}-${fecha}.png`;
+        }
+
+        function normalizarTexto(texto) {
+            return String(texto || '')
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase();
+        }
+
+        function formatearMontoResultado(valor) {
+            if (resultadoCurrency === 'USD') {
+                return `US$${valor.toLocaleString('es-AR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                })}`;
+            }
+
+            return `$${formatearNumero(valor)}`;
+        }
+
+        function montoVisible(valorArs) {
+            if (resultadoCurrency === 'USD' && tipoCambioBcra && tipoCambioBcra.valor > 0) {
+                return valorArs / tipoCambioBcra.valor;
+            }
+
+            return valorArs;
+        }
+
+        function formatearFechaHumana(fechaIso) {
+            if (!fechaIso) return '';
+            const [year, month, day] = fechaIso.split('-').map(Number);
+            const fecha = new Date(Date.UTC(year, month - 1, day));
+            return new Intl.DateTimeFormat('es-AR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                timeZone: 'UTC'
+            }).format(fecha);
+        }
+
+        function renderCurrencyControls(isLoading = false) {
+            const arsButton = document.getElementById('currencyArsBtn');
+            const usdButton = document.getElementById('currencyUsdBtn');
+
+            if (!arsButton || !usdButton) return;
+
+            arsButton.classList.toggle('is-active', resultadoCurrency === 'ARS');
+            usdButton.classList.toggle('is-active', resultadoCurrency === 'USD');
+            arsButton.setAttribute('aria-pressed', resultadoCurrency === 'ARS' ? 'true' : 'false');
+            usdButton.setAttribute('aria-pressed', resultadoCurrency === 'USD' ? 'true' : 'false');
+            usdButton.disabled = isLoading;
+            usdButton.textContent = isLoading ? '...' : 'USD';
+        }
+
+        async function fetchJsonBcra(url) {
+            const response = await fetch(url, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Accept-Language': 'es-AR'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('No se pudo consultar el tipo de cambio oficial del BCRA.');
+            }
+
+            const data = await response.json();
+            if (data.status && data.status !== 200) {
+                throw new Error('El BCRA devolvió una respuesta inválida para el tipo de cambio.');
+            }
+
+            return data;
+        }
+
+        async function fetchAllDailyBcraVariables() {
+            const limit = 1000;
+            let offset = 0;
+            let collected = [];
+            let total = Number.POSITIVE_INFINITY;
+
+            while (offset < total) {
+                const data = await fetchJsonBcra(`${BCRA_API_BASE}?periodicidad=D&limit=${limit}&offset=${offset}`);
+                const results = Array.isArray(data.results) ? data.results : [];
+                const count = data.metadata && data.metadata.resultset ? Number(data.metadata.resultset.count) : results.length;
+
+                collected = collected.concat(results);
+                total = Number.isFinite(count) ? count : collected.length;
+                offset += results.length;
+
+                if (!results.length) break;
+            }
+
+            return collected;
+        }
+
+        function scoreTipoCambioCandidate(variable) {
+            const description = normalizarTexto(variable.descripcion);
+            let score = 0;
+
+            if (description.includes('tipo de cambio')) score += 3;
+            if (description.includes('minorista')) score += 6;
+            if (description.includes('promedio vendedor')) score += 5;
+            if (description.includes('mayorista')) score += 3;
+            if (description.includes('a 3500')) score += 3;
+            if (description.includes('$ por usd') || description.includes('por usd')) score += 2;
+            if (variable.periodicidad === 'D') score += 1;
+
+            return score;
+        }
+
+        async function obtenerTipoCambioBcra() {
+            if (tipoCambioBcra) return tipoCambioBcra;
+            if (tipoCambioPromise) return tipoCambioPromise;
+
+            tipoCambioPromise = (async () => {
+                const variables = await fetchAllDailyBcraVariables();
+                const candidates = variables
+                    .filter((item) => scoreTipoCambioCandidate(item) > 0)
+                    .sort((a, b) => scoreTipoCambioCandidate(b) - scoreTipoCambioCandidate(a));
+
+                if (!candidates.length) {
+                    throw new Error('No se pudo identificar la serie de tipo de cambio oficial del BCRA.');
+                }
+
+                const variable = candidates[0];
+                const data = await fetchJsonBcra(`${BCRA_API_BASE}/${variable.idVariable}?limit=1`);
+                const detalle = data.results && data.results[0] && data.results[0].detalle ? data.results[0].detalle : [];
+                const latest = detalle[0];
+                const valor = latest ? Number(latest.valor) : NaN;
+
+                if (!Number.isFinite(valor) || valor <= 0) {
+                    throw new Error('La serie de tipo de cambio del BCRA no devolvió un valor válido.');
+                }
+
+                tipoCambioBcra = {
+                    valor,
+                    fecha: latest.fecha,
+                    label: variable.descripcion || 'Tipo de cambio oficial BCRA'
+                };
+
+                return tipoCambioBcra;
+            })().catch((error) => {
+                tipoCambioPromise = null;
+                throw error;
+            });
+
+            return tipoCambioPromise;
+        }
+
+        function renderResultadoSueldo() {
+            if (!ultimoResultadoSueldoNeto) return;
+
+            document.getElementById('sueldoNetoValor').textContent = formatearMontoResultado(montoVisible(ultimoResultadoSueldoNeto.sueldoNeto));
+            document.getElementById('sueldoBrutoRef').textContent = formatearMontoResultado(montoVisible(ultimoResultadoSueldoNeto.brutoMensual));
+
+            const tipoCambioInfo = document.getElementById('tipoCambioInfo');
+            if (resultadoCurrency === 'USD' && tipoCambioBcra) {
+                tipoCambioInfo.textContent = `TC BCRA: $${tipoCambioBcra.valor.toLocaleString('es-AR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 4
+                })} por USD · ${formatearFechaHumana(tipoCambioBcra.fecha)}`;
+                tipoCambioInfo.classList.remove('hidden');
+            } else {
+                tipoCambioInfo.textContent = '';
+                tipoCambioInfo.classList.add('hidden');
+            }
+
+            const desgloseEl = document.getElementById('desglose');
+            desgloseEl.innerHTML = ultimoResultadoSueldoNeto.items.map(item => `
+                <div class="result-row animate-count">
+                    <span class="result-label">${item.icon} ${item.label}</span>
+                    <span class="result-value text-red-500">-${formatearMontoResultado(montoVisible(item.value))}</span>
+                </div>
+            `).join('');
+
+            document.getElementById('totalDeducciones').textContent = '-' + formatearMontoResultado(montoVisible(ultimoResultadoSueldoNeto.totalDeduccionesMensual));
+            renderCurrencyControls();
+        }
+
+        async function setResultadoCurrency(currency) {
+            if (currency === resultadoCurrency) return;
+
+            if (currency === 'ARS') {
+                resultadoCurrency = 'ARS';
+                renderResultadoSueldo();
+                return;
+            }
+
+            try {
+                renderCurrencyControls(true);
+                await obtenerTipoCambioBcra();
+                resultadoCurrency = 'USD';
+                renderResultadoSueldo();
+            } catch (error) {
+                resultadoCurrency = 'ARS';
+                renderResultadoSueldo();
+                alert(error.message || 'No se pudo consultar el tipo de cambio oficial del BCRA.');
+            } finally {
+                renderCurrencyControls(false);
+            }
+        }
+
+        function dibujarRectRedondeado(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        function crearCanvasResultadoSueldo() {
+            const data = ultimoResultadoSueldoNeto;
+            const width = 1080;
+            const rowHeight = 86;
+            const height = 430 + (data.items.length * rowHeight) + 250;
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const hoy = new Intl.DateTimeFormat('es-AR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            }).format(data.fecha);
+
+            canvas.width = width;
+            canvas.height = height;
+
+            ctx.fillStyle = '#f5f6f8';
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.fillStyle = '#c5a059';
+            dibujarRectRedondeado(ctx, 48, 48, width - 96, 260, 24);
+            ctx.fill();
+
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '600 34px Inter, Arial, sans-serif';
+            ctx.fillText('Sueldo neto estimado', width / 2, 110);
+            ctx.font = '700 82px Inter, Arial, sans-serif';
+            ctx.fillText(formatearMontoResultado(montoVisible(data.sueldoNeto)), width / 2, 190);
+            ctx.font = '400 30px Inter, Arial, sans-serif';
+            ctx.fillText(`de ${formatearMontoResultado(montoVisible(data.brutoMensual))} brutos`, width / 2, 250);
+
+            if (resultadoCurrency === 'USD' && tipoCambioBcra) {
+                ctx.font = '400 22px Inter, Arial, sans-serif';
+                ctx.fillText(`TC BCRA: $${tipoCambioBcra.valor.toLocaleString('es-AR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 4
+                })} por USD · ${formatearFechaHumana(tipoCambioBcra.fecha)}`, width / 2, 286);
+            }
+
+            const cardX = 48;
+            const cardY = 360;
+            const cardW = width - 96;
+            const cardH = 138 + (data.items.length * rowHeight) + 96;
+
+            ctx.fillStyle = '#ffffff';
+            dibujarRectRedondeado(ctx, cardX, cardY, cardW, cardH, 22);
+            ctx.fill();
+
+            ctx.textAlign = 'left';
+            ctx.fillStyle = '#333333';
+            ctx.font = '700 30px "Playfair Display", Georgia, serif';
+            ctx.fillText('DESGLOSE DE RETENCIONES', cardX + 50, cardY + 76);
+
+            let y = cardY + 130;
+            data.items.forEach((item) => {
+                ctx.fillStyle = '#eef0f3';
+                ctx.fillRect(cardX + 50, y + rowHeight - 1, cardW - 100, 1);
+
+                ctx.fillStyle = '#6b7280';
+                ctx.font = '400 28px Inter, Arial, sans-serif';
+                ctx.fillText(item.label, cardX + 50, y + 52);
+
+                ctx.textAlign = 'right';
+                ctx.fillStyle = '#333333';
+                ctx.font = '700 28px Inter, Arial, sans-serif';
+                ctx.fillText(`-${formatearMontoResultado(montoVisible(item.value))}`, cardX + cardW - 50, y + 52);
+                ctx.textAlign = 'left';
+
+                y += rowHeight;
+            });
+
+            ctx.fillStyle = '#333333';
+            ctx.font = '700 32px Inter, Arial, sans-serif';
+            ctx.fillText('Total deducciones', cardX + 50, y + 64);
+
+            ctx.textAlign = 'right';
+            ctx.fillStyle = '#ef4444';
+            ctx.font = '700 32px Inter, Arial, sans-serif';
+            ctx.fillText(`-${formatearMontoResultado(montoVisible(data.totalDeduccionesMensual))}`, cardX + cardW - 50, y + 64);
+
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#6b7280';
+            ctx.font = '500 22px Inter, Arial, sans-serif';
+            ctx.fillText(`TB Abogados | Cálculo orientativo | ${hoy}`, width / 2, height - 62);
+            ctx.font = '400 18px Inter, Arial, sans-serif';
+            ctx.fillText('Los valores finales pueden variar según convenio, deducciones y situación fiscal.', width / 2, height - 32);
+
+            return canvas;
+        }
+
+        function canvasABlob(canvas) {
+            return new Promise((resolve, reject) => {
+                canvas.toBlob((blob) => {
+                    if (blob) {
+                        resolve(blob);
+                    } else {
+                        reject(new Error('No se pudo generar la imagen del resultado.'));
+                    }
+                }, 'image/png');
+            });
+        }
+
+        function canvasAArchivo(canvas) {
+            const dataUrl = canvas.toDataURL('image/png');
+            const partes = dataUrl.split(',');
+            const mime = partes[0].match(/:(.*?);/)[1];
+            const binary = atob(partes[1]);
+            const bytes = new Uint8Array(binary.length);
+
+            for (let i = 0; i < binary.length; i += 1) {
+                bytes[i] = binary.charCodeAt(i);
+            }
+
+            return new File([bytes], nombreArchivoResultadoSueldo(), { type: mime });
+        }
+
+        async function descargarResultadoSueldo() {
+            if (!asegurarResultadoSueldo()) return;
+
+            const canvas = crearCanvasResultadoSueldo();
+            const blob = await canvasABlob(canvas);
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+
+            link.href = url;
+            link.download = nombreArchivoResultadoSueldo();
+            link.click();
+
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }
+
+        async function compartirResultadoSueldo() {
+            if (!asegurarResultadoSueldo()) return;
+
+            const canvas = crearCanvasResultadoSueldo();
+            const file = canvasAArchivo(canvas);
+            const texto = `Mi sueldo neto estimado es ${formatearMontoResultado(montoVisible(ultimoResultadoSueldoNeto.sueldoNeto))}.`;
+
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                try {
+                    await navigator.share({
+                        title: 'Resultado de sueldo neto',
+                        text: texto,
+                        files: [file]
+                    });
+                    return;
+                } catch (error) {
+                    if (error.name === 'AbortError') return;
+                    alert('No se pudo compartir la imagen. Probá descargarla y enviarla por WhatsApp.');
+                    return;
+                }
+            }
+
+            const url = URL.createObjectURL(file);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = file.name;
+            link.click();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+            window.open(`https://wa.me/?text=${encodeURIComponent(texto)}`, '_blank', 'noopener');
+            alert('Tu navegador no permite compartir imágenes directamente. Descargué la imagen para que puedas adjuntarla en WhatsApp.');
+        }
+
         function cambiarHijos(delta) {
             const input = document.getElementById('hijos');
             const v = parseInt(input.value) || 0;
             input.value = Math.max(0, v + delta);
+            if (debeEsperarCalcularMobile()) return;
             recalcular();
         }
 
@@ -870,6 +1397,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         function recalcular(dispararWhatsapp = false) {
             const brutoMensual = parseFloat((document.getElementById('bruto').value || '0').replace(/\./g, '').replace(',', '.')) || 0;
             if (!brutoMensual) return;
+            sueldoNetoCalculado = true;
             const sindicatoPorc = parseFloat(document.getElementById('sindicato').value) || 0;
             const casado = document.getElementById('casado').checked;
             const hijos = parseInt(document.getElementById('hijos').value) || 0;
@@ -922,8 +1450,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             document.getElementById('resultadoPlaceholder').classList.add('hidden');
             document.getElementById('resultadoPanel').classList.remove('hidden');
-            document.getElementById('sueldoNetoValor').textContent = '$' + formatearNumero(sueldoNeto);
-            document.getElementById('sueldoBrutoRef').textContent = '$' + formatearNumero(brutoMensual);
 
             const items = [
                 { icon: '🧾', label: `Jubilación (11%)`, value: jubilacion },
@@ -933,15 +1459,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 { icon: '🧾', label: `Impuesto a las Ganancias`, value: impuestoGananciasMensual }
             ];
 
-            const desgloseEl = document.getElementById('desglose');
-            desgloseEl.innerHTML = items.map(item => `
-                <div class="result-row animate-count">
-                    <span class="result-label">${item.icon} ${item.label}</span>
-                    <span class="result-value text-red-500">-$${formatearNumero(item.value)}</span>
-                </div>
-            `).join('');
+            ultimoResultadoSueldoNeto = {
+                brutoMensual,
+                sueldoNeto,
+                totalDeduccionesMensual,
+                items,
+                fecha: new Date()
+            };
 
-            document.getElementById('totalDeducciones').textContent = '-$' + formatearNumero(totalDeduccionesMensual);
+            renderResultadoSueldo();
 
             if (window.innerWidth < 1024) {
                 document.getElementById('panelResultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
