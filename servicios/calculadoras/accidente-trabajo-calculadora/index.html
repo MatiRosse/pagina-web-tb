@@ -590,6 +590,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </div>
                     </div>
 
+                    <!-- CTA WhatsApp -->
+                    <a id="calc-wa" href="https://wa.me/5491122511243?text=Hola!%20Quiero%20revisar%20mi%20indemnizaci%C3%B3n%20por%20accidente%20de%20trabajo" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-3 bg-[#25D366] text-white font-bold text-lg py-4 rounded-xl hover:bg-[#1fba59] transition-all shadow-lg hover:scale-[1.02]">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i> Revisar mi indemnización
+                    </a>
+
                     <!-- Disclaimer -->
                     <p class="text-xs text-gray-500 text-center px-2">
                         * Cálculo estimativo basado en fórmula LRT Art. 14. El monto real puede diferir según convenio,
@@ -1003,7 +1008,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 });
             }
 
-            // Update the CTA button if it exists or just provide the dynamic values
+            // Update the CTA with the calculated amount
+            const waEl = document.getElementById('calc-wa');
+            if (waEl) {
+                const mensaje = encodeURIComponent(`Hola! Calculé mi indemnización estimada por accidente de trabajo en ${formatCurrency(total)}. ¿Podemos revisar mi caso?`);
+                waEl.href = `https://wa.me/5491122511243?text=${mensaje}`;
+            }
 
             if (window.innerWidth < 1024) {
                 document.getElementById('panelResultadoART').scrollIntoView({ behavior: 'smooth', block: 'start' });
