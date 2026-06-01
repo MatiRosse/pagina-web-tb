@@ -116,6 +116,12 @@
         <priority>0.8</priority>
     </url>
     <url>
+        <loc>https://tbabogados.com.ar/guias-legales/aguinaldo-sac-argentina/</loc>
+        <lastmod>2026-06-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://tbabogados.com.ar/guias-legales/rescindir-contrato-alquiler/</loc>
         <lastmod>2026-05-11</lastmod>
         <changefreq>monthly</changefreq>
@@ -203,9 +209,9 @@
     </url>
     <url>
         <loc>https://tbabogados.com.ar/servicios/calculadoras/aguinaldo-calculadora/</loc>
-        <lastmod>2026-05-12</lastmod>
+        <lastmod>2026-06-01</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
+        <priority>0.8</priority>
     </url>
     <url>
         <loc>https://tbabogados.com.ar/servicios/calculadoras/actualizacion-deudas-calculadora/</loc>
