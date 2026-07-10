@@ -472,7 +472,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 </div>
                                 <div>
                                     <label class="calc-label text-xs" for="seguros">Seguros de vida mensual ($) <span
-                                            class="text-gray-400 font-normal">— tope $655.600/año</span></label>
+                                            class="text-gray-400 font-normal">— tope $753.472/año</span></label>
                                     <input class="calc-input py-2.5 text-sm" type="number" id="seguros" value="0"
                                         min="0" step="100">
                                 </div>
@@ -746,7 +746,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const conyuge = casado ? 4851964.66 : 0;
             const hijosDeduccion = hijos * 2446863.48;
             const alquilerAnual = Math.min(alquilerMensual * 12 * 0.4, minimoNoImponible);
-            const segurosAnual = Math.min(segurosMensual * 12, 655600);
+            const segurosAnual = Math.min(segurosMensual * 12, 753472.14);
             const casasAnual = Math.min(casasMensual * 12, minimoNoImponible);
 
             const totalDeducciones = minimoNoImponible + deduccionEspecial + conyuge + hijosDeduccion + alquilerAnual + segurosAnual + casasAnual;
