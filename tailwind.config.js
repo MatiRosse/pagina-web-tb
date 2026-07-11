@@ -12,7 +12,8 @@ module.exports = {
                 gold: {
                     DEFAULT: '#c5a059',
                     hover: '#b08d4b',
-                    light: '#f9f6f0'
+                    light: '#f9f6f0',
+                    dark: '#8a6a2f'
                 }
             },
             fontFamily: {
