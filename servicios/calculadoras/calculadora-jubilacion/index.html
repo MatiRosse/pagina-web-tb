@@ -1330,7 +1330,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             if (rawValue === '') return { empty: true };
 
-            if (!/^\d{1,2}$/.test(rawValue) && rawValue !== '60') {
+            if (!/^\d{1,2}$/.test(rawValue)) {
                 return { error: 'Ingresá los aportes en números enteros.' };
             }
 
@@ -1536,6 +1536,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 hasValidationError = true;
             }
 
+            // Coherencia edad/aportes: nadie puede tener mas aportes que años
+            // trabajados desde la edad laboral minima (16).
+            if (!ageState.error && !aportesState.error && aportesState.value > ageState.value - 16) {
+                setFieldError('aniosAportes', `Con ${formatYearsLabel(ageState.value)} de edad, los aportes no pueden superar ${formatYearsLabel(ageState.value - 16)}.`);
+                hasValidationError = true;
+            }
+
             if (hasValidationError) {
                 showError('Revisá los datos ingresados y corregí los campos marcados.');
                 return;
@@ -1723,6 +1730,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             resetFieldErrors();
             actualizarHaberesPorMovilidad();
             document.getElementById('sueldoPromedio').addEventListener('input', formatearMilesSueldo);
+
+            // Auto-avance: al completar la edad o los aportes, el foco pasa al campo siguiente.
+            const edadInput = document.getElementById('edadActual');
+            const aportesInput = document.getElementById('aniosAportes');
+
+            edadInput.addEventListener('input', (event) => {
+                if (event.inputType && event.inputType.startsWith('delete')) return;
+                const valor = edadInput.value.trim();
+                // 2 digitos ya validos como edad, o 3 digitos (maximo posible: 100)
+                if ((/^\d{2}$/.test(valor) && Number(valor) >= 18) || /^\d{3}$/.test(valor)) {
+                    aportesInput.focus();
+                }
+            });
+
+            aportesInput.addEventListener('input', (event) => {
+                if (event.inputType && event.inputType.startsWith('delete')) return;
+                if (/^\d{2}$/.test(aportesInput.value.trim())) {
+                    document.getElementById('sueldoPromedio').focus();
+                }
+            });
         });
     </script>
     <script defer src="../../../js/whatsapp-widget.js"></script>

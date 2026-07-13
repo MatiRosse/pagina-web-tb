@@ -120,7 +120,7 @@ window.dataLayer.push({
         .result-total {
             background: linear-gradient(135deg, #c5a059, #8f723a);
             border-radius: 14px;
-            padding: 20px 24px;
+            padding: 14px 20px;
             color: white;
         }
 
@@ -393,21 +393,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <p class="text-gray-400 text-sm max-w-xs">Completá los datos para ver el total estimado y los conceptos incluidos.</p>
                 </div>
 
-                <div id="resultadoPanel" class="hidden space-y-5">
+                <div id="resultadoPanel" class="hidden space-y-3">
                     <div class="result-total text-center shadow-xl">
                         <p class="text-white text-sm font-medium mb-1 opacity-80">Total estimado bruto</p>
-                        <p id="calc-total-valor" class="text-4xl font-bold tracking-tight">$0</p>
-                        <p class="text-white text-xs mt-2 opacity-70 italic">Sujeto a revisión documental y descuentos que correspondan.</p>
+                        <p id="calc-total-valor" class="text-3xl font-bold tracking-tight">$0</p>
+                        <p class="text-white text-xs mt-1 opacity-70 italic">Sujeto a revisión documental y descuentos que correspondan.</p>
                     </div>
 
-                    <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6">
-                        <h3 class="font-semibold text-darkblue-900 mb-4 text-xs uppercase tracking-widest flex items-center gap-2">
+                    <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-4 px-6">
+                        <h3 class="font-semibold text-darkblue-900 mb-2 text-xs uppercase tracking-widest flex items-center gap-2">
                             <i class="fa-solid fa-list-check text-gold"></i> Conceptos incluidos
                         </h3>
-                        <div id="calc-items" class="space-y-1"></div>
+                        <div id="calc-items"></div>
                     </div>
 
-                    <a id="calc-wa" href="https://wa.me/5491122511243?text=Hola!%20Quiero%20revisar%20mi%20indemnizaci%C3%B3n%20por%20despido" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-3 bg-[#25D366] text-white font-bold text-lg py-4 rounded-xl hover:bg-[#1fba59] transition-all shadow-lg hover:scale-[1.02]">
+                    <a id="calc-wa" href="https://wa.me/5491122511243?text=Hola!%20Quiero%20revisar%20mi%20indemnizaci%C3%B3n%20por%20despido" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-3 bg-[#25D366] text-white font-bold text-lg py-3 rounded-xl hover:bg-[#1fba59] transition-all shadow-lg hover:scale-[1.02]">
                         <i class="fa-brands fa-whatsapp text-2xl"></i> Revisar mi liquidación con un profesional
                     </a>
                 </div>
@@ -693,7 +693,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             }
 
             itemsEl.innerHTML = conceptos.map((item) => `
-                <div class="flex items-center justify-between py-2 border-b border-gray-100 last:border-0 gap-3">
+                <div class="flex items-center justify-between py-1.5 border-b border-gray-100 last:border-0 gap-3">
                     <span class="text-sm text-gray-600">${item.label}</span>
                     <span class="text-sm font-semibold text-darkblue-900 whitespace-nowrap">${formatCurrency(item.value)}</span>
                 </div>
