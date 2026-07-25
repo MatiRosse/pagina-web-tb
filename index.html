@@ -316,6 +316,24 @@ h6,
     }
 }
 
+@media (min-width: 640px) {
+    /*
+     * Keep the three hero CTAs on one line when their horizontal layout starts.
+     * Their size is fluid so they also fit inside the narrower text column
+     * used by the two-column desktop hero.
+     */
+    #home-hero-section .hero-actions {
+        flex-wrap: nowrap;
+    }
+
+    #home-hero-section .hero-actions > * {
+        min-width: 0;
+        padding-left: clamp(0.75rem, 1.6vw, 2rem);
+        padding-right: clamp(0.75rem, 1.6vw, 2rem);
+        font-size: clamp(0.875rem, 1.4vw, 1.125rem);
+    }
+}
+
 @font-face {
     font-family: "Font Awesome 6 Free";
     font-style: normal;
@@ -1336,7 +1354,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 asesoramiento legal con abogados especialistas en distintas áreas del derecho. <br>
                                 Atención presencial y consultas virtuales en todo el país.
                             </p>
-                            <div class="flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-3 md:gap-4 opacity-0"
+                            <div class="hero-actions flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-3 md:gap-4 opacity-0"
                                 style="animation: fadeIn 0.8s ease-out forwards 1s;">
                                 <a href="https://wa.me/5491122511243?text=Hola!%20Quiero%20hacer%20una%20consulta%20legal"
                                     target="_blank" rel="noopener"
