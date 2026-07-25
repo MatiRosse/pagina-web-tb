@@ -292,7 +292,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- Toolbar: buscador + filtros por categoría -->
         <div id="guides-toolbar" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
             <div class="flex flex-row md:items-center gap-3 md:gap-6">
-                <div class="relative flex-1 md:flex-none md:w-80">
+                <div class="relative flex-1 min-w-0 md:flex-none md:w-80">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"
                         aria-hidden="true"></i>
                     <input id="guides-search" type="search" placeholder="Buscar una guía..."
@@ -300,15 +300,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         class="w-full bg-white border border-gray-200 rounded-full py-3 pl-11 pr-5 text-base text-darkblue-900 placeholder-gray-400 shadow-sm focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/30 transition" />
                 </div>
                 <!-- Mobile: categorías como desplegable -->
-                <div class="relative flex-1 md:hidden">
+                <div class="relative flex-1 min-w-0 md:hidden">
                     <select id="guides-category-select" aria-label="Filtrar guías por categoría"
-                        class="w-full appearance-none bg-white border border-gray-200 rounded-full py-3 pl-5 pr-10 text-base text-darkblue-900 shadow-sm focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/30 transition"></select>
+                        class="w-full min-w-0 appearance-none bg-white border border-gray-200 rounded-full py-3 pl-5 pr-10 text-base text-darkblue-900 shadow-sm focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/30 transition"></select>
                     <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none"
                         aria-hidden="true"></i>
                 </div>
-                <!-- Desktop: categorías como chips -->
-                <div id="guides-filters" class="hidden md:flex flex-wrap items-center gap-2" role="group"
-                    aria-label="Filtrar guías por categoría"></div>
+                <!-- Desktop: categorías en una fila; las que no entran pasan al menú "Más" -->
+                <div id="guides-desktop-filters" class="hidden md:flex flex-1 min-w-0 items-center gap-2">
+                    <div id="guides-filters" class="flex flex-1 min-w-0 flex-nowrap items-center gap-2 overflow-hidden"
+                        role="group" aria-label="Filtrar guías por categoría"></div>
+                    <div id="guides-more-wrap" class="relative hidden flex-shrink-0">
+                        <button id="guides-more-button" type="button" aria-haspopup="true" aria-expanded="false"
+                            class="px-4 py-2 rounded-full text-sm font-medium border transition bg-white text-gray-600 border-gray-200 hover:border-gold hover:text-gold whitespace-nowrap">
+                            Más
+                            <i class="fa-solid fa-chevron-down ml-1 text-xs" aria-hidden="true"></i>
+                        </button>
+                        <div id="guides-more-menu"
+                            class="hidden absolute right-0 top-full mt-2 w-64 max-h-80 overflow-y-auto rounded-xl border border-gray-200 bg-white py-2 shadow-lg z-20"
+                            role="menu" aria-label="Más categorías"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -883,6 +895,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             var cards = Array.prototype.slice.call(document.querySelectorAll('.guide-card'));
             var filtersEl = document.getElementById('guides-filters');
+            var desktopFiltersEl = document.getElementById('guides-desktop-filters');
+            var moreWrapEl = document.getElementById('guides-more-wrap');
+            var moreButtonEl = document.getElementById('guides-more-button');
+            var moreMenuEl = document.getElementById('guides-more-menu');
             var selectEl = document.getElementById('guides-category-select');
             var searchEl = document.getElementById('guides-search');
             var emptyEl = document.getElementById('guides-empty');
@@ -899,9 +915,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 var cat = card.getAttribute('data-category');
                 counts[cat] = (counts[cat] || 0) + 1;
             });
+            var categories = Object.keys(counts).sort(function (a, b) {
+                return counts[b] - counts[a] || a.localeCompare(b, 'es');
+            });
 
             function chipClasses(active) {
-                return 'guide-chip px-4 py-2 rounded-full text-sm font-medium border transition ' + (active
+                return 'guide-chip flex-shrink-0 whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium border transition ' + (active
                     ? 'bg-darkblue-900 text-white border-darkblue-900'
                     : 'bg-white text-gray-600 border-gray-200 hover:border-gold hover:text-gold');
             }
@@ -917,7 +936,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 filtersEl.querySelectorAll('.guide-chip').forEach(function (c) {
                     c.className = chipClasses(c.getAttribute('data-filter') === activeCategory);
                 });
+                if (moreMenuEl) {
+                    moreMenuEl.querySelectorAll('[data-filter]').forEach(function (option) {
+                        var isActive = option.getAttribute('data-filter') === activeCategory;
+                        option.className = overflowOptionClasses(isActive);
+                        if (isActive) {
+                            option.setAttribute('aria-current', 'true');
+                        } else {
+                            option.removeAttribute('aria-current');
+                        }
+                    });
+                }
                 if (selectEl) selectEl.value = activeCategory;
+                updateMoreButtonState();
             }
 
             function makeChip(label, value, count) {
@@ -941,14 +972,129 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             filtersEl.appendChild(makeChip('Todas', '*', cards.length));
             if (selectEl) selectEl.appendChild(makeOption('Todas las categorías', '*', cards.length));
-            Object.keys(counts).forEach(function (cat) {
+            categories.forEach(function (cat) {
                 filtersEl.appendChild(makeChip(cat, cat, counts[cat]));
                 if (selectEl) selectEl.appendChild(makeOption(cat, cat, counts[cat]));
             });
 
+            function overflowOptionClasses(active) {
+                return 'guide-overflow-option w-full text-left px-4 py-3 text-sm transition ' + (active
+                    ? 'bg-gold-light text-gold font-medium'
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gold');
+            }
+
+            function closeMoreMenu() {
+                if (!moreMenuEl || !moreButtonEl) return;
+                moreMenuEl.classList.add('hidden');
+                moreButtonEl.setAttribute('aria-expanded', 'false');
+            }
+
+            function updateMoreButtonState() {
+                if (!moreButtonEl || !filtersEl) return;
+                var activeChip = filtersEl.querySelector('.guide-chip[data-filter="' + activeCategory + '"]');
+                var activeIsOverflow = activeChip && activeChip.style.display === 'none';
+                moreButtonEl.className = chipClasses(activeIsOverflow) + ' whitespace-nowrap';
+            }
+
+            function layoutCategoryFilters() {
+                if (!desktopFiltersEl || !moreWrapEl || !moreButtonEl || !moreMenuEl) return;
+                if (window.innerWidth < 768) {
+                    closeMoreMenu();
+                    return;
+                }
+
+                closeMoreMenu();
+                var chips = Array.prototype.slice.call(filtersEl.querySelectorAll('.guide-chip'));
+                chips.forEach(function (chip) {
+                    chip.style.display = '';
+                });
+                filtersEl.style.flex = '1 1 0%';
+                moreWrapEl.style.display = 'none';
+                moreMenuEl.innerHTML = '';
+
+                var gap = parseFloat(window.getComputedStyle(filtersEl).columnGap) || 0;
+                var totalWidth = chips.reduce(function (total, chip, index) {
+                    return total + chip.offsetWidth + (index ? gap : 0);
+                }, 0);
+
+                if (totalWidth <= filtersEl.clientWidth) {
+                    filtersEl.style.flex = '0 0 auto';
+                    moreWrapEl.classList.add('hidden');
+                    updateMoreButtonState();
+                    return;
+                }
+
+                moreWrapEl.classList.remove('hidden');
+                moreWrapEl.style.display = '';
+                moreButtonEl.firstChild.nodeValue = 'Más (' + categories.length + ') ';
+
+                var availableWidth = filtersEl.clientWidth;
+                var usedWidth = 0;
+                var overflowed = [];
+                chips.forEach(function (chip, index) {
+                    var nextWidth = chip.offsetWidth + (usedWidth ? gap : 0);
+                    if (index === 0 || usedWidth + nextWidth <= availableWidth) {
+                        usedWidth += nextWidth;
+                    } else {
+                        chip.style.display = 'none';
+                        overflowed.push(chip);
+                    }
+                });
+                filtersEl.style.flex = '0 0 ' + usedWidth + 'px';
+
+                moreButtonEl.firstChild.nodeValue = 'Más (' + overflowed.length + ') ';
+                overflowed.forEach(function (chip) {
+                    var option = document.createElement('button');
+                    option.type = 'button';
+                    option.setAttribute('role', 'menuitem');
+                    option.setAttribute('data-filter', chip.getAttribute('data-filter'));
+                    option.className = overflowOptionClasses(
+                        chip.getAttribute('data-filter') === activeCategory);
+                    option.innerHTML = chip.innerHTML;
+                    option.addEventListener('click', function () {
+                        closeMoreMenu();
+                        setCategory(option.getAttribute('data-filter'));
+                    });
+                    moreMenuEl.appendChild(option);
+                });
+                updateMoreButtonState();
+            }
+
+            function updateResponsiveSearchPlaceholder() {
+                searchEl.placeholder = window.innerWidth < 768 ? 'Buscar...' : 'Buscar una guía...';
+            }
+
             if (selectEl) selectEl.addEventListener('change', function () {
                 setCategory(selectEl.value);
             });
+            if (moreButtonEl && moreMenuEl) {
+                moreButtonEl.addEventListener('click', function () {
+                    var willOpen = moreMenuEl.classList.contains('hidden');
+                    moreMenuEl.classList.toggle('hidden', !willOpen);
+                    moreButtonEl.setAttribute('aria-expanded', String(willOpen));
+                });
+                document.addEventListener('click', function (event) {
+                    if (moreWrapEl && !moreWrapEl.contains(event.target)) closeMoreMenu();
+                });
+                document.addEventListener('keydown', function (event) {
+                    if (event.key === 'Escape') {
+                        closeMoreMenu();
+                        moreButtonEl.focus();
+                    }
+                });
+            }
+
+            var resizeFrame;
+            window.addEventListener('resize', function () {
+                window.cancelAnimationFrame(resizeFrame);
+                resizeFrame = window.requestAnimationFrame(function () {
+                    updateResponsiveSearchPlaceholder();
+                    layoutCategoryFilters();
+                });
+            });
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(layoutCategoryFilters);
+            }
 
             function normalize(text) {
                 return text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -1041,6 +1187,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 setCategory('*');
             });
 
+            updateResponsiveSearchPlaceholder();
+            layoutCategoryFilters();
             applyFilters();
         })();
     </script>
