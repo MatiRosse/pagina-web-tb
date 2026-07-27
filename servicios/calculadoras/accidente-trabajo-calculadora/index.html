@@ -344,8 +344,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 <a href="../../mediaciones" class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-handshake-simple text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Mediaciones</a>
                                 <a href="../../jubilaciones" class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-clock-rotate-left text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Jubilaciones</a>
                                 <a href="../../alquileres" class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-building text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Alquileres</a>
+                                <div class="relative consumo-menu">
+                                    <a href="../../consumo/" class="flex items-center px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-scale-balanced text-gold mr-2 inline-block w-4 text-center"></i><span>Reclamos de Consumo</span><i class="fa-solid fa-chevron-right text-xs ml-auto"></i></a>
+                                    <div class="consumo-menu-panel absolute left-full top-0 z-20 ml-1 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1">
+                                        <a href="../../consumo/aerolineas/" class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-plane text-gold mr-2 w-4 text-center" aria-hidden="true"></i>Aerolíneas</a>
+
+                                        <a href="../../consumo/bancos-finanzas/" class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-building-columns text-gold mr-2 w-4 text-center"></i>Bancos y Finanzas</a>
+                                    </div>
+                                </div>
                                 <a href="../../accidente-de-transito" class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-car-burst text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Accidentes de Tránsito</a>
                                 <a href="../../accidente-de-trabajo" class="block px-4 py-2 text-base text-gray-700 hover:bg-gold-light hover:text-gold"><i class="fa-solid fa-truck-medical text-gold mr-2 inline-block w-4 text-center" aria-hidden="true"></i>Accidentes de Trabajo</a>
+
                             </div>
                         </div>
                     </div>
@@ -410,10 +419,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             class="text-gray-300 hover:text-gold block py-1 text-base">Jubilaciones</a>
                         <a href="../../../servicios/alquileres/"
                             class="text-gray-300 hover:text-gold block py-1 text-base">Alquileres</a>
+                        <div class="col-span-2 space-y-2">
+                            <div class="flex items-center gap-2"><a href="../../../servicios/consumo/" class="text-gray-300 hover:text-gold block py-1 font-medium">Reclamos de consumo</a><button type="button" onclick="toggleMobSubmenu('mob-consumo')" aria-label="Mostrar reclamos de consumo" class="text-gold p-1"><i id="mob-consumo-icon" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i></button></div>
+                            <div id="mob-consumo" class="hidden grid grid-cols-1 gap-1 pl-3 border-l border-gold/20"><a href="../../../servicios/consumo/aerolineas/" class="text-gray-300 hover:text-gold block py-1"><i class="fa-solid fa-plane text-gold mr-2 w-4 text-center" aria-hidden="true"></i>Aerolíneas</a><a href="../../../servicios/consumo/bancos-finanzas/" class="text-gray-300 hover:text-gold block py-1">Bancos y finanzas</a></div>
+                        </div>
                         <a href="../../../servicios/accidente-de-transito/"
                             class="text-gray-300 hover:text-gold block py-1 text-base">Accidente tránsito</a>
                         <a href="../../../servicios/accidente-de-trabajo/"
                             class="text-gray-300 hover:text-gold block py-1 text-base">Accidente trabajo</a>
+
                         <a href="../../../servicios/"
                             class="col-span-2 text-gold hover:text-white block py-1 text-sm italic mt-1">Ver todos los
                             servicios...</a>

@@ -70,6 +70,21 @@ h6,
     border-bottom: 1px solid rgba(197, 160, 89, 0.2);
 }
 
+/* Nested consumption-services menu */
+.consumo-menu-panel {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-0.35rem);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+}
+
+.consumo-menu:hover > .consumo-menu-panel,
+.consumo-menu:focus-within > .consumo-menu-panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
 /* CTA Card Glass */
 .cta-glass {
     background: rgba(255, 255, 255, 0.1);
