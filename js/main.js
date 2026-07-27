@@ -143,7 +143,10 @@ function animateMobileMenu(openMenu) {
 
     if (prefersReducedMotion()) {
         if (openMenu) mobileMenu.classList.remove('hidden');
-        else mobileMenu.classList.add('hidden');
+        else {
+            mobileMenu.classList.add('hidden');
+            resetMobileSubmenus();
+        }
         return;
     }
 
@@ -194,6 +197,7 @@ function animateMobileMenu(openMenu) {
         removeMobileMenuTransitionHandler(mobileMenu);
         mobileMenu.classList.add('hidden');
         clearMobileMenuInlineStyles(mobileMenu);
+        resetMobileSubmenus();
     };
     mobileMenu._tbMenuTransitionHandler = onCloseEnd;
     mobileMenu.addEventListener('transitionend', onCloseEnd);
@@ -224,6 +228,17 @@ function bindCloseMobileMenuOnOutsideTap() {
         // Keep menu open while interacting inside navbar/mobile menu.
         if (nav.contains(target)) return;
 
+        closeMobileMenu();
+    });
+}
+
+function bindCloseMobileMenuOnLinkActivation() {
+    const mobileMenu = getMobileMenuElement();
+    if (!mobileMenu) return;
+
+    mobileMenu.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof Element) || !target.closest('a')) return;
         closeMobileMenu();
     });
 }
@@ -311,33 +326,46 @@ function initWhyChooseUsMobileToggle() {
     applyViewportState();
 }
 
-// Mobile Submenu Accordion Toggle
-function toggleMobSubmenu(submenuId) {
+const MOBILE_SUBMENU_IDS = ['mob-servicios', 'mob-calculadoras', 'mob-consumo'];
+
+function setMobSubmenuState(submenuId, isOpen) {
     const submenu = document.getElementById(submenuId);
     const icon = document.getElementById(`${submenuId}-icon`);
     const btn = document.getElementById(`${submenuId}-btn`);
+    if (!submenu) return;
 
-    if (submenu) {
-        const isHidden = submenu.classList.contains('hidden');
+    submenu.classList.toggle('hidden', !isOpen);
+    if (icon) icon.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+    if (btn) {
+        btn.classList.toggle('text-gold', isOpen);
+        btn.classList.toggle('text-gray-300', !isOpen);
+    }
+}
 
-        // Close other submenus first (optional, but cleaner)
-        // document.querySelectorAll('[id^="mob-"][id$="-submenu"]').forEach(s => s.classList.add('hidden'));
+function resetMobileSubmenus() {
+    MOBILE_SUBMENU_IDS.forEach((submenuId) => setMobSubmenuState(submenuId, false));
+}
 
-        if (isHidden) {
-            submenu.classList.remove('hidden');
-            if (icon) icon.style.transform = 'rotate(180deg)';
-            if (btn) {
-                btn.classList.remove('text-gray-300');
-                btn.classList.add('text-gold');
-            }
-        } else {
-            submenu.classList.add('hidden');
-            if (icon) icon.style.transform = 'rotate(0deg)';
-            if (btn) {
-                btn.classList.remove('text-gold');
-                btn.classList.add('text-gray-300');
-            }
-        }
+// Mobile Submenu Accordion Toggle
+function toggleMobSubmenu(submenuId) {
+    const submenu = document.getElementById(submenuId);
+    if (!submenu) return;
+
+    const shouldOpen = submenu.classList.contains('hidden');
+
+    if (shouldOpen && submenuId === 'mob-servicios') {
+        setMobSubmenuState('mob-calculadoras', false);
+    }
+
+    if (shouldOpen && submenuId === 'mob-calculadoras') {
+        setMobSubmenuState('mob-servicios', false);
+        setMobSubmenuState('mob-consumo', false);
+    }
+
+    setMobSubmenuState(submenuId, shouldOpen);
+
+    if (!shouldOpen && submenuId === 'mob-servicios') {
+        setMobSubmenuState('mob-consumo', false);
     }
 }
 
@@ -413,6 +441,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const initialScrollY = getScrollY();
 
     bindCloseMobileMenuOnOutsideTap();
+    bindCloseMobileMenuOnLinkActivation();
     initWhyChooseUsMobileToggle();
 
     // Run before major DOM writes to avoid forced reflow after style invalidation.
