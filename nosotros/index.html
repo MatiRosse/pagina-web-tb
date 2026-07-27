@@ -724,38 +724,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             }
         }
 
-        const nav = document.querySelector('nav');
-        let navTicking = false;
+        const nosotrosNav = document.querySelector('nav');
+        let nosotrosNavTicking = false;
 
-        function updateNavOnScroll() {
-            if (!nav) return;
+        function updateNosotrosNavOnScroll() {
+            if (!nosotrosNav) return;
 
             const isScrolled = (window.scrollY || window.pageYOffset || 0) > 50;
-            nav.classList.toggle('shadow-lg', isScrolled);
-            nav.classList.toggle('bg-opacity-95', isScrolled);
+            nosotrosNav.classList.toggle('shadow-lg', isScrolled);
+            nosotrosNav.classList.toggle('bg-opacity-95', isScrolled);
         }
 
         window.addEventListener('scroll', () => {
-            if (navTicking) return;
+            if (nosotrosNavTicking) return;
 
-            navTicking = true;
+            nosotrosNavTicking = true;
             requestAnimationFrame(() => {
-                updateNavOnScroll();
-                navTicking = false;
+                updateNosotrosNavOnScroll();
+                nosotrosNavTicking = false;
             });
         }, { passive: true });
 
-        window.addEventListener('DOMContentLoaded', updateNavOnScroll);
+        window.addEventListener('DOMContentLoaded', updateNosotrosNavOnScroll);
 
         document.addEventListener('pointerdown', (event) => {
             const mobileMenu = document.getElementById('mob-menu');
-            if (!nav || !mobileMenu || mobileMenu.classList.contains('hidden')) return;
+            if (!nosotrosNav || !mobileMenu || mobileMenu.classList.contains('hidden')) return;
 
-            if (event.target instanceof Node && !nav.contains(event.target)) {
+            if (event.target instanceof Node && !nosotrosNav.contains(event.target)) {
                 mobileMenu.classList.add('hidden');
             }
         });
     </script>
+    <script defer src="../js/main.js"></script>
 </body>
 
 </html>

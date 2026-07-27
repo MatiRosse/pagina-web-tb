@@ -24,6 +24,28 @@ h6,
     font-family: 'Playfair Display', serif;
 }
 
+/* Keep long mobile hero titles centered independently from their icon. */
+@media (max-width: 767px) {
+    .hero-title-balanced.inline-flex {
+        position: relative;
+        display: inline-block;
+        width: min(68vw, 18rem);
+    }
+
+    .hero-title-balanced > span {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-title-balanced > i {
+        position: absolute;
+        top: 50%;
+        right: calc(100% + 0.5rem);
+        transform: translateY(-50%);
+    }
+}
+
 /* Custom Utilities */
 .text-gold {
     color: #c5a059;

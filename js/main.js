@@ -326,6 +326,177 @@ function initWhyChooseUsMobileToggle() {
     applyViewportState();
 }
 
+function ensureReviewCarouselStyles() {
+    if (document.getElementById('reviews-carousel-styles')) return;
+
+    const style = document.createElement('style');
+    style.id = 'reviews-carousel-styles';
+    style.textContent = `
+        .reviews-carousel-dots {
+            display: none;
+        }
+
+        @media (max-width: 767px) {
+            .reviews-carousel-track {
+                display: flex !important;
+                gap: 1rem !important;
+                overflow-x: auto;
+                overscroll-behavior-inline: contain;
+                scroll-behavior: smooth;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none;
+                -webkit-overflow-scrolling: touch;
+                padding: 1.5rem 0 0.25rem;
+            }
+
+            .reviews-carousel-track::-webkit-scrollbar {
+                display: none;
+            }
+
+            .reviews-carousel-track > * {
+                flex: 0 0 100%;
+                min-width: 0;
+                scroll-snap-align: start;
+                scroll-snap-stop: always;
+            }
+
+            .reviews-carousel-dots {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.6rem;
+                margin-top: 1rem;
+            }
+
+            .reviews-carousel-dot {
+                width: 0.65rem;
+                height: 0.65rem;
+                padding: 0;
+                border: 0;
+                border-radius: 9999px;
+                background: #d1d5db;
+                transition: width 180ms ease, background-color 180ms ease;
+            }
+
+            .reviews-carousel-dot[aria-current="true"] {
+                width: 1.6rem;
+                background: #c5a059;
+            }
+
+            .reviews-carousel-dot:focus-visible {
+                outline: 2px solid #333333;
+                outline-offset: 3px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reviews-carousel-track {
+                scroll-behavior: auto;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+function findReviewTracks() {
+    const ratingSummaries = Array.from(document.querySelectorAll('p')).filter((paragraph) =>
+        paragraph.textContent.trim().startsWith('Excelente 5.0 de 5')
+    );
+
+    return ratingSummaries.reduce((tracks, summary) => {
+        const section = summary.closest('#reviews-section') || summary.closest('.bg-white');
+        const track = section && section.querySelector('.grid.grid-cols-1.md\\:grid-cols-3');
+
+        if (track && !tracks.includes(track)) tracks.push(track);
+        return tracks;
+    }, []);
+}
+
+function initReviewCarousels() {
+    const tracks = findReviewTracks();
+    if (!tracks.length) return;
+
+    ensureReviewCarouselStyles();
+
+    tracks.forEach((track, carouselIndex) => {
+        if (track.dataset.reviewCarouselReady === 'true') return;
+
+        const slides = Array.from(track.children);
+        if (slides.length < 2) return;
+
+        track.dataset.reviewCarouselReady = 'true';
+        track.classList.add('reviews-carousel-track');
+        track.setAttribute('role', 'region');
+        track.setAttribute('aria-roledescription', 'carrusel');
+        track.setAttribute('aria-label', 'Opiniones de clientes');
+        track.setAttribute('tabindex', '0');
+
+        const dots = document.createElement('div');
+        dots.className = 'reviews-carousel-dots';
+        dots.setAttribute('aria-label', 'Elegir opinión');
+
+        const dotButtons = slides.map((slide, slideIndex) => {
+            slide.setAttribute('role', 'group');
+            slide.setAttribute('aria-roledescription', 'diapositiva');
+            slide.setAttribute('aria-label', `${slideIndex + 1} de ${slides.length}`);
+
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'reviews-carousel-dot';
+            dot.setAttribute('aria-label', `Ver opinión ${slideIndex + 1}`);
+            dot.setAttribute('aria-current', slideIndex === 0 ? 'true' : 'false');
+            dot.addEventListener('click', () => {
+                slides[slideIndex].scrollIntoView({
+                    behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+                    block: 'nearest',
+                    inline: 'start'
+                });
+            });
+            dots.appendChild(dot);
+            return dot;
+        });
+
+        track.insertAdjacentElement('afterend', dots);
+
+        let updateFrame = null;
+        const updateActiveDot = () => {
+            updateFrame = null;
+            const trackLeft = track.getBoundingClientRect().left;
+            let activeIndex = 0;
+            let closestDistance = Infinity;
+
+            slides.forEach((slide, slideIndex) => {
+                const distance = Math.abs(slide.getBoundingClientRect().left - trackLeft);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    activeIndex = slideIndex;
+                }
+            });
+
+            dotButtons.forEach((dot, dotIndex) => {
+                dot.setAttribute('aria-current', dotIndex === activeIndex ? 'true' : 'false');
+            });
+        };
+
+        track.addEventListener('scroll', () => {
+            if (updateFrame) cancelAnimationFrame(updateFrame);
+            updateFrame = requestAnimationFrame(updateActiveDot);
+        }, { passive: true });
+
+        track.addEventListener('keydown', (event) => {
+            if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+            event.preventDefault();
+
+            const activeIndex = dotButtons.findIndex((dot) => dot.getAttribute('aria-current') === 'true');
+            const direction = event.key === 'ArrowRight' ? 1 : -1;
+            const nextIndex = Math.min(slides.length - 1, Math.max(0, activeIndex + direction));
+            dotButtons[nextIndex].click();
+        });
+
+        track.id = track.id || `reviews-carousel-${carouselIndex + 1}`;
+    });
+}
+
 const MOBILE_SUBMENU_IDS = ['mob-servicios', 'mob-calculadoras', 'mob-consumo'];
 
 function setMobSubmenuState(submenuId, isOpen) {
@@ -443,6 +614,7 @@ window.addEventListener('DOMContentLoaded', () => {
     bindCloseMobileMenuOnOutsideTap();
     bindCloseMobileMenuOnLinkActivation();
     initWhyChooseUsMobileToggle();
+    initReviewCarousels();
 
     // Run before major DOM writes to avoid forced reflow after style invalidation.
     updateNavOnScroll(initialScrollY);
