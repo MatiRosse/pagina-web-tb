@@ -258,6 +258,16 @@
             return;
         }
 
+        if (typeof data.downloadHandler === 'function') {
+            try {
+                await data.downloadHandler(data);
+            } catch (error) {
+                console.error('No se pudo generar la descarga personalizada.', error);
+                alert(error.message || 'No se pudo generar el archivo. Intentá nuevamente.');
+            }
+            return;
+        }
+
         const canvas = createCanvas(data);
         const blob = await canvasToBlob(canvas);
         const url = URL.createObjectURL(blob);
@@ -310,6 +320,14 @@
         if (!id || !data) return;
         results[id] = data;
         if (data.target) mount(id, data.target);
+
+        const target = data.target && document.querySelector(data.target);
+        const downloadButton = target && target.querySelector('.tb-result-action-button');
+        if (downloadButton) {
+            const isPdf = data.downloadFormat === 'pdf';
+            downloadButton.setAttribute('aria-label', isPdf ? 'Descargar informe en PDF' : 'Descargar resultado como imagen');
+            downloadButton.setAttribute('title', isPdf ? 'Descargar informe PDF' : 'Descargar resultado');
+        }
     }
 
     window.TBResultShare = {
