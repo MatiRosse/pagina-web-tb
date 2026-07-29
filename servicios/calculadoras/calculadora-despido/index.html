@@ -410,6 +410,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <i class="fa-solid fa-list-check text-gold"></i> Conceptos incluidos
                         </h3>
                         <div id="calc-items"></div>
+                        <div class="flex justify-end border-t border-gray-100 mt-2 pt-2">
+                            <button type="button" onclick="window.TBResultShare && window.TBResultShare.download('despido')" class="inline-flex items-center gap-2 text-xs font-medium text-gray-500 hover:text-gold transition-colors py-1" aria-label="Descargar informe de indemnización en PDF">
+                                <span class="rounded-lg inline-flex items-center justify-center" style="width:28px;height:28px;flex:0 0 28px;background:#fef2f2;color:#dc2626;border:1px solid #fee2e2;" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M6 2.5h8l4 4V21.5H6z"></path>
+                                        <path d="M14 2.5v4h4"></path>
+                                        <path d="M8.5 13h7M8.5 16h5"></path>
+                                    </svg>
+                                </span>
+                                Descargar informe PDF
+                            </button>
+                        </div>
                     </div>
 
                     <a id="calc-wa" href="https://wa.me/5491122511243?text=Hola!%20Quiero%20revisar%20mi%20indemnizaci%C3%B3n%20por%20despido" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-3 bg-[#25D366] text-white font-bold text-lg py-3 rounded-xl hover:bg-[#1fba59] transition-all shadow-lg hover:scale-[1.02]">
@@ -573,6 +585,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <script src="../../../js/calculator-result-share.js"></script>
+    <script src="../../../js/alquiler-pdf-logo.js"></script>
+    <script src="../../../js/tb-pdf-core.js"></script>
+    <script src="../../../js/despido-pdf-report.js"></script>
     <script>
         function formatMiles(input) {
             const onlyDigits = (input.value || '').replace(/\D/g, '');
@@ -605,6 +620,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             }
 
             return Math.max(0, totalMeses);
+        }
+
+        function setDefaultDismissalDate() {
+            const input = document.getElementById('despido');
+            if (!input || input.value) return;
+            const parts = Object.fromEntries(
+                new Intl.DateTimeFormat('en-US', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    timeZone: 'America/Argentina/Buenos_Aires'
+                }).formatToParts(new Date()).map((part) => [part.type, part.value])
+            );
+            input.value = `${parts.year}-${parts.month}-${parts.day}`;
         }
 
         function calcularIndemnizacion() {
@@ -677,9 +706,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             ];
 
             if (window.TBResultShare) {
+                const tenureLabel = [
+                    aniosCompletos ? `${aniosCompletos} ${aniosCompletos === 1 ? 'año' : 'años'}` : '',
+                    mesesFraccion ? `${mesesFraccion} ${mesesFraccion === 1 ? 'mes' : 'meses'}` : ''
+                ].filter(Boolean).join(' y ') || 'Menos de un mes';
                 window.TBResultShare.setData('despido', {
                     target: '#resultadoPanel .result-total',
                     filename: 'resultado-despido',
+                    downloadFormat: 'pdf',
+                    downloadHandler: () => window.TBDespidoPDF.download({
+                        entryDate: ingresoValue,
+                        dismissalDate: despidoValue,
+                        salary: sueldo,
+                        tenureLabel,
+                        trialMonths: periodoPruebaMeses,
+                        preNoticeGranted: otorgoPreaviso,
+                        inTrial: enPeriodoPrueba,
+                        concepts: conceptos,
+                        total
+                    }),
                     title: 'Total estimado bruto',
                     amount: formatCurrency(total),
                     subtitle: 'Indemnización por despido',
@@ -719,6 +764,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 });
             }
         }
+
+        window.addEventListener('DOMContentLoaded', setDefaultDismissalDate);
     </script>
     <script defer src="../../../js/whatsapp-widget.js"></script>
     <script defer src="../../../js/main.js"></script>

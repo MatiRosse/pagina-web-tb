@@ -6,7 +6,7 @@
         muted: '#667085',
         line: '#dfe4ea',
         soft: '#f6f7f9',
-        navy: '#17243a',
+        navy: '#333333',
         gold: '#c5a059',
         green: '#079669',
         white: '#ffffff'
@@ -397,7 +397,7 @@
 
     async function download(report) {
         if (!report || typeof report.loadHistory !== 'function') throw new Error('Calculá el resultado antes de generar el informe.');
-        const embeddedLogo = window.TB_ALQUILER_PDF_LOGO_DATA;
+        const embeddedLogo = window.TB_PDF_LOGO_DATA || window.TB_ALQUILER_PDF_LOGO_DATA;
         if (!embeddedLogo) throw new Error('No se pudo preparar el logo de TB Abogados.');
         const [logo, history] = await Promise.all([
             loadImage(embeddedLogo),
