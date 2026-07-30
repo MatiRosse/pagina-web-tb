@@ -127,6 +127,33 @@ window.dataLayer.push({
             line-height: 1;
         }
 
+        @media (max-width: 639px) {
+            .nosotros-values {
+                column-gap: 0.75rem;
+                row-gap: 1.25rem;
+            }
+
+            .nosotros-values > div {
+                min-width: 0;
+                gap: 0.5rem;
+                align-items: flex-start;
+            }
+
+            .nosotros-values .nosotros-check-icon {
+                width: 2rem;
+                height: 2rem;
+                margin-top: 0.125rem;
+                font-size: 0.8rem;
+            }
+
+            .nosotros-values span {
+                min-width: 0;
+                font-size: 0.875rem;
+                line-height: 1.25rem;
+                overflow-wrap: anywhere;
+            }
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -347,7 +374,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     comerciales, sucesorios y previsionales con una visión completa, garantizando resultados reales.
                     Atendemos de forma presencial en CABA y representamos a clientes en todo el país.
                 </p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+                <div class="nosotros-values grid grid-cols-2 gap-6 mb-10">
                     <div class="flex items-center gap-4">
                         <div class="nosotros-check-icon">
                             <i class="fa-solid fa-check"></i>

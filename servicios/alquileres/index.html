@@ -1212,6 +1212,115 @@ h6,
         .faq-item.active .faq-chevron {
             transform: rotate(180deg);
         }
+
+        .service-professional-card {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            overflow: hidden;
+            border-radius: 1rem;
+            background: #333333;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .service-professional-copy {
+            order: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .service-professional-photo {
+            position: relative;
+            order: 1;
+            height: 18rem;
+            overflow: hidden;
+        }
+
+        .service-professional-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .service-professional-image--florencia {
+            object-position: center 33%;
+        }
+
+        .service-professional-identity {
+            position: absolute;
+            inset: auto 0 0;
+            z-index: 1;
+            padding: 3.5rem 1.25rem 1.15rem;
+            color: #ffffff;
+            background: linear-gradient(to top, rgba(24, 24, 24, 0.92) 0%, rgba(24, 24, 24, 0.68) 48%, transparent 100%);
+            text-decoration: none;
+        }
+
+        .service-professional-name {
+            display: block;
+            margin-bottom: 0.2rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            line-height: 1.25;
+        }
+
+        .service-professional-credentials {
+            display: block;
+            color: #e1c582;
+            font-size: 0.72rem;
+            font-weight: 600;
+            line-height: 1.45;
+            letter-spacing: 0.045em;
+            text-transform: uppercase;
+        }
+
+        .service-professional-identity:hover .service-professional-name,
+        .service-professional-identity:focus-visible .service-professional-name {
+            text-decoration: underline;
+            text-decoration-color: #c5a059;
+            text-underline-offset: 0.25rem;
+        }
+
+        .service-professional-identity:focus-visible {
+            outline: 2px solid #e1c582;
+            outline-offset: -4px;
+        }
+
+        @media (min-width: 768px) {
+            .service-professional-card {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                min-height: 20rem;
+            }
+
+            .service-professional-copy {
+                grid-column: span 2 / span 2;
+                order: 1;
+                padding: 2.5rem;
+            }
+
+            .service-professional-photo {
+                order: 2;
+                height: 100%;
+                min-height: 20rem;
+            }
+
+            .service-professional-image--florencia {
+                object-position: center center;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .service-professional-card {
+                min-height: 20rem;
+            }
+
+            .service-professional-copy {
+                padding: 1.5rem 2.5rem;
+            }
+        }
     </style>
     <link rel="icon" href="../../assets/img/logotb.ico" type="image/x-icon">
 
@@ -1920,25 +2029,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </script>
         </div>
         <!-- CTA Final -->
-        <div class="mb-24 max-w-3xl mx-auto px-4">
-            <div class="bg-darkblue-900 rounded-2xl text-center shadow-xl"
-                style="padding: clamp(1.75rem, 8vw, 4rem);">
-                <h3 class="font-serif text-3xl text-white mb-4">¿Tenés un conflicto relacionado con un alquiler?</h3>
-                <p class="text-gray-300 text-lg leading-relaxed mb-4 max-w-xl mx-auto">Brindamos asesoramiento legal a
-                    propietarios e
-                    inquilinos en contratos de alquiler, incumplimientos contractuales y
-                    reclamos.</p>
-                <p class="text-gray-400 text-base mb-8 max-w-md mx-auto">Analizamos cada caso de manera personalizada
-                    para orientarte
-                    sobre la solución adecuada a tu consulta.</p>
-                <a class="inline-flex btn-solid-gold py-4 rounded-full font-bold text-lg items-center gap-3 shadow-xl transition-all hover:scale-105"
-                    style="padding-left: clamp(1.25rem, 6vw, 2.5rem); padding-right: clamp(1.25rem, 6vw, 2.5rem);"
-                    href="https://wa.me/5491122511243?text=Hola!%20Tengo%20una%20consulta%20sobre%20un%20alquiler"
-                    target="_blank">
-                    Consultar sobre alquileres <i class="fa-brands fa-whatsapp"></i>
-                </a>
-                <p class="text-gray-500 text-sm mt-4">Tu consulta será respondida por un abogado especialista en
-                    alquileres del estudio.</p>
+        <div class="mb-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="service-professional-card">
+                <div class="service-professional-copy">
+                    <h3 class="font-serif text-3xl text-white mb-4">¿Tenés un conflicto relacionado con un alquiler?</h3>
+                    <p class="text-gray-300 text-lg leading-relaxed mb-4 max-w-2xl">Brindamos asesoramiento legal a propietarios e inquilinos en contratos de alquiler, incumplimientos contractuales y reclamos.</p>
+                    <p class="text-gray-400 text-base mb-8 max-w-2xl">Analizamos cada caso de manera personalizada para orientarte sobre la solución adecuada a tu consulta.</p>
+                    <a class="inline-flex btn-solid-gold py-4 rounded-full font-bold text-lg items-center gap-3 shadow-xl transition-all hover:scale-105"
+                        style="padding-left: clamp(1.25rem, 6vw, 2.5rem); padding-right: clamp(1.25rem, 6vw, 2.5rem);"
+                        href="https://wa.me/5491122511243?text=Hola!%20Tengo%20una%20consulta%20sobre%20un%20alquiler"
+                        target="_blank" rel="noopener">
+                        Consultar sobre alquileres <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+                <div class="service-professional-photo">
+                    <img src="../../assets/img/dra-bulgheroni-portada.avif" alt="Dra. Florencia Bulgheroni"
+                        class="service-professional-image service-professional-image--florencia" loading="lazy" decoding="async">
+                    <a href="../../dra-bulgheroni/" class="service-professional-identity"
+                        aria-label="Conocé el perfil profesional de la Dra. Florencia Bulgheroni">
+                        <span class="service-professional-name">Dra. Florencia Bulgheroni</span>
+                        <span class="service-professional-credentials">CPACF Tº 137 Fº 145</span>
+                    </a>
+                </div>
             </div>
         </div>
         <!-- Google Reviews (DESACTIVADO) -->

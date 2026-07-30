@@ -170,10 +170,51 @@ window.dataLayer.push({
         .final-contact-photo {
             height: 18rem;
             order: 1;
+            position: relative;
         }
 
         .final-contact-img {
             object-position: center 33% !important;
+        }
+
+        .final-contact-professional {
+            position: absolute;
+            inset: auto 0 0;
+            z-index: 1;
+            padding: 3.5rem 1.25rem 1.15rem;
+            color: #fff;
+            background: linear-gradient(to top, rgba(24, 24, 24, 0.92) 0%, rgba(24, 24, 24, 0.68) 48%, transparent 100%);
+            text-decoration: none;
+        }
+
+        .final-contact-professional-name {
+            display: block;
+            margin-bottom: 0.2rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            line-height: 1.25;
+        }
+
+        .final-contact-professional-credentials {
+            display: block;
+            color: #e1c582;
+            font-size: 0.72rem;
+            font-weight: 600;
+            line-height: 1.45;
+            letter-spacing: 0.045em;
+            text-transform: uppercase;
+        }
+
+        .final-contact-professional:hover .final-contact-professional-name,
+        .final-contact-professional:focus-visible .final-contact-professional-name {
+            text-decoration: underline;
+            text-decoration-color: #c5a059;
+            text-underline-offset: 0.25rem;
+        }
+
+        .final-contact-professional:focus-visible {
+            outline: 2px solid #e1c582;
+            outline-offset: -4px;
         }
 
         @media (min-width: 768px) {
@@ -1102,6 +1143,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="final-contact-photo overflow-hidden">
                     <img src="../../assets/img/dra-bulgheroni-portada.avif" alt="Dra. Florencia Bulgheroni"
                         class="final-contact-img w-full h-full object-cover" loading="lazy" decoding="async">
+                    <a href="../../dra-bulgheroni/" class="final-contact-professional"
+                        aria-label="Conocé el perfil profesional de la Dra. Florencia Bulgheroni">
+                        <span class="final-contact-professional-name">Dra. Florencia Bulgheroni</span>
+                        <span class="final-contact-professional-credentials">CPACF Tº 137 Fº 145 · Agente INPI 2971</span>
+                    </a>
                 </div>
             </div>
         </div>
