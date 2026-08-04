@@ -267,6 +267,100 @@ window.dataLayer.push({
 
         .calculator-cta p { margin: 0; }
 
+        .legal-guide-layout > article,
+        .salary-example-wrap {
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        .salary-example-wrap {
+            overflow: hidden;
+        }
+
+        .salary-example-table {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .salary-example-table th,
+        .salary-example-table td {
+            overflow-wrap: anywhere;
+        }
+
+        .salary-example-table th:first-child { width: 38%; }
+        .salary-example-table th:nth-child(2) { width: 25%; }
+        .salary-example-table th:last-child { width: 37%; }
+
+        @media (max-width: 600px) {
+            .salary-example-wrap {
+                overflow: visible;
+                border: 0;
+                border-radius: 0;
+                background: transparent;
+                box-shadow: none;
+            }
+
+            .salary-example-table,
+            .salary-example-table tbody,
+            .salary-example-table tr,
+            .salary-example-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .salary-example-table thead {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                padding: 0;
+                margin: -1px;
+                overflow: hidden;
+                clip: rect(0, 0, 0, 0);
+                white-space: nowrap;
+                border: 0;
+            }
+
+            .salary-example-table tbody {
+                display: grid;
+                gap: .8rem;
+            }
+
+            .salary-example-table tr {
+                padding: .75rem 1rem;
+                border: 1px solid #e5e7eb;
+                border-left: 3px solid #c5a059;
+                border-radius: .85rem;
+                background: #ffffff;
+                box-shadow: 0 5px 16px rgba(30, 41, 59, .06);
+            }
+
+            .salary-example-table tr.salary-net-row {
+                background: #fffaf0;
+                border-color: #ead8b4;
+                border-left-color: #9a742e;
+            }
+
+            .salary-example-table td {
+                display: grid;
+                grid-template-columns: minmax(5.75rem, .8fr) minmax(0, 1.2fr);
+                gap: .75rem;
+                align-items: start;
+                padding: .35rem 0;
+                border: 0;
+                text-align: left;
+            }
+
+            .salary-example-table td::before {
+                content: attr(data-label);
+                color: #9a742e;
+                font-size: .68rem;
+                font-weight: 700;
+                line-height: 1.4;
+                letter-spacing: .06em;
+                text-transform: uppercase;
+            }
+        }
+
         @media (min-width: 680px) {
             .salary-concepts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
             .calculator-cta { flex-direction: row; align-items: center; justify-content: space-between; }
@@ -534,15 +628,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <p>El anverso debe incorporar un resumen de la composición total del costo laboral. El modelo oficial del Anexo III lo representa de forma visual para distinguir los rubros a cargo del empleador. <strong>No es una segunda liquidación ni una lista de nuevos descuentos al trabajador.</strong></p>
 
                 <h2>Ejemplo sencillo con números ficticios</h2>
-                <div class="overflow-x-auto not-prose my-6 rounded-xl border border-gray-200 bg-white shadow-sm">
-                    <table class="w-full text-sm text-left">
+                <div class="salary-example-wrap not-prose my-6 rounded-xl border border-gray-200 bg-white shadow-sm">
+                    <table class="salary-example-table w-full text-sm text-left">
                         <thead class="bg-darkblue-900 text-white"><tr><th class="px-5 py-3">Concepto</th><th class="px-5 py-3 text-right">Importe ilustrativo</th><th class="px-5 py-3">¿Quién lo soporta?</th></tr></thead>
                         <tbody class="divide-y divide-gray-100 text-gray-600">
-                            <tr><td class="px-5 py-3 font-medium text-gray-800">Remuneración bruta</td><td class="px-5 py-3 text-right">$1.500.000</td><td class="px-5 py-3">Base de la liquidación</td></tr>
-                            <tr><td class="px-5 py-3">Deducciones personales (ejemplo)</td><td class="px-5 py-3 text-right">− $255.000</td><td class="px-5 py-3">Trabajador</td></tr>
-                            <tr class="bg-gold-light/30"><td class="px-5 py-3 font-bold text-darkblue-900">Neto a cobrar</td><td class="px-5 py-3 text-right font-bold text-darkblue-900">$1.245.000</td><td class="px-5 py-3">Acreditación esperada</td></tr>
-                            <tr><td class="px-5 py-3">Contribuciones patronales (ejemplo)</td><td class="px-5 py-3 text-right">+ $300.000</td><td class="px-5 py-3">Empleador; no se descuenta</td></tr>
-                            <tr><td class="px-5 py-3 font-medium text-gray-800">Costo laboral simplificado</td><td class="px-5 py-3 text-right">$1.800.000</td><td class="px-5 py-3">Empleador</td></tr>
+                            <tr><td data-label="Concepto" class="px-5 py-3 font-medium text-gray-800">Remuneración bruta</td><td data-label="Importe" class="px-5 py-3 text-right">$1.500.000</td><td data-label="A cargo de" class="px-5 py-3">Base de la liquidación</td></tr>
+                            <tr><td data-label="Concepto" class="px-5 py-3">Deducciones personales (ejemplo)</td><td data-label="Importe" class="px-5 py-3 text-right">− $255.000</td><td data-label="A cargo de" class="px-5 py-3">Trabajador</td></tr>
+                            <tr class="salary-net-row bg-gold-light/30"><td data-label="Concepto" class="px-5 py-3 font-bold text-darkblue-900">Neto a cobrar</td><td data-label="Importe" class="px-5 py-3 text-right font-bold text-darkblue-900">$1.245.000</td><td data-label="Resultado" class="px-5 py-3">Acreditación esperada</td></tr>
+                            <tr><td data-label="Concepto" class="px-5 py-3">Contribuciones patronales (ejemplo)</td><td data-label="Importe" class="px-5 py-3 text-right">+ $300.000</td><td data-label="A cargo de" class="px-5 py-3">Empleador; no se descuenta</td></tr>
+                            <tr><td data-label="Concepto" class="px-5 py-3 font-medium text-gray-800">Costo laboral simplificado</td><td data-label="Importe" class="px-5 py-3 text-right">$1.800.000</td><td data-label="A cargo de" class="px-5 py-3">Empleador</td></tr>
                         </tbody>
                     </table>
                 </div>
