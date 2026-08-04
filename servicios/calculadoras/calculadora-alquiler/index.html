@@ -167,6 +167,7 @@ window.dataLayer.push({
         }
 
         .method-card {
+            position: relative;
             border: 2px solid #e5e7eb;
             border-radius: 16px;
             padding: 14px 16px;
@@ -179,8 +180,14 @@ window.dataLayer.push({
         }
 
         .method-card:hover {
+            z-index: 40;
             transform: translateY(-2px);
             border-color: rgba(197, 160, 89, .6);
+        }
+
+        .method-card:focus-within,
+        .method-card.has-open-popover {
+            z-index: 40;
         }
 
         .method-card.is-active {
@@ -1287,7 +1294,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 <label class="calc-label" for="fechaFin">
                                     <i class="fa-solid fa-calendar-check text-gold mr-1"></i>Fecha de actualización
                                 </label>
-                                <input class="calc-input" type="date" id="fechaFin">
+                                <input class="calc-input" type="date" id="fechaFin"
+                                    onchange="syncStartDateToAdjustmentPeriod()">
                             </div>
                         </div>
 
@@ -2017,7 +2025,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         function closeInfoPopovers(except = null) {
             document.querySelectorAll('.context-info-wrap.is-open').forEach((item) => {
-                if (item !== except) item.classList.remove('is-open');
+                if (item !== except) {
+                    item.classList.remove('is-open');
+                    const card = item.closest('.method-card');
+                    if (card) card.classList.remove('has-open-popover');
+                }
             });
         }
 
@@ -2026,6 +2038,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const willOpen = !element.classList.contains('is-open');
             closeInfoPopovers(element);
             element.classList.toggle('is-open', willOpen);
+            const card = element.closest('.method-card');
+            if (card) card.classList.toggle('has-open-popover', willOpen);
         }
 
         function handleInfoKey(event, element) {
@@ -2034,6 +2048,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 toggleInfoPopover(event, element);
             } else if (event.key === 'Escape') {
                 element.classList.remove('is-open');
+                const card = element.closest('.method-card');
+                if (card) card.classList.remove('has-open-popover');
                 element.blur();
             }
         }
@@ -2042,6 +2058,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             currentAdjustmentMonths = months;
             const select = document.getElementById('adjustmentPeriodSelect');
             if (select) select.value = String(months);
+            syncStartDateToAdjustmentPeriod();
+        }
+
+        function syncStartDateToAdjustmentPeriod() {
+            const startInput = document.getElementById('fechaInicio');
+            const endInput = document.getElementById('fechaFin');
+            if (!startInput || !endInput || !endInput.value) return;
+
+            const endDate = toUtcDate(endInput.value);
+            startInput.value = toISODate(addMonthsFromStart(endDate, -currentAdjustmentMonths));
         }
 
         function getAdjustmentPeriodLabel(months) {
@@ -2795,9 +2821,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         function setDefaultDates() {
             const today = new Date();
             const end = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
-            const start = new Date(Date.UTC(end.getUTCFullYear() - 1, end.getUTCMonth(), end.getUTCDate()));
-            document.getElementById('fechaInicio').value = toISODate(start);
             document.getElementById('fechaFin').value = toISODate(end);
+            syncStartDateToAdjustmentPeriod();
         }
 
         window.addEventListener('DOMContentLoaded', () => {
