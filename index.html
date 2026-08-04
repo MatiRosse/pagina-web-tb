@@ -206,6 +206,13 @@ h6,
     padding-bottom: 1.5rem;
 }
 
+@media (min-width: 768px) {
+    .why-choose-card,
+    .why-choose-face {
+        display: contents;
+    }
+}
+
 @media (max-width: 767px) {
     #home-hero-section {
         padding-bottom: 4rem;
@@ -246,6 +253,69 @@ h6,
         min-width: 0;
     }
 
+    .why-choose-item {
+        min-height: 12.5rem;
+        perspective: 75rem;
+    }
+
+    .why-choose-card {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        min-height: 12.5rem;
+        transform-style: preserve-3d;
+        -webkit-transform-style: preserve-3d;
+        transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .why-choose-item[data-open="true"] .why-choose-card {
+        transform: rotateY(180deg);
+    }
+
+    .why-choose-face {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.25rem 0.75rem;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 1rem;
+        background: rgba(255, 255, 255, 0.045);
+        box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.16);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+    }
+
+    .why-choose-front .why-choose-icon {
+        margin-bottom: 1rem;
+    }
+
+    .why-choose-front h3 {
+        margin-bottom: 0;
+        font-size: 1.05rem;
+        line-height: 1.35;
+    }
+
+    .why-choose-back {
+        transform: rotateY(180deg);
+        border-color: rgba(197, 160, 89, 0.42);
+        background: linear-gradient(145deg, rgba(197, 160, 89, 0.2), rgba(255, 255, 255, 0.06));
+    }
+
+    .why-choose-back .why-choose-content {
+        font-size: 0.78rem;
+        line-height: 1.5;
+    }
+
+    .why-choose-item:focus-visible {
+        border-radius: 1rem;
+        outline: 2px solid #c5a059;
+        outline-offset: 0.25rem;
+    }
+
     #mob-menu .mob-menu-inner > a.btn-solid-gold {
         background: transparent;
         color: #d1d5db;
@@ -264,6 +334,31 @@ h6,
         background: transparent;
         color: #c5a059;
         transform: none;
+    }
+}
+
+@media (max-width: 374px) {
+    #why-choose-us-grid {
+        gap: 1rem;
+    }
+
+    .why-choose-item,
+    .why-choose-card {
+        min-height: 13rem;
+    }
+
+    .why-choose-face {
+        padding-inline: 0.55rem;
+    }
+
+    .why-choose-back .why-choose-content {
+        font-size: 0.72rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .why-choose-card {
+        transition: none;
     }
 }
 
@@ -1892,53 +1987,77 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-14 text-center" id="why-choose-us-grid">
                         <!-- Item 1 -->
                         <div class="why-choose-item flex flex-col items-center group cursor-pointer md:cursor-default">
-                            <div
-                                class="w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-gold text-2xl mb-7 group-hover:bg-gold group-hover:text-white group-hover:border-gold transition-all duration-300 shadow-lg">
-                                <i class="fa-solid fa-heart" aria-hidden="true"></i>
+                            <div class="why-choose-card">
+                                <div class="why-choose-face why-choose-front">
+                                    <div
+                                        class="why-choose-icon w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-gold text-2xl mb-7 group-hover:bg-gold group-hover:text-white group-hover:border-gold transition-all duration-300 shadow-lg">
+                                        <i class="fa-solid fa-heart" aria-hidden="true"></i>
+                                    </div>
+                                    <h3 class="font-serif text-xl text-white mb-4">Calidez Familiar</h3>
+                                </div>
+                                <div class="why-choose-face why-choose-back">
+                                    <p class="why-choose-content text-gray-400 text-base leading-relaxed max-w-xs">
+                                        Al ser un estudio familiar, creamos un ambiente cálido y confiable. <span
+                                            class="text-white font-medium tracking-wide">Cada cliente es parte de nuestra
+                                            familia legal</span>.
+                                    </p>
+                                </div>
                             </div>
-                            <h3 class="font-serif text-xl text-white mb-4">Calidez Familiar</h3>
-                            <p class="why-choose-content text-gray-400 text-base leading-relaxed max-w-xs">
-                                Al ser un estudio familiar, creamos un ambiente cálido y confiable. <span
-                                    class="text-white font-medium tracking-wide">Cada cliente es parte de nuestra
-                                    familia legal</span>.
-                            </p>
                         </div>
                         <!-- Item 2 -->
                         <div class="why-choose-item flex flex-col items-center group cursor-pointer md:cursor-default">
-                            <div
-                                class="w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-gold text-2xl mb-7 group-hover:bg-gold group-hover:text-white group-hover:border-gold transition-all duration-300 shadow-lg">
-                                <i class="fa-solid fa-users"></i>
+                            <div class="why-choose-card">
+                                <div class="why-choose-face why-choose-front">
+                                    <div
+                                        class="why-choose-icon w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-gold text-2xl mb-7 group-hover:bg-gold group-hover:text-white group-hover:border-gold transition-all duration-300 shadow-lg">
+                                        <i class="fa-solid fa-users" aria-hidden="true"></i>
+                                    </div>
+                                    <h3 class="font-serif text-xl text-white mb-4">Equipo Multidisciplinario</h3>
+                                </div>
+                                <div class="why-choose-face why-choose-back">
+                                    <p class="why-choose-content text-gray-400 text-base leading-relaxed max-w-xs">
+                                        Formado por abogados de diversas especialidades, lo que nos permite
+                                        atender tus <span class="text-white font-medium tracking-wide">necesidades
+                                            con mirada integral.</span>
+                                    </p>
+                                </div>
                             </div>
-                            <h3 class="font-serif text-xl text-white mb-4">Equipo Multidisciplinario</h3>
-                            <p class="why-choose-content text-gray-400 text-base leading-relaxed max-w-xs">
-                                Formado por abogados de diversas especialidades, lo que nos permite
-                                atender tus <span class="text-white font-medium tracking-wide">necesidades
-                                    con mirada integral.</span>
-                            </p>
                         </div>
                         <!-- Item 3 -->
                         <div class="why-choose-item flex flex-col items-center group cursor-pointer md:cursor-default">
-                            <div
-                                class="w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-gold text-2xl mb-7 group-hover:bg-gold group-hover:text-white group-hover:border-gold transition-all duration-300 shadow-lg">
-                                <i class="fa-solid fa-mobile-screen"></i>
+                            <div class="why-choose-card">
+                                <div class="why-choose-face why-choose-front">
+                                    <div
+                                        class="why-choose-icon w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-gold text-2xl mb-7 group-hover:bg-gold group-hover:text-white group-hover:border-gold transition-all duration-300 shadow-lg">
+                                        <i class="fa-solid fa-mobile-screen" aria-hidden="true"></i>
+                                    </div>
+                                    <h3 class="font-serif text-xl text-white mb-4">Atención Personalizada</h3>
+                                </div>
+                                <div class="why-choose-face why-choose-back">
+                                    <p class="why-choose-content text-gray-400 text-base leading-relaxed max-w-xs">
+                                        Mantenemos una comunicación directa y fluida, informando el estado de tu caso y
+                                        brindando asesoramiento adaptado para ofrecerte soluciones a medida.
+                                    </p>
+                                </div>
                             </div>
-                            <h3 class="font-serif text-xl text-white mb-4">Atención Personalizada</h3>
-                            <p class="why-choose-content text-gray-400 text-base leading-relaxed max-w-xs">
-                                Mantenemos una comunicación directa y fluida, informando el estado de tu caso y
-                                brindando asesoramiento adaptado para ofrecerte soluciones a medida.
-                            </p>
                         </div>
                         <!-- Item 4 -->
                         <div class="why-choose-item flex flex-col items-center group cursor-pointer md:cursor-default">
-                            <div
-                                class="w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-gold text-2xl mb-7 group-hover:bg-gold group-hover:text-white group-hover:border-gold transition-all duration-300 shadow-lg">
-                                <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+                            <div class="why-choose-card">
+                                <div class="why-choose-face why-choose-front">
+                                    <div
+                                        class="why-choose-icon w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-gold text-2xl mb-7 group-hover:bg-gold group-hover:text-white group-hover:border-gold transition-all duration-300 shadow-lg">
+                                        <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+                                    </div>
+                                    <h3 class="font-serif text-xl text-white mb-4">Soluciones Efectivas</h3>
+                                </div>
+                                <div class="why-choose-face why-choose-back">
+                                    <p class="why-choose-content text-gray-400 text-base leading-relaxed max-w-xs">
+                                        Nuestro objetivo es obtener el mejor resultado posible encontrando la solución jurídica
+                                        más adecuada para cada caso.
+                                    </p>
+                                </div>
                             </div>
-                            <h3 class="font-serif text-xl text-white mb-4">Soluciones Efectivas</h3>
-                            <p class="why-choose-content text-gray-400 text-base leading-relaxed max-w-xs">
-                                Nuestro objetivo es obtener el mejor resultado posible encontrando la solución jurídica
-                                más adecuada para cada caso.
-                            </p>
                         </div>
                     </div>
                 </div>

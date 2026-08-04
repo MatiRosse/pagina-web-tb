@@ -244,16 +244,23 @@ function bindCloseMobileMenuOnLinkActivation() {
 }
 
 function setWhyChooseItemState(item, isOpen, isMobile) {
-    const content = item.querySelector('.why-choose-content');
-    if (!content) return;
+    const front = item.querySelector('.why-choose-front');
+    const back = item.querySelector('.why-choose-back');
+    if (!front || !back) return;
 
     item.dataset.open = isOpen ? 'true' : 'false';
     item.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
 
     if (isMobile) {
-        content.classList.toggle('hidden', !isOpen);
+        const title = item.querySelector('h3')?.textContent.trim() || 'Este valor';
+        front.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
+        back.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+        item.setAttribute('aria-label', `${title}: ${isOpen ? 'ocultar' : 'mostrar'} descripción`);
     } else {
-        content.classList.remove('hidden');
+        front.removeAttribute('aria-hidden');
+        back.removeAttribute('aria-hidden');
+        item.removeAttribute('aria-expanded');
+        item.removeAttribute('aria-label');
     }
 }
 
@@ -288,7 +295,8 @@ function initWhyChooseUsMobileToggle() {
         }
 
         items.forEach((item) => {
-            setWhyChooseItemState(item, true, false);
+            // Keep desktop content visible while resetting the next mobile visit to the front face.
+            setWhyChooseItemState(item, false, false);
         });
     };
 
