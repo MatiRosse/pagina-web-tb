@@ -305,6 +305,55 @@ window.dataLayer.push({
             box-shadow: 0 24px 60px -36px rgba(22, 101, 52, .42);
         }
 
+        .result-card {
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+            box-shadow: 0 12px 32px rgba(17, 24, 39, .08);
+        }
+
+        .result-card .result-total {
+            border-radius: 0;
+            padding: 20px 64px 18px 20px;
+        }
+
+        .result-card .metric-grid {
+            gap: 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .result-card .metric-card,
+        .result-card .note-card {
+            border: 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .result-card .metric-grid .metric-card {
+            border-right: 1px solid #eef0f3;
+        }
+
+        .result-card .metric-grid .metric-card:last-child {
+            border-right: 0;
+        }
+
+        .result-card #haberCard {
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .result-card .note-card {
+            background: #f9f6f0;
+            border-left: 4px solid #c5a059;
+        }
+
+        .result-report-row {
+            display: flex;
+            justify-content: flex-end;
+            border-top: 1px solid #e5e7eb;
+            padding: 8px 14px;
+        }
+
         .metric-card,
         .note-card,
         .help-card,
@@ -424,13 +473,6 @@ window.dataLayer.push({
             transform: rotate(180deg);
         }
 
-        /* Panel de resultados compacto: todo el resultado entra en una pantalla.
-           El padding lateral del titulo reserva lugar para los iconos de compartir
-           que inyecta calculator-result-share.js (absolutos, arriba a la derecha). */
-        #panelResultado .result-total {
-            padding: 16px 92px;
-        }
-
         #panelResultado .metric-card,
         #panelResultado .note-card {
             padding: 14px 18px;
@@ -519,6 +561,14 @@ window.dataLayer.push({
 
             .calc-input {
                 text-align: center;
+            }
+
+            .result-card .metric-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .result-card .metric-card {
+                text-align: left;
             }
         }
     </style>
@@ -855,61 +905,77 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                     <div id="errorPanel" class="hidden bg-red-50 border border-red-200 text-red-700 rounded-2xl px-5 py-4 text-sm" role="alert" aria-live="polite"></div>
 
-                    <div id="resultadoPanel" class="hidden space-y-3 animate-up" aria-live="polite">
-                        <div id="statusCard" class="result-total">
-                            <h3 id="statusTitle" class="font-serif text-2xl leading-tight">Resultado previsional</h3>
-                        </div>
+                    <div id="resultadoPanel" class="hidden space-y-3 animate-up" aria-live="polite" style="scroll-margin-top: 96px;">
+                        <div class="result-card">
+                            <div id="statusCard" class="result-total">
+                                <p class="text-white text-xs font-medium mb-1 opacity-80">Resultado previsional estimado</p>
+                                <h3 id="statusTitle" class="font-serif text-2xl leading-tight">Resultado previsional</h3>
+                            </div>
 
-                        <div id="metricGrid" class="metric-grid">
-                            <div class="metric-card">
-                                <div class="metric-head">
-                                    <p class="metric-label">Edad requerida</p>
-                                    <span id="metricEdadRequeridaStatus" class="metric-badge"><i class="fa-solid fa-circle-question"></i></span>
+                            <div id="metricGrid" class="metric-grid">
+                                <div class="metric-card">
+                                    <div class="metric-head">
+                                        <p class="metric-label">Edad requerida</p>
+                                        <span id="metricEdadRequeridaStatus" class="metric-badge"><i class="fa-solid fa-circle-question"></i></span>
+                                    </div>
+                                    <p id="metricEdadRequerida" class="metric-value">-</p>
                                 </div>
-                                <p id="metricEdadRequerida" class="metric-value">-</p>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-head">
-                                    <p class="metric-label">Aportes faltantes</p>
-                                    <span id="metricFaltantesStatus" class="metric-badge"><i class="fa-solid fa-circle-question"></i></span>
+                                <div class="metric-card">
+                                    <div class="metric-head">
+                                        <p class="metric-label">Aportes faltantes</p>
+                                        <span id="metricFaltantesStatus" class="metric-badge"><i class="fa-solid fa-circle-question"></i></span>
+                                    </div>
+                                    <p id="metricFaltanAportes" class="metric-value">-</p>
                                 </div>
-                                <p id="metricFaltanAportes" class="metric-value">-</p>
                             </div>
-                        </div>
 
-                        <div id="haberCard" class="metric-card hidden">
-                            <div class="metric-head">
-                                <p class="metric-label">Haber mensual estimado</p>
-                                <span class="metric-badge is-ok"><i class="fa-solid fa-coins"></i></span>
+                            <div id="haberCard" class="metric-card hidden">
+                                <div class="metric-head">
+                                    <p class="metric-label">Haber mensual estimado</p>
+                                    <span class="metric-badge is-ok"><i class="fa-solid fa-coins"></i></span>
+                                </div>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <p id="haberTotal" class="metric-value">-</p>
+                                    <button type="button" id="haberToggle" class="metric-badge" onclick="toggleHaberDesglose()" aria-expanded="false" aria-controls="haberDesglose" aria-label="Mostrar desglose del haber" style="display: none;">
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                                <div id="haberDesglose" class="space-y-2 text-sm border-t border-gray-100 pt-3">
+                                    <div class="flex items-start justify-between gap-4">
+                                        <span class="text-gray-500">Prestación Básica Universal (PBU)</span>
+                                        <span id="haberPbu" class="font-semibold text-darkblue-900 whitespace-nowrap">-</span>
+                                    </div>
+                                    <div class="flex items-start justify-between gap-4">
+                                        <span id="haberPcLabel" class="text-gray-500">Prestación Compensatoria (PC)</span>
+                                        <span id="haberPc" class="font-semibold text-darkblue-900 whitespace-nowrap">-</span>
+                                    </div>
+                                    <div class="flex items-start justify-between gap-4">
+                                        <span id="haberPapLabel" class="text-gray-500">Prestación Adicional por Permanencia (PAP)</span>
+                                        <span id="haberPap" class="font-semibold text-darkblue-900 whitespace-nowrap">-</span>
+                                    </div>
+                                    <div id="haberAjusteRow" class="hidden flex items-start justify-between gap-4">
+                                        <span id="haberAjusteLabel" class="text-gray-500">Garantía de haber mínimo</span>
+                                        <span id="haberAjuste" class="font-semibold text-darkblue-900 whitespace-nowrap">-</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-3 mb-2">
-                                <p id="haberTotal" class="metric-value">-</p>
-                                <button type="button" id="haberToggle" class="metric-badge" onclick="toggleHaberDesglose()" aria-expanded="false" aria-controls="haberDesglose" aria-label="Mostrar desglose del haber" style="display: none;">
-                                    <i class="fa-solid fa-chevron-down"></i>
+
+                            <div class="note-card">
+                                <p id="noteCopy" class="text-sm text-gray-700 leading-relaxed mb-0"></p>
+                            </div>
+
+                            <div class="result-report-row">
+                                <button type="button" onclick="window.TBResultShare && window.TBResultShare.download('jubilacion')" class="inline-flex items-center gap-2 text-xs font-medium text-gray-500 hover:text-gold transition-colors py-1" aria-label="Descargar informe previsional estimativo en PDF">
+                                    <span class="rounded-lg inline-flex items-center justify-center" style="width:28px;height:28px;flex:0 0 28px;background:#fef2f2;color:#dc2626;border:1px solid #fee2e2;" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M6 2.5h8l4 4V21.5H6z"></path>
+                                            <path d="M14 2.5v4h4"></path>
+                                            <path d="M8.5 13h7M8.5 16h5"></path>
+                                        </svg>
+                                    </span>
+                                    Descargar informe PDF
                                 </button>
                             </div>
-                            <div id="haberDesglose" class="space-y-2 text-sm border-t border-gray-100 pt-3">
-                                <div class="flex items-start justify-between gap-4">
-                                    <span class="text-gray-500">Prestación Básica Universal (PBU)</span>
-                                    <span id="haberPbu" class="font-semibold text-darkblue-900 whitespace-nowrap">-</span>
-                                </div>
-                                <div class="flex items-start justify-between gap-4">
-                                    <span id="haberPcLabel" class="text-gray-500">Prestación Compensatoria (PC)</span>
-                                    <span id="haberPc" class="font-semibold text-darkblue-900 whitespace-nowrap">-</span>
-                                </div>
-                                <div class="flex items-start justify-between gap-4">
-                                    <span id="haberPapLabel" class="text-gray-500">Prestación Adicional por Permanencia (PAP)</span>
-                                    <span id="haberPap" class="font-semibold text-darkblue-900 whitespace-nowrap">-</span>
-                                </div>
-                                <div id="haberAjusteRow" class="hidden flex items-start justify-between gap-4">
-                                    <span id="haberAjusteLabel" class="text-gray-500">Garantía de haber mínimo</span>
-                                    <span id="haberAjuste" class="font-semibold text-darkblue-900 whitespace-nowrap">-</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="note-card">
-                            <p id="noteCopy" class="text-sm text-gray-700 leading-relaxed mb-0"></p>
                         </div>
 
                         <div class="flex flex-col sm:flex-row gap-3">
@@ -1185,6 +1251,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <script src="../../../js/calculator-result-share.js"></script>
+    <script src="../../../js/alquiler-pdf-logo.js"></script>
+    <script src="../../../js/tb-pdf-core.js"></script>
+    <script src="../../../js/jubilacion-pdf-report.js"></script>
     <script>
         const REGIMEN_META = {
             mujer: { label: 'Mujer', requiredAge: 60 },
@@ -1679,6 +1748,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 window.TBResultShare.setData('jubilacion', {
                     target: '#resultadoPanel .result-total',
                     filename: 'resultado-jubilacion',
+                    downloadFormat: 'pdf',
+                    downloadHandler: () => window.TBJubilacionPDF.download({
+                        regimen: meta.label,
+                        age,
+                        aportes,
+                        requiredAge: meta.requiredAge,
+                        compensationYears,
+                        computableAportes,
+                        missingAportes,
+                        qualifies,
+                        title,
+                        note: document.getElementById('noteCopy').textContent,
+                        sueldoPromedio: sueldoState.empty ? null : sueldoState.value,
+                        haber,
+                        haberesVigentes: { ...haberesVigentes }
+                    }),
                     title: 'Resultado previsional',
                     amount: qualifies ? 'Puede iniciar' : 'Revisar requisitos',
                     subtitle: title,
@@ -1712,20 +1797,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             }
         }
 
+        function scrollToMobileResults() {
+            if (window.innerWidth >= 1024) return;
+            const panel = document.getElementById('resultadoPanel');
+            if (!panel || panel.classList.contains('hidden')) return;
+            requestAnimationFrame(() => {
+                panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        }
+
         function calcularJubilacion() {
             hasCalculated = true;
             recalcJubilacion();
 
             const resultadoPanel = document.getElementById('resultadoPanel');
-            if (window.innerWidth < 1024 && !resultadoPanel.classList.contains('hidden')) {
-                requestAnimationFrame(() => {
-                    document.getElementById('statusCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                });
-            } else if (!resultadoPanel.classList.contains('hidden')) {
-                requestAnimationFrame(() => {
-                    document.getElementById('panelResultado').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
-            }
+            scrollToMobileResults();
 
             if (!resultadoPanel.classList.contains('hidden') && window.dispararNotificacionWhatsApp) {
                 window.dispararNotificacionWhatsApp({
