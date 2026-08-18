@@ -91,8 +91,8 @@
     function drawMetadata(ctx, report) {
         roundedRect(ctx, 82, 296, 1076, 148, 20, COLORS.soft, COLORS.line);
         const fields = [
-            ['SUELDO BASE', money(report.salary)],
-            ['EDAD AL ACCIDENTE', `${number(report.age, 0)} años`],
+            ['VIB MENSUAL ACTUALIZADO', money(report.salary)],
+            ['EDAD A LA PMI', `${number(report.age, 0)} años`],
             ['INCAPACIDAD', `${number(report.disability, 1)}%`],
             ['TIPO DE ACCIDENTE', report.accidentTypeLabel]
         ];
@@ -113,7 +113,7 @@
 
         roundedRect(ctx, 764, 486, 394, 238, 22, COLORS.soft, COLORS.line);
         text(ctx, 'COMPONENTES', 794, 535, 17, 700, COLORS.muted);
-        text(ctx, 'Fórmula base', 794, 588, 18, 500, COLORS.muted);
+        text(ctx, 'Prestación base', 794, 588, 18, 500, COLORS.muted);
         text(ctx, money(report.baseAmount), 1128, 588, 21, 700, COLORS.ink, 'right');
         text(ctx, 'Adicional 20%', 794, 642, 18, 500, COLORS.muted);
         text(ctx, money(report.additionalAmount), 1128, 642, 21, 700, COLORS.ink, 'right');
@@ -126,7 +126,9 @@
         const tableY = 828;
         const tableWidth = 1076;
         const rows = [
-            ['Fórmula base LRT', report.baseAmount],
+            ['Fórmula legal', report.formulaAmount],
+            ['Piso SRT del período', report.floorAmount],
+            ['Prestación base aplicada (el mayor)', report.baseAmount],
             ['Adicional del 20% según tipo de accidente', report.additionalAmount],
             ['Total estimado', report.total]
         ];
@@ -135,23 +137,24 @@
         text(ctx, 'CONCEPTO', tableX + 28, tableY + 43, 16, 700, COLORS.muted);
         text(ctx, 'IMPORTE', tableX + tableWidth - 28, tableY + 43, 16, 700, COLORS.muted, 'right');
         rows.forEach(([label, value], index) => {
-            const y = tableY + 68 + (index * 82);
+            const rowHeight = 56;
+            const y = tableY + 68 + (index * rowHeight);
             if (index === rows.length - 1) ctx.fillStyle = '#f4efe5';
             else ctx.fillStyle = index % 2 ? '#fbfbfa' : COLORS.white;
-            ctx.fillRect(tableX, y, tableWidth, 82);
+            ctx.fillRect(tableX, y, tableWidth, rowHeight);
             ctx.strokeStyle = COLORS.line;
             ctx.lineWidth = 1;
             ctx.beginPath();
-            ctx.moveTo(tableX, y + 82);
-            ctx.lineTo(tableX + tableWidth, y + 82);
+            ctx.moveTo(tableX, y + rowHeight);
+            ctx.lineTo(tableX + tableWidth, y + rowHeight);
             ctx.stroke();
-            text(ctx, label, tableX + 28, y + 51, 20, index === rows.length - 1 ? 700 : 500, COLORS.ink);
-            text(ctx, money(value), tableX + tableWidth - 28, y + 51, 22, 700, index === rows.length - 1 ? COLORS.gold : COLORS.ink, 'right');
+            text(ctx, label, tableX + 28, y + 37, 18, index === rows.length - 1 ? 700 : 500, COLORS.ink);
+            text(ctx, money(value), tableX + tableWidth - 28, y + 37, 19, 700, index === rows.length - 1 ? COLORS.gold : COLORS.ink, 'right');
         });
 
         roundedRect(ctx, 82, 1180, 1076, 142, 18, COLORS.soft, COLORS.line);
         text(ctx, 'FÓRMULA APLICADA', 112, 1223, 16, 700, COLORS.muted);
-        text(ctx, 'Sueldo × 53 × porcentaje de incapacidad × (65 ÷ edad)', 112, 1273, 24, 700, COLORS.ink);
+        text(ctx, 'Mayor entre: VIB × 53 × incapacidad × (65 ÷ edad) y piso SRT × incapacidad', 112, 1273, 21, 700, COLORS.ink);
     }
 
     function drawDisclaimer(ctx) {
@@ -159,7 +162,7 @@
         text(ctx, 'ALCANCE DEL INFORME', 112, 1404, 16, 700, COLORS.muted);
         ctx.font = '400 17px Inter, Arial, sans-serif';
         ctx.fillStyle = COLORS.ink;
-        wrapText(ctx, 'Esta estimación aplica una fórmula general de la Ley de Riesgos del Trabajo. El monto real puede variar por RIPTE, fecha de primera manifestación invalidante, prestaciones adicionales, porcentaje definitivo de incapacidad, dictamen de Comisión Médica, actualización e instancia judicial.', 112, 1445, 1010, 28, 4);
+        wrapText(ctx, 'Esta estimación se limita a incapacidad permanente parcial de hasta el 50% y aplica el piso SRT vigente del 1/3/2026 al 31/8/2026. El VIB debe estar actualizado con RIPTE e intereses. El monto real puede variar por fecha de primera manifestación invalidante, prestaciones adicionales, dictamen de Comisión Médica e instancia judicial.', 112, 1445, 1010, 28, 4);
     }
 
     function drawFooter(ctx) {

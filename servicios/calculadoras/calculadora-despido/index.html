@@ -56,9 +56,9 @@ window.dataLayer.push({
     <meta name="twitter:description" content="Calculá una indemnización por despido en Argentina con una herramienta orientativa basada en la LCT. Estimá antigüedad, preaviso, integración, SAC y vacaciones.">
     <meta name="twitter:image" content="https://tbabogados.com.ar/assets/img/socios-abogados-og.jpg">
 
-    <meta property="article:modified_time" content="2026-05-12">
+    <meta property="article:modified_time" content="2026-08-17">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora de Indemnización por Despido","description":"Calculadora online orientativa de indemnización por despido en Argentina con conceptos de antigüedad, preaviso, integración, SAC proporcional y vacaciones no gozadas.","url":"https://tbabogados.com.ar/servicios/calculadoras/calculadora-despido/","applicationCategory":"FinanceApplication","applicationSubCategory":"Derecho laboral","operatingSystem":"Any","inLanguage":"es-AR","dateModified":"2026-05-12","keywords":"calculadora despido, indemnización por despido, liquidación final, despido sin causa, LCT, Argentina","isAccessibleForFree":true,"audience":{"@type":"Audience","audienceType":"Trabajadores despedidos o con dudas sobre su liquidación laboral en Argentina"},"offers":{"@type":"Offer","price":"0","priceCurrency":"ARS"},"author":{"@type":"Person","name":"Florencia Bulgheroni","url":"https://tbabogados.com.ar/dra-bulgheroni/"},"reviewedBy":{"@type":"Person","name":"Daniel Bulgheroni","url":"https://tbabogados.com.ar/dr-bulgheroni/"},"provider":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"publisher":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"citation":["https://servicios.infoleg.gob.ar/infolegInternet/anexos/25000-29999/25552/texact.htm","https://servicios.infoleg.gob.ar/infolegInternet/anexos/400000-404999/401266/norma.htm"]}</script>
+{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora de Indemnización por Despido","description":"Calculadora online orientativa de indemnización por despido en Argentina con conceptos de antigüedad, preaviso, integración, SAC proporcional y vacaciones no gozadas.","url":"https://tbabogados.com.ar/servicios/calculadoras/calculadora-despido/","applicationCategory":"FinanceApplication","applicationSubCategory":"Derecho laboral","operatingSystem":"Any","inLanguage":"es-AR","dateModified":"2026-08-17","keywords":"calculadora despido, indemnización por despido, liquidación final, despido sin causa, LCT, Argentina","isAccessibleForFree":true,"audience":{"@type":"Audience","audienceType":"Trabajadores despedidos o con dudas sobre su liquidación laboral en Argentina"},"offers":{"@type":"Offer","price":"0","priceCurrency":"ARS"},"author":{"@type":"Person","name":"Florencia Bulgheroni","url":"https://tbabogados.com.ar/dra-bulgheroni/"},"reviewedBy":{"@type":"Person","name":"Daniel Bulgheroni","url":"https://tbabogados.com.ar/dr-bulgheroni/"},"provider":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"publisher":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"citation":["https://www.argentina.gob.ar/normativa/nacional/25552/actualizacion","https://servicios.infoleg.gob.ar/infolegInternet/anexos/400000-404999/401266/norma.htm","https://www.argentina.gob.ar/normativa/nacional/ley-27802-423680/texto"]}</script>
     <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://tbabogados.com.ar/"},{"@type":"ListItem","position":2,"name":"Servicios","item":"https://tbabogados.com.ar/servicios/"},{"@type":"ListItem","position":3,"name":"Calculadoras","item":"https://tbabogados.com.ar/servicios/calculadoras/"},{"@type":"ListItem","position":4,"name":"Calculadora de Despido","item":"https://tbabogados.com.ar/servicios/calculadoras/calculadora-despido/"}]}</script>
     <script type="application/ld+json">
@@ -363,17 +363,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
 
                     <div>
-                        <label class="calc-label" for="sueldo">Mejor sueldo bruto mensual ($)</label>
+                        <label class="calc-label" for="sueldo">Mejor remuneración mensual normal y habitual ($)</label>
                         <input class="calc-input" id="sueldo" placeholder="Ej: 1.500.000" type="text" inputmode="numeric" oninput="formatMiles(this)" />
-                        <p class="text-[11px] text-gray-400 mt-1 italic">Como referencia inicial, cargá la mejor remuneración mensual, normal y habitual.</p>
+                        <p class="text-[11px] text-gray-400 mt-1 italic">No incluyas SAC, vacaciones ni premios que no se devenguen mensualmente. Si hay variables, revisá el promedio más favorable previsto por la ley.</p>
+                    </div>
+
+                    <div>
+                        <label class="calc-label" for="tope-convenio">Tope indemnizatorio publicado del convenio ($) <span class="font-normal text-gray-400">— opcional</span></label>
+                        <input class="calc-input" id="tope-convenio" placeholder="Dejar vacío si no lo conocés" type="text" inputmode="numeric" oninput="formatMiles(this)" />
+                        <p class="text-[11px] text-gray-400 mt-1 italic">La base resultante no será inferior al 67% de la remuneración cargada (art. 245 LCT).</p>
                     </div>
 
                     <div>
                         <label class="calc-label" for="tamano-empresa">Período de prueba aplicable</label>
                         <select class="calc-input appearance-none" id="tamano-empresa">
                             <option value="6">6 meses (régimen general)</option>
-                            <option value="8">8 meses (empresa mediana)</option>
-                            <option value="12">12 meses (empresa pequeña)</option>
+                            <option value="8">8 meses (solo si el CCT lo amplía; empresa de 6 a 100 personas)</option>
+                            <option value="12">12 meses (solo si el CCT lo amplía; empresa de hasta 5 personas)</option>
                         </select>
                     </div>
 
@@ -459,16 +465,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <section class="mb-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="ymyl-disclaimer-card">
-                <p><strong>Importante:</strong> El resultado es orientativo y no reemplaza una liquidación profesional. Puede variar por convenio colectivo, remuneraciones variables, topes legales, registración deficiente, multas, acuerdos, categoría laboral, fecha exacta de extinción y documentación del caso.</p>
+                <p><strong>Importante:</strong> El resultado es orientativo y no reemplaza una liquidación profesional. Puede variar por convenio colectivo, remuneraciones variables, topes legales, registración deficiente, multas, acuerdos, categoría laboral, fecha exacta de extinción y documentación del caso. No contempla fondos o sistemas de cese que un convenio colectivo pueda establecer en reemplazo del régimen general; la inclusión de SAC sobre rubros indemnizatorios también puede variar según la jurisdicción.</p>
             </div>
 
             <div class="ymyl-sources-card" aria-labelledby="fuentes-oficiales-calc-despido">
                 <span class="ymyl-sources-eyebrow">Fuentes oficiales</span>
                 <h2 id="fuentes-oficiales-calc-despido" class="ymyl-sources-title">Normativa consultada</h2>
-                <p class="ymyl-sources-text">La calculadora usa criterios orientativos de la Ley de Contrato de Trabajo y contempla cambios laborales relevantes introducidos por la Ley 27.742.</p>
+                <p class="ymyl-sources-text">La calculadora usa la Ley de Contrato de Trabajo vigente y contempla las modificaciones de la Ley 27.802 sobre base indemnizatoria, variables, topes y preaviso.</p>
                 <ul class="ymyl-sources-list">
-                    <li><a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/25000-29999/25552/texact.htm" target="_blank" rel="noopener noreferrer">Ley 20.744 de Contrato de Trabajo (InfoLEG)</a></li>
+                    <li><a href="https://www.argentina.gob.ar/normativa/nacional/25552/actualizacion" target="_blank" rel="noopener noreferrer">Ley 20.744 de Contrato de Trabajo, texto actualizado</a></li>
                     <li><a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/400000-404999/401266/norma.htm" target="_blank" rel="noopener noreferrer">Ley 27.742 - Ley Bases (InfoLEG)</a></li>
+                    <li><a href="https://www.argentina.gob.ar/normativa/nacional/ley-27802-423680/texto" target="_blank" rel="noopener noreferrer">Ley 27.802, arts. 48 y 51 — preaviso e indemnización por antigüedad</a></li>
                 </ul>
             </div>
         </section>
@@ -493,7 +500,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <section class="mb-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="ymyl-meta-card">
-                <p class="ymyl-meta-intro">Herramienta orientativa para trabajadores en Argentina. La revisión legal más reciente se realizó el 12 de mayo de 2026.</p>
+                <p class="ymyl-meta-intro">Herramienta orientativa para trabajadores en Argentina, revisada conforme la LCT vigente y la Ley 27.802. La revisión legal más reciente se realizó el 17 de agosto de 2026.</p>
                 <div class="ymyl-meta-grid">
                     <div class="ymyl-meta-item">
                         <span class="ymyl-meta-label">Redacción legal</span>
@@ -505,7 +512,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                     <div class="ymyl-meta-item">
                         <span class="ymyl-meta-label">Actualizado</span>
-                        <span class="ymyl-meta-value">12 de mayo de 2026</span>
+                        <span class="ymyl-meta-value">17 de agosto de 2026</span>
                     </div>
                 </div>
             </div>
@@ -624,6 +631,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             return Math.max(0, totalMeses);
         }
 
+        function sumarMeses(fecha, cantidad) {
+            const resultado = new Date(fecha.getFullYear(), fecha.getMonth(), 1);
+            resultado.setMonth(resultado.getMonth() + cantidad);
+            const ultimoDia = new Date(resultado.getFullYear(), resultado.getMonth() + 1, 0).getDate();
+            resultado.setDate(Math.min(fecha.getDate(), ultimoDia));
+            return resultado;
+        }
+
+        function sumarAnios(fecha, cantidad) {
+            const resultado = new Date(fecha.getFullYear() + cantidad, fecha.getMonth(), 1);
+            const ultimoDia = new Date(resultado.getFullYear(), resultado.getMonth() + 1, 0).getDate();
+            resultado.setDate(Math.min(fecha.getDate(), ultimoDia));
+            return resultado;
+        }
+
+        function diasEntreInclusive(desde, hasta) {
+            const diaMs = 24 * 60 * 60 * 1000;
+            const inicioUtc = Date.UTC(desde.getFullYear(), desde.getMonth(), desde.getDate());
+            const finUtc = Date.UTC(hasta.getFullYear(), hasta.getMonth(), hasta.getDate());
+            return Math.max(0, Math.floor((finUtc - inicioUtc) / diaMs) + 1);
+        }
+
         function setDefaultDismissalDate() {
             const input = document.getElementById('despido');
             if (!input || input.value) return;
@@ -642,10 +671,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const ingresoValue = document.getElementById('ingreso').value;
             const despidoValue = document.getElementById('despido').value;
             const sueldoRaw = (document.getElementById('sueldo').value || '').replace(/\./g, '').replace(',', '.');
+            const topeRaw = (document.getElementById('tope-convenio').value || '').replace(/\./g, '').replace(',', '.');
             const periodoPruebaMeses = parseInt(document.getElementById('tamano-empresa').value, 10) || 6;
             const otorgoPreaviso = document.getElementById('preaviso').value === 'si';
 
             const sueldo = parseFloat(sueldoRaw) || 0;
+            const topeConvenio = parseFloat(topeRaw) || 0;
             if (!ingresoValue || !despidoValue || sueldo <= 0) {
                 return;
             }
@@ -657,36 +688,51 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             }
 
             const mesesTrabajados = calcularMesesTrabajados(fechaIngreso, fechaDespido);
-            const aniosCompletos = Math.floor(mesesTrabajados / 12);
+            let aniosCompletos = fechaDespido.getFullYear() - fechaIngreso.getFullYear();
+            if (fechaDespido < sumarAnios(fechaIngreso, aniosCompletos)) aniosCompletos -= 1;
+            aniosCompletos = Math.max(0, aniosCompletos);
             const mesesFraccion = mesesTrabajados % 12;
-            const antiguedadComputable = aniosCompletos + (mesesFraccion >= 3 ? 1 : 0);
-            const enPeriodoPrueba = mesesTrabajados < periodoPruebaMeses;
+            const inicioFraccion = sumarAnios(fechaIngreso, aniosCompletos);
+            const antiguedadComputable = aniosCompletos + (fechaDespido > sumarMeses(inicioFraccion, 3) ? 1 : 0);
+            const enPeriodoPrueba = fechaDespido < sumarMeses(fechaIngreso, periodoPruebaMeses);
 
-            const indemnizacionAntiguedad = enPeriodoPrueba ? 0 : sueldo * antiguedadComputable;
+            const baseMinimaLegal = sueldo * 0.67;
+            const baseIndemnizatoria = topeConvenio > 0
+                ? Math.max(Math.min(sueldo, topeConvenio), baseMinimaLegal)
+                : sueldo;
+            const indemnizacionAntiguedad = enPeriodoPrueba ? 0 : baseIndemnizatoria * antiguedadComputable;
             const ultimoDiaMes = new Date(fechaDespido.getFullYear(), fechaDespido.getMonth() + 1, 0).getDate();
             const diasRestantesMes = Math.max(0, ultimoDiaMes - fechaDespido.getDate());
-            const integracionMesDespido = enPeriodoPrueba ? 0 : (sueldo / 30) * diasRestantesMes;
-            const inicioSemestreMes = fechaDespido.getMonth() < 6 ? 0 : 6;
-            const mesesSemestre = (fechaDespido.getMonth() - inicioSemestreMes) + 1;
-            const sacProporcional = (sueldo / 12) * mesesSemestre;
+            const integracionMesDespido = enPeriodoPrueba || otorgoPreaviso ? 0 : (sueldo / 30) * diasRestantesMes;
+            const inicioSemestre = new Date(fechaDespido.getFullYear(), fechaDespido.getMonth() < 6 ? 0 : 6, 1);
+            const finSemestre = new Date(fechaDespido.getFullYear(), fechaDespido.getMonth() < 6 ? 6 : 12, 0);
+            const inicioSacComputable = fechaIngreso > inicioSemestre ? fechaIngreso : inicioSemestre;
+            const diasSemestre = diasEntreInclusive(inicioSemestre, finSemestre);
+            const diasSacTrabajados = diasEntreInclusive(inicioSacComputable, fechaDespido);
+            const sacProporcional = (sueldo / 2) * (Math.min(diasSemestre, diasSacTrabajados) / diasSemestre);
 
             let diasVacacionesAnuales = 14;
             if (aniosCompletos >= 5 && aniosCompletos < 10) diasVacacionesAnuales = 21;
             if (aniosCompletos >= 10 && aniosCompletos < 20) diasVacacionesAnuales = 28;
             if (aniosCompletos >= 20) diasVacacionesAnuales = 35;
 
-            const mesesAnioEnCurso = fechaDespido.getMonth() + 1;
-            const diasVacacionesProporcionales = (diasVacacionesAnuales / 12) * mesesAnioEnCurso;
+            const inicioAnio = new Date(fechaDespido.getFullYear(), 0, 1);
+            const inicioVacacionesComputable = fechaIngreso > inicioAnio ? fechaIngreso : inicioAnio;
+            const diasAnio = diasEntreInclusive(inicioAnio, new Date(fechaDespido.getFullYear(), 11, 31));
+            const diasTrabajadosAnio = diasEntreInclusive(inicioVacacionesComputable, fechaDespido);
+            const diasVacacionesProporcionales = diasVacacionesAnuales * (diasTrabajadosAnio / diasAnio);
             const vacacionesNoGozadas = (sueldo / 25) * diasVacacionesProporcionales;
             const proporcionMesDespido = (sueldo / 30) * fechaDespido.getDate();
-            const preaviso = otorgoPreaviso || enPeriodoPrueba ? 0 : (aniosCompletos >= 5 ? sueldo * 2 : sueldo);
+            const preaviso = otorgoPreaviso || enPeriodoPrueba ? 0 : (aniosCompletos > 5 ? sueldo * 2 : sueldo);
+            const sacSobrePreavisoEIntegracion = (preaviso + integracionMesDespido) / 12;
 
             const total = indemnizacionAntiguedad
                 + integracionMesDespido
                 + sacProporcional
                 + vacacionesNoGozadas
                 + proporcionMesDespido
-                + preaviso;
+                + preaviso
+                + sacSobrePreavisoEIntegracion;
 
             const placeholder = document.getElementById('resultadoPlaceholder');
             const resultadoPanel = document.getElementById('resultadoPanel');
@@ -699,12 +745,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             totalEl.textContent = formatCurrency(total);
 
             const conceptos = [
-                { label: 'Indemnización por antigüedad (Art. 245)', value: indemnizacionAntiguedad },
+                { label: `Indemnización por antigüedad (base art. 245: ${formatCurrency(baseIndemnizatoria)})`, value: indemnizacionAntiguedad },
                 { label: 'Integración mes de despido', value: integracionMesDespido },
                 { label: 'SAC proporcional', value: sacProporcional },
                 { label: 'Vacaciones no gozadas', value: vacacionesNoGozadas },
                 { label: 'Días trabajados del mes', value: proporcionMesDespido },
-                { label: 'Indemnización sustitutiva de preaviso', value: preaviso }
+                { label: 'Indemnización sustitutiva de preaviso', value: preaviso },
+                { label: 'SAC sobre preaviso e integración', value: sacSobrePreavisoEIntegracion }
             ];
 
             if (window.TBResultShare) {

@@ -53,10 +53,11 @@ window.dataLayer.push({
     <meta name="twitter:title" content="Calculadora de Indemnización por Accidente de Trabajo 2026 en Argentina | TB Abogados ⚖️">
     <meta name="twitter:description" content="Calculadora gratis y actualizada de indemnización por accidente de trabajo en Argentina. Estimá en segundos el monto según la fórmula de la Ley de Riesgos de Trabajo (LRT).">
     <meta name="twitter:image" content="https://tbabogados.com.ar/assets/img/socios-abogados-og.jpg">
+    <meta property="article:modified_time" content="2026-08-17">
 
     <meta name="author" content="Florencia Bulgheroni | TB Abogados">
     <script
-        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora de Indemnización por Accidente de Trabajo","description":"Calculadora online de indemnización por accidente laboral según la Ley de Riesgos del Trabajo en Argentina.","url":"https://tbabogados.com.ar/servicios/calculadoras/accidente-trabajo-calculadora/","applicationCategory":"FinanceApplication","operatingSystem":"Any","inLanguage":"es-AR","dateModified":"2026-05-12","offers":{"@type":"Offer","price":"0","priceCurrency":"ARS"},"author":{"@type":"Person","name":"Florencia Bulgheroni","url":"https://tbabogados.com.ar/dra-bulgheroni/"},"reviewedBy":{"@type":"Person","name":"Daniel Bulgheroni","url":"https://tbabogados.com.ar/dr-bulgheroni/"},"provider":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"publisher":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"citation":["https://servicios.infoleg.gob.ar/infolegInternet/anexos/25000-29999/27971/texact.htm","https://servicios.infoleg.gob.ar/infolegInternet/anexos/200000-204999/203798/norma.htm","https://www.argentina.gob.ar/srt/comisionesmedicas/tramites","https://www.argentina.gob.ar/trabajo/seguridadsocial/ripte"]}</script>
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora de Indemnización por Accidente de Trabajo","description":"Calculadora online de indemnización por accidente laboral según la Ley de Riesgos del Trabajo en Argentina.","url":"https://tbabogados.com.ar/servicios/calculadoras/accidente-trabajo-calculadora/","applicationCategory":"FinanceApplication","operatingSystem":"Any","inLanguage":"es-AR","dateModified":"2026-08-17","offers":{"@type":"Offer","price":"0","priceCurrency":"ARS"},"author":{"@type":"Person","name":"Florencia Bulgheroni","url":"https://tbabogados.com.ar/dra-bulgheroni/"},"reviewedBy":{"@type":"Person","name":"Daniel Bulgheroni","url":"https://tbabogados.com.ar/dr-bulgheroni/"},"provider":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"publisher":{"@type":"LegalService","name":"TB Abogados","url":"https://tbabogados.com.ar"},"citation":["https://servicios.infoleg.gob.ar/infolegInternet/anexos/25000-29999/27971/texact.htm","https://servicios.infoleg.gob.ar/infolegInternet/anexos/200000-204999/203798/norma.htm","https://www.argentina.gob.ar/srt/art/pagos-art/incapacidad-laboral-permanente-50","https://www.argentina.gob.ar/noticias/baremo-laboral-ya-se-encuentra-vigente-la-actualizacion-dispuesta-por-el-decreto-5492025","https://www.argentina.gob.ar/srt/comisionesmedicas/tramites","https://www.argentina.gob.ar/trabajo/seguridadsocial/ripte"]}</script>
     <link rel="stylesheet" href="../../../css/styles.css">
     <link href="https://cdnjs.cloudflare.com" rel="preconnect" crossorigin>
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -153,8 +154,26 @@ window.dataLayer.push({
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 12px;
             padding: 9px 0;
             border-bottom: 1px solid #f3f4f6;
+        }
+
+        .result-row > span:first-child {
+            min-width: 0;
+            line-height: 1.35;
+        }
+
+        .result-row > span:last-child {
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 520px) {
+            .result-row {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 4px;
+            }
         }
 
         .result-row:last-child {
@@ -480,7 +499,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </h1>
             <p class="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">
                 Estimá cuánto podría corresponderle según la fórmula de la Ley de Riesgos de Trabajo (LRT). Ingresá el
-                sueldo, porcentaje de incapacidad, edad y si corresponde el adicional legal para obtener un valor orientativo.
+                valor de ingreso base mensual actualizado, porcentaje de incapacidad, edad y tipo de accidente para obtener un valor orientativo de incapacidad permanente parcial de hasta el 50%.
             </p>
             <div class="mt-6 hidden md:flex flex-wrap justify-center gap-3">
                 <span
@@ -515,7 +534,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <!-- Sueldo -->
                     <div>
                         <label class="calc-label" for="sueldo">
-                            <i class="fa-solid fa-money-bill-wave text-gold mr-1"></i>Sueldo mensual ($)
+                            <i class="fa-solid fa-money-bill-wave text-gold mr-1"></i>Valor de ingreso base (VIB) mensual actualizado ($)
                         </label>
                         <div class="relative">
                             <span
@@ -523,15 +542,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <input class="calc-input pl-7" type="text" id="sueldo" placeholder="Ej: 1.200.000"
                                 inputmode="numeric" oninput="formatMiles(this)">
                         </div>
+                        <p class="text-[11px] text-gray-400 mt-1 italic">Usá el VIB mensual ya actualizado con RIPTE e intereses a la fecha de cálculo; no necesariamente coincide con el último sueldo.</p>
                     </div>
 
                     <!-- Edad + tipo de accidente -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                             <label class="calc-label" for="edad">
-                                <i class="fa-solid fa-person text-gold mr-1"></i>Edad al accidente
+                                <i class="fa-solid fa-person text-gold mr-1"></i>Edad a la primera manifestación invalidante (PMI)
                             </label>
-                            <input class="calc-input" type="number" id="edad" placeholder="Ej: 38" min="18" max="65">
+                            <input class="calc-input" type="number" id="edad" placeholder="Ej: 38" min="16" max="99">
                         </div>
                         <div>
                             <label class="calc-label" for="tipoAccidente">
@@ -552,8 +572,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </label>
                         <div class="flex items-center gap-3">
                             <input class="calc-input" type="number" id="incapacidad" placeholder="Ej: 10" min="0"
-                                max="100" step="1">
+                                max="50" step="0.1">
                         </div>
+                        <p class="text-[11px] text-gray-400 mt-1 italic">Esta versión calcula incapacidad laboral permanente parcial igual o inferior al 50%.</p>
                     </div>
 
                     <button type="button" onclick="recalcularART(true)"
@@ -593,7 +614,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             cálculo (LRT)</h3>
                         <div class="space-y-1 text-sm">
                             <div class="result-row">
-                                <span class="text-gray-500">🧮 Fórmula base: Sueldo × 53 × Incap. × (65/Edad)</span>
+                                <span class="text-gray-500">🧮 Fórmula: VIB × 53 × Incap. × (65/Edad)</span>
+                                <span id="desgloseFormula" class="font-semibold text-darkblue-900"></span>
+                            </div>
+                            <div class="result-row">
+                                <span class="text-gray-500">📏 Piso SRT 01/03–31/08/2026</span>
+                                <span id="desglosePiso" class="font-semibold text-darkblue-900"></span>
+                            </div>
+                            <div class="result-row">
+                                <span class="text-gray-500">⚖️ Prestación base (el mayor)</span>
                                 <span id="desgloseBase" class="font-semibold text-darkblue-900"></span>
                             </div>
                             <div class="result-row">
@@ -642,7 +671,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-6">
                 <div
                     class="bg-gold-light rounded-xl p-5 text-center mb-6 font-mono text-darkblue-900 text-lg font-bold">
-                    Indemnización = Sueldo × 53 × (% incapacidad / 100) × (65 / edad)
+                    Prestación base = mayor entre [VIB × 53 × (% incapacidad / 100) × (65 / edad)] y el piso SRT
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-600 leading-relaxed">
                     <div class="flex items-start gap-2">
@@ -656,13 +685,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             afectados).</span>
                     </div>
                     <div class="flex items-start gap-2">
+                        <span class="text-gold font-bold mt-0.5">Piso</span>
+                        <span>Para primeras manifestaciones invalidantes entre el 1/3/2026 y el 31/8/2026 se compara la fórmula con $97.502.420 multiplicado por el porcentaje de incapacidad.</span>
+                    </div>
+                    <div class="flex items-start gap-2">
                         <span class="text-gold font-bold mt-0.5">+ 20%</span>
                         <span>Si el accidente fue en el lugar de trabajo, la calculadora suma el adicional del 20% previsto en la Ley 26.773. Si fue in itinere, calcula la prestación base sin ese adicional.</span>
                     </div>
                     <div class="flex items-start gap-2">
                         <span class="text-gold font-bold mt-0.5">⚠️</span>
-                        <span>El monto final también puede actualizarse por el índice RIPTE y no incluye honorarios de
-                            abogado.</span>
+                        <span>El VIB debe incorporar la actualización RIPTE e intereses que correspondan. La calculadora no reconstruye esa actualización histórica ni incluye honorarios.</span>
                     </div>
                 </div>
             </div>
@@ -670,7 +702,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <section class="mb-16 max-w-4xl mx-auto">
             <div class="ymyl-disclaimer-card">
-                <p><strong>Importante:</strong> El resultado es orientativo y no reemplaza una liquidación profesional ni el dictamen de incapacidad. El monto final puede variar por RIPTE, fecha de primera manifestación invalidante, prestaciones adicionales y resolución de Comisiones Médicas o sede judicial.</p>
+                <p><strong>Importante:</strong> El resultado es orientativo y se limita a incapacidad permanente parcial de hasta el 50%, con el piso SRT vigente para primeras manifestaciones invalidantes entre el 1 de marzo y el 31 de agosto de 2026. No reemplaza una liquidación profesional ni el dictamen de incapacidad. Para otra fecha o un porcentaje superior corresponde aplicar parámetros y prestaciones diferentes.</p>
             </div>
 
             <div class="ymyl-sources-card" aria-labelledby="fuentes-oficiales-calc-art">
@@ -680,6 +712,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <ul class="ymyl-sources-list">
                     <li><a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/25000-29999/27971/texact.htm" target="_blank" rel="noopener noreferrer">Ley 24.557 de Riesgos del Trabajo (InfoLEG)</a></li>
                     <li><a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/200000-204999/203798/norma.htm" target="_blank" rel="noopener noreferrer">Ley 26.773, art. 3: compensación adicional de pago único (InfoLEG)</a></li>
+                    <li><a href="https://www.argentina.gob.ar/srt/art/pagos-art/incapacidad-laboral-permanente-50" target="_blank" rel="noopener noreferrer">SRT: fórmula y piso vigente para incapacidad permanente igual o inferior al 50%</a></li>
+                    <li><a href="https://www.argentina.gob.ar/noticias/baremo-laboral-ya-se-encuentra-vigente-la-actualizacion-dispuesta-por-el-decreto-5492025" target="_blank" rel="noopener noreferrer">SRT: baremo laboral actualizado vigente desde febrero de 2026</a></li>
                     <li><a href="https://www.argentina.gob.ar/srt/comisionesmedicas/tramites" target="_blank" rel="noopener noreferrer">Comisiones Médicas de la SRT: trámites y determinación de incapacidad</a></li>
                     <li><a href="https://www.argentina.gob.ar/trabajo/seguridadsocial/ripte" target="_blank" rel="noopener noreferrer">RIPTE: índice oficial usado en actualizaciones del sistema</a></li>
                 </ul>
@@ -725,7 +759,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <section class="max-w-4xl mx-auto">
             <div class="ymyl-meta-card" style="margin-bottom: 0;">
-                <p class="ymyl-meta-intro">Herramienta orientativa basada en normativa oficial del sistema de riesgos del trabajo. La revisión normativa más reciente se realizó el 12 de mayo de 2026.</p>
+                <p class="ymyl-meta-intro">Herramienta orientativa basada en normativa oficial del sistema de riesgos del trabajo, con fórmula, piso SRT y alcance actualizados. La revisión normativa más reciente se realizó el 17 de agosto de 2026.</p>
                 <div class="ymyl-meta-grid">
                     <div class="ymyl-meta-item">
                         <span class="ymyl-meta-label">Redacción legal</span>
@@ -737,7 +771,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                     <div class="ymyl-meta-item">
                         <span class="ymyl-meta-label">Actualizado</span>
-                        <span class="ymyl-meta-value">12 de mayo de 2026</span>
+                        <span class="ymyl-meta-value">17 de agosto de 2026</span>
                     </div>
                     <div class="ymyl-meta-item">
                         <span class="ymyl-meta-label">Jurisdicción</span>
@@ -963,6 +997,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script src="../../../js/tb-pdf-core.js"></script>
     <script src="../../../js/accidente-trabajo-pdf-report.js"></script>
     <script>
+        const PISO_SRT_MARZO_AGOSTO_2026 = 97502420;
+
         // Format thousands separator as user types
         function formatMiles(input) {
             let value = input.value.replace(/\D/g, "");
@@ -999,22 +1035,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const resultPanel = document.getElementById('resultadoART');
 
             // Show results only if essential data is present
-            if (!sueldo || !edad || incapacidad <= 0) {
+            if (!sueldo || !edad || incapacidad <= 0 || incapacidad > 50) {
                 placeholder.classList.remove('hidden');
                 resultPanel.classList.add('hidden');
+                if (dispararWhatsapp && incapacidad > 50) {
+                    alert('Esta calculadora está limitada a incapacidades permanentes parciales de hasta el 50%. Para porcentajes superiores se aplican otras prestaciones.');
+                }
                 return;
             }
 
             placeholder.classList.add('hidden');
             resultPanel.classList.remove('hidden');
 
-            // Formula LRT: Sueldo * 53 * %Incap * (65/Edad)
-            const baseART = sueldo * 53 * (incapacidad / 100) * (65 / edad);
+            // ILP <= 50%: se aplica el mayor entre la fórmula legal y el piso SRT vigente.
+            const formulaART = sueldo * 53 * (incapacidad / 100) * (65 / edad);
+            const pisoART = PISO_SRT_MARZO_AGOSTO_2026 * (incapacidad / 100);
+            const baseART = Math.max(formulaART, pisoART);
             const adicional20 = aplicarAdicional20 ? baseART * 0.2 : 0;
             const total = baseART + adicional20;
 
             // Update UI
             document.getElementById('montoTotal').innerText = formatCurrency(total);
+            document.getElementById('desgloseFormula').innerText = formatCurrency(formulaART);
+            document.getElementById('desglosePiso').innerText = formatCurrency(pisoART);
             document.getElementById('desgloseBase').innerText = formatCurrency(baseART);
             document.getElementById('desgloseAdicional20').innerText = formatCurrency(adicional20);
             document.getElementById('desgloseTotalFinal').innerText = formatCurrency(total);
@@ -1030,6 +1073,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         disability: incapacidad,
                         accidentTypeLabel: aplicarAdicional20 ? 'En el lugar de trabajo' : 'In itinere',
                         appliesAdditional: aplicarAdicional20,
+                        formulaAmount: formulaART,
+                        floorAmount: pisoART,
                         baseAmount: baseART,
                         additionalAmount: adicional20,
                         total
@@ -1039,7 +1084,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     subtitle: 'Accidente de trabajo',
                     breakdownTitle: 'DESGLOSE DEL CALCULO',
                     rows: [
-                        { label: 'Fórmula base: Sueldo x 53 x Incapacidad x (65 / Edad)', value: formatCurrency(baseART) },
+                        { label: 'Fórmula: VIB x 53 x Incapacidad x (65 / Edad)', value: formatCurrency(formulaART) },
+                        { label: 'Piso SRT vigente x porcentaje de incapacidad', value: formatCurrency(pisoART) },
+                        { label: 'Prestación base aplicada (el mayor)', value: formatCurrency(baseART) },
                         { label: 'Adicional 20% según tipo de accidente', value: formatCurrency(adicional20) }
                     ],
                     total: {
