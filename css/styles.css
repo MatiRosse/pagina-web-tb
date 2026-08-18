@@ -14,6 +14,31 @@ body.flex.flex-col.min-h-screen > footer {
     margin-top: auto;
 }
 
+/* Shared language picker: keep flags and labels aligned in one compact row. */
+[aria-label="Seleccionar idioma"] + div,
+[aria-label="Select language"] + div,
+[aria-label="Selecionar idioma"] + div {
+    width: max-content;
+    min-width: 11rem;
+}
+
+[aria-label="Seleccionar idioma"],
+[aria-label="Select language"],
+[aria-label="Selecionar idioma"] {
+    white-space: nowrap;
+}
+
+[aria-label="Seleccionar idioma"] + div a[role="menuitem"],
+[aria-label="Select language"] + div a[role="menuitem"],
+[aria-label="Selecionar idioma"] + div a[role="menuitem"],
+#mob-languages a {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    white-space: nowrap;
+    line-height: 1.25rem;
+}
+
 h1,
 h2,
 h3,

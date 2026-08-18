@@ -13,10 +13,82 @@
         return;
     }
 
+    const pageLanguage = document.documentElement.lang.toLowerCase();
+    const activeLanguage = pageLanguage.startsWith("pt") ? "pt" : pageLanguage.startsWith("en") ? "en" : "es";
+    const localizedCopy = {
+        en: {
+            "Escribí tu mensaje acá...": "Type your message here...",
+            "Hola! Necesito asesoramiento legal": "Hello! I need legal advice",
+            "¿Buscás asesoramiento legal?": "Do you need legal advice?",
+            "¿Necesitas ayuda con tu marca?": "Do you need help with your trademark?",
+            "Hola, necesito asesoramiento con una marca": "Hello, I need advice about a trademark",
+            "Registro de Marcas": "Trademark Registration",
+            "Consulta legal": "Legal inquiry",
+            "Enviar consulta": "Send inquiry",
+            "Abrir WhatsApp": "Open WhatsApp",
+            "Esperá un momento...": "Please wait...",
+            "Consulta recibida": "Inquiry received",
+            "Te respondemos pronto": "We will reply soon",
+            "En línea": "Online",
+            "Consulta enviada": "Inquiry sent",
+            "Enviando consulta...": "Sending inquiry...",
+            "Tocá enviar para reintentar": "Tap send to try again",
+            "Te hacemos unas preguntas...": "We need to ask you a few questions...",
+            "Escribí tu respuesta": "Type your answer",
+            "Por favor, detallanos brevemente tu consulta": "Please briefly describe your inquiry",
+            "Consulta:": "Inquiry:",
+            "Gracias. ¿Cuál es tu nombre?": "Thank you. What is your name?",
+            "Escribí tu nombre": "Type your name",
+            "¿Cuál es tu teléfono o celular?": "What is your phone number?",
+            "Escribí tu teléfono o celular": "Type your phone number",
+            "Necesito esa información para poder registrar tu consulta.": "I need that information to submit your inquiry.",
+            "Por favor, escribí tu nombre completo.": "Please enter your full name.",
+            "Necesito un teléfono o celular válido para contactarte.": "Please enter a valid phone number so we can contact you.",
+            "Estoy reintentando enviar tu consulta.": "I am trying to send your inquiry again.",
+            "Perfecto, estoy enviando tu consulta.": "Great, I am sending your inquiry.",
+            "Recibimos tu mensaje. Muchas gracias por escribirnos. Ahora mismo estamos fuera del horario de atención, pero ya tomamos tu consulta y nos vamos a comunicar con vos apenas retomemos la atención.": "We received your message. Thank you for contacting us. We are currently outside business hours, but your inquiry has been recorded and we will contact you as soon as we reopen.",
+            "No pude enviar tu consulta en este momento. Tocá el botón para reintentar y, si el problema continúa, también podés escribirnos a consultas@tbabogados.com.ar.": "I could not send your inquiry right now. Tap the button to try again or email us at consultas@tbabogados.com.ar."
+        },
+        pt: {
+            "Escribí tu mensaje acá...": "Escreva sua mensagem aqui...",
+            "Hola! Necesito asesoramiento legal": "Olá! Preciso de assessoria jurídica",
+            "¿Buscás asesoramiento legal?": "Precisa de assessoria jurídica?",
+            "¿Necesitas ayuda con tu marca?": "Precisa de ajuda com sua marca?",
+            "Hola, necesito asesoramiento con una marca": "Olá, preciso de assessoria sobre uma marca",
+            "Registro de Marcas": "Registro de Marcas",
+            "Consulta legal": "Consulta jurídica",
+            "Enviar consulta": "Enviar consulta",
+            "Abrir WhatsApp": "Abrir WhatsApp",
+            "Esperá un momento...": "Aguarde um momento...",
+            "Consulta recibida": "Consulta recebida",
+            "Te respondemos pronto": "Responderemos em breve",
+            "En línea": "Online",
+            "Consulta enviada": "Consulta enviada",
+            "Enviando consulta...": "Enviando consulta...",
+            "Tocá enviar para reintentar": "Toque em enviar para tentar novamente",
+            "Te hacemos unas preguntas...": "Precisamos fazer algumas perguntas...",
+            "Escribí tu respuesta": "Escreva sua resposta",
+            "Por favor, detallanos brevemente tu consulta": "Por favor, descreva brevemente sua consulta",
+            "Consulta:": "Consulta:",
+            "Gracias. ¿Cuál es tu nombre?": "Obrigado. Qual é o seu nome?",
+            "Escribí tu nombre": "Escreva seu nome",
+            "¿Cuál es tu teléfono o celular?": "Qual é o seu telefone ou celular?",
+            "Escribí tu teléfono o celular": "Escreva seu telefone ou celular",
+            "Necesito esa información para poder registrar tu consulta.": "Preciso dessa informação para registrar sua consulta.",
+            "Por favor, escribí tu nombre completo.": "Por favor, escreva seu nome completo.",
+            "Necesito un teléfono o celular válido para contactarte.": "Informe um telefone ou celular válido para entrarmos em contato.",
+            "Estoy reintentando enviar tu consulta.": "Estou tentando enviar sua consulta novamente.",
+            "Perfecto, estoy enviando tu consulta.": "Perfeito, estou enviando sua consulta.",
+            "Recibimos tu mensaje. Muchas gracias por escribirnos. Ahora mismo estamos fuera del horario de atención, pero ya tomamos tu consulta y nos vamos a comunicar con vos apenas retomemos la atención.": "Recebemos sua mensagem. Obrigado por entrar em contato. Estamos fora do horário de atendimento, mas sua consulta já foi registrada e entraremos em contato assim que retomarmos o atendimento.",
+            "No pude enviar tu consulta en este momento. Tocá el botón para reintentar y, si el problema continúa, también podés escribirnos a consultas@tbabogados.com.ar.": "Não foi possível enviar sua consulta agora. Toque no botão para tentar novamente ou escreva para consultas@tbabogados.com.ar."
+        }
+    };
+    const t = (text) => localizedCopy[activeLanguage]?.[text] || text;
+
     const currentWA = "5491122511243";
     const contactFormEndpoint = "https://formspree.io/f/xdawoyea";
     const argentinaTimeZone = "America/Argentina/Buenos_Aires";
-    const defaultInputPlaceholder = "Escribí tu mensaje acá...";
+    const defaultInputPlaceholder = t("Escribí tu mensaje acá...");
     const isMobileDevice = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
     const widgetScaleFactor = 1.15;
     const baseWidgetWidth = parseFloat(widget.style.width) || 336;
@@ -39,12 +111,12 @@
     let hasUnreadNotification = false;
     let firstMessageShown = false;
     let secondMessageSequenceStarted = false;
-    let fallbackText = "Hola! Necesito asesoramiento legal";
+    let fallbackText = t("Hola! Necesito asesoramiento legal");
     let lastPrefilledText = "";
     let currentProfile = null;
     let baselineViewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
 
-    const serviceProfiles = [
+    const serviceProfilesBase = [
         {
             matches: ["/servicios/calculadoras/calculadora-sueldo-bruto-a-neto", "/servicios/calculadoras/aguinaldo-calculadora"],
             message: "¿Necesitás ayuda para calcular tu sueldo?",
@@ -142,6 +214,12 @@
             suggestedSubject: "Accidente de Trabajo ART",
         },
     ];
+    const serviceProfiles = serviceProfilesBase.map((profile) => ({
+        ...profile,
+        message: t(profile.message),
+        fallback: t(profile.fallback),
+        suggestedSubject: t(profile.suggestedSubject),
+    }));
 
     const intakeState = {
         active: false,
@@ -202,7 +280,7 @@
                 sendButton.innerHTML = offlineSendButtonMarkup;
                 sendButton.dataset.iconMode = "offline";
             }
-            sendButton.setAttribute("aria-label", "Enviar consulta");
+            sendButton.setAttribute("aria-label", t("Enviar consulta"));
             return;
         }
 
@@ -210,7 +288,7 @@
             sendButton.innerHTML = defaultSendButtonMarkup;
             sendButton.dataset.iconMode = "whatsapp";
         }
-        sendButton.setAttribute("aria-label", "Abrir WhatsApp");
+        sendButton.setAttribute("aria-label", t("Abrir WhatsApp"));
     }
 
     function upgradeInputToTextarea() {
@@ -357,7 +435,7 @@
     }
 
     function getAutoSubject() {
-        return currentProfile ? currentProfile.suggestedSubject : "Consulta legal";
+        return currentProfile ? currentProfile.suggestedSubject : t("Consulta legal");
     }
 
     function appendMessage(text, role = "bot") {
@@ -386,7 +464,7 @@
         setComposerState({
             inputDisabled: true,
             sendDisabled: true,
-            placeholder: "Esperá un momento...",
+            placeholder: t("Esperá un momento..."),
         });
         showTyping(true);
 
@@ -521,8 +599,8 @@
         updateWidgetSize();
         updateSendButtonIcon();
 
-        let dynamicMsg2 = "¿Buscás asesoramiento legal?";
-        fallbackText = "Hola! Necesito asesoramiento legal";
+        let dynamicMsg2 = t("¿Buscás asesoramiento legal?");
+        fallbackText = t("Hola! Necesito asesoramiento legal");
 
         if (currentProfile) {
             dynamicMsg2 = currentProfile.message;
@@ -531,10 +609,10 @@
 
         if (intakeState.active) {
             if (chatProfileSub) {
-                chatProfileSub.textContent = intakeState.completed ? "Consulta recibida" : "Te respondemos pronto";
+                chatProfileSub.textContent = intakeState.completed ? t("Consulta recibida") : t("Te respondemos pronto");
             }
         } else if (chatProfileSub) {
-            chatProfileSub.textContent = "En línea";
+            chatProfileSub.textContent = t("En línea");
         }
 
         if (msg2) {
@@ -547,32 +625,32 @@
             setComposerState({
                 inputDisabled: true,
                 sendDisabled: true,
-                placeholder: "Consulta enviada",
+                placeholder: t("Consulta enviada"),
             });
         } else if (intakeState.submitting) {
             setComposerState({
                 inputDisabled: true,
                 sendDisabled: true,
-                placeholder: "Enviando consulta...",
+                placeholder: t("Enviando consulta..."),
             });
         } else if (intakeState.awaitingRetry) {
             setComposerState({
                 inputDisabled: true,
                 sendDisabled: false,
-                placeholder: "Tocá enviar para reintentar",
+                placeholder: t("Tocá enviar para reintentar"),
             });
         } else if (intakeState.active && !intakeState.started) {
             setComposerState({
                 inputDisabled: true,
                 sendDisabled: true,
-                placeholder: "Te hacemos unas preguntas...",
+                placeholder: t("Te hacemos unas preguntas..."),
             });
         } else if (intakeState.active) {
             const currentQuestion = getCurrentQuestion();
             setComposerState({
                 inputDisabled: false,
                 sendDisabled: false,
-                placeholder: currentQuestion ? currentQuestion.placeholder : "Escribí tu respuesta",
+                placeholder: currentQuestion ? currentQuestion.placeholder : t("Escribí tu respuesta"),
             });
         } else if (!intakeState.active) {
             setComposerState({
@@ -587,18 +665,18 @@
         return [
             {
                 key: "message",
-                prompt: "Por favor, detallanos brevemente tu consulta",
-                placeholder: "Consulta:",
+                prompt: t("Por favor, detallanos brevemente tu consulta"),
+                placeholder: t("Consulta:"),
             },
             {
                 key: "name",
-                prompt: "Gracias. ¿Cuál es tu nombre?",
-                placeholder: "Escribí tu nombre",
+                prompt: t("Gracias. ¿Cuál es tu nombre?"),
+                placeholder: t("Escribí tu nombre"),
             },
             {
                 key: "phone",
-                prompt: "¿Cuál es tu teléfono o celular?",
-                placeholder: "Escribí tu teléfono o celular",
+                prompt: t("¿Cuál es tu teléfono o celular?"),
+                placeholder: t("Escribí tu teléfono o celular"),
             },
         ];
     }
@@ -613,7 +691,7 @@
         if (!trimmedText) {
             return {
                 valid: false,
-                error: "Necesito esa información para poder registrar tu consulta.",
+                error: t("Necesito esa información para poder registrar tu consulta."),
             };
         }
 
@@ -621,7 +699,7 @@
             if (trimmedText.length < 3) {
                 return {
                     valid: false,
-                    error: "Por favor, escribí tu nombre completo.",
+                    error: t("Por favor, escribí tu nombre completo."),
                 };
             }
 
@@ -634,7 +712,7 @@
             if (digits.length < 8) {
                 return {
                     valid: false,
-                    error: "Necesito un teléfono o celular válido para contactarte.",
+                    error: t("Necesito un teléfono o celular válido para contactarte."),
                 };
             }
 
@@ -689,11 +767,11 @@
         setComposerState({
             inputDisabled: true,
             sendDisabled: true,
-            placeholder: "Enviando consulta...",
+            placeholder: t("Enviando consulta..."),
         });
 
         appendMessage(
-            isRetry ? "Estoy reintentando enviar tu consulta." : "Perfecto, estoy enviando tu consulta.",
+            isRetry ? t("Estoy reintentando enviar tu consulta.") : t("Perfecto, estoy enviando tu consulta."),
             "bot",
         );
         showTyping(true);
@@ -726,12 +804,12 @@
             intakeState.submitting = false;
 
             appendMessage(
-                "Recibimos tu mensaje. Muchas gracias por escribirnos. Ahora mismo estamos fuera del horario de atención, pero ya tomamos tu consulta y nos vamos a comunicar con vos apenas retomemos la atención.",
+                t("Recibimos tu mensaje. Muchas gracias por escribirnos. Ahora mismo estamos fuera del horario de atención, pero ya tomamos tu consulta y nos vamos a comunicar con vos apenas retomemos la atención."),
                 "bot",
             );
 
             if (chatProfileSub) {
-                chatProfileSub.textContent = "Consulta recibida";
+                chatProfileSub.textContent = t("Consulta recibida");
             }
 
             input.value = "";
@@ -739,7 +817,7 @@
             setComposerState({
                 inputDisabled: true,
                 sendDisabled: true,
-                placeholder: "Consulta enviada",
+                placeholder: t("Consulta enviada"),
             });
         } catch (error) {
             showTyping(false);
@@ -747,7 +825,7 @@
             intakeState.awaitingRetry = true;
 
             appendMessage(
-                "No pude enviar tu consulta en este momento. Tocá el botón para reintentar y, si el problema continúa, también podés escribirnos a consultas@tbabogados.com.ar.",
+                t("No pude enviar tu consulta en este momento. Tocá el botón para reintentar y, si el problema continúa, también podés escribirnos a consultas@tbabogados.com.ar."),
                 "bot",
             );
 
@@ -756,7 +834,7 @@
             setComposerState({
                 inputDisabled: true,
                 sendDisabled: false,
-                placeholder: "Tocá enviar para reintentar",
+                placeholder: t("Tocá enviar para reintentar"),
             });
         }
     }

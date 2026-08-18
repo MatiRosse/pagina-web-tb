@@ -2,6 +2,84 @@
 let calculadorasScriptPromise = null;
 const MOBILE_MENU_TRANSITION_MS = 320;
 const MOBILE_MENU_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)';
+const LANGUAGE_STORAGE_KEY = 'tbPreferredLanguage';
+const LOCALIZED_ROUTE_BASES = [
+    '/nosotros/',
+    '/contacto/',
+    '/dra-bulgheroni/',
+    '/dr-bulgheroni/',
+    '/dra-tassara/',
+    '/servicios/marcas/'
+];
+
+function getStoredLanguage() {
+    try {
+        return window.localStorage.getItem(LANGUAGE_STORAGE_KEY) || 'es';
+    } catch (error) {
+        return 'es';
+    }
+}
+
+function storeLanguage(language) {
+    try {
+        window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+    } catch (error) {
+        // Navigation continues normally when storage is unavailable.
+    }
+}
+
+function localizeAvailableLink(anchor, language) {
+    const label = anchor.textContent.trim().replace(/\s+/g, ' ');
+    if (/^(?:🇦🇷 Español|🇬🇧 English|🇧🇷 Português)$/.test(label)) return;
+
+    let url;
+    try {
+        url = new URL(anchor.getAttribute('href'), window.location.href);
+    } catch (error) {
+        return;
+    }
+
+    if (!['http:', 'https:', 'file:'].includes(url.protocol)) return;
+    if (url.protocol !== 'file:' && url.origin !== window.location.origin) return;
+
+    for (const base of LOCALIZED_ROUTE_BASES) {
+        const translatedSuffixes = [`${base}en/`, `${base}pt/`];
+        const matchedSuffix = translatedSuffixes.find((suffix) => url.pathname.endsWith(suffix));
+
+        if (matchedSuffix) {
+            url.pathname = `${url.pathname.slice(0, -matchedSuffix.length)}${base}${language}/`;
+            anchor.href = url.href;
+            return;
+        }
+
+        if (url.pathname.endsWith(base)) {
+            url.pathname = `${url.pathname}${language}/`;
+            anchor.href = url.href;
+            return;
+        }
+    }
+}
+
+function initLanguagePreference() {
+    const documentLanguage = document.documentElement.lang.toLowerCase();
+    const activeLanguage = documentLanguage.startsWith('en')
+        ? 'en'
+        : documentLanguage.startsWith('pt') ? 'pt' : null;
+
+    if (activeLanguage) storeLanguage(activeLanguage);
+
+    document.querySelectorAll('a').forEach((anchor) => {
+        const label = anchor.textContent.trim().replace(/\s+/g, ' ');
+        const optionLanguage = label === '🇬🇧 English' ? 'en' : label === '🇧🇷 Português' ? 'pt' : label === '🇦🇷 Español' ? 'es' : null;
+        if (optionLanguage) {
+            anchor.addEventListener('click', () => storeLanguage(optionLanguage));
+        }
+    });
+
+    const preferredLanguage = activeLanguage || getStoredLanguage();
+    if (!['en', 'pt'].includes(preferredLanguage)) return;
+    document.querySelectorAll('a[href]').forEach((anchor) => localizeAvailableLink(anchor, preferredLanguage));
+}
 
 function ensureCalculadorasScriptLoaded() {
     if (typeof window.calcularSueldoNeto === 'function') return;
@@ -505,7 +583,7 @@ function initReviewCarousels() {
     });
 }
 
-const MOBILE_SUBMENU_IDS = ['mob-servicios', 'mob-calculadoras', 'mob-consumo'];
+const MOBILE_SUBMENU_IDS = ['mob-servicios', 'mob-calculadoras', 'mob-consumo', 'mob-languages'];
 
 function setMobSubmenuState(submenuId, isOpen) {
     const submenu = document.getElementById(submenuId);
@@ -532,13 +610,14 @@ function toggleMobSubmenu(submenuId) {
 
     const shouldOpen = submenu.classList.contains('hidden');
 
-    if (shouldOpen && submenuId === 'mob-servicios') {
-        setMobSubmenuState('mob-calculadoras', false);
-    }
+    if (shouldOpen && ['mob-servicios', 'mob-calculadoras', 'mob-languages'].includes(submenuId)) {
+        ['mob-servicios', 'mob-calculadoras', 'mob-languages']
+            .filter((id) => id !== submenuId)
+            .forEach((id) => setMobSubmenuState(id, false));
 
-    if (shouldOpen && submenuId === 'mob-calculadoras') {
-        setMobSubmenuState('mob-servicios', false);
-        setMobSubmenuState('mob-consumo', false);
+        if (submenuId !== 'mob-servicios') {
+            setMobSubmenuState('mob-consumo', false);
+        }
     }
 
     setMobSubmenuState(submenuId, shouldOpen);
@@ -619,6 +698,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const viewHome = document.getElementById('view-home');
     const initialScrollY = getScrollY();
 
+    initLanguagePreference();
     bindCloseMobileMenuOnOutsideTap();
     bindCloseMobileMenuOnLinkActivation();
     initWhyChooseUsMobileToggle();

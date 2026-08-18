@@ -15,13 +15,37 @@
     </url>
     <url>
         <loc>https://tbabogados.com.ar/contacto/</loc>
-        <lastmod>2026-03-12</lastmod>
+        <lastmod>2026-08-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://tbabogados.com.ar/contacto/en/</loc>
+        <lastmod>2026-08-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://tbabogados.com.ar/contacto/pt/</loc>
+        <lastmod>2026-08-18</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://tbabogados.com.ar/nosotros/</loc>
         <lastmod>2026-03-12</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://tbabogados.com.ar/nosotros/en/</loc>
+        <lastmod>2026-08-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://tbabogados.com.ar/nosotros/pt/</loc>
+        <lastmod>2026-08-18</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -36,6 +60,18 @@
     <url>
         <loc>https://tbabogados.com.ar/servicios/marcas/</loc>
         <lastmod>2026-03-12</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://tbabogados.com.ar/servicios/marcas/en/</loc>
+        <lastmod>2026-08-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://tbabogados.com.ar/servicios/marcas/pt/</loc>
+        <lastmod>2026-08-18</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -122,6 +158,42 @@
     <url>
         <loc>https://tbabogados.com.ar/dra-bulgheroni/</loc>
         <lastmod>2026-03-12</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://tbabogados.com.ar/dra-tassara/en/</loc>
+        <lastmod>2026-08-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://tbabogados.com.ar/dra-tassara/pt/</loc>
+        <lastmod>2026-08-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://tbabogados.com.ar/dr-bulgheroni/en/</loc>
+        <lastmod>2026-08-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://tbabogados.com.ar/dr-bulgheroni/pt/</loc>
+        <lastmod>2026-08-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://tbabogados.com.ar/dra-bulgheroni/en/</loc>
+        <lastmod>2026-08-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://tbabogados.com.ar/dra-bulgheroni/pt/</loc>
+        <lastmod>2026-08-18</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
