@@ -485,17 +485,7 @@ function ensureReviewCarouselStyles() {
 }
 
 function findReviewTracks() {
-    const ratingSummaries = Array.from(document.querySelectorAll('p')).filter((paragraph) =>
-        paragraph.textContent.trim().startsWith('Excelente 5.0 de 5')
-    );
-
-    return ratingSummaries.reduce((tracks, summary) => {
-        const section = summary.closest('#reviews-section') || summary.closest('.bg-white');
-        const track = section && section.querySelector('.grid.grid-cols-1.md\\:grid-cols-3');
-
-        if (track && !tracks.includes(track)) tracks.push(track);
-        return tracks;
-    }, []);
+    return Array.from(document.querySelectorAll('#reviews-section .grid.grid-cols-1.md\\:grid-cols-3'));
 }
 
 function initReviewCarousels() {
