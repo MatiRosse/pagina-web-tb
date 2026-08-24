@@ -139,6 +139,101 @@ window.dataLayer.push({
             display: block;
         }
 
+        .calc-label-row {
+            display: flex;
+            align-items: center;
+            min-height: 20px;
+            gap: 4px;
+            margin-bottom: 6px;
+        }
+
+        .calc-label-row .calc-label {
+            min-width: 0;
+            margin-bottom: 0;
+        }
+
+        .calc-info-wrap {
+            position: relative;
+            display: inline-flex;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+
+        .calc-info-trigger {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            padding: 0;
+            border: 1.5px solid currentColor;
+            border-radius: 999px;
+            background: transparent;
+            color: #9ca3af;
+            font-family: Inter, Arial, sans-serif;
+            font-size: 11px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 1;
+            cursor: help;
+        }
+
+        .calc-info-trigger:hover,
+        .calc-info-trigger:focus-visible {
+            background: rgba(197, 160, 89, .14);
+            color: #7c5a24;
+            outline: none;
+        }
+
+        .calc-info-tooltip {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            z-index: 30;
+            display: none;
+            width: min(300px, calc(100vw - 48px));
+            padding: 10px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            background: #1f2937;
+            color: #fff;
+            box-shadow: 0 12px 28px rgba(17, 24, 39, .2);
+            font-size: 11px;
+            font-weight: 400;
+            line-height: 1.45;
+            text-align: left;
+        }
+
+        .calc-info-tooltip::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 6px;
+            width: 9px;
+            height: 9px;
+            background: #1f2937;
+            transform: rotate(45deg);
+        }
+
+        .calc-info-wrap:hover .calc-info-tooltip,
+        .calc-info-wrap:focus-within .calc-info-tooltip {
+            display: block;
+        }
+
+        .hijos-input {
+            padding-right: 0;
+            padding-left: 0;
+            text-align: center;
+            appearance: textfield;
+            -moz-appearance: textfield;
+        }
+
+        .hijos-input::-webkit-inner-spin-button,
+        .hijos-input::-webkit-outer-spin-button {
+            margin: 0;
+            -webkit-appearance: none;
+        }
+
         /* Result panel */
         .result-row {
             display: flex;
@@ -628,52 +723,63 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                     <!-- Bruto -->
                     <div>
-                        <label class="calc-label text-xs" for="bruto">
-                            <i class="fa-solid fa-money-bill-wave text-gold mr-1"></i>Sueldo bruto mensual ($)
-                        </label>
+                        <div class="calc-label-row">
+                            <label class="calc-label text-xs" for="bruto">
+                                <i class="fa-solid fa-money-bill-wave text-gold mr-1"></i>Sueldo bruto mensual ($)
+                            </label>
+                            <span class="calc-info-wrap">
+                                <button type="button" class="calc-info-trigger" aria-label="Información sobre el sueldo bruto" aria-describedby="bruto-ayuda">i</button>
+                                <span id="bruto-ayuda" class="calc-info-tooltip" role="tooltip">No incluyas SAC, vacaciones ni premios que no se devenguen mensualmente. Si hay variables, revisá el promedio más favorable previsto por la ley.</span>
+                            </span>
+                        </div>
                         <div class="relative">
                             <input class="calc-input py-2.5 text-sm" type="text" id="bruto" placeholder="Ej: 2.500.000"
                                 inputmode="numeric" oninput="formatBruto(this)">
                         </div>
                     </div>
 
-                    <!-- Sindicato + Casado en la misma fila -->
-                    <div class="grid grid-cols-2 gap-3">
+                    <!-- Sindicato + Casado + Hijos en la misma fila desde md -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                         <div>
-                            <label class="calc-label text-xs" for="sindicato">
-                                <i class="fa-solid fa-building-columns text-gold mr-1"></i>Cuota sindical (%)
-                            </label>
+                            <div class="calc-label-row">
+                                <label class="calc-label text-xs" for="sindicato">
+                                    <i class="fa-solid fa-building-columns text-gold mr-1"></i>Cuota sindical (%)
+                                </label>
+                            </div>
                             <input class="calc-input py-2.5 text-sm" type="number" id="sindicato" step="0.5" value="0"
                                 min="0" max="10">
                         </div>
                         <div>
-                            <label class="calc-label text-xs">&nbsp;</label>
-                            <div
-                                class="flex items-center justify-between bg-gold-light rounded-lg px-3 py-2.5 h-[42px]">
-                                <span id="casado-text" class="text-xs font-medium text-darkblue-900">¿Casado/a?</span>
-                                <label class="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" id="casado" class="sr-only peer" aria-labelledby="casado-text"
-                                        aria-label="Casado o casada">
-                                    <div
-                                        class="w-9 h-5 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-gold">
-                                    </div>
-                                </label>
+                            <div class="calc-label-row">
+                                <label class="calc-label text-xs" for="casado">¿Casado/a?</label>
+                                <span class="calc-info-wrap">
+                                    <button type="button" class="calc-info-trigger" aria-label="Información sobre la deducción por cónyuge" aria-describedby="casado-ayuda">i</button>
+                                    <span id="casado-ayuda" class="calc-info-tooltip" role="tooltip">Para Ganancias, indicá “Sí” solo si tu cónyuge o pareja conviviente es residente en el país, está a tu cargo y no supera el mínimo no imponible anual. La calculadora no verifica estos requisitos.</span>
+                                </span>
                             </div>
+                            <select class="calc-input py-2.5 text-sm" id="casado" aria-describedby="casado-ayuda">
+                                <option value="no">No</option>
+                                <option value="si">Sí</option>
+                            </select>
                         </div>
-                    </div>
-
-                    <!-- Hijos -->
-                    <div>
-                        <label class="calc-label text-xs" for="hijos">
-                            <i class="fa-solid fa-users text-gold mr-1"></i>Cantidad de hijos
-                        </label>
-                        <div class="flex items-center gap-2">
-                            <button type="button" onclick="cambiarHijos(-1)" aria-label="Disminuir cantidad de hijos"
-                                class="w-8 h-8 rounded-full bg-white border border-gold text-gold font-bold text-base flex-shrink-0">−</button>
-                            <input class="calc-input text-center py-2 text-sm" type="number" id="hijos" value="0"
-                                min="0" step="1">
-                            <button type="button" onclick="cambiarHijos(1)" aria-label="Aumentar cantidad de hijos"
-                                class="w-8 h-8 rounded-full bg-gold text-white font-bold text-base flex-shrink-0">+</button>
+                        <div>
+                            <div class="calc-label-row">
+                                <label class="calc-label text-xs" for="hijos">
+                                    <i class="fa-solid fa-users text-gold mr-1"></i>Cantidad de hijos
+                                </label>
+                                <span class="calc-info-wrap">
+                                    <button type="button" class="calc-info-trigger" aria-label="Información sobre la deducción por hijos" aria-describedby="hijos-ayuda">i</button>
+                                    <span id="hijos-ayuda" class="calc-info-tooltip" role="tooltip">Para Ganancias, ingresá hijos o hijastros menores de 18 años o incapacitados para el trabajo que estén a tu cargo, sean residentes y no superen el mínimo no imponible anual. La calculadora no verifica estos requisitos.</span>
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button type="button" onclick="cambiarHijos(-1)" aria-label="Disminuir cantidad de hijos"
+                                    class="w-8 h-8 rounded-full bg-white border border-gold text-gold font-bold text-base flex-shrink-0">−</button>
+                                <input class="calc-input hijos-input py-2 text-sm min-w-0" type="number" id="hijos" value="0"
+                                    min="0" step="1">
+                                <button type="button" onclick="cambiarHijos(1)" aria-label="Aumentar cantidad de hijos"
+                                    class="w-8 h-8 rounded-full bg-gold text-white font-bold text-base flex-shrink-0">+</button>
+                            </div>
                         </div>
                     </div>
 
@@ -1440,7 +1546,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             if (!brutoMensual) return;
             sueldoNetoCalculado = true;
             const sindicatoPorc = parseFloat(document.getElementById('sindicato').value) || 0;
-            const casado = document.getElementById('casado').checked;
+            const casado = document.getElementById('casado').value === 'si';
             const hijos = parseInt(document.getElementById('hijos').value) || 0;
             const alquilerMensual = parseFloat(document.getElementById('alquiler').value) || 0;
             const segurosMensual = parseFloat(document.getElementById('seguros').value) || 0;

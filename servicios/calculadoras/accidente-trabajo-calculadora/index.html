@@ -150,6 +150,86 @@ window.dataLayer.push({
             display: block;
         }
 
+        .calc-label-with-info {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 5px;
+        }
+
+        .calc-label-with-info .calc-label {
+            min-width: 0;
+            margin-bottom: 0;
+        }
+
+        .calc-info-wrap {
+            position: relative;
+            display: inline-flex;
+            margin-left: 4px;
+            flex-shrink: 0;
+        }
+
+        .calc-info-trigger {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            padding: 0;
+            border: 1.5px solid currentColor;
+            border-radius: 999px;
+            background: transparent;
+            color: #9ca3af;
+            font-family: Inter, Arial, sans-serif;
+            font-size: 11px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 1;
+            cursor: help;
+        }
+
+        .calc-info-trigger:hover,
+        .calc-info-trigger:focus-visible {
+            background: rgba(197, 160, 89, .14);
+            color: #7c5a24;
+            outline: none;
+        }
+
+        .calc-info-tooltip {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            z-index: 30;
+            display: none;
+            width: min(320px, calc(100vw - 48px));
+            padding: 10px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            background: #1f2937;
+            color: #fff;
+            box-shadow: 0 12px 28px rgba(17, 24, 39, .2);
+            font-size: 11px;
+            font-weight: 400;
+            line-height: 1.45;
+            text-align: left;
+        }
+
+        .calc-info-tooltip::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 6px;
+            width: 9px;
+            height: 9px;
+            background: #1f2937;
+            transform: rotate(45deg);
+        }
+
+        .calc-info-wrap:hover .calc-info-tooltip,
+        .calc-info-wrap:focus-within .calc-info-tooltip {
+            display: block;
+        }
+
         .result-row {
             display: flex;
             justify-content: space-between;
@@ -498,8 +578,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 Calculadora de Indemnización<br>por Accidente de Trabajo
             </h1>
             <p class="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">
-                Estimá cuánto podría corresponderle según la fórmula de la Ley de Riesgos de Trabajo (LRT). Ingresá el
-                valor de ingreso base mensual actualizado, porcentaje de incapacidad, edad y tipo de accidente para obtener un valor orientativo de incapacidad permanente parcial de hasta el 50%.
+                Estimá cuánto podría corresponderte según la fórmula de la Ley de Riesgos de Trabajo (LRT). Ingresá tu
+                sueldo mensual aproximado, porcentaje de incapacidad, edad y tipo de accidente para obtener un valor orientativo de incapacidad permanente parcial de hasta el 50%.
             </p>
             <div class="mt-6 hidden md:flex flex-wrap justify-center gap-3">
                 <span
@@ -533,16 +613,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                     <!-- Sueldo -->
                     <div>
-                        <label class="calc-label" for="sueldo">
-                            <i class="fa-solid fa-money-bill-wave text-gold mr-1"></i>Valor de ingreso base (VIB) mensual actualizado ($)
-                        </label>
+                        <div class="calc-label-with-info">
+                            <label class="calc-label" for="sueldo">
+                                <i class="fa-solid fa-money-bill-wave text-gold mr-1"></i>Sueldo mensual aproximado ($)
+                            </label>
+                            <span class="calc-info-wrap">
+                                <button type="button" class="calc-info-trigger" aria-label="Cómo se usa el sueldo en la estimación" aria-describedby="sueldo-ayuda">i</button>
+                                <span id="sueldo-ayuda" class="calc-info-tooltip" role="tooltip">Para simplificar, ingresá tu sueldo mensual promedio o aproximado. La calculadora lo usa como referencia del ingreso base. El cálculo legal puede variar porque la ley toma salarios previos y los actualiza por RIPTE e intereses; esta versión no reconstruye esa actualización histórica.</span>
+                            </span>
+                        </div>
                         <div class="relative">
                             <span
                                 class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-semibold text-sm pointer-events-none"></span>
                             <input class="calc-input pl-7" type="text" id="sueldo" placeholder="Ej: 1.200.000"
                                 inputmode="numeric" oninput="formatMiles(this)">
                         </div>
-                        <p class="text-[11px] text-gray-400 mt-1 italic">Usá el VIB mensual ya actualizado con RIPTE e intereses a la fecha de cálculo; no necesariamente coincide con el último sueldo.</p>
                     </div>
 
                     <!-- Edad + tipo de accidente -->
@@ -614,7 +699,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             cálculo (LRT)</h3>
                         <div class="space-y-1 text-sm">
                             <div class="result-row">
-                                <span class="text-gray-500">🧮 Fórmula: VIB × 53 × Incap. × (65/Edad)</span>
+                                <span class="text-gray-500">🧮 Fórmula: sueldo de referencia × 53 × Incap. × (65/Edad)</span>
                                 <span id="desgloseFormula" class="font-semibold text-darkblue-900"></span>
                             </div>
                             <div class="result-row">
@@ -671,7 +756,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-6">
                 <div
                     class="bg-gold-light rounded-xl p-5 text-center mb-6 font-mono text-darkblue-900 text-lg font-bold">
-                    Prestación base = mayor entre [VIB × 53 × (% incapacidad / 100) × (65 / edad)] y el piso SRT
+                    Prestación base estimada = mayor entre [sueldo de referencia × 53 × (% incapacidad / 100) × (65 / edad)] y el piso SRT
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-600 leading-relaxed">
                     <div class="flex items-start gap-2">
@@ -694,7 +779,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                     <div class="flex items-start gap-2">
                         <span class="text-gold font-bold mt-0.5">⚠️</span>
-                        <span>El VIB debe incorporar la actualización RIPTE e intereses que correspondan. La calculadora no reconstruye esa actualización histórica ni incluye honorarios.</span>
+                        <span>Esta versión usa el sueldo cargado como referencia. El ingreso base legal puede variar porque se calcula con salarios previos y actualizaciones RIPTE e intereses; la calculadora no reconstruye esa historia ni incluye honorarios.</span>
                     </div>
                 </div>
             </div>
@@ -1084,7 +1169,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     subtitle: 'Accidente de trabajo',
                     breakdownTitle: 'DESGLOSE DEL CALCULO',
                     rows: [
-                        { label: 'Fórmula: VIB x 53 x Incapacidad x (65 / Edad)', value: formatCurrency(formulaART) },
+                        { label: 'Fórmula: sueldo de referencia x 53 x Incapacidad x (65 / Edad)', value: formatCurrency(formulaART) },
                         { label: 'Piso SRT vigente x porcentaje de incapacidad', value: formatCurrency(pisoART) },
                         { label: 'Prestación base aplicada (el mayor)', value: formatCurrency(baseART) },
                         { label: 'Adicional 20% según tipo de accidente', value: formatCurrency(adicional20) }

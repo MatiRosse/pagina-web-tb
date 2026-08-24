@@ -122,6 +122,85 @@ window.dataLayer.push({
             display: block;
         }
 
+        .calc-label-row {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .calc-label-row .calc-label {
+            min-width: 0;
+            margin-bottom: 0;
+        }
+
+        .calc-info-wrap {
+            position: relative;
+            display: inline-flex;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+
+        .calc-info-trigger {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            padding: 0;
+            border: 1.5px solid currentColor;
+            border-radius: 999px;
+            background: transparent;
+            color: #9ca3af;
+            font-family: Inter, Arial, sans-serif;
+            font-size: 11px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 1;
+            cursor: help;
+        }
+
+        .calc-info-trigger:hover,
+        .calc-info-trigger:focus-visible {
+            background: rgba(197, 160, 89, .14);
+            color: #7c5a24;
+            outline: none;
+        }
+
+        .calc-info-tooltip {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            z-index: 30;
+            display: none;
+            width: min(300px, calc(100vw - 48px));
+            padding: 10px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            background: #1f2937;
+            color: #fff;
+            box-shadow: 0 12px 28px rgba(17, 24, 39, .2);
+            font-size: 11px;
+            font-weight: 400;
+            line-height: 1.45;
+            text-align: left;
+        }
+
+        .calc-info-tooltip::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 6px;
+            width: 9px;
+            height: 9px;
+            background: #1f2937;
+            transform: rotate(45deg);
+        }
+
+        .calc-info-wrap:hover .calc-info-tooltip,
+        .calc-info-wrap:focus-within .calc-info-tooltip {
+            display: block;
+        }
+
         .result-total {
             background: linear-gradient(135deg, #c5a059, #8f723a);
             border-radius: 14px;
@@ -363,32 +442,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
 
                     <div>
-                        <label class="calc-label" for="sueldo">Mejor remuneración mensual normal y habitual ($)</label>
+                        <div class="calc-label-row">
+                            <label class="calc-label" for="sueldo">Mejor remuneración mensual normal y habitual ($)</label>
+                            <span class="calc-info-wrap">
+                                <button type="button" class="calc-info-trigger" aria-label="Información sobre la remuneración" aria-describedby="sueldo-ayuda">i</button>
+                                <span id="sueldo-ayuda" class="calc-info-tooltip" role="tooltip">No incluyas SAC, vacaciones ni premios que no se devenguen mensualmente. Si hay variables, revisá el promedio más favorable previsto por la ley.</span>
+                            </span>
+                        </div>
                         <input class="calc-input" id="sueldo" placeholder="Ej: 1.500.000" type="text" inputmode="numeric" oninput="formatMiles(this)" />
-                        <p class="text-[11px] text-gray-400 mt-1 italic">No incluyas SAC, vacaciones ni premios que no se devenguen mensualmente. Si hay variables, revisá el promedio más favorable previsto por la ley.</p>
                     </div>
 
-                    <div>
-                        <label class="calc-label" for="tope-convenio">Tope indemnizatorio publicado del convenio ($) <span class="font-normal text-gray-400">— opcional</span></label>
-                        <input class="calc-input" id="tope-convenio" placeholder="Dejar vacío si no lo conocés" type="text" inputmode="numeric" oninput="formatMiles(this)" />
-                        <p class="text-[11px] text-gray-400 mt-1 italic">La base resultante no será inferior al 67% de la remuneración cargada (art. 245 LCT).</p>
-                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="calc-label" for="tamano-empresa">Período de prueba aplicable</label>
+                            <select class="calc-input appearance-none" id="tamano-empresa">
+                                <option value="6">6 meses (régimen general)</option>
+                                <option value="8">8 meses (solo si el CCT lo amplía; empresa de 6 a 100 personas)</option>
+                                <option value="12">12 meses (solo si el CCT lo amplía; empresa de hasta 5 personas)</option>
+                            </select>
+                        </div>
 
-                    <div>
-                        <label class="calc-label" for="tamano-empresa">Período de prueba aplicable</label>
-                        <select class="calc-input appearance-none" id="tamano-empresa">
-                            <option value="6">6 meses (régimen general)</option>
-                            <option value="8">8 meses (solo si el CCT lo amplía; empresa de 6 a 100 personas)</option>
-                            <option value="12">12 meses (solo si el CCT lo amplía; empresa de hasta 5 personas)</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="calc-label" for="preaviso">¿El empleador otorgó preaviso?</label>
-                        <select class="calc-input appearance-none" id="preaviso">
-                            <option value="no">No</option>
-                            <option value="si">Sí</option>
-                        </select>
+                        <div>
+                            <label class="calc-label" for="preaviso">¿El empleador otorgó preaviso?</label>
+                            <select class="calc-input appearance-none" id="preaviso">
+                                <option value="no">No</option>
+                                <option value="si">Sí</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -671,12 +751,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const ingresoValue = document.getElementById('ingreso').value;
             const despidoValue = document.getElementById('despido').value;
             const sueldoRaw = (document.getElementById('sueldo').value || '').replace(/\./g, '').replace(',', '.');
-            const topeRaw = (document.getElementById('tope-convenio').value || '').replace(/\./g, '').replace(',', '.');
             const periodoPruebaMeses = parseInt(document.getElementById('tamano-empresa').value, 10) || 6;
             const otorgoPreaviso = document.getElementById('preaviso').value === 'si';
 
             const sueldo = parseFloat(sueldoRaw) || 0;
-            const topeConvenio = parseFloat(topeRaw) || 0;
             if (!ingresoValue || !despidoValue || sueldo <= 0) {
                 return;
             }
@@ -696,10 +774,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const antiguedadComputable = aniosCompletos + (fechaDespido > sumarMeses(inicioFraccion, 3) ? 1 : 0);
             const enPeriodoPrueba = fechaDespido < sumarMeses(fechaIngreso, periodoPruebaMeses);
 
-            const baseMinimaLegal = sueldo * 0.67;
-            const baseIndemnizatoria = topeConvenio > 0
-                ? Math.max(Math.min(sueldo, topeConvenio), baseMinimaLegal)
-                : sueldo;
+            const baseIndemnizatoria = sueldo;
             const indemnizacionAntiguedad = enPeriodoPrueba ? 0 : baseIndemnizatoria * antiguedadComputable;
             const ultimoDiaMes = new Date(fechaDespido.getFullYear(), fechaDespido.getMonth() + 1, 0).getDate();
             const diasRestantesMes = Math.max(0, ultimoDiaMes - fechaDespido.getDate());
