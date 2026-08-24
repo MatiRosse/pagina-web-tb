@@ -150,6 +150,20 @@ window.dataLayer.push({
             display: block;
         }
 
+        .calc-label-slot {
+            margin-bottom: 5px;
+        }
+
+        .calc-label-slot .calc-label {
+            margin-bottom: 0;
+        }
+
+        @media (min-width: 640px) {
+            .calc-label-slot {
+                min-height: 2.6em;
+            }
+        }
+
         .calc-label-with-info {
             display: flex;
             align-items: center;
@@ -633,15 +647,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <!-- Edad + tipo de accidente -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                            <label class="calc-label" for="edad">
-                                <i class="fa-solid fa-person text-gold mr-1"></i>Edad a la primera manifestación invalidante (PMI)
-                            </label>
+                            <div class="calc-label-slot">
+                                <label class="calc-label" for="edad">
+                                    <i class="fa-solid fa-person text-gold mr-1"></i>Edad a la primera manifestación invalidante (PMI)
+                                </label>
+                            </div>
                             <input class="calc-input" type="number" id="edad" placeholder="Ej: 38" min="16" max="99">
                         </div>
                         <div>
-                            <label class="calc-label" for="tipoAccidente">
-                                <i class="fa-solid fa-location-dot text-gold mr-1"></i>Tipo de accidente
-                            </label>
+                            <div class="calc-label-slot">
+                                <label class="calc-label" for="tipoAccidente">
+                                    <i class="fa-solid fa-location-dot text-gold mr-1"></i>Tipo de accidente
+                                </label>
+                            </div>
                             <select class="calc-input" id="tipoAccidente">
                                 <option value="lugar">En el lugar de trabajo</option>
                                 <option value="itinere">In itinere</option>
