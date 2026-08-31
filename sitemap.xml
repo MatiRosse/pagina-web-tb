@@ -201,7 +201,13 @@
     <!-- Legal Guides -->
     <url>
         <loc>https://tbabogados.com.ar/guias-legales/</loc>
-        <lastmod>2026-08-14</lastmod>
+        <lastmod>2026-08-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://tbabogados.com.ar/guias-legales/vigilancia-marcaria-nuevas-solicitudes/</loc>
+        <lastmod>2026-08-31</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>

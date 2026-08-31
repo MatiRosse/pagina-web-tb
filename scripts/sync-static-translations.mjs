@@ -175,7 +175,7 @@ const familyText = {
       'Abogado y traductor público de inglés egresado de la UBA.': 'UBA graduate attorney and English public translator.',
       'CONFIANZA Y RESULTADOS': 'TRUST AND RESULTS', 'Lo que dicen nuestros clientes': 'What Our Clients Say',
       'Excelente 5.0 de 5': 'Excellent, 5.0 out of 5', 'Basado en': 'Based on',
-      '47 opiniones en Google Maps': '47 Google Maps reviews',
+      '48 opiniones en Google Maps': '48 Google Maps reviews',
       '"Gracias por la confidencialidad, profesionalismo y dedicación. Hacen un gran equipo! Excelente servicio"': '“Thank you for your confidentiality, professionalism and dedication. You make a great team! Excellent service.”',
       '"Excelente servicio y muy confiables."': '“Excellent service and very reliable.”',
       '"Excelente servicio, todos muy amables y eficientes"': '“Excellent service; everyone is very kind and efficient.”'
@@ -196,7 +196,7 @@ const familyText = {
       'Abogado y traductor público de inglés egresado de la UBA.': 'Advogado e tradutor público de inglês formado pela UBA.',
       'CONFIANZA Y RESULTADOS': 'CONFIANÇA E RESULTADOS', 'Lo que dicen nuestros clientes': 'O Que Dizem Nossos Clientes',
       'Excelente 5.0 de 5': 'Excelente, 5,0 de 5', 'Basado en': 'Com base em',
-      '47 opiniones en Google Maps': '47 avaliações no Google Maps',
+      '48 opiniones en Google Maps': '48 avaliações no Google Maps',
       '"Gracias por la confidencialidad, profesionalismo y dedicación. Hacen un gran equipo! Excelente servicio"': '“Obrigado pela confidencialidade, profissionalismo e dedicação. Vocês formam uma grande equipe! Excelente serviço.”',
       '"Excelente servicio y muy confiables."': '“Excelente serviço e muita confiança.”',
       '"Excelente servicio, todos muy amables y eficientes"': '“Excelente serviço; todos muito gentis e eficientes.”'
@@ -310,7 +310,7 @@ const familyText = {
       '¿Qué derechos obtengo al registrar mi marca?': 'What Rights Do I Obtain by Registering My Trademark?', 'El registro permite impedir que terceros utilicen o registren signos similares que puedan generar confusión en el mercado.': 'Registration allows you to prevent third parties from using or registering similar signs that could create confusion in the marketplace.',
       'Marcas que confiaron en nosotros': 'Brands That Trust Us', '¿Querés registrar una marca o resolver un conflicto?': 'Do You Want to Register a Trademark or Resolve a Dispute?', 'Analizamos tu caso y te orientamos sobre la mejor estrategia para proteger tu marca. Somos agentes de Propiedad Industrial.': 'We assess your situation and guide you toward the best strategy to protect your trademark. We are Industrial Property Agents.', 'Contactanos': 'Contact Us',
       'Dra. Florencia Bulgheroni': 'Florencia Bulgheroni', 'CPACF Tº 137 Fº 145 · Agente INPI 2971': 'CPACF Tº 137 Fº 145 · INPI Agent 2971',
-      'CONFIANZA Y RESULTADOS': 'TRUST AND RESULTS', 'Lo que dicen nuestros clientes': 'What Our Clients Say', 'Excelente 5.0 de 5': 'Excellent, 5.0 out of 5', 'Basado en': 'Based on', '47 opiniones en Google Maps': '47 Google Maps reviews',
+      'CONFIANZA Y RESULTADOS': 'TRUST AND RESULTS', 'Lo que dicen nuestros clientes': 'What Our Clients Say', 'Excelente 5.0 de 5': 'Excellent, 5.0 out of 5', 'Basado en': 'Based on', '48 opiniones en Google Maps': '48 Google Maps reviews',
       '"Gracias por la confidencialidad, profesionalismo y dedicación. Hacen un gran equipo! Excelente servicio"': '“Thank you for your confidentiality, professionalism and dedication. You make a great team! Excellent service.”',
       '"Excelente servicio! Muchas gracias por la gestión de mis marcas. Llevo años trabajando con ellos. Super recomendables y profesionales. Saludos"': '“Excellent service! Thank you for managing my trademarks. I have worked with them for years. Highly recommended and professional.”',
       '"Excelente servicio, todos muy amables y eficientes"': '“Excellent service; everyone is very kind and efficient.”'
@@ -336,7 +336,7 @@ const familyText = {
       '¿Qué derechos obtengo al registrar mi marca?': 'Quais Direitos Obtenho ao Registrar Minha Marca?', 'El registro permite impedir que terceros utilicen o registren signos similares que puedan generar confusión en el mercado.': 'O registro permite impedir que terceiros usem ou registrem sinais semelhantes que possam causar confusão no mercado.',
       'Marcas que confiaron en nosotros': 'Marcas Que Confiam em Nós', '¿Querés registrar una marca o resolver un conflicto?': 'Quer Registrar uma Marca ou Resolver um Conflito?', 'Analizamos tu caso y te orientamos sobre la mejor estrategia para proteger tu marca. Somos agentes de Propiedad Industrial.': 'Analisamos seu caso e orientamos sobre a melhor estratégia para proteger sua marca. Somos Agentes da Propriedade Industrial.', 'Contactanos': 'Fale Conosco',
       'Dra. Florencia Bulgheroni': 'Florencia Bulgheroni', 'CPACF Tº 137 Fº 145 · Agente INPI 2971': 'CPACF Tº 137 Fº 145 · Agente INPI 2971',
-      'CONFIANZA Y RESULTADOS': 'CONFIANÇA E RESULTADOS', 'Lo que dicen nuestros clientes': 'O Que Dizem Nossos Clientes', 'Excelente 5.0 de 5': 'Excelente, 5,0 de 5', 'Basado en': 'Com base em', '47 opiniones en Google Maps': '47 avaliações no Google Maps',
+      'CONFIANZA Y RESULTADOS': 'CONFIANÇA E RESULTADOS', 'Lo que dicen nuestros clientes': 'O Que Dizem Nossos Clientes', 'Excelente 5.0 de 5': 'Excelente, 5,0 de 5', 'Basado en': 'Com base em', '48 opiniones en Google Maps': '48 avaliações no Google Maps',
       '"Gracias por la confidencialidad, profesionalismo y dedicación. Hacen un gran equipo! Excelente servicio"': '“Obrigado pela confidencialidade, profissionalismo e dedicação. Vocês formam uma grande equipe! Excelente serviço.”',
       '"Excelente servicio! Muchas gracias por la gestión de mis marcas. Llevo años trabajando con ellos. Super recomendables y profesionales. Saludos"': '“Excelente serviço! Obrigado pela gestão das minhas marcas. Trabalho com eles há anos. Muito recomendáveis e profissionais.”',
       '"Excelente servicio, todos muy amables y eficientes"': '“Excelente serviço; todos muito gentis e eficientes.”'
