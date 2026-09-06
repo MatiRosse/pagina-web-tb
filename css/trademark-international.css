@@ -1,0 +1,1438 @@
+:root {
+    --ti-ink: #22252b;
+    --ti-ink-soft: #4b5563;
+    --ti-night: #25272c;
+    --ti-night-2: #34363c;
+    --ti-gold: #c5a059;
+    --ti-gold-dark: #8a6728;
+    --ti-gold-pale: #f6efdf;
+    --ti-paper: #fffdfa;
+    --ti-white: #ffffff;
+    --ti-line: #e7dfd0;
+    --ti-success: #166534;
+    --ti-error: #b91c1c;
+    --ti-radius: 1.25rem;
+    --ti-shadow: 0 20px 50px rgba(31, 34, 40, 0.1);
+}
+
+html {
+    scroll-padding-top: 6rem;
+}
+
+body.trademark-international {
+    margin: 0;
+    background: #f7f5f0;
+    color: var(--ti-ink);
+    font-family: "Inter", sans-serif;
+    line-height: 1.65;
+}
+
+.trademark-international *,
+.trademark-international *::before,
+.trademark-international *::after {
+    box-sizing: border-box;
+}
+
+.trademark-international a {
+    color: inherit;
+}
+
+.trademark-international img {
+    display: block;
+    max-width: 100%;
+}
+
+.ti-container {
+    width: min(100% - 2rem, 74rem);
+    margin-inline: auto;
+}
+
+.ti-skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 10000;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    background: var(--ti-white);
+    color: var(--ti-night);
+    font-weight: 700;
+    transform: translateY(-150%);
+    transition: transform 0.2s ease;
+}
+
+.ti-skip-link:focus {
+    transform: translateY(0);
+}
+
+.ti-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.24);
+    background: rgba(37, 39, 44, 0.97);
+    backdrop-filter: blur(14px);
+}
+
+.ti-nav {
+    min-height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.ti-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--ti-white) !important;
+    text-decoration: none;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(1.15rem, 2.5vw, 1.55rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+.ti-brand img {
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid var(--ti-gold);
+    border-radius: 50%;
+}
+
+.ti-nav-links,
+.ti-language-links {
+    display: flex;
+    align-items: center;
+    gap: 1.15rem;
+}
+
+.ti-nav-links a,
+.ti-language-links a {
+    color: #e5e7eb;
+    text-decoration: none;
+    font-size: 0.93rem;
+    font-weight: 600;
+}
+
+.ti-nav-links a:hover,
+.ti-language-links a:hover,
+.ti-nav-links a:focus-visible,
+.ti-language-links a:focus-visible,
+.ti-language-links a[aria-current="page"] {
+    color: var(--ti-gold);
+}
+
+.ti-language-links {
+    padding-left: 1rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.ti-nav-toggle {
+    display: none;
+    width: 2.75rem;
+    height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 0.65rem;
+    background: transparent;
+    color: var(--ti-white);
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.ti-breadcrumbs {
+    padding-top: 1.25rem;
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+.ti-breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ti-breadcrumbs li:not(:last-child)::after {
+    content: "/";
+    margin-left: 0.45rem;
+    color: #9ca3af;
+}
+
+.ti-breadcrumbs a {
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+}
+
+.ti-hero {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(3.75rem, 8vw, 7rem) 0 clamp(4rem, 8vw, 6.5rem);
+}
+
+.ti-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+        radial-gradient(circle at 82% 18%, rgba(197, 160, 89, 0.22), transparent 28rem),
+        linear-gradient(135deg, #fffdfa 0%, #f3eee5 100%);
+}
+
+.ti-hero::after {
+    content: "®";
+    position: absolute;
+    right: -0.03em;
+    bottom: -0.35em;
+    z-index: -1;
+    color: rgba(197, 160, 89, 0.08);
+    font-family: "Playfair Display", serif;
+    font-size: clamp(16rem, 42vw, 36rem);
+    line-height: 1;
+}
+
+.ti-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(19rem, 0.65fr);
+    gap: clamp(2.5rem, 6vw, 5.5rem);
+    align-items: center;
+}
+
+.ti-eyebrow {
+    margin: 0 0 1rem;
+    color: var(--ti-gold-dark);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.ti-hero h1,
+.ti-section h2,
+.ti-profile-copy h2,
+.ti-quote-intro h2 {
+    margin: 0;
+    color: var(--ti-ink);
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    line-height: 1.08;
+    text-wrap: balance;
+}
+
+.ti-hero h1 {
+    max-width: 16ch;
+    font-size: clamp(2.65rem, 6vw, 5rem);
+}
+
+.ti-hero-lead {
+    max-width: 45rem;
+    margin: 1.5rem 0 0;
+    color: var(--ti-ink-soft);
+    font-size: clamp(1.08rem, 2vw, 1.3rem);
+}
+
+.ti-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 2rem;
+}
+
+.ti-button {
+    min-height: 3.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.8rem 1.35rem;
+    border: 2px solid transparent;
+    border-radius: 999px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.96rem;
+    font-weight: 800;
+    line-height: 1.25;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.ti-button:hover {
+    transform: translateY(-2px);
+}
+
+.ti-button-primary {
+    background: var(--ti-gold);
+    color: #1f2024 !important;
+    box-shadow: 0 12px 28px rgba(138, 103, 40, 0.24);
+}
+
+.ti-button-primary:hover {
+    background: #d2b26f;
+}
+
+.ti-button-secondary {
+    border-color: var(--ti-night);
+    background: transparent;
+    color: var(--ti-night) !important;
+}
+
+.ti-button-secondary:hover {
+    border-color: var(--ti-gold-dark);
+    color: var(--ti-gold-dark) !important;
+}
+
+.ti-button-dark {
+    background: var(--ti-night);
+    color: var(--ti-white) !important;
+}
+
+.ti-trust-panel {
+    padding: 1.65rem;
+    border: 1px solid rgba(197, 160, 89, 0.45);
+    border-radius: var(--ti-radius);
+    background: rgba(255, 255, 255, 0.84);
+    box-shadow: var(--ti-shadow);
+}
+
+.ti-trust-panel-title {
+    margin: 0 0 1rem;
+    font-family: "Playfair Display", serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+}
+
+.ti-trust-list {
+    display: grid;
+    gap: 0.8rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ti-trust-list li {
+    display: grid;
+    grid-template-columns: 1.65rem 1fr;
+    gap: 0.65rem;
+    align-items: start;
+    color: #374151;
+    font-size: 0.94rem;
+}
+
+.ti-trust-list li::before {
+    content: "✓";
+    width: 1.5rem;
+    height: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--ti-gold-pale);
+    color: var(--ti-gold-dark);
+    font-weight: 900;
+}
+
+.ti-proof-line {
+    margin: 1rem 0 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--ti-line);
+    color: #6b7280;
+    font-size: 0.82rem;
+}
+
+.ti-section {
+    padding: clamp(4rem, 8vw, 6.5rem) 0;
+}
+
+.ti-section-white {
+    background: var(--ti-white);
+}
+
+.ti-section-dark {
+    background: var(--ti-night);
+    color: #e5e7eb;
+}
+
+.ti-section-dark h2,
+.ti-section-dark h3 {
+    color: var(--ti-white);
+}
+
+.ti-section-head {
+    max-width: 48rem;
+    margin-bottom: 2.5rem;
+}
+
+.ti-section-head-center {
+    margin-inline: auto;
+    text-align: center;
+}
+
+.ti-section h2,
+.ti-profile-copy h2,
+.ti-quote-intro h2 {
+    font-size: clamp(2rem, 4vw, 3.25rem);
+}
+
+.ti-section-head p,
+.ti-profile-copy > p,
+.ti-quote-intro > p {
+    margin: 1rem 0 0;
+    color: var(--ti-ink-soft);
+    font-size: 1.05rem;
+}
+
+.ti-section-dark .ti-section-head p {
+    color: #cbd5e1;
+}
+
+.ti-source-note {
+    margin-top: 1.25rem;
+    padding: 1rem 1.1rem;
+    border-left: 3px solid var(--ti-gold);
+    background: var(--ti-gold-pale);
+    color: #4b5563;
+    font-size: 0.88rem;
+}
+
+.ti-source-note a {
+    color: #624919;
+    font-weight: 700;
+}
+
+.ti-grid-2,
+.ti-grid-3,
+.ti-grid-4 {
+    display: grid;
+    gap: 1.25rem;
+}
+
+.ti-grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ti-grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.ti-grid-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.ti-card {
+    padding: 1.5rem;
+    border: 1px solid var(--ti-line);
+    border-radius: 1rem;
+    background: var(--ti-white);
+    box-shadow: 0 10px 30px rgba(31, 34, 40, 0.06);
+}
+
+.ti-card-number {
+    width: 2.6rem;
+    height: 2.6rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    background: var(--ti-night);
+    color: var(--ti-gold);
+    font-family: "Playfair Display", serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.ti-card h3 {
+    margin: 0 0 0.55rem;
+    color: var(--ti-ink);
+    font-family: "Playfair Display", serif;
+    font-size: 1.3rem;
+    line-height: 1.25;
+}
+
+.ti-card p {
+    margin: 0;
+    color: var(--ti-ink-soft);
+    font-size: 0.94rem;
+}
+
+.ti-service-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    border-left: 1px solid rgba(255, 255, 255, 0.16);
+    list-style: none;
+}
+
+.ti-service-list li {
+    min-height: 8.5rem;
+    padding: 1.35rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.16);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.ti-service-list strong {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: var(--ti-gold);
+    font-family: "Playfair Display", serif;
+    font-size: 1.12rem;
+}
+
+.ti-profile {
+    display: grid;
+    grid-template-columns: minmax(17rem, 0.72fr) minmax(0, 1.28fr);
+    overflow: hidden;
+    border-radius: var(--ti-radius);
+    background: var(--ti-white);
+    box-shadow: var(--ti-shadow);
+}
+
+.ti-profile-media {
+    min-height: 31rem;
+    background: #ddd5c7;
+}
+
+.ti-profile-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 24%;
+}
+
+.ti-profile-copy {
+    padding: clamp(2rem, 5vw, 4.5rem);
+    align-self: center;
+}
+
+.ti-credentials {
+    display: grid;
+    gap: 0.75rem;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ti-credentials li {
+    padding: 0.85rem 1rem;
+    border-left: 3px solid var(--ti-gold);
+    background: #f8f6f1;
+    color: #374151;
+    font-weight: 600;
+}
+
+.ti-review-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.ti-review {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    border: 1px solid var(--ti-line);
+    border-radius: 1rem;
+    background: var(--ti-white);
+}
+
+.ti-stars {
+    color: var(--ti-gold-dark);
+    letter-spacing: 0.1em;
+}
+
+.ti-review blockquote {
+    flex: 1;
+    margin: 1rem 0;
+    color: #4b5563;
+    font-style: italic;
+}
+
+.ti-review cite {
+    color: var(--ti-ink);
+    font-style: normal;
+    font-weight: 800;
+}
+
+.ti-review small {
+    display: block;
+    margin-top: 0.35rem;
+    color: #6b7280;
+}
+
+.ti-review-source {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.ti-review-source a {
+    color: var(--ti-gold-dark);
+    font-weight: 800;
+}
+
+.ti-accordion {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.ti-faq-item {
+    overflow: hidden;
+    border: 1px solid var(--ti-line);
+    border-radius: 0.85rem;
+    background: var(--ti-white);
+}
+
+.ti-faq-item h3 {
+    margin: 0;
+}
+
+.ti-faq-button {
+    width: 100%;
+    min-height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.15rem;
+    border: 0;
+    background: transparent;
+    color: var(--ti-ink);
+    text-align: left;
+    font-family: "Playfair Display", serif;
+    font-size: 1.08rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.ti-faq-button::after {
+    content: "+";
+    flex: 0 0 auto;
+    color: var(--ti-gold-dark);
+    font-family: "Inter", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.ti-faq-button[aria-expanded="true"]::after {
+    content: "−";
+}
+
+.ti-faq-panel {
+    padding: 0 1.15rem 1.2rem;
+    color: var(--ti-ink-soft);
+}
+
+.ti-faq-panel p {
+    margin: 0;
+}
+
+.ti-faq-panel a {
+    color: var(--ti-gold-dark);
+    font-weight: 700;
+}
+
+.ti-quote-section {
+    background:
+        linear-gradient(135deg, rgba(37, 39, 44, 0.98), rgba(52, 54, 60, 0.98));
+    color: var(--ti-white);
+}
+
+.ti-quote-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
+}
+
+.ti-quote-intro {
+    position: sticky;
+    top: 7rem;
+}
+
+.ti-quote-intro h2 {
+    color: var(--ti-white);
+}
+
+.ti-quote-intro > p {
+    color: #cbd5e1;
+}
+
+.ti-quote-channels {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.ti-quote-channels a {
+    color: var(--ti-gold);
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.ti-form {
+    padding: clamp(1.4rem, 4vw, 2.25rem);
+    border-radius: var(--ti-radius);
+    background: var(--ti-white);
+    color: var(--ti-ink);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+}
+
+.ti-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.ti-field-full {
+    grid-column: 1 / -1;
+}
+
+.ti-field label,
+.ti-field legend {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: #2f3339;
+    font-size: 0.88rem;
+    font-weight: 800;
+}
+
+.ti-field input,
+.ti-field select,
+.ti-field textarea {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.75rem 0.85rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.6rem;
+    background: var(--ti-white);
+    color: var(--ti-ink);
+    font: inherit;
+}
+
+.ti-field textarea {
+    min-height: 8rem;
+    resize: vertical;
+}
+
+.ti-field input:focus,
+.ti-field select:focus,
+.ti-field textarea:focus {
+    border-color: var(--ti-gold-dark);
+    outline: 3px solid rgba(197, 160, 89, 0.24);
+}
+
+.ti-field-help {
+    margin: 0.4rem 0 0;
+    color: #6b7280;
+    font-size: 0.78rem;
+}
+
+.ti-consent {
+    display: grid;
+    grid-template-columns: 1.25rem 1fr;
+    gap: 0.65rem;
+    align-items: start;
+    margin: 1.15rem 0;
+    color: #4b5563;
+    font-size: 0.84rem;
+}
+
+.ti-consent input {
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-top: 0.2rem;
+    accent-color: var(--ti-gold-dark);
+}
+
+.ti-consent a {
+    color: #624919;
+    font-weight: 700;
+}
+
+.ti-form-status {
+    margin-top: 1rem;
+    padding: 0.9rem 1rem;
+    border-radius: 0.6rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.ti-form-status:empty {
+    display: none;
+}
+
+.ti-form-status[data-state="success"] {
+    background: #dcfce7;
+    color: var(--ti-success);
+}
+
+.ti-form-status[data-state="error"] {
+    background: #fee2e2;
+    color: var(--ti-error);
+}
+
+.ti-honeypot {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+}
+
+.ti-final-cta {
+    padding: 2.2rem;
+    border: 1px solid var(--ti-line);
+    border-radius: var(--ti-radius);
+    background: var(--ti-gold-pale);
+    text-align: center;
+}
+
+.ti-final-cta h2 {
+    font-size: clamp(1.8rem, 4vw, 2.7rem);
+}
+
+.ti-final-cta .ti-actions {
+    justify-content: center;
+}
+
+.ti-footer {
+    padding: 3.5rem 0 1.5rem;
+    border-top: 4px solid var(--ti-gold);
+    background: #1f2024;
+    color: #d1d5db;
+}
+
+.ti-footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 0.8fr 0.8fr;
+    gap: 2rem;
+}
+
+.ti-footer h2,
+.ti-footer h3 {
+    margin: 0 0 0.8rem;
+    color: var(--ti-white);
+    font-family: "Playfair Display", serif;
+}
+
+.ti-footer p,
+.ti-footer ul {
+    margin: 0;
+}
+
+.ti-footer ul {
+    display: grid;
+    gap: 0.5rem;
+    padding: 0;
+    list-style: none;
+}
+
+.ti-footer a {
+    color: #d1d5db;
+    text-underline-offset: 0.2em;
+}
+
+.ti-footer a:hover {
+    color: var(--ti-gold);
+}
+
+.ti-footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    font-size: 0.8rem;
+}
+
+.ti-review-meta {
+    margin-top: 1.4rem;
+    color: #6b7280;
+    font-size: 0.82rem;
+}
+
+.ti-inline-link {
+    color: var(--ti-gold-dark) !important;
+    font-weight: 800;
+    text-underline-offset: 0.2em;
+}
+
+.ti-button:focus-visible,
+.ti-nav-toggle:focus-visible,
+.ti-faq-button:focus-visible,
+.ti-nav a:focus-visible,
+.ti-footer a:focus-visible,
+.ti-breadcrumbs a:focus-visible {
+    outline: 3px solid #e9c97f;
+    outline-offset: 3px;
+}
+
+@media (max-width: 960px) {
+    .ti-hero-grid,
+    .ti-quote-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .ti-hero h1 {
+        max-width: 18ch;
+    }
+
+    .ti-quote-intro {
+        position: static;
+    }
+
+    .ti-grid-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ti-grid-3,
+    .ti-service-list,
+    .ti-review-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 760px) {
+    .ti-nav {
+        flex-wrap: wrap;
+        padding-block: 0.75rem;
+    }
+
+    .ti-nav-toggle {
+        display: inline-flex;
+    }
+
+    .ti-nav-panel {
+        width: 100%;
+        display: none;
+        padding: 0.8rem 0 0.4rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .ti-nav-panel[data-open="true"] {
+        display: block;
+    }
+
+    .ti-nav-links,
+    .ti-language-links {
+        align-items: stretch;
+    }
+
+    .ti-nav-links {
+        display: grid;
+        gap: 0;
+    }
+
+    .ti-nav-links a {
+        min-height: 2.75rem;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    }
+
+    .ti-language-links {
+        margin-top: 0.65rem;
+        padding: 0.65rem 0 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+        border-left: 0;
+    }
+
+    .ti-profile {
+        grid-template-columns: 1fr;
+    }
+
+    .ti-profile-media {
+        min-height: 23rem;
+    }
+
+    .ti-profile-media img {
+        object-position: center 20%;
+    }
+
+    .ti-grid-2,
+    .ti-grid-3,
+    .ti-grid-4,
+    .ti-service-list,
+    .ti-review-grid,
+    .ti-form-grid,
+    .ti-footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ti-field-full {
+        grid-column: auto;
+    }
+
+    .ti-service-list li {
+        min-height: auto;
+    }
+
+    .ti-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .ti-button {
+        width: 100%;
+    }
+
+    .ti-footer-bottom {
+        display: grid;
+    }
+}
+
+@media (max-width: 420px) {
+    .ti-container {
+        width: min(100% - 1.25rem, 74rem);
+    }
+
+    .ti-brand span {
+        font-size: 1.05rem;
+    }
+
+    .ti-hero h1 {
+        font-size: 2.35rem;
+    }
+
+    .ti-trust-panel,
+    .ti-card,
+    .ti-form,
+    .ti-final-cta {
+        padding: 1.15rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .trademark-international *,
+    .trademark-international *::before,
+    .trademark-international *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Alignment with the visual language of the original Spanish trademark page. */
+body.trademark-international {
+    background: #f9f9f9;
+}
+
+.ti-header {
+    position: fixed;
+    width: 100%;
+    background: rgba(30, 30, 30, 0.94);
+    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.12);
+}
+
+.ti-container {
+    width: min(100% - 2rem, 80rem);
+}
+
+.trademark-international main {
+    padding-top: 5rem;
+}
+
+.ti-breadcrumbs {
+    padding-top: 1.75rem;
+}
+
+.ti-hero {
+    padding: clamp(2.75rem, 6vw, 5rem) 0 clamp(4rem, 7vw, 6rem);
+    text-align: center;
+}
+
+.ti-hero::before {
+    background: #f9f9f9;
+}
+
+.ti-hero::after {
+    display: none;
+}
+
+.ti-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.25rem;
+}
+
+.ti-hero-grid > div:first-child {
+    max-width: 62rem;
+    margin-inline: auto;
+}
+
+.ti-hero h1 {
+    max-width: 22ch;
+    margin-inline: auto;
+    color: #333333;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.14;
+}
+
+.ti-hero h1::before {
+    content: "®";
+    display: inline-block;
+    margin-right: 0.45rem;
+    color: var(--ti-gold);
+    font-family: "Inter", sans-serif;
+    font-size: 0.72em;
+    font-weight: 700;
+    vertical-align: 0.08em;
+}
+
+.ti-hero-lead {
+    margin-inline: auto;
+    color: #6b7280;
+}
+
+.ti-hero .ti-actions {
+    justify-content: center;
+}
+
+.ti-trust-panel {
+    max-width: 70rem;
+    margin-inline: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.ti-trust-panel-title {
+    margin-bottom: 1rem;
+    color: #374151;
+    font-family: "Inter", sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.ti-trust-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.ti-trust-list li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--ti-gold);
+    border-radius: 999px;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(31, 34, 40, 0.06);
+    color: #333333;
+    font-weight: 600;
+}
+
+.ti-trust-list li::before {
+    width: auto;
+    height: auto;
+    background: transparent;
+    color: var(--ti-gold);
+}
+
+.ti-proof-line {
+    max-width: 48rem;
+    margin: 1rem auto 0;
+    padding-top: 0;
+    border-top: 0;
+}
+
+.ti-section {
+    padding: clamp(3.75rem, 7vw, 6rem) 0;
+}
+
+.ti-section h2,
+.ti-profile-copy h2,
+.ti-quote-intro h2 {
+    color: #333333;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+}
+
+.ti-grid-4 {
+    position: relative;
+    gap: 1rem;
+}
+
+.ti-grid-4::before {
+    content: "";
+    position: absolute;
+    top: 2rem;
+    right: 10%;
+    left: 10%;
+    height: 0.2rem;
+    background: #e5e7eb;
+}
+
+.ti-grid-4 .ti-card {
+    position: relative;
+    padding: 0 1rem;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    text-align: center;
+}
+
+.ti-card-number {
+    position: relative;
+    z-index: 1;
+    width: 4rem;
+    height: 4rem;
+    border: 4px solid var(--ti-gold);
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(31, 34, 40, 0.12);
+    color: var(--ti-gold-dark);
+}
+
+.ti-grid-4 .ti-card:last-child .ti-card-number {
+    background: var(--ti-gold);
+    color: #ffffff;
+}
+
+.ti-section-dark {
+    background: #1e1e1e;
+}
+
+.ti-service-list {
+    border-color: rgba(197, 160, 89, 0.35);
+}
+
+.ti-service-list li {
+    border-color: rgba(197, 160, 89, 0.28);
+}
+
+.ti-profile {
+    grid-template-columns: minmax(0, 2fr) minmax(16rem, 1fr);
+    background: #1e1e1e;
+}
+
+.ti-profile-media {
+    order: 2;
+    min-height: 29rem;
+}
+
+.ti-profile-copy {
+    order: 1;
+    text-align: center;
+}
+
+.ti-profile-copy h2,
+.ti-profile-copy > p {
+    color: #ffffff;
+}
+
+.ti-profile-copy > p {
+    color: #d1d5db;
+}
+
+.ti-profile-copy .ti-eyebrow {
+    color: var(--ti-gold);
+}
+
+.ti-credentials {
+    max-width: 41rem;
+    margin-inline: auto;
+}
+
+.ti-credentials li {
+    border-left: 0;
+    border: 1px solid rgba(197, 160, 89, 0.35);
+    border-radius: 0.65rem;
+    background: rgba(255, 255, 255, 0.06);
+    color: #e5e7eb;
+}
+
+.ti-profile-copy .ti-actions {
+    justify-content: center;
+}
+
+.ti-profile-copy .ti-button-secondary {
+    border-color: var(--ti-gold);
+    color: var(--ti-gold) !important;
+}
+
+.ti-review {
+    border-color: #f3f4f6;
+    box-shadow: 0 8px 24px rgba(31, 34, 40, 0.08);
+}
+
+.ti-faq-item {
+    border-color: #f3f4f6;
+    box-shadow: 0 5px 18px rgba(31, 34, 40, 0.07);
+}
+
+.ti-quote-section {
+    background: #1e1e1e;
+}
+
+.ti-footer {
+    padding-top: 5rem;
+    background: #1e1e1e;
+}
+
+.ti-footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.ti-footer-brand img {
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid var(--ti-gold);
+    border-radius: 50%;
+}
+
+.ti-footer-socials {
+    display: flex !important;
+    grid-template-columns: repeat(3, 2.5rem);
+    gap: 0.75rem !important;
+    margin-top: 1.25rem !important;
+}
+
+.ti-footer-socials a {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 800;
+}
+
+.ti-footer-socials a:hover {
+    background: var(--ti-gold);
+    color: #ffffff;
+}
+
+.ti-whatsapp-button {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 9999;
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #25d366;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+}
+
+.ti-whatsapp-button:hover,
+.ti-whatsapp-button:focus-visible {
+    transform: scale(1.06);
+}
+
+.ti-whatsapp-button img {
+    width: 1.75rem;
+    height: 1.75rem;
+}
+
+.ti-field-error {
+    display: block;
+    margin: 0.35rem 0 0;
+    color: var(--ti-error);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.ti-field [aria-invalid="true"] {
+    border-color: var(--ti-error);
+}
+
+.ti-form button:disabled {
+    cursor: wait;
+    opacity: 0.7;
+    transform: none;
+}
+
+@media (max-width: 760px) {
+    .ti-grid-4::before {
+        top: 1.5rem;
+        bottom: 1.5rem;
+        left: 2rem;
+        width: 0.2rem;
+        height: auto;
+    }
+
+    .ti-grid-4 .ti-card {
+        display: grid;
+        grid-template-columns: 4rem minmax(0, 1fr);
+        column-gap: 1rem;
+        padding: 0;
+        text-align: left;
+    }
+
+    .ti-grid-4 .ti-card-number {
+        grid-row: 1 / span 2;
+        margin: 0;
+    }
+
+    .ti-grid-4 .ti-card h3 {
+        align-self: end;
+        margin-bottom: 0.25rem;
+    }
+
+    .ti-profile {
+        grid-template-columns: 1fr;
+    }
+
+    .ti-profile-media {
+        order: 1;
+        min-height: 21rem;
+    }
+
+    .ti-profile-copy {
+        order: 2;
+    }
+}
+
+@media (max-width: 420px) {
+    .ti-container {
+        width: min(100% - 1.5rem, 80rem);
+    }
+
+    .ti-hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .ti-trust-list {
+        display: grid;
+    }
+
+    .ti-trust-list li {
+        border-radius: 0.8rem;
+        text-align: left;
+    }
+
+    .ti-whatsapp-button {
+        right: 0.9rem;
+        bottom: 0.9rem;
+    }
+}

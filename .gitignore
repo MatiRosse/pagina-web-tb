@@ -8,6 +8,7 @@ node_modules/
 
 # Codex / agent instructions
 AGENTS.md
+PLAN.md
 
 # OS generated files
 .DS_Store

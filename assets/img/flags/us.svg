@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40">
+  <path fill="#fff" d="M0 0h60v40H0z"/>
+  <path fill="#b22234" d="M0 0h60v3.077H0zm0 6.154h60v3.077H0zm0 6.154h60v3.077H0zm0 6.154h60v3.077H0zm0 6.154h60v3.077H0zm0 6.154h60v3.077H0zm0 6.154h60v3.077H0z"/>
+  <path fill="#3c3b6e" d="M0 0h25.8v21.54H0z"/>
+  <g fill="#fff">
+    <circle cx="2.6" cy="2.4" r=".65"/><circle cx="7.7" cy="2.4" r=".65"/><circle cx="12.9" cy="2.4" r=".65"/><circle cx="18" cy="2.4" r=".65"/><circle cx="23.2" cy="2.4" r=".65"/>
+    <circle cx="5.15" cy="5.1" r=".65"/><circle cx="10.3" cy="5.1" r=".65"/><circle cx="15.45" cy="5.1" r=".65"/><circle cx="20.6" cy="5.1" r=".65"/>
+    <circle cx="2.6" cy="7.8" r=".65"/><circle cx="7.7" cy="7.8" r=".65"/><circle cx="12.9" cy="7.8" r=".65"/><circle cx="18" cy="7.8" r=".65"/><circle cx="23.2" cy="7.8" r=".65"/>
+    <circle cx="5.15" cy="10.5" r=".65"/><circle cx="10.3" cy="10.5" r=".65"/><circle cx="15.45" cy="10.5" r=".65"/><circle cx="20.6" cy="10.5" r=".65"/>
+    <circle cx="2.6" cy="13.2" r=".65"/><circle cx="7.7" cy="13.2" r=".65"/><circle cx="12.9" cy="13.2" r=".65"/><circle cx="18" cy="13.2" r=".65"/><circle cx="23.2" cy="13.2" r=".65"/>
+    <circle cx="5.15" cy="15.9" r=".65"/><circle cx="10.3" cy="15.9" r=".65"/><circle cx="15.45" cy="15.9" r=".65"/><circle cx="20.6" cy="15.9" r=".65"/>
+    <circle cx="2.6" cy="18.6" r=".65"/><circle cx="7.7" cy="18.6" r=".65"/><circle cx="12.9" cy="18.6" r=".65"/><circle cx="18" cy="18.6" r=".65"/><circle cx="23.2" cy="18.6" r=".65"/>
+  </g>
+</svg>

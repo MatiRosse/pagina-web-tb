@@ -15,6 +15,36 @@ body.flex.flex-col.min-h-screen > footer {
 }
 
 /* Shared language picker: keep flags and labels aligned in one compact row. */
+.language-flag {
+    display: inline-block;
+    width: 1.35rem;
+    height: .9rem;
+    flex: 0 0 auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 1px solid rgba(148, 163, 184, .45);
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, .16);
+    vertical-align: -.08em;
+}
+
+.language-flag--ar {
+    background-image: url("../assets/img/flags/ar.svg");
+}
+
+.language-flag--us {
+    background-image: url("../assets/img/flags/us.svg");
+}
+
+.language-flag--br {
+    background-image: url("../assets/img/flags/br.svg");
+}
+
+#mob-languages-btn .language-flag {
+    margin-inline-end: .5rem;
+}
+
 [aria-label="Seleccionar idioma"] + div,
 [aria-label="Select language"] + div,
 [aria-label="Selecionar idioma"] + div {
