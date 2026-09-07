@@ -86,6 +86,40 @@ body.flex.flex-col.min-h-screen > footer {
     margin-top: auto;
 }
 
+/* Subtle diagonal sweep across the navbar logo every ten seconds. */
+nav .logo-shine {
+    position: relative;
+    flex: 0 0 auto;
+}
+
+nav .logo-shine::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, .12) 42%, rgba(255, 255, 255, .58) 50%, rgba(215, 182, 103, .24) 58%, transparent 70%);
+    background-position: 140% 0;
+    background-size: 300% 100%;
+    opacity: 0;
+    pointer-events: none;
+    animation: navbar-logo-shine 10s ease-in-out infinite;
+}
+
+@keyframes navbar-logo-shine {
+    0%, 14% { background-position: 140% 0; opacity: 0; }
+    15% { opacity: .72; }
+    25% { background-position: -40% 0; opacity: .72; }
+    26%, 100% { background-position: -40% 0; opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    nav .logo-shine::after { animation: none; }
+}
+
 h1,
 h2,
 h3,
