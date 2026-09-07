@@ -380,6 +380,14 @@ body.trademark-international {
     font-size: clamp(2rem, 4vw, 3.25rem);
 }
 
+/* Emphasize the Argentina flag only in the national filing heading. */
+#national-filing-title .language-flag {
+    width: 1em;
+    height: .667em;
+    margin-inline-end: .15em;
+    vertical-align: .06em;
+}
+
 .ti-section-head p,
 .ti-profile-copy > p,
 .ti-quote-intro > p {

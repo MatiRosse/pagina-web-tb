@@ -29,8 +29,7 @@ function storeLanguage(language) {
 }
 
 function localizeAvailableLink(anchor, language) {
-    const label = anchor.textContent.trim().replace(/\s+/g, ' ');
-    if (/^(?:🇦🇷 Español|🇬🇧 English|🇧🇷 Português)$/.test(label)) return;
+    if (anchor.dataset.language) return;
 
     let url;
     try {
@@ -68,12 +67,10 @@ function initLanguagePreference() {
 
     if (activeLanguage) storeLanguage(activeLanguage);
 
-    document.querySelectorAll('a').forEach((anchor) => {
-        const label = anchor.textContent.trim().replace(/\s+/g, ' ');
-        const optionLanguage = label === '🇬🇧 English' ? 'en' : label === '🇧🇷 Português' ? 'pt' : label === '🇦🇷 Español' ? 'es' : null;
-        if (optionLanguage) {
-            anchor.addEventListener('click', () => storeLanguage(optionLanguage));
-        }
+    document.querySelectorAll('a[data-language]').forEach((anchor) => {
+        const optionLanguage = anchor.dataset.language;
+        if (!['es', 'en', 'pt'].includes(optionLanguage)) return;
+        anchor.addEventListener('click', () => storeLanguage(optionLanguage));
     });
 
     const preferredLanguage = activeLanguage || getStoredLanguage();
