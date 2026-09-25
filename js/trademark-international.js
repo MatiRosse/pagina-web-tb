@@ -72,6 +72,16 @@
             };
         }
 
+        if (language.toLowerCase().startsWith("es")) {
+            return {
+                sending: "Enviando…",
+                success: "Recibimos tu consulta. Nuestro equipo analizará la información y se pondrá en contacto.",
+                error: "No pudimos enviar la consulta. Intentá nuevamente o escribinos a consultas@tbabogados.com.ar.",
+                required: "Completá este campo.",
+                email: "Ingresá un correo electrónico válido.",
+            };
+        }
+
         return {
             sending: "Sending…",
             success: "We received your inquiry. Our team will review the information and contact you.",

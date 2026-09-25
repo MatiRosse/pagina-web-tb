@@ -803,6 +803,10 @@ h6,
     content: "\f059";
 }
 
+.fa-circle-info:before {
+    content: "\f05a";
+}
+
 .fa-magnifying-glass-chart:before {
     content: "\f689";
 }
@@ -817,6 +821,10 @@ h6,
 
 .fa-shield-halved:before {
     content: "\f3ed";
+}
+
+.fa-eye:before {
+    content: "\f06e";
 }
 
 .fa-magnifying-glass-location:before {

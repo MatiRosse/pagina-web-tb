@@ -150,6 +150,24 @@ window.dataLayer.push({
             color: #333333;
         }
 
+        body.trademark-international nav .text-gray-300 {
+            color: #d1d5db;
+        }
+
+        body.trademark-international nav .text-gray-700 {
+            color: #374151;
+        }
+
+        body.trademark-international nav .text-gold {
+            color: #c5a059;
+        }
+
+        body.trademark-international nav a.text-gray-300:hover,
+        body.trademark-international nav button.text-gray-300:hover,
+        body.trademark-international nav a.text-gray-700:hover {
+            color: #c5a059;
+        }
+
         /* Accordion Styles (Card Aesthetic) */
         .faq-content {
             max-height: 0;
@@ -219,6 +237,155 @@ window.dataLayer.push({
         .final-contact-professional:focus-visible {
             outline: 2px solid #e1c582;
             outline-offset: -4px;
+        }
+
+        .trademark-service-card {
+            display: grid;
+            grid-template-columns: 3rem minmax(0, 1fr);
+            column-gap: 1rem;
+            align-items: center;
+        }
+
+        .trademark-service-card > p {
+            grid-column: 1 / -1;
+            margin-top: 1rem;
+        }
+
+        .fa-eye::before {
+            content: "\f06e";
+        }
+
+        .trademark-watch-feature {
+            display: grid;
+            grid-template-columns: 3.5rem minmax(0, 1fr) auto;
+            gap: 1.25rem;
+            align-items: center;
+            margin-top: 1.25rem;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            background: #25272c;
+            box-shadow: 0 14px 32px rgba(31, 34, 40, 0.16);
+        }
+
+        .trademark-watch-feature-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #c5a059;
+            color: #ffffff;
+            font-size: 1.35rem;
+        }
+
+        .trademark-watch-feature-copy .ti-eyebrow {
+            margin-bottom: 0.3rem;
+            color: #d7b667;
+        }
+
+        .trademark-watch-feature-copy > p {
+            margin: 0.55rem 0 0;
+            color: #d1d5db;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .trademark-watch-benefits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem 1.25rem;
+            margin: 0.85rem 0 0;
+            padding: 0;
+            color: #f3f4f6;
+            font-size: 0.82rem;
+            list-style: none;
+        }
+
+        .trademark-watch-benefits li::before {
+            content: "✓";
+            margin-right: 0.4rem;
+            color: #d7b667;
+            font-weight: 800;
+        }
+
+        .trademark-watch-feature .ti-button {
+            white-space: nowrap;
+        }
+
+        .ti-quote-section-en .ti-eyebrow,
+        .ti-quote-section-en .ti-quote-channels a {
+            color: #d7b667;
+        }
+
+        .ti-quote-section-en .ti-quote-intro h2 {
+            color: #ffffff;
+        }
+
+        .ti-quote-section-en .ti-quote-intro > p:not(.ti-eyebrow) {
+            color: #d1d5db;
+        }
+
+        body.trademark-international main .ti-hero {
+            padding-top: clamp(2rem, 4vw, 3.25rem);
+            padding-bottom: clamp(2.25rem, 4vw, 3rem);
+        }
+
+        body.trademark-international main .ti-section {
+            padding-top: clamp(2rem, 4vw, 3rem);
+            padding-bottom: clamp(2rem, 4vw, 3rem);
+        }
+
+        body.trademark-international main .ti-section-head {
+            margin-bottom: 1.5rem;
+        }
+
+        body.trademark-international main .national-filing-copy-en {
+            padding-top: 2.5rem;
+        }
+
+        body.trademark-international main #services,
+        body.trademark-international main .professional-section-en {
+            margin-bottom: clamp(2rem, 4vw, 3rem);
+        }
+
+        body.trademark-international main #reviews-section {
+            margin-bottom: 0;
+            padding-top: clamp(2.25rem, 4vw, 3.25rem);
+            padding-bottom: clamp(2.25rem, 4vw, 3.25rem);
+        }
+
+        body.trademark-international main #reviews-section .mb-10 {
+            margin-bottom: 1.75rem;
+        }
+
+        body.trademark-international main #reviews-section .mb-12 {
+            margin-bottom: 2rem;
+        }
+
+        body.trademark-international main .faq-section-en .ti-accordion {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            align-items: start;
+        }
+
+        @media (max-width: 760px) {
+            .trademark-watch-feature {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .trademark-watch-feature-icon {
+                margin: 0 auto;
+            }
+
+            .trademark-watch-feature .ti-button {
+                width: 100%;
+                white-space: normal;
+            }
+
+            body.trademark-international main .faq-section-en .ti-accordion {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (min-width: 768px) {
@@ -312,7 +479,7 @@ window.dataLayer.push({
     </script>
 </head>
 
-<body data-page-type="foreign-associate" class="antialiased bg-gray-50 flex flex-col min-h-screen">
+<body data-page-type="foreign-associate" class="trademark-international antialiased bg-gray-50 flex flex-col min-h-screen">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PWWC3D8D"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -487,23 +654,50 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </nav>
     <!-- MAIN CONTENT -->
     <main id="main-content">
-        <div class="ti-container ti-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../../">Home</a></li><li><a href="../">Trademark registration</a></li><li aria-current="page">Foreign associates</li></ol></div>
         <section class="ti-hero"><div class="ti-container ti-hero-grid">
-            <div><p class="ti-eyebrow">Local counsel before INPI Argentina</p><h1>Argentina Trademark Attorney for Foreign IP Firms</h1><p class="ti-hero-lead">We support law firms, trademark attorneys and IP agencies with national filings, prosecution and portfolio instructions before the Argentine Trademark Office.</p><div class="ti-actions"><a class="ti-button ti-button-primary" href="#associate-contact" data-analytics-event="trademark_cta_click" data-cta-position="hero">Discuss a correspondent relationship</a><a class="ti-button ti-button-secondary" href="mailto:consultas@tbabogados.com.ar?subject=Foreign%20associate%20inquiry" data-analytics-event="email_click" data-contact-method="email" data-cta-position="hero">Send instructions by email</a></div></div>
-            <aside class="ti-trust-panel" aria-label="Correspondent service highlights"><p class="ti-trust-panel-title">A direct local contact for Argentina</p><ul class="ti-trust-list"><li>Registered Industrial Property Agent</li><li>English-language filing and status reports</li><li>National applications and prosecution</li><li>Clear scope confirmed for each instruction</li></ul><p class="ti-proof-line">Argentina is not currently a Madrid System member. Local protection is pursued through the national filing route.</p></aside>
+            <div><p class="ti-eyebrow">Local counsel before INPI Argentina</p><h1>Argentina Trademark Attorney for Foreign IP Firms</h1><p class="ti-hero-lead">We support law firms, trademark attorneys and IP agencies with national filings, prosecution and portfolio instructions before the Argentine Trademark Office.</p><div class="ti-actions"><a class="ti-button ti-button-primary" href="#associate-contact" data-analytics-event="trademark_cta_click" data-cta-position="hero">Let’s talk about a correspondent relationship</a><a class="ti-button ti-button-secondary" href="mailto:consultas@tbabogados.com.ar?subject=Foreign%20associate%20inquiry" data-analytics-event="email_click" data-contact-method="email" data-cta-position="hero">Send instructions by email</a></div></div>
+            <aside class="ti-trust-panel" aria-label="Correspondent service highlights"><p class="ti-trust-panel-title">A direct local contact for Argentina</p><ul class="ti-trust-list"><li>Registered Industrial Property Agent</li><li>English-language filing and status reports</li><li>National applications and prosecution</li></ul><p class="ti-proof-line">Argentina is not currently a Madrid System member. Local protection is pursued through the national filing route.</p></aside>
         </div></section>
-        <section class="ti-section ti-section-white" aria-labelledby="partner-title"><div class="ti-container ti-grid-2"><div class="ti-section-head"><p class="ti-eyebrow">Who we support</p><h2 id="partner-title">Local execution that fits your client relationship</h2></div><div><p>You remain the client-facing adviser. We handle the agreed Argentine work, identify local requirements, report material developments and provide the official filing details for your records.</p><p>Instructions may cover a single application, an opposition, a renewal or an ongoing portfolio. The scope and communication channel are confirmed at the outset.</p><p class="ti-source-note">For current territorial coverage, see the <a href="https://www.wipo.int/en/web/madrid-system/members/index" target="_blank" rel="noopener noreferrer">WIPO Madrid System member list</a>. Status reviewed September 3, 2026.</p></div></div></section>
-        <section class="ti-section" aria-labelledby="workflow-title"><div class="ti-container"><div class="ti-section-head ti-section-head-center"><p class="ti-eyebrow">Instruction workflow</p><h2 id="workflow-title">From instruction to report</h2></div><div class="ti-grid-4"><article class="ti-card"><span class="ti-card-number">01</span><h3>Instruction</h3><p>Send the mark, applicant, goods/services, deadline and requested scope.</p></article><article class="ti-card"><span class="ti-card-number">02</span><h3>Local review</h3><p>We identify classification, documents, priority and procedural requirements.</p></article><article class="ti-card"><span class="ti-card-number">03</span><h3>Execution</h3><p>After confirmation, we complete the agreed filing or response before INPI.</p></article><article class="ti-card"><span class="ti-card-number">04</span><h3>Reporting</h3><p>We provide official details, deadlines and a concise summary of next steps.</p></article></div></div></section>
-        <section class="ti-section ti-section-dark" id="services" aria-labelledby="services-title"><div class="ti-container"><div class="ti-section-head"><p class="ti-eyebrow">Correspondent services</p><h2 id="services-title">Argentina trademark work for foreign practices</h2><p>Services are instructed individually; no public fee schedule is published on this page.</p></div><ul class="ti-service-list"><li><strong>Availability searches</strong>Preliminary review for proposed filings.</li><li><strong>National filings</strong>Applications in one or multiple classes.</li><li><strong>Office actions</strong>Analysis and response before INPI.</li><li><strong>Oppositions</strong>Filing, defense and negotiation support.</li><li><strong>Renewals</strong>Maintenance of granted registrations.</li><li><strong>Assignments</strong>Recordal of changes in ownership.</li><li><strong>Use declarations</strong>Deadline control and filing support.</li><li><strong>Trademark watch</strong>Monitoring for potentially conflicting marks.</li><li><strong>Portfolio reporting</strong>English summaries and deadline tracking.</li></ul></div></section>
-        <section class="ti-section" aria-labelledby="professional-title"><div class="ti-container ti-profile"><div class="ti-profile-media"><img src="../../../../assets/img/dra-bulgheroni-portada.avif" alt="Florencia Bulgheroni, attorney and registered Industrial Property Agent" width="760" height="950" loading="lazy" decoding="async"></div><div class="ti-profile-copy"><p class="ti-eyebrow">Responsible professional</p><h2 id="professional-title">A named attorney for your Argentine instructions</h2><p>Florencia Bulgheroni leads the trademark practice and coordinates matters received from foreign counsel and IP professionals.</p><ul class="ti-credentials"><li>Industrial Property Agent — INPI No. 2971</li><li>Attorney — CPACF Tº 137 Fº 145</li><li>Based in Buenos Aires, Argentina</li></ul><div class="ti-actions"><a class="ti-button ti-button-secondary" href="../../../../dra-bulgheroni/en/">View professional profile</a></div></div></div></section>
-        <section class="ti-section ti-section-white" aria-labelledby="faq-title"><div class="ti-container"><div class="ti-section-head ti-section-head-center"><p class="ti-eyebrow">Working together</p><h2 id="faq-title">Common questions from foreign counsel</h2></div><div class="ti-accordion">
+        <section class="ti-section ti-section-white" aria-labelledby="partner-title">
+            <div class="ti-container ti-grid-2">
+                <div class="ti-section-head"><p class="ti-eyebrow">Argentina trademark representation</p><h2 id="partner-title"><span class="language-flag language-flag--ar" aria-hidden="true"></span> Local execution that fits your client relationship</h2></div>
+                <div class="national-filing-copy-en"><p>Argentina is not listed among the current members of WIPO’s Madrid System. Protection is therefore pursued through the Argentine national system before INPI.</p><p>You remain the client-facing adviser. We handle the agreed Argentine work, identify local requirements and provide the official filing details for your records.</p></div>
+            </div>
+        </section>
+        <section class="ti-section" aria-labelledby="workflow-title">
+            <div class="ti-container">
+                <div class="ti-section-head ti-section-head-center"><p class="ti-eyebrow">Instruction workflow</p><h2 id="workflow-title">From instruction to report</h2><p>We turn your firm’s instructions into Argentina-ready action and keep you informed at each material step.</p></div>
+                <div class="ti-grid-4"><article class="ti-card"><span class="ti-card-number">01</span><h3>Send instructions</h3><p>Share the mark, applicant, goods or services, known deadline and requested scope.</p></article><article class="ti-card"><span class="ti-card-number">02</span><h3>Conflict and local review</h3><p>We check potential conflicts and identify classification, documents, priority and procedural requirements.</p></article><article class="ti-card"><span class="ti-card-number">03</span><h3>Confirm and execute</h3><p>Once scope and documentation are confirmed, we complete the agreed filing or response before INPI.</p></article><article class="ti-card"><span class="ti-card-number">04</span><h3>Report and follow up</h3><p>We provide official details, material deadlines and a concise summary of the next steps.</p></article></div>
+                <div class="ti-actions" style="justify-content:center"><a class="ti-button ti-button-primary" href="#associate-contact" data-analytics-event="trademark_cta_click" data-cta-position="process">Discuss an Argentine instruction</a></div>
+            </div>
+        </section>
+        <section class="mb-24 max-w-6xl mx-auto px-4" id="services" aria-labelledby="services-title">
+            <div class="text-center mb-10"><p class="text-gold font-medium tracking-widest uppercase text-xs mb-2">CORRESPONDENT SERVICES IN ARGENTINA</p><h2 class="font-serif text-3xl md:text-4xl text-darkblue-900" id="services-title">Support throughout the trademark lifecycle</h2><p class="text-gray-500 mt-2 max-w-2xl mx-auto text-sm">Practical local support for foreign counsel and IP firms at every stage of an Argentine trademark matter.</p></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <article class="trademark-service-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group hover:-translate-y-1"><div class="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center text-gold text-xl group-hover:bg-gold group-hover:text-white transition-colors"><i class="fa-solid fa-magnifying-glass"></i></div><h3 class="font-serif text-lg text-darkblue-900 font-bold">Clearance searches</h3><p class="text-gray-500 text-xs leading-relaxed">Preliminary review of earlier applications and registrations before filing.</p></article>
+                <article class="trademark-service-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group hover:-translate-y-1"><div class="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center text-gold text-xl group-hover:bg-gold group-hover:text-white transition-colors"><i class="fa-solid fa-file-signature"></i></div><h3 class="font-serif text-lg text-darkblue-900 font-bold">National applications</h3><p class="text-gray-500 text-xs leading-relaxed">Classification, preparation and filing before the Argentine INPI.</p></article>
+                <article class="trademark-service-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group hover:-translate-y-1"><div class="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center text-gold text-xl group-hover:bg-gold group-hover:text-white transition-colors"><i class="fa-solid fa-file-circle-exclamation"></i></div><h3 class="font-serif text-lg text-darkblue-900 font-bold">Office actions</h3><p class="text-gray-500 text-xs leading-relaxed">Assessment and response strategy for official observations and objections.</p></article>
+                <article class="trademark-service-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group hover:-translate-y-1"><div class="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center text-gold text-xl group-hover:bg-gold group-hover:text-white transition-colors"><i class="fa-solid fa-gavel"></i></div><h3 class="font-serif text-lg text-darkblue-900 font-bold">Oppositions</h3><p class="text-gray-500 text-xs leading-relaxed">Filing, defense, negotiation and procedural follow-up in trademark conflicts.</p></article>
+                <article class="trademark-service-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group hover:-translate-y-1"><div class="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center text-gold text-xl group-hover:bg-gold group-hover:text-white transition-colors"><i class="fa-solid fa-arrows-rotate"></i></div><h3 class="font-serif text-lg text-darkblue-900 font-bold">Renewals, assignments and use declarations</h3><p class="text-gray-500 text-xs leading-relaxed">Deadline control, renewal filings, ownership changes and required declarations of use.</p></article>
+                <article class="trademark-service-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group hover:-translate-y-1"><div class="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center text-gold text-xl group-hover:bg-gold group-hover:text-white transition-colors"><i class="fa-solid fa-language"></i></div><h3 class="font-serif text-lg text-darkblue-900 font-bold">English-language reporting</h3><p class="text-gray-500 text-xs leading-relaxed">Concise filing and status reports with official references, deadlines and required decisions.</p></article>
+            </div>
+            <div class="trademark-watch-feature"><div class="trademark-watch-feature-icon"><i class="fa-solid fa-eye" aria-hidden="true"></i></div><div class="trademark-watch-feature-copy"><p class="ti-eyebrow">Trademark monitoring and protection</p><p>Our trademark watch monitors new INPI publications, identifies potentially conflicting filings and alerts your firm in time to assess an opposition with the client.</p><ul class="trademark-watch-benefits"><li>New INPI application monitoring</li><li>Potential conflict identification</li><li>Prompt legal assessment and recommended action</li></ul></div><a class="ti-button ti-button-primary" href="#associate-contact" data-analytics-event="trademark_cta_click" data-cta-position="trademark-watch">Discuss trademark watch coverage</a></div>
+        </section>
+        <section class="professional-section-en mb-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8" aria-labelledby="professional-title">
+            <div class="final-contact-card grid grid-cols-1 md:grid-cols-3 overflow-hidden rounded-2xl shadow-xl bg-darkblue-900"><div class="final-contact-copy md:col-span-2 text-center flex flex-col items-center justify-center"><p class="text-gold font-medium tracking-widest uppercase text-xs mb-3">PROFESSIONAL RESPONSIBILITY</p><h2 class="font-serif text-3xl md:text-4xl text-white mb-5 max-w-2xl" id="professional-title">Your Argentine instructions are handled by a registered IP professional</h2><a class="inline-flex btn-solid-gold px-10 py-4 rounded-full font-bold text-lg items-center gap-3 shadow-xl transition-all hover:scale-105" href="../../../../dra-bulgheroni/en/">View professional profile <i class="fa-solid fa-arrow-right"></i></a></div><div class="final-contact-photo overflow-hidden"><img src="../../../../assets/img/dra-bulgheroni-portada.avif" alt="Florencia Bulgheroni" class="final-contact-img w-full h-full object-cover" loading="lazy" decoding="async" width="760" height="950"><a href="../../../../dra-bulgheroni/en/" class="final-contact-professional" aria-label="View Florencia Bulgheroni’s professional profile"><span class="final-contact-professional-name">Florencia Bulgheroni</span><span class="final-contact-professional-credentials">CPACF Tº 137 Fº 145 · INPI Agent 2971</span></a></div></div>
+        </section>
+        <section id="reviews-section" class="bg-white pt-16 pb-12 px-4 sm:px-6 lg:px-8" aria-labelledby="reviews-title">
+            <div class="max-w-7xl mx-auto text-center mb-10"><p class="text-gold-dark font-medium tracking-widest uppercase text-base mb-4">TRUST AND RESULTS</p><h2 class="font-serif text-4xl text-darkblue-900 leading-tight" id="reviews-title">What our clients say</h2></div>
+            <div class="max-w-7xl mx-auto"><div class="flex flex-col md:flex-row items-center justify-center gap-6 mb-12"><div class="flex items-center gap-2 text-gold text-2xl" aria-label="5 out of 5 stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><div class="text-center md:text-left"><p class="font-serif text-2xl text-darkblue-900 font-bold mb-1">Excellent 5.0 out of 5</p><p class="text-gray-500 text-sm">Based on <a href="https://www.google.com/maps/place/TB+Abogados/@-34.6036209,-58.3903433,17z/data=!4m8!3m7!1s0x95bccbda1e2e81df:0xdf0ef7c1c500ed15!8m2!3d-34.6036253!4d-58.3877684!9m1!1b1!16s%2Fg%2F11rspfgx3c" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-medium">48 Google Maps reviews</a></p></div></div><div class="grid grid-cols-1 md:grid-cols-3 gap-8"><article class="bg-gray-50 p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center relative hover:shadow-md transition-shadow"><div class="absolute -top-5 bg-white p-2 text-[#4285F4] text-3xl rounded-full shadow-sm border border-gray-100"><i class="fa-brands fa-google"></i></div><div class="text-gold text-sm mb-4 mt-2" aria-label="5 out of 5 stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><blockquote class="text-gray-600 italic mb-6 leading-relaxed flex-1">“Thank you for your confidentiality, professionalism and dedication. You make a great team. Excellent service.”</blockquote><p class="font-bold text-darkblue-900">Ana S.</p><small class="text-gray-500 mt-2">Translated from Spanish</small></article><article class="bg-gray-50 p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center relative hover:shadow-md transition-shadow"><div class="absolute -top-5 bg-white p-2 text-[#4285F4] text-3xl rounded-full shadow-sm border border-gray-100"><i class="fa-brands fa-google"></i></div><div class="text-gold text-sm mb-4 mt-2" aria-label="5 out of 5 stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><blockquote class="text-gray-600 italic mb-6 leading-relaxed flex-1">“Excellent service. Thank you for managing my trademarks. I have worked with them for years.”</blockquote><p class="font-bold text-darkblue-900">Elvis A.</p><small class="text-gray-500 mt-2">Translated from Spanish</small></article><article class="bg-gray-50 p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center relative hover:shadow-md transition-shadow"><div class="absolute -top-5 bg-white p-2 text-[#4285F4] text-3xl rounded-full shadow-sm border border-gray-100"><i class="fa-brands fa-google"></i></div><div class="text-gold text-sm mb-4 mt-2" aria-label="5 out of 5 stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><blockquote class="text-gray-600 italic mb-6 leading-relaxed flex-1">“Excellent service; everyone is very kind and efficient.”</blockquote><p class="font-bold text-darkblue-900">Lucía N.</p><small class="text-gray-500 mt-2">Translated from Spanish</small></article></div></div>
+        </section>
+        <section class="ti-section faq-section-en" aria-labelledby="faq-title"><div class="ti-container"><div class="ti-section-head ti-section-head-center"><p class="ti-eyebrow">Working together</p><h2 id="faq-title">Common questions from foreign counsel</h2></div><div class="ti-accordion">
             <article class="ti-faq-item"><h3><button class="ti-faq-button" type="button" aria-expanded="false" aria-controls="faq-b2b-en-1" data-ti-faq-button>What should an initial instruction include?</button></h3><div class="ti-faq-panel" id="faq-b2b-en-1" hidden><p>Please identify the instructing firm, applicant, mark, goods or services, relevant country, known deadline and any priority claim. We will request only the additional information needed.</p></div></article>
             <article class="ti-faq-item"><h3><button class="ti-faq-button" type="button" aria-expanded="false" aria-controls="faq-b2b-en-2" data-ti-faq-button>Do you perform a conflict check?</button></h3><div class="ti-faq-panel" id="faq-b2b-en-2" hidden><p>Potential conflicts are reviewed before an engagement is accepted. Please provide the names of relevant parties when sending the instruction.</p></div></article>
             <article class="ti-faq-item"><h3><button class="ti-faq-button" type="button" aria-expanded="false" aria-controls="faq-b2b-en-3" data-ti-faq-button>Can instructions and reports be handled in English?</button></h3><div class="ti-faq-panel" id="faq-b2b-en-3" hidden><p>Yes. Routine instructions, filing reports and status communications can be handled in English. Documents for filing may require Spanish or a public translation depending on the matter.</p></div></article>
             <article class="ti-faq-item"><h3><button class="ti-faq-button" type="button" aria-expanded="false" aria-controls="faq-b2b-en-4" data-ti-faq-button>Can you manage multi-class and portfolio instructions?</button></h3><div class="ti-faq-panel" id="faq-b2b-en-4" hidden><p>Yes. Send the intended goods/services and portfolio details so we can confirm the filing structure and reporting format.</p></div></article>
             <article class="ti-faq-item"><h3><button class="ti-faq-button" type="button" aria-expanded="false" aria-controls="faq-b2b-en-5" data-ti-faq-button>How are deadlines and next steps reported?</button></h3><div class="ti-faq-panel" id="faq-b2b-en-5" hidden><p>Our report identifies the action completed, official reference, material deadline and any decision required from instructing counsel.</p></div></article>
         </div><p class="ti-review-meta">Legal information reviewed by Florencia Bulgheroni on September 3, 2026. Final requirements and scope are confirmed for each instruction.</p></div></section>
-        <section class="ti-section ti-quote-section" id="associate-contact" aria-labelledby="contact-title"><div class="ti-container ti-quote-layout"><div class="ti-quote-intro"><p class="ti-eyebrow">Professional contact</p><h2 id="contact-title">Discuss a correspondent relationship</h2><p>Tell us about your firm and the Argentine work you need. We will reply regarding availability, conflicts, documents and next steps.</p><div class="ti-quote-channels"><a href="mailto:consultas@tbabogados.com.ar?subject=Foreign%20associate%20inquiry" data-analytics-event="email_click" data-contact-method="email" data-cta-position="form">consultas@tbabogados.com.ar</a></div></div>
+        <section class="ti-section ti-quote-section ti-quote-section-en" id="associate-contact" aria-labelledby="contact-title"><div class="ti-container ti-quote-layout"><div class="ti-quote-intro"><p class="ti-eyebrow">Professional contact</p><h2 id="contact-title">Let’s talk about a correspondent relationship</h2><p>Tell us about your firm and the Argentine work you need. We will reply regarding availability, conflicts, documents and next steps.</p><div class="ti-quote-channels"><a href="mailto:consultas@tbabogados.com.ar?subject=Foreign%20associate%20inquiry" data-analytics-event="email_click" data-contact-method="email" data-cta-position="form">consultas@tbabogados.com.ar</a><a href="https://wa.me/5491122511243?text=Hello%2C%20I%20represent%20an%20IP%20firm%20and%20need%20trademark%20support%20in%20Argentina." target="_blank" rel="noopener noreferrer" data-analytics-event="whatsapp_click" data-contact-method="whatsapp" data-cta-position="form">WhatsApp +54 9 11 2251-1243</a></div></div>
             <form class="ti-form" action="https://formspree.io/f/xdawoyea" method="POST" data-trademark-form><input type="hidden" name="_subject" value="Foreign associate inquiry — EN"><input type="hidden" name="applicant_type" value="foreign_associate"><div class="ti-honeypot" aria-hidden="true"><label>Leave this field empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></div><div class="ti-form-grid">
                 <div class="ti-field"><label for="b2b-en-name">Full name *</label><input id="b2b-en-name" name="name" type="text" autocomplete="name" required></div><div class="ti-field"><label for="b2b-en-email">Work email *</label><input id="b2b-en-email" name="email" type="email" autocomplete="email" required></div><div class="ti-field"><label for="b2b-en-firm">Firm or organization *</label><input id="b2b-en-firm" name="firm" type="text" autocomplete="organization" required></div><div class="ti-field"><label for="b2b-en-country">Country *</label><input id="b2b-en-country" name="country" type="text" autocomplete="country-name" required></div><div class="ti-field ti-field-full"><label for="b2b-en-scope">Requested scope *</label><textarea id="b2b-en-scope" name="requested_scope" required placeholder="Describe the filing, prosecution, opposition, maintenance or portfolio support required."></textarea><p class="ti-field-help">Please do not send privileged or confidential attachments through this initial form.</p></div>
             </div><label class="ti-consent" for="b2b-en-consent"><input id="b2b-en-consent" name="privacy_consent" type="checkbox" value="accepted" required><span>I have read the <a href="../../../../politica-privacidad/" target="_blank" rel="noopener noreferrer">privacy policy</a> and agree that TB Abogados may use this information to respond. Submission does not by itself create an attorney-client relationship.</span></label><button class="ti-button ti-button-primary" type="submit">Send professional inquiry</button><div class="ti-form-status" role="status" aria-live="polite" tabindex="-1" data-form-status></div></form>

@@ -1,0 +1,141 @@
+/* Vigilancia: componentes propios, sobre la base visual de Protección marcaria. */
+body.trademark-watch { background: #f9fafb; }
+.trademark-watch main { padding-bottom: 4rem; }
+.trademark-watch .ti-container { width: min(100% - 3rem, 70rem); }
+body.trademark-watch main .ti-hero { padding: 3rem 0 3.5rem; }
+.trademark-watch .ti-hero::before { background: #f9fafb; }
+.trademark-watch .ti-hero h1 { max-width: 26ch; font-size: clamp(2.25rem, 4.5vw, 3rem); font-weight: 400; }
+.trademark-watch .ti-hero-lead { max-width: 46rem; font-size: 1.125rem; }
+body.trademark-watch main .ti-section { padding: 0 0 4rem; background: transparent; }
+body.trademark-watch main .ti-section-head { max-width: 48rem; margin: 0 auto 2rem; text-align: center; }
+.trademark-watch .ti-section h2 { font-size: clamp(1.75rem, 3vw, 2rem); font-weight: 400; line-height: 1.25; }
+.trademark-watch .ti-eyebrow,
+.trademark-watch .ti-section-head .ti-eyebrow { margin: 0 0 .75rem; color: #806026; font-size: .875rem; font-weight: 600; letter-spacing: .1em; }
+.trademark-watch .ti-card { padding: 1.75rem; border: 1px solid #e5e7eb; border-radius: 1rem; box-shadow: 0 3px 10px #1f222806; }
+.trademark-watch .ti-card h3 { font-size: 1.4rem; line-height: 1.3; margin-bottom: .75rem; }
+.trademark-watch .ti-card p { font-size: 1rem; line-height: 1.7; }
+.trademark-watch .ti-card p + p { margin-top: 1rem; }
+.watch-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+.watch-lead { margin: 1rem 0 .75rem; color: #4b5563; font-size: 1.125rem; line-height: 1.75; }
+.watch-muted { color: #6b7280; font-size: 1rem; }
+.watch-comparison { border: 1px solid #e5e7eb; border-radius: 1rem; overflow: hidden; background: #fff; }
+.watch-comparison > div { padding: 1.5rem 1.75rem; }
+.watch-comparison > div + div { border-top: 1px solid #e5e7eb; border-left: 4px solid #c5a059; background: #faf7f0; padding-left: calc(1.75rem - 4px); }
+.watch-kicker { display: block; margin-bottom: .35rem; color: #806026; font-size: .875rem; font-weight: 600; }
+.watch-comparison h3 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: #333; }
+.watch-comparison p { margin-top: .4rem; color: #4b5563; font-size: 1rem; }
+.watch-services { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+.trademark-watch-page .watch-services { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 56rem; margin-inline: auto; }
+.trademark-watch .watch-services .ti-card { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 1rem .75rem; align-content: start; align-items: center; }
+.trademark-watch .watch-services .watch-icon { margin: 0; }
+.trademark-watch .watch-services h3 { margin: 0; font-size: 1.25rem; }
+.trademark-watch .watch-services p { grid-column: 1 / -1; }
+.watch-icon { display: inline-flex; align-items: center; justify-content: center; width: 3rem; height: 3rem; margin-bottom: 1.25rem; border-radius: .75rem; background: #c5a05918; color: #806026; font-size: 1.35rem; }
+.trademark-watch .watch-legal { margin-top: 1.25rem; border-color: #e5e7eb; }
+.trademark-watch .watch-legal-static h3 { margin: 0 0 .75rem; color: #333; font-family: 'Playfair Display', serif; font-size: 1.25rem; line-height: 1.4; }
+.trademark-watch .watch-legal-static p { margin-top: 0; }
+.watch-legal-copy { max-width: 60rem; }
+.watch-legal-copy a { color: #806026; text-decoration: underline; text-underline-offset: 3px; }
+.watch-process { padding: 2.75rem 2rem 1.75rem; border-radius: 1.25rem; background: #1e1e1e; }
+.trademark-watch .watch-process h2,
+.trademark-watch .watch-process h3 { color: #fff; }
+.trademark-watch .watch-process .ti-eyebrow { color: #dfc185; }
+.watch-steps { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; margin: 0; padding: 0; list-style: none; }
+.watch-steps::before { content: ''; position: absolute; top: 2rem; left: 12%; right: 12%; height: 1px; background: #c5a05980; }
+.watch-steps li { position: relative; text-align: center; }
+.watch-step-number { position: relative; display: flex; align-items: center; justify-content: center; width: 4rem; height: 4rem; margin: 0 auto 1.25rem; border: 2px solid #c5a059; border-radius: 50%; background: #1e1e1e; color: #dfc185; font-size: 1.25rem; font-weight: 600; }
+.watch-steps li:last-child .watch-step-number { background: #c5a059; color: #1e1e1e; }
+.watch-steps h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; line-height: 1.35; }
+.watch-steps p { margin-top: .75rem; color: #d1d5db; font-size: 1rem; line-height: 1.65; }
+.watch-process-note { margin: 2rem 0 0; padding-top: 1.25rem; border-top: 1px solid #ffffff20; text-align: center; color: #d1d5db; font-size: .875rem; }
+.watch-scope { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.watch-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.25rem 0 0; padding: 0; list-style: none; }
+.watch-tags li { border: 1px solid #e5e7eb; border-radius: 999px; padding: .35rem .75rem; font-size: .875rem; color: #4b5563; }
+.trademark-watch .tm-professional { padding: 1.75rem; border: 1px solid #e5e7eb; border-radius: 1rem; background: #fff; }
+.trademark-watch .tm-professional p + p { margin-top: .5rem; }
+.trademark-watch .tm-professional a { display: inline-block; margin-top: .75rem; }
+.trademark-watch .tm-faqs { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 1rem; }
+.trademark-watch .tm-faqs .tm-faq { margin: 0; border-color: #e5e7eb; }
+body.trademark-watch main .ti-quote-section { width: min(100% - 3rem, 70rem); margin: 0 auto 4rem; padding: 2.5rem 1.5rem; border-radius: 1rem; background: #1e1e1e; text-align: center; }
+.trademark-watch .ti-quote-intro { position: static; max-width: 46rem; margin-inline: auto; }
+.trademark-watch .ti-quote-intro h2 { color: #fff; }
+.trademark-watch .ti-quote-section .ti-eyebrow { color: #dfc185; }
+.trademark-watch .ti-quote-section .ti-actions { justify-content: center; }
+.trademark-watch .ti-quote-section .ti-button-secondary { border-color: #dfc185; color: #dfc185 !important; }
+.trademark-watch .tm-sources { max-width: 60rem; margin-inline: auto; font-size: .875rem; }
+.trademark-watch .tm-sources ul { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem 2rem; }
+.trademark-watch main a:focus-visible { outline: 2px solid #806026; outline-offset: 4px; }
+.trademark-watch .watch-process a:focus-visible,
+.trademark-watch .ti-quote-section a:focus-visible { outline-color: #dfc185; }
+.watch-contact { width: 100%; max-width: 64rem; padding-inline: 2rem; margin: 0 auto 2rem; }
+.watch-contact .watch-contact-card { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); height: 20rem; min-height: 0; overflow: hidden; border-radius: 1rem; background: #333; box-shadow: 0 20px 25px -5px #0000001a, 0 8px 10px -6px #0000001a; }
+.watch-contact-copy { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 0; padding: 1.5rem 2rem; text-align: center; }
+.watch-contact-copy h2 { margin: 0 0 1.25rem; font-family: 'Playfair Display', serif; font-size: 1.875rem; line-height: 1.2; color: #fff; }
+.watch-contact-copy p { margin: 0 0 1.5rem; color: #d1d5db; font-size: 1rem; line-height: 1.625; }
+.trademark-watch .watch-contact-button { display: inline-flex; align-items: center; justify-content: center; gap: .75rem; padding: 1rem 2.5rem; border-radius: 999px; background: #c5a059; color: #333; font-size: 1.125rem; font-weight: 700; text-decoration: none; transition: background .2s; }
+.trademark-watch .watch-contact-button:hover { background: #d2b26f; }
+.watch-contact-photo { position: relative; overflow: hidden; min-height: 0; height: 100%; }
+.watch-contact-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.watch-contact .final-contact-professional { padding: 3.5rem 1.25rem 1.15rem; }
+.watch-contact .final-contact-professional-name { font-size: 1.2rem; }
+.watch-contact .final-contact-professional-credentials { font-size: .72rem; letter-spacing: .045em; }
+.watch-contact a:focus-visible { outline: 2px solid #dfc185 !important; outline-offset: -4px !important; }
+@media (max-width: 767px) {
+    .watch-contact { padding-inline: 1rem; }
+    .watch-contact .watch-contact-card { grid-template-columns: 1fr; height: auto; }
+    .watch-contact-photo { height: 18rem; }
+    .watch-contact-copy { padding: 2rem; }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+    .watch-contact { padding-inline: 1.5rem; }
+    .watch-contact .watch-contact-card { height: auto; min-height: 20rem; }
+}
+.opposition-explainer { max-width: 52rem; }
+.opposition-simple-card { padding: 1.75rem 2rem; border: 1px solid #e5e7eb; border-left: 4px solid #c5a059; border-radius: .85rem; background: #fff; }
+.opposition-simple-card p { margin: 0; color: #4b5563; font-size: 1rem; line-height: 1.7; }
+.opposition-simple-card .opposition-simple-definition { color: #333; font-size: 1.1rem; }
+.opposition-simple-card .opposition-simple-notice { margin-top: 1rem; }
+.opposition-simple-card strong { color: #333; font-weight: 700; }
+.opposition-simple-terms { display: flex; flex-wrap: wrap; gap: .5rem 2rem; margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; }
+.opposition-simple-terms p { font-size: .9rem; }
+.opposition-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; margin: 0; padding: 0; list-style: none; }
+.opposition-flow > li { position: relative; padding: 1.5rem; border: 1px solid #e5e7eb; border-radius: 1rem; background: #fff; }
+.opposition-flow > li:not(:last-child)::after { content: '\2192'; position: absolute; top: 2rem; right: -1.8rem; color: #806026; font-size: 1.5rem; }
+.opposition-flow-heading { display: flex; align-items: center; gap: .75rem; min-height: 3rem; }
+.opposition-flow-number { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 2.5rem; height: 2.5rem; border-radius: 50%; background: #c5a05920; color: #806026; font-size: .875rem; font-weight: 600; }
+.opposition-flow h3 { margin: 0; font-family: 'Playfair Display', serif; font-size: 1.25rem; line-height: 1.3; color: #333; }
+.opposition-flow p { margin: 1rem 0 0; color: #4b5563; font-size: 1rem; line-height: 1.7; }
+.opposition-flow .opposition-flow-term { color: #806026; font-size: .875rem; font-weight: 600; }
+.opposition-flow sup a, .opposition-rules-note sup a { color: #806026; text-decoration: underline; text-underline-offset: 2px; }
+.opposition-outcomes { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+.opposition-outcomes p { margin: 0; padding: 1rem 1.25rem; border-left: 3px solid #c5a059; background: #c5a0590d; color: #4b5563; font-size: 1rem; line-height: 1.7; }
+.opposition-outcomes strong { display: block; color: #333; font-weight: 600; }
+.opposition-rules-note { margin: 1.5rem 0 0; color: #6b7280; font-size: .875rem; line-height: 1.7; }
+@media (max-width: 760px) {
+    .opposition-simple-card { padding: 1.5rem; }
+    .opposition-flow, .opposition-outcomes { grid-template-columns: 1fr; }
+    .opposition-flow > li:not(:last-child)::after { content: '\2193'; top: auto; right: auto; bottom: -1.95rem; left: calc(50% - .5rem); }
+}
+@media (max-width: 1000px) {
+    .watch-services, .trademark-watch-page .watch-services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .watch-intro { gap: 1.5rem; }
+}
+@media (max-width: 760px) {
+    body.trademark-watch main .ti-hero { padding: 2rem 0 2.5rem; }
+    body.trademark-watch main .ti-section { padding-bottom: 2.75rem; }
+    .watch-intro, .watch-scope, .trademark-watch .tm-faqs { grid-template-columns: 1fr; }
+    .watch-process { padding: 2rem 1.25rem 1.5rem; }
+    .watch-steps { grid-template-columns: 1fr; gap: 1.5rem; }
+    .watch-steps::before { top: 2rem; bottom: 2rem; left: 2rem; right: auto; width: 1px; height: auto; }
+    .watch-steps li { display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: 0 1rem; text-align: left; }
+    .watch-step-number { grid-row: 1 / span 2; margin: 0; }
+    .watch-steps p { margin-top: .4rem; }
+    .trademark-watch .tm-sources ul { grid-template-columns: 1fr; }
+    body.trademark-watch main .ti-quote-section { padding: 2rem 0; margin-bottom: 2.75rem; }
+}
+@media (max-width: 480px) {
+    .trademark-watch .ti-container { width: calc(100% - 2rem); }
+    .watch-services, .trademark-watch-page .watch-services { grid-template-columns: 1fr; }
+    .trademark-watch .ti-card { padding: 1.5rem; }
+    .trademark-watch .ti-quote-section .ti-button { width: 100%; }
+}

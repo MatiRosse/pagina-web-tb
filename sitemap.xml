@@ -59,19 +59,25 @@
     </url>
     <url>
         <loc>https://tbabogados.com.ar/servicios/marcas/</loc>
-        <lastmod>2026-03-12</lastmod>
+        <lastmod>2026-09-09</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://tbabogados.com.ar/servicios/marcas/registro-en-argentina-desde-el-exterior/</loc>
+        <lastmod>2026-09-09</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://tbabogados.com.ar/servicios/marcas/en/</loc>
-        <lastmod>2026-08-18</lastmod>
+        <lastmod>2026-09-09</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://tbabogados.com.ar/servicios/marcas/pt/</loc>
-        <lastmod>2026-08-18</lastmod>
+        <lastmod>2026-09-09</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -207,7 +213,7 @@
     </url>
     <url>
         <loc>https://tbabogados.com.ar/guias-legales/vigilancia-marcaria-nuevas-solicitudes/</loc>
-        <lastmod>2026-08-31</lastmod>
+        <lastmod>2026-09-09</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -354,4 +360,18 @@
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>
+  <url>
+    <loc>https://tbabogados.com.ar/servicios/marcas/oposiciones-marcarias/</loc>
+    <lastmod>2026-09-09</lastmod>
+  </url>
+  <url>
+    <loc>https://tbabogados.com.ar/servicios/marcas/vigilancia-marcaria/</loc>
+    <lastmod>2026-09-09</lastmod>
+  </url>
+  <url>
+    <loc>https://tbabogados.com.ar/servicios/calculadoras/simulador-herencia/</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
