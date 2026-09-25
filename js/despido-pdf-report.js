@@ -130,14 +130,18 @@
         const tableX = 82;
         const tableY = 828;
         const tableWidth = 1076;
-        const rowHeight = 68;
+        const tableHeaderHeight = 68;
+        // Keep the breakdown within its reserved area so the total never runs
+        // underneath the fixed disclaimer block at the bottom of the page.
+        const maxTableBodyHeight = 420;
+        const rowHeight = Math.min(68, maxTableBodyHeight / Math.max(report.concepts.length, 1));
         ctx.fillStyle = COLORS.soft;
-        ctx.fillRect(tableX, tableY, tableWidth, 68);
+        ctx.fillRect(tableX, tableY, tableWidth, tableHeaderHeight);
         text(ctx, 'CONCEPTO', tableX + 28, tableY + 43, 16, 700, COLORS.muted);
         text(ctx, 'IMPORTE', tableX + tableWidth - 28, tableY + 43, 16, 700, COLORS.muted, 'right');
 
         report.concepts.forEach((concept, index) => {
-            const y = tableY + 68 + (index * rowHeight);
+            const y = tableY + tableHeaderHeight + (index * rowHeight);
             if (index % 2) {
                 ctx.fillStyle = '#fbfbfa';
                 ctx.fillRect(tableX, y, tableWidth, rowHeight);
@@ -148,11 +152,12 @@
             ctx.moveTo(tableX, y + rowHeight);
             ctx.lineTo(tableX + tableWidth, y + rowHeight);
             ctx.stroke();
-            text(ctx, concept.label, tableX + 28, y + 43, 20, 500, COLORS.ink);
-            text(ctx, money(concept.value), tableX + tableWidth - 28, y + 43, 21, 700, COLORS.ink, 'right');
+            const textY = y + (rowHeight / 2) + 9;
+            text(ctx, concept.label, tableX + 28, textY, 20, 500, COLORS.ink);
+            text(ctx, money(concept.value), tableX + tableWidth - 28, textY, 21, 700, COLORS.ink, 'right');
         });
 
-        const totalY = tableY + 68 + (report.concepts.length * rowHeight) + 18;
+        const totalY = tableY + tableHeaderHeight + (report.concepts.length * rowHeight) + 18;
         roundedRect(ctx, tableX, totalY, tableWidth, 88, 14, '#f4efe5', '#dfcfae');
         text(ctx, 'TOTAL ESTIMADO', tableX + 28, totalY + 56, 20, 700, COLORS.ink);
         text(ctx, money(report.total), tableX + tableWidth - 28, totalY + 56, 25, 700, COLORS.gold, 'right');
