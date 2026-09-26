@@ -11,8 +11,12 @@
     let zoom = 1;
     let zoomBeforeResult = 1;
     let hasSimulated = false;
+    let mobileStep = 'testament';
+    let mobileHistory = [];
+    let mobileBlock = null;
     const id = () => 'person-' + (++sequence);
     const $ = name => document.getElementById(name);
+    const isMobile = () => Boolean(window.matchMedia && window.matchMedia('(max-width: 780px)').matches);
     const escape = value => String(value).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' })[c]);
     const pct = value => new Intl.NumberFormat('es-AR', { maximumFractionDigits:2 }).format(value * 100) + ' %';
     const avatar = '<span class="h-avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="3.5"/><path d="M5 21v-3a7 7 0 0 1 14 0v3"/></svg></span>';
@@ -20,6 +24,11 @@
     function simplifiedState() {
         const s = E.createState();
         Object.assign(s, { time:'hypothetical', special:'no', complete:true, separation:'together' });
+        return s;
+    }
+    function mobileInitialState() {
+        const s = simplifiedState();
+        Object.assign(s, { testament:'unknown', special:'unknown', civil:'unknown', separation:'unknown', complete:false });
         return s;
     }
     function example(type) {
@@ -50,6 +59,244 @@
     }
     function card(key, name, content, removeButton, premortem) {
         return '<article class="h-person" data-node="' + key + '" aria-label="' + escape(name) + '">' + avatar + '<h3 class="h-person-name">' + escape(name) + '</h3>' + (removeButton || '') + share(key, premortem) + (content || '') + '</article>';
+    }
+    function mobileChoices(items) {
+        return '<div class="h-mobile-choices">' + items.map(item => '<button type="button" class="h-mobile-choice" data-mobile-answer="' + escape(item.value) + '"><strong>' + escape(item.label) + '</strong>' + (item.note ? '<small>' + escape(item.note) + '</small>' : '') + '</button>').join('') + '</div>';
+    }
+    function mobileQuestion(kicker, title, intro, body) {
+        return '<div class="h-mobile-question"><p class="h-mobile-kicker">' + escape(kicker) + '</p><h3 tabindex="-1">' + escape(title) + '</h3>' + (intro ? '<p class="h-mobile-question-intro">' + escape(intro) + '</p>' : '') + body + '</div>';
+    }
+    function mobileNumberQuestion(kicker, title, intro, label, min, value, kind) {
+        return mobileQuestion(kicker, title, intro, '<div class="h-mobile-number-wrap"><label for="mobile-number-input">' + escape(label) + '</label><div class="h-mobile-number-row"><input class="h-mobile-number" id="mobile-number-input" type="number" inputmode="numeric" min="' + min + '" max="20" step="1" value="' + value + '"><button type="button" class="h-mobile-next" data-mobile-number="' + kind + '">Continuar</button></div></div>');
+    }
+    function renderMobileWizard() {
+        const content = $('mobile-wizard-content');
+        const bar = $('mobile-progress-bar');
+        if (!content || !bar) return;
+        const progress = mobileStep === 'result' || mobileStep === 'issues' ? 100 : Math.min(94, 10 + mobileHistory.length * 8);
+        bar.style.width = progress + '%';
+        bar.parentElement.setAttribute('aria-valuenow', progress);
+        const back = app.querySelector('[data-mobile-action="back"]');
+        back.hidden = !mobileHistory.length || mobileStep === 'result';
+        const questionNumber = 'Pregunta ' + (mobileHistory.length + 1);
+        if (mobileStep === 'testament') content.innerHTML = mobileQuestion(questionNumber, '¿Hay testamento?', 'Este simulador calcula sucesiones sin testamento.', mobileChoices([
+            { value:'no', label:'No, no hay testamento' },
+            { value:'yes', label:'Sí, hay testamento', note:'El reparto puede cambiar y requiere revisión.' },
+            { value:'unknown', label:'No lo sé' }
+        ]));
+        else if (mobileStep === 'special') content.innerHTML = mobileQuestion(questionNumber, '¿Hay alguna situación especial?', 'Donaciones, renuncias, herederos discutidos, bienes en otro país o acuerdos previos pueden cambiar el resultado.', mobileChoices([
+            { value:'no', label:'No, ninguna de esas situaciones' },
+            { value:'yes', label:'Sí, hay una situación especial' },
+            { value:'unknown', label:'No estoy segura/o' }
+        ]));
+        else if (mobileStep === 'civil') content.innerHTML = mobileQuestion(questionNumber, '¿Cuál era el estado civil de la persona fallecida?', 'Elegí la situación existente al momento del fallecimiento.', mobileChoices([
+            { value:'married', label:'Casada/o legalmente' },
+            { value:'partner', label:'En pareja o unión convivencial', note:'Sin matrimonio vigente entre ambos.' },
+            { value:'single', label:'Soltera/o' },
+            { value:'divorced', label:'Divorciada/o legalmente' },
+            { value:'widowed', label:'Viuda/o' }
+        ]));
+        else if (mobileStep === 'separation') content.innerHTML = mobileQuestion(questionNumber, '¿El matrimonio seguía unido?', 'La separación de hecho o una decisión judicial de cese de convivencia puede excluir al cónyuge.', mobileChoices([
+            { value:'together', label:'Sí, seguían unidos' },
+            { value:'separated', label:'No, estaban separados de hecho' },
+            { value:'unknown', label:'No lo sé' }
+        ]));
+        else if (mobileStep === 'regime') content.innerHTML = mobileQuestion(questionNumber, '¿Qué régimen patrimonial tenía el matrimonio?', '', mobileChoices([
+            { value:'community', label:'Comunidad de ganancias' },
+            { value:'separate', label:'Separación de bienes' },
+            { value:'unknown', label:'No lo sé' }
+        ]));
+        else if (mobileStep === 'assets') content.innerHTML = mobileQuestion(questionNumber, '¿Qué tipo de bienes hay?', 'La diferencia modifica la participación del cónyuge.', mobileChoices([
+            { value:'own', label:'Sólo bienes propios', note:'Por ejemplo, adquiridos antes del matrimonio o recibidos por herencia.' },
+            { value:'common', label:'Sólo bienes gananciales', note:'Adquiridos durante la comunidad de ganancias.' },
+            { value:'mixed', label:'Hay bienes propios y gananciales' },
+            { value:'unknown', label:'No lo sé' }
+        ]));
+        else if (mobileStep === 'descendants') content.innerHTML = mobileQuestion(questionNumber, '¿Dejó hijos o ramas de hijos?', 'También cuenta un hijo fallecido antes si dejó hijos propios que puedan representarlo.', mobileChoices([
+            { value:'yes', label:'Sí, hay hijos o nietos por representación' },
+            { value:'no', label:'No hay descendientes' }
+        ]));
+        else if (mobileStep === 'children-count') content.innerHTML = mobileNumberQuestion(questionNumber, '¿Cuántos hijos o ramas de hijos dejó?', 'Cada hijo forma una rama. Si falleció antes y dejó descendientes, sigue contando como una rama.', 'Cantidad de ramas', 1, Math.max(1, state.children.length || 1), 'children');
+        else if (mobileStep.startsWith('branch-')) {
+            const index = Number(mobileStep.split('-')[1]);
+            content.innerHTML = mobileQuestion('Rama ' + (index + 1) + ' de ' + state.children.length, '¿Ese hijo vivía cuando falleció la persona?', '', mobileChoices([
+                { value:'alive', label:'Sí, vivía' },
+                { value:'before', label:'No, había fallecido antes', note:'Después preguntaremos si dejó hijos.' },
+                { value:'after', label:'Falleció después' },
+                { value:'unknown', label:'No conozco el orden de los fallecimientos' }
+            ]));
+        } else if (mobileStep.startsWith('grandchildren-')) {
+            const index = Number(mobileStep.split('-')[1]);
+            const branch = state.children[index];
+            content.innerHTML = mobileNumberQuestion('Rama ' + (index + 1) + ' de ' + state.children.length, '¿Cuántos hijos dejó esa persona?', 'Indicá los nietos que vivían al abrirse esta sucesión y representan la rama.', 'Cantidad de nietos/as en esta rama', 0, branch.grandchildren.length, 'grandchildren-' + index);
+        } else if (mobileStep === 'parents') content.innerHTML = mobileQuestion(questionNumber, '¿Vivía alguno de sus padres?', 'Sólo importa si no hay descendientes con derecho a heredar.', mobileChoices([
+            { value:'both', label:'Sí, vivían ambos' },
+            { value:'mother', label:'Sólo vivía la madre' },
+            { value:'father', label:'Sólo vivía el padre' },
+            { value:'none', label:'Ninguno de los dos' }
+        ]));
+        else if (mobileStep === 'ascendants') content.innerHTML = mobileQuestion(questionNumber, '¿Vivía algún abuelo, bisabuelo u otro ascendiente?', 'Los ascendientes más próximos pueden desplazar a los hermanos.', mobileChoices([
+            { value:'no', label:'No, ninguno' },
+            { value:'yes', label:'Sí, vivía alguno' },
+            { value:'unknown', label:'No lo sé' }
+        ]));
+        else if (mobileStep === 'siblings-count') content.innerHTML = mobileNumberQuestion(questionNumber, '¿Cuántos hermanos vivían?', 'Contá hermanos o medio hermanos vivos al momento del fallecimiento.', 'Cantidad de hermanos/as vivos', 0, state.siblings.length, 'siblings');
+        else if (mobileStep === 'sibling-branches') content.innerHTML = mobileQuestion(questionNumber, '¿Algún hermano fallecido antes dejó hijos?', 'Los sobrinos pueden representar a ese hermano y este simulador no distribuye esa rama automáticamente.', mobileChoices([
+            { value:'no', label:'No' },
+            { value:'yes', label:'Sí' },
+            { value:'unknown', label:'No lo sé' }
+        ]));
+        else if (mobileStep === 'blocked') content.innerHTML = mobileQuestion('REQUIERE REVISIÓN', mobileBlock ? mobileBlock.title : 'Este caso necesita revisión profesional', '', '<div class="h-mobile-alert"><strong>No es seguro calcular porcentajes automáticamente.</strong>' + escape(mobileBlock ? mobileBlock.message : 'Hay datos que pueden modificar quién hereda o la base del reparto.') + '</div>');
+        else if (mobileStep === 'issues') content.innerHTML = mobileQuestion('NO SE PUDO COMPLETAR', 'Necesitamos revisar algunos datos', 'El motor no devuelve porcentajes si una respuesta puede cambiar el resultado.', '<ul class="h-mobile-issue-list">' + result.issues.map(issue => '<li>' + escape(issue.message) + '</li>').join('') + '</ul>');
+        else content.innerHTML = '';
+    }
+    function rememberMobileStep() {
+        mobileHistory.push({ step:mobileStep, state:JSON.parse(JSON.stringify(state)), block:mobileBlock });
+    }
+    function showMobileStep(next, mutate) {
+        rememberMobileStep();
+        if (mutate) mutate();
+        mobileStep = next;
+        mobileBlock = null;
+        hasSimulated = false;
+        refresh();
+        window.requestAnimationFrame(() => {
+            const heading = $('mobile-wizard-content').querySelector('h3');
+            if (heading) heading.focus({ preventScroll:true });
+        });
+    }
+    function blockMobile(title, message, mutate) {
+        rememberMobileStep();
+        if (mutate) mutate();
+        mobileBlock = { title, message };
+        mobileStep = 'blocked';
+        hasSimulated = false;
+        refresh();
+    }
+    function finishMobile() {
+        state.complete = true;
+        result = E.calculate(state);
+        mobileStep = result.ok ? 'result' : 'issues';
+        hasSimulated = true;
+        refresh();
+        const heading = result.ok ? $('simulation-result-title') : $('mobile-wizard-content').querySelector('h3');
+        if (heading) heading.focus({ preventScroll:true });
+    }
+    function afterMobileBranch(index) {
+        if (index + 1 < state.children.length) {
+            mobileStep = 'branch-' + (index + 1);
+            refresh();
+            return;
+        }
+        if (E.branches(state).length) finishMobile();
+        else {
+            mobileStep = 'parents';
+            refresh();
+        }
+    }
+    function answerMobile(value) {
+        if (mobileStep === 'testament') {
+            if (value === 'no') showMobileStep('special', () => { state.testament = 'no'; });
+            else blockMobile('Hay que revisar el testamento', 'Sus cláusulas y las porciones legítimas pueden cambiar el reparto.', () => { state.testament = value; });
+        } else if (mobileStep === 'special') {
+            if (value === 'no') showMobileStep('civil', () => { state.special = 'no'; });
+            else blockMobile('Hay circunstancias fuera del cálculo simple', 'Donaciones, renuncias, bienes en otro país u otras situaciones requieren analizar documentación.', () => { state.special = value; });
+        } else if (mobileStep === 'civil') {
+            showMobileStep(value === 'married' ? 'separation' : 'descendants', () => {
+                state.civil = value === 'partner' ? 'single' : value;
+                state.partner = value === 'partner';
+                state.separation = value === 'married' ? 'unknown' : 'together';
+                state.regime = 'unknown';
+                state.assets = 'unknown';
+            });
+        } else if (mobileStep === 'separation') {
+            if (value === 'together') showMobileStep('regime', () => { state.separation = 'together'; });
+            else blockMobile('La situación conyugal requiere revisión', 'La separación de hecho o la duda sobre la convivencia puede modificar el derecho hereditario del cónyuge.', () => { state.separation = value; });
+        } else if (mobileStep === 'regime') {
+            if (value === 'community') showMobileStep('assets', () => { state.regime = value; });
+            else if (value === 'separate') showMobileStep('descendants', () => { state.regime = value; });
+            else blockMobile('Falta definir el régimen matrimonial', 'No podemos presumir si existía comunidad de ganancias o separación de bienes.', () => { state.regime = value; });
+        } else if (mobileStep === 'assets') {
+            if (value !== 'unknown') showMobileStep('descendants', () => { state.assets = value; });
+            else blockMobile('Falta clasificar los bienes', 'Saber si son propios o gananciales es indispensable para calcular la porción del cónyuge.', () => { state.assets = value; });
+        } else if (mobileStep === 'descendants') {
+            if (value === 'yes') showMobileStep('children-count');
+            else showMobileStep('parents', () => { state.children = []; });
+        } else if (mobileStep.startsWith('branch-')) {
+            const index = Number(mobileStep.split('-')[1]);
+            rememberMobileStep();
+            state.children[index].status = value;
+            state.children[index].grandchildren = [];
+            if (value === 'before') {
+                mobileStep = 'grandchildren-' + index;
+                refresh();
+            } else if (value === 'alive') afterMobileBranch(index);
+            else {
+                mobileBlock = { title:'El orden de los fallecimientos necesita revisión', message:'Si un hijo falleció después se abre otra sucesión; si no se conoce el orden, no es seguro asignar porcentajes.' };
+                mobileStep = 'blocked';
+                refresh();
+            }
+        } else if (mobileStep === 'parents') {
+            if (value !== 'none') {
+                showMobileStep('result', () => { state.parents = value === 'both' ? ['mother','father'] : [value]; });
+                finishMobile();
+            } else showMobileStep('ascendants', () => { state.parents = []; });
+        } else if (mobileStep === 'ascendants') {
+            if (value === 'no') {
+                rememberMobileStep();
+                state.otherAscendants = 'no';
+                if (state.civil === 'married') finishMobile();
+                else { mobileStep = 'siblings-count'; refresh(); }
+            } else blockMobile('Puede haber ascendientes con prioridad', 'Los abuelos u otros ascendientes vivos deben analizarse antes de calcular la participación del cónyuge o de los hermanos.', () => { state.otherAscendants = value; });
+        } else if (mobileStep === 'sibling-branches') {
+            if (value === 'no') {
+                rememberMobileStep();
+                state.siblingBranches = 'no';
+                finishMobile();
+            } else blockMobile('Puede existir representación entre colaterales', 'Los hijos de un hermano fallecido pueden ocupar su lugar y esa rama requiere un cálculo más detallado.', () => { state.siblingBranches = value; });
+        }
+    }
+    function readMobileNumber(kind) {
+        const input = $('mobile-number-input');
+        const value = Number(input.value);
+        if (!Number.isInteger(value) || value < Number(input.min) || value > Number(input.max)) {
+            input.setCustomValidity('Ingresá un número entero entre ' + input.min + ' y ' + input.max + '.');
+            input.reportValidity();
+            input.focus();
+            return;
+        }
+        input.setCustomValidity('');
+        rememberMobileStep();
+        if (kind === 'children') {
+            state.children = Array.from({ length:value }, () => child());
+            mobileStep = 'branch-0';
+            refresh();
+        } else if (kind.startsWith('grandchildren-')) {
+            const index = Number(kind.split('-')[1]);
+            state.children[index].grandchildren = Array.from({ length:value }, () => ({ id:id() }));
+            afterMobileBranch(index);
+        } else if (kind === 'siblings') {
+            state.siblings = Array.from({ length:value }, () => ({ id:id() }));
+            mobileStep = 'sibling-branches';
+            refresh();
+        }
+    }
+    function backMobile() {
+        const previous = mobileHistory.pop();
+        if (!previous) return;
+        state = previous.state;
+        mobileStep = previous.step;
+        mobileBlock = previous.block;
+        hasSimulated = false;
+        refresh();
+    }
+    function resetMobile() {
+        state = mobileInitialState();
+        mobileStep = 'testament';
+        mobileHistory = [];
+        mobileBlock = null;
+        hasSimulated = false;
+        refresh();
     }
     function renderTree() {
         const parents = state.parents.map(p => card(p, p === 'mother' ? 'Madre' : 'Padre', '<small>Vivía al abrirse la sucesión</small>', remove('remove-parent', p, p === 'mother' ? 'madre' : 'padre'))).join('');
@@ -347,7 +594,7 @@
         }
     }
     function refresh(focusId) {
-        syncFields(); result = E.calculate(state); renderResult(); renderTree();
+        syncFields(); result = E.calculate(state); renderResult(); renderTree(); renderMobileWizard();
         if (focusId && $(focusId)) $(focusId).focus({ preventScroll:true });
     }
     function customized() {
@@ -389,6 +636,10 @@
     app.addEventListener('click', event => {
         const button = event.target.closest('button');
         if (!button) return;
+        if (button.dataset.mobileAnswer !== undefined) { answerMobile(button.dataset.mobileAnswer); return; }
+        if (button.dataset.mobileNumber !== undefined) { readMobileNumber(button.dataset.mobileNumber); return; }
+        if (button.dataset.mobileAction === 'back') { backMobile(); return; }
+        if (button.dataset.mobileAction === 'reset') { resetMobile(); return; }
         if (button.dataset.field) {
             if (button.dataset.field === 'civil') $('quick-civil').focus();
             else if (['children','siblings'].includes(button.dataset.field)) $('diagram-viewport').focus();
@@ -402,6 +653,7 @@
         const action = button.dataset.action, key = button.dataset.id;
         if (!action) return;
         if (action === 'edit-simulation') {
+            if (isMobile()) { backMobile(); return; }
             hasSimulated = false;
             refresh();
             setZoom(zoomBeforeResult);
@@ -467,7 +719,7 @@
     window.addEventListener('resize', () => { scheduleConnections(); positionActiveTree('instant'); });
     if (window.ResizeObserver) new window.ResizeObserver(scheduleConnections).observe($('family-tree'));
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleConnections);
-    state = example('married');
+    state = isMobile() ? mobileInitialState() : example('married');
     refresh();
     window.requestAnimationFrame(() => { scheduleConnections(); positionTree('instant'); });
 })();

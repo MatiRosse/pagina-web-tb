@@ -238,6 +238,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
           </div>
 
+          <section class="h-mobile-wizard" id="mobile-wizard" aria-labelledby="mobile-wizard-title">
+            <div class="h-mobile-wizard-heading">
+              <div>
+                <p class="h-step">VERSIÓN CELULAR</p>
+                <h2 id="mobile-wizard-title">Simulá paso a paso</h2>
+              </div>
+              <button type="button" class="h-mobile-reset" data-mobile-action="reset">Reiniciar</button>
+            </div>
+            <div class="h-mobile-progress" role="progressbar" aria-label="Avance de la simulación" aria-valuemin="0" aria-valuemax="100" aria-valuenow="10">
+              <span id="mobile-progress-bar"></span>
+            </div>
+            <div id="mobile-wizard-content"></div>
+            <div class="h-mobile-wizard-footer">
+              <button type="button" class="h-mobile-back" data-mobile-action="back">← Volver</button>
+              <span>Una pregunta por vez</span>
+            </div>
+          </section>
+
           <aside class="h-side-panel" aria-label="Preguntas y resultado de la simulación">
             <section class="h-questions" id="simulation-questions" aria-labelledby="side-questions-title">
               <div class="h-section-heading">
