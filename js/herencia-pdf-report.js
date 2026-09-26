@@ -2,7 +2,7 @@
     'use strict';
     const WIDTH = 1240;
     const HEIGHT = 1754;
-    const ROWS_PER_PAGE = 9;
+    const ROWS_PER_PAGE = 7;
     const COLORS = {
         ink:'#2f3331',
         charcoal:'#333333',
@@ -101,19 +101,67 @@
         });
     }
 
+    function drawFamilyNode(ctx, x, y, width, label, detail, emphasis) {
+        roundedRect(ctx, x, y, width, 54, 12, emphasis ? COLORS.green : COLORS.white, emphasis ? COLORS.green : COLORS.line);
+        text(ctx, label, x + width / 2, y + 23, 15, 700, emphasis ? COLORS.white : COLORS.ink, 'center');
+        if (detail) text(ctx, detail, x + width / 2, y + 42, 11, 500, emphasis ? '#dce5dc' : COLORS.muted, 'center');
+    }
+
+    function drawFamilyGraph(ctx, report) {
+        const family = report.family || {};
+        const cardX = 82;
+        const cardY = 522;
+        const cardWidth = 1076;
+        roundedRect(ctx, cardX, cardY, cardWidth, 246, 20, '#fbfcfa', COLORS.line);
+        text(ctx, 'MAPA FAMILIAR DEL CASO', cardX + 30, cardY + 35, 15, 700, COLORS.muted);
+
+        const centerX = 512;
+        const centerY = 614;
+        const centerWidth = 216;
+        const nodeMidX = centerX + centerWidth / 2;
+        ctx.strokeStyle = '#9cac96';
+        ctx.lineWidth = 3;
+        if ((family.parents || []).length) {
+            ctx.beginPath(); ctx.moveTo(nodeMidX, centerY); ctx.lineTo(nodeMidX, 591); ctx.stroke();
+            drawFamilyNode(ctx, centerX, 544, centerWidth, (family.parents || []).join(' y '), 'Ascendientes cargados', false);
+        }
+        if (family.partner) {
+            ctx.beginPath(); ctx.moveTo(centerX, centerY + 27); ctx.lineTo(342, centerY + 27); ctx.stroke();
+            drawFamilyNode(ctx, 122, centerY, 220, family.partner, family.partner === 'Cónyuge' ? 'Vínculo matrimonial' : 'No hereda sin testamento', false);
+        }
+        if (Number(family.siblings)) {
+            ctx.beginPath(); ctx.moveTo(centerX + centerWidth, centerY + 27); ctx.lineTo(898, centerY + 27); ctx.stroke();
+            drawFamilyNode(ctx, 898, centerY, 220, String(family.siblings) + (Number(family.siblings) === 1 ? ' hermano/a' : ' hermanos/as'), 'Colaterales cargados', false);
+        }
+        const children = family.children || [];
+        if (children.length) {
+            const grandchildren = children.reduce((total, person) => total + Number(person.grandchildren || 0), 0);
+            ctx.beginPath(); ctx.moveTo(nodeMidX, centerY + 54); ctx.lineTo(nodeMidX, 700); ctx.stroke();
+            const detail = grandchildren ? grandchildren + (grandchildren === 1 ? ' nieto/a por representación' : ' nietos/as por representación') : 'Sin nietos por representación cargados';
+            drawFamilyNode(ctx, 440, 700, 360, children.length + (children.length === 1 ? ' hijo/a o rama' : ' hijos/as o ramas'), detail, false);
+        }
+        drawFamilyNode(ctx, centerX, centerY, centerWidth, 'Persona fallecida', 'Base del reparto: 100 %', true);
+    }
+
+    function percentageValue(value) {
+        const match = String(value || '').replace(',', '.').match(/\d+(?:\.\d+)?/);
+        return match ? Math.max(0, Math.min(100, Number(match[0]))) : 0;
+    }
+
     function drawDistribution(ctx, report, rows) {
-        text(ctx, 'Distribución estimada', 82, 572, 34, 700, COLORS.ink);
-        text(ctx, report.baseName || 'Herencia', 1158, 572, 24, 700, COLORS.gold, 'right');
+        text(ctx, 'Distribución estimada', 82, 822, 34, 700, COLORS.ink);
+        text(ctx, report.baseName || 'Herencia', 1158, 822, 24, 700, COLORS.gold, 'right');
         const tableX = 82;
-        const tableY = 610;
+        const tableY = 850;
         const tableWidth = 1076;
-        const rowHeight = 72;
+        const rowHeight = 64;
         ctx.fillStyle = '#edf2e9';
-        ctx.fillRect(tableX, tableY, tableWidth, 64);
-        text(ctx, 'PERSONA', tableX + 28, tableY + 41, 15, 700, COLORS.muted);
-        text(ctx, 'PORCENTAJE', tableX + tableWidth - 28, tableY + 41, 15, 700, COLORS.muted, 'right');
+        ctx.fillRect(tableX, tableY, tableWidth, 54);
+        text(ctx, 'PERSONA', tableX + 28, tableY + 35, 15, 700, COLORS.muted);
+        text(ctx, 'PARTICIPACIÓN GRÁFICA', tableX + 520, tableY + 35, 15, 700, COLORS.muted);
+        text(ctx, 'PORCENTAJE', tableX + tableWidth - 28, tableY + 35, 15, 700, COLORS.muted, 'right');
         rows.forEach((row, index) => {
-            const y = tableY + 64 + index * rowHeight;
+            const y = tableY + 54 + index * rowHeight;
             if (index % 2) {
                 ctx.fillStyle = '#fbfbfa';
                 ctx.fillRect(tableX, y, tableWidth, rowHeight);
@@ -124,18 +172,28 @@
             ctx.moveTo(tableX, y + rowHeight);
             ctx.lineTo(tableX + tableWidth, y + rowHeight);
             ctx.stroke();
-            text(ctx, row.label, tableX + 28, y + 45, 21, 500, COLORS.ink);
-            text(ctx, row.value, tableX + tableWidth - 28, y + 45, 22, 700, COLORS.green, 'right');
+            text(ctx, row.label, tableX + 28, y + 41, 19, 500, COLORS.ink);
+            const barX = tableX + 520;
+            const barY = y + 24;
+            const barWidth = 370;
+            roundedRect(ctx, barX, barY, barWidth, 16, 8, '#e5e9e3');
+            const filledWidth = barWidth * percentageValue(row.value) / 100;
+            if (filledWidth > 0) roundedRect(ctx, barX, barY, Math.max(16, filledWidth), 16, 8, COLORS.gold);
+            text(ctx, row.value, tableX + tableWidth - 28, y + 41, 21, 700, COLORS.green, 'right');
         });
     }
 
     function drawNotice(ctx, report) {
-        roundedRect(ctx, 82, 1405, 1076, 157, 18, COLORS.soft, COLORS.line);
-        text(ctx, 'ALCANCE DEL INFORME', 112, 1447, 15, 700, COLORS.muted);
+        roundedRect(ctx, 82, 1382, 1076, 180, 18, COLORS.soft, COLORS.line);
+        text(ctx, 'ALCANCE DEL INFORME', 112, 1424, 15, 700, COLORS.muted);
         ctx.font = '400 17px Inter, Arial, sans-serif';
         ctx.fillStyle = COLORS.ink;
-        wrapText(ctx, 'Esta simulación es orientativa y parte de los datos cargados. No reemplaza el análisis de documentación, titularidad de bienes, testamentos, donaciones, deudas ni circunstancias particulares del caso.', 112, 1487, 1010, 27, 3);
-        text(ctx, report.basisDescription || '', 112, 1551, 15, 600, COLORS.gold);
+        const assumptions = (report.notes || []).filter(note => String(note).indexOf('Supuesto por respuesta incierta:') === 0);
+        const notice = assumptions.length
+            ? assumptions.join(' ')
+            : 'Esta simulación es orientativa y parte de los datos cargados. No reemplaza el análisis de documentación, titularidad de bienes, testamentos, donaciones, deudas ni circunstancias particulares del caso.';
+        wrapText(ctx, notice, 112, 1464, 1010, 25, 3);
+        text(ctx, report.basisDescription || '', 112, 1542, 15, 600, COLORS.gold);
     }
 
     function drawFooter(ctx) {
@@ -159,6 +217,7 @@
         ctx.fillRect(0, 0, WIDTH, HEIGHT);
         drawHeader(ctx, logo, pageNumber, pageCount);
         drawScenario(ctx, report);
+        drawFamilyGraph(ctx, report);
         drawDistribution(ctx, report, rows);
         drawNotice(ctx, report);
         drawFooter(ctx);

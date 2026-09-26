@@ -28,8 +28,13 @@
     }
     function mobileInitialState() {
         const s = simplifiedState();
-        Object.assign(s, { testament:'unknown', special:'unknown', civil:'unknown', separation:'unknown', complete:false });
+        Object.assign(s, { testament:'unknown', special:'no', civil:'unknown', separation:'together', complete:false, mobileWarnings:{} });
         return s;
+    }
+    function setMobileWarning(key, message) {
+        if (!state.mobileWarnings) state.mobileWarnings = {};
+        if (message) state.mobileWarnings[key] = 'Supuesto por respuesta incierta: ' + message;
+        else delete state.mobileWarnings[key];
     }
     function example(type) {
         const s = simplifiedState();
@@ -84,22 +89,12 @@
             { value:'yes', label:'Sí, hay testamento', note:'El reparto puede cambiar y requiere revisión.' },
             { value:'unknown', label:'No lo sé' }
         ]));
-        else if (mobileStep === 'special') content.innerHTML = mobileQuestion(questionNumber, '¿Hay alguna situación especial?', 'Donaciones, renuncias, herederos discutidos, bienes en otro país o acuerdos previos pueden cambiar el resultado.', mobileChoices([
-            { value:'no', label:'No, ninguna de esas situaciones' },
-            { value:'yes', label:'Sí, hay una situación especial' },
-            { value:'unknown', label:'No estoy segura/o' }
-        ]));
         else if (mobileStep === 'civil') content.innerHTML = mobileQuestion(questionNumber, '¿Cuál era el estado civil de la persona fallecida?', 'Elegí la situación existente al momento del fallecimiento.', mobileChoices([
             { value:'married', label:'Casada/o legalmente' },
             { value:'partner', label:'En pareja o unión convivencial', note:'Sin matrimonio vigente entre ambos.' },
             { value:'single', label:'Soltera/o' },
             { value:'divorced', label:'Divorciada/o legalmente' },
             { value:'widowed', label:'Viuda/o' }
-        ]));
-        else if (mobileStep === 'separation') content.innerHTML = mobileQuestion(questionNumber, '¿El matrimonio seguía unido?', 'La separación de hecho o una decisión judicial de cese de convivencia puede excluir al cónyuge.', mobileChoices([
-            { value:'together', label:'Sí, seguían unidos' },
-            { value:'separated', label:'No, estaban separados de hecho' },
-            { value:'unknown', label:'No lo sé' }
         ]));
         else if (mobileStep === 'regime') content.innerHTML = mobileQuestion(questionNumber, '¿Qué régimen patrimonial tenía el matrimonio?', '', mobileChoices([
             { value:'community', label:'Comunidad de ganancias' },
@@ -112,14 +107,14 @@
             { value:'mixed', label:'Hay bienes propios y gananciales' },
             { value:'unknown', label:'No lo sé' }
         ]));
-        else if (mobileStep === 'descendants') content.innerHTML = mobileQuestion(questionNumber, '¿Dejó hijos o ramas de hijos?', 'También cuenta un hijo fallecido antes si dejó hijos propios que puedan representarlo.', mobileChoices([
-            { value:'yes', label:'Sí, hay hijos o nietos por representación' },
-            { value:'no', label:'No hay descendientes' }
+        else if (mobileStep === 'descendants') content.innerHTML = mobileQuestion(questionNumber, '¿La persona fallecida tuvo hijos?', 'Respondé que sí aunque algún hijo haya fallecido antes. Después podrás indicar si dejó nietos que ocupen su lugar.', mobileChoices([
+            { value:'yes', label:'Sí, tuvo uno o más hijos' },
+            { value:'no', label:'No tuvo hijos' }
         ]));
         else if (mobileStep === 'children-count') content.innerHTML = mobileNumberQuestion(questionNumber, '¿Cuántos hijos o ramas de hijos dejó?', 'Cada hijo forma una rama. Si falleció antes y dejó descendientes, sigue contando como una rama.', 'Cantidad de ramas', 1, Math.max(1, state.children.length || 1), 'children');
         else if (mobileStep.startsWith('branch-')) {
             const index = Number(mobileStep.split('-')[1]);
-            content.innerHTML = mobileQuestion('Rama ' + (index + 1) + ' de ' + state.children.length, '¿Ese hijo vivía cuando falleció la persona?', '', mobileChoices([
+            content.innerHTML = mobileQuestion('Hijo/a n.º ' + (index + 1) + ' de ' + state.children.length, '¿El hijo/a n.º ' + (index + 1) + ' vivía cuando falleció la persona?', '', mobileChoices([
                 { value:'alive', label:'Sí, vivía' },
                 { value:'before', label:'No, había fallecido antes', note:'Después preguntaremos si dejó hijos.' },
                 { value:'after', label:'Falleció después' },
@@ -128,7 +123,7 @@
         } else if (mobileStep.startsWith('grandchildren-')) {
             const index = Number(mobileStep.split('-')[1]);
             const branch = state.children[index];
-            content.innerHTML = mobileNumberQuestion('Rama ' + (index + 1) + ' de ' + state.children.length, '¿Cuántos hijos dejó esa persona?', 'Indicá los nietos que vivían al abrirse esta sucesión y representan la rama.', 'Cantidad de nietos/as en esta rama', 0, branch.grandchildren.length, 'grandchildren-' + index);
+            content.innerHTML = mobileNumberQuestion('Hijo/a n.º ' + (index + 1) + ' de ' + state.children.length, '¿Cuántos hijos dejó el hijo/a n.º ' + (index + 1) + '?', 'Indicá los nietos que vivían al abrirse esta sucesión y ocupan el lugar de ese hijo/a.', 'Cantidad de nietos/as de este hijo/a', 0, branch.grandchildren.length, 'grandchildren-' + index);
         } else if (mobileStep === 'parents') content.innerHTML = mobileQuestion(questionNumber, '¿Vivía alguno de sus padres?', 'Sólo importa si no hay descendientes con derecho a heredar.', mobileChoices([
             { value:'both', label:'Sí, vivían ambos' },
             { value:'mother', label:'Sólo vivía la madre' },
@@ -196,43 +191,42 @@
     }
     function answerMobile(value) {
         if (mobileStep === 'testament') {
-            if (value === 'no') showMobileStep('special', () => { state.testament = 'no'; });
+            if (value === 'no') showMobileStep('civil', () => { state.testament = 'no'; setMobileWarning('testament', ''); });
+            else if (value === 'unknown') showMobileStep('civil', () => { state.testament = 'no'; setMobileWarning('testament', 'se calcula como si no hubiera testamento; si aparece uno, el reparto puede cambiar.'); });
             else blockMobile('Hay que revisar el testamento', 'Sus cláusulas y las porciones legítimas pueden cambiar el reparto.', () => { state.testament = value; });
-        } else if (mobileStep === 'special') {
-            if (value === 'no') showMobileStep('civil', () => { state.special = 'no'; });
-            else blockMobile('Hay circunstancias fuera del cálculo simple', 'Donaciones, renuncias, bienes en otro país u otras situaciones requieren analizar documentación.', () => { state.special = value; });
         } else if (mobileStep === 'civil') {
-            showMobileStep(value === 'married' ? 'separation' : 'descendants', () => {
+            showMobileStep(value === 'married' ? 'regime' : 'descendants', () => {
                 state.civil = value === 'partner' ? 'single' : value;
                 state.partner = value === 'partner';
-                state.separation = value === 'married' ? 'unknown' : 'together';
+                state.separation = 'together';
                 state.regime = 'unknown';
                 state.assets = 'unknown';
+                setMobileWarning('separation', value === 'married' ? 'se calcula suponiendo que el matrimonio seguía unido y no existía separación de hecho.' : '');
             });
-        } else if (mobileStep === 'separation') {
-            if (value === 'together') showMobileStep('regime', () => { state.separation = 'together'; });
-            else blockMobile('La situación conyugal requiere revisión', 'La separación de hecho o la duda sobre la convivencia puede modificar el derecho hereditario del cónyuge.', () => { state.separation = value; });
         } else if (mobileStep === 'regime') {
-            if (value === 'community') showMobileStep('assets', () => { state.regime = value; });
-            else if (value === 'separate') showMobileStep('descendants', () => { state.regime = value; });
-            else blockMobile('Falta definir el régimen matrimonial', 'No podemos presumir si existía comunidad de ganancias o separación de bienes.', () => { state.regime = value; });
+            if (value === 'community') showMobileStep('assets', () => { state.regime = value; setMobileWarning('regime', ''); });
+            else if (value === 'separate') showMobileStep('descendants', () => { state.regime = value; setMobileWarning('regime', ''); });
+            else showMobileStep('assets', () => { state.regime = 'community'; setMobileWarning('regime', 'se usa comunidad de ganancias como escenario orientativo.'); });
         } else if (mobileStep === 'assets') {
-            if (value !== 'unknown') showMobileStep('descendants', () => { state.assets = value; });
-            else blockMobile('Falta clasificar los bienes', 'Saber si son propios o gananciales es indispensable para calcular la porción del cónyuge.', () => { state.assets = value; });
+            if (value !== 'unknown') showMobileStep('descendants', () => { state.assets = value; setMobileWarning('assets', ''); });
+            else showMobileStep('descendants', () => { state.assets = 'mixed'; setMobileWarning('assets', 'el informe separa los porcentajes de bienes propios y del total ganancial para poder comparar ambos escenarios.'); });
         } else if (mobileStep === 'descendants') {
             if (value === 'yes') showMobileStep('children-count');
             else showMobileStep('parents', () => { state.children = []; });
         } else if (mobileStep.startsWith('branch-')) {
             const index = Number(mobileStep.split('-')[1]);
             rememberMobileStep();
-            state.children[index].status = value;
+            state.children[index].status = value === 'unknown' ? 'alive' : value;
             state.children[index].grandchildren = [];
             if (value === 'before') {
                 mobileStep = 'grandchildren-' + index;
                 refresh();
-            } else if (value === 'alive') afterMobileBranch(index);
+            } else if (value === 'alive' || value === 'unknown') {
+                setMobileWarning('child-' + index, value === 'unknown' ? 'el hijo/a n.º ' + (index + 1) + ' se considera vivo al abrirse la sucesión; el resultado cambia si falleció antes o después.' : '');
+                afterMobileBranch(index);
+            }
             else {
-                mobileBlock = { title:'El orden de los fallecimientos necesita revisión', message:'Si un hijo falleció después se abre otra sucesión; si no se conoce el orden, no es seguro asignar porcentajes.' };
+                mobileBlock = { title:'Hay una sucesión posterior que debe revisarse', message:'Si el hijo/a falleció después, primero heredó su parte y luego esa porción pasó a integrar otra sucesión.' };
                 mobileStep = 'blocked';
                 refresh();
             }
@@ -242,16 +236,18 @@
                 finishMobile();
             } else showMobileStep('ascendants', () => { state.parents = []; });
         } else if (mobileStep === 'ascendants') {
-            if (value === 'no') {
+            if (value === 'no' || value === 'unknown') {
                 rememberMobileStep();
                 state.otherAscendants = 'no';
+                setMobileWarning('ascendants', value === 'unknown' ? 'se calcula suponiendo que no vivían otros ascendientes.' : '');
                 if (state.civil === 'married') finishMobile();
                 else { mobileStep = 'siblings-count'; refresh(); }
             } else blockMobile('Puede haber ascendientes con prioridad', 'Los abuelos u otros ascendientes vivos deben analizarse antes de calcular la participación del cónyuge o de los hermanos.', () => { state.otherAscendants = value; });
         } else if (mobileStep === 'sibling-branches') {
-            if (value === 'no') {
+            if (value === 'no' || value === 'unknown') {
                 rememberMobileStep();
                 state.siblingBranches = 'no';
+                setMobileWarning('siblingBranches', value === 'unknown' ? 'se calcula suponiendo que ningún hermano fallecido dejó hijos que lo representen.' : '');
                 finishMobile();
             } else blockMobile('Puede existir representación entre colaterales', 'Los hijos de un hermano fallecido pueden ocupar su lugar y esa rama requiere un cálculo más detallado.', () => { state.siblingBranches = value; });
         }
@@ -572,6 +568,16 @@
                 basisDescription:$('basis-description').textContent,
                 rows,
                 notes:r.notes.slice(),
+                family:{
+                    partner:state.civil === 'married' ? 'Cónyuge' : state.partner ? 'Pareja conviviente' : '',
+                    parents:state.parents.map(parent => parent === 'mother' ? 'Madre' : 'Padre'),
+                    children:state.children.map((person, index) => ({
+                        label:'Hijo/a n.º ' + (index + 1),
+                        status:person.status,
+                        grandchildren:person.grandchildren.length
+                    })),
+                    siblings:state.siblings.length
+                },
                 scenario:[
                     { label:'Estado civil', value:civilLabels[state.civil] || 'Sin definir' },
                     { label:'Régimen matrimonial', value:state.civil === 'married' ? (regimeLabels[state.regime] || 'Sin definir') : 'No corresponde' },
@@ -594,7 +600,10 @@
         }
     }
     function refresh(focusId) {
-        syncFields(); result = E.calculate(state); renderResult(); renderTree(); renderMobileWizard();
+        syncFields();
+        result = E.calculate(state);
+        if (result.ok && state.mobileWarnings) result.notes = Object.values(state.mobileWarnings).filter(Boolean).concat(result.notes);
+        renderResult(); renderTree(); renderMobileWizard();
         if (focusId && $(focusId)) $(focusId).focus({ preventScroll:true });
     }
     function customized() {

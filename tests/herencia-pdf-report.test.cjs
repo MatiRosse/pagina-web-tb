@@ -5,12 +5,13 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 function canvas() {
+    const events = [];
     const ctx = {
-        beginPath() {}, moveTo() {}, lineTo() {}, quadraticCurveTo() {}, closePath() {},
-        fill() {}, stroke() {}, fillRect() {}, drawImage() {}, fillText() {},
+        beginPath() {}, moveTo(x, y) { events.push(['moveTo', x, y]); }, lineTo(x, y) { events.push(['lineTo', x, y]); }, quadraticCurveTo() {}, closePath() {},
+        fill() {}, stroke() {}, fillRect(x, y, width, height) { events.push(['fillRect', x, y, width, height]); }, drawImage() {}, fillText(value) { events.push(['text', String(value)]); },
         measureText(value) { return { width:String(value).length * 10 }; }
     };
-    return { width:0, height:0, getContext() { return ctx; } };
+    return { width:0, height:0, events, getContext() { return ctx; } };
 }
 
 test('genera un PDF paginado con nombre de informe sucesorio', async () => {
@@ -22,6 +23,10 @@ test('genera un PDF paginado con nombre de informe sucesorio', async () => {
             buildPdf(canvases) {
                 assert.equal(canvases.length, 2);
                 assert.ok(canvases.every(item => item.width === 1240 && item.height === 1754));
+                const labels = canvases[0].events.filter(event => event[0] === 'text').map(event => event[1]);
+                assert.ok(labels.includes('MAPA FAMILIAR DEL CASO'));
+                assert.ok(labels.includes('PARTICIPACIÓN GRÁFICA'));
+                assert.ok(labels.includes('Persona fallecida'));
                 return { type:'application/pdf' };
             },
             downloadBlob(blob, filename) { downloads.push({ blob, filename }); },
@@ -35,6 +40,12 @@ test('genera un PDF paginado con nombre de informe sucesorio', async () => {
     await window.TBHerenciaPDF.download({
         baseName:'Herencia',
         basisDescription:'100 % = herencia neta.',
+        family:{
+            partner:'Cónyuge',
+            parents:['Madre','Padre'],
+            children:[{ label:'Hijo/a n.º 1', status:'alive', grandchildren:0 }],
+            siblings:2
+        },
         scenario:[
             { label:'Estado civil', value:'Soltera/o' },
             { label:'Régimen matrimonial', value:'No corresponde' },
