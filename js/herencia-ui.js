@@ -132,15 +132,19 @@
         const stage = $('diagram-stage');
         const tree = $('family-tree');
         const viewportWidth = Number(viewport.clientWidth) || 0;
-        tree.style.minWidth = Math.max(800, viewportWidth / zoom) + 'px';
+        const mobile = window.matchMedia && window.matchMedia('(max-width: 780px)').matches;
+        tree.style.minWidth = Math.max(mobile ? 0 : 800, viewportWidth / zoom) + 'px';
         tree.style.transform = 'scale(' + zoom + ')';
-        const treeWidth = Math.max(Number(tree.offsetWidth) || 0, Number(tree.scrollWidth) || 0, 800);
-        const treeHeight = Math.max(Number(tree.offsetHeight) || 0, Number(tree.scrollHeight) || 0, 600);
+        const treeWidth = Math.max(Number(tree.offsetWidth) || 0, Number(tree.scrollWidth) || 0, mobile ? 0 : 800);
+        const treeHeight = Math.max(Number(tree.offsetHeight) || 0, Number(tree.scrollHeight) || 0, mobile ? 0 : 600);
         const treeTop = Number(tree.offsetTop) || 0;
-        const stageWidth = Math.max(viewportWidth * 1.4, treeWidth * zoom + 320);
+        const horizontalGutter = mobile ? 24 : 320;
+        const stageWidth = mobile
+            ? Math.max(viewportWidth, treeWidth * zoom + horizontalGutter)
+            : Math.max(viewportWidth * 1.4, treeWidth * zoom + horizontalGutter);
         stage.style.width = stageWidth + 'px';
-        stage.style.height = Math.max(Number(viewport.clientHeight) || 0, treeTop + treeHeight * zoom) + 'px';
-        tree.style.left = Math.max(40, (stageWidth - treeWidth * zoom) / (2 * zoom)) + 'px';
+        stage.style.height = Math.max(Number(viewport.clientHeight) || 0, treeTop + treeHeight * zoom + (mobile ? 12 : 0)) + 'px';
+        tree.style.left = (mobile ? 12 / zoom : Math.max(40, (stageWidth - treeWidth * zoom) / (2 * zoom))) + 'px';
         $('diagram-zoom').textContent = Math.round(zoom * 100) + ' %';
     }
     function positionTree(behavior) {

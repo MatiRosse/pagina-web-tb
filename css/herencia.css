@@ -229,7 +229,17 @@
   .h-workspace-toolbar { align-items:flex-start; flex-direction:column; padding:20px 18px 16px; gap:14px; }
   .h-examples { width:100%; flex-wrap:wrap; justify-content:flex-start; }
   .h-examples select { flex:1; min-width:150px; }
-  .h-canvas { height:530px; min-height:500px; }
+  /* Keep the diagram useful without turning it into a nearly full-screen,
+     nested vertical scroller on phones. Vertical swipes continue the page;
+     the arrow controls still allow precise vertical movement inside the tree. */
+  .h-canvas { height:390px; height:clamp(340px,52svh,430px); min-height:0; }
+  .h-viewport {
+    overflow-x:auto;
+    overflow-y:hidden;
+    overscroll-behavior-x:contain;
+    overscroll-behavior-y:auto;
+    touch-action:pan-x pan-y;
+  }
   .h-canvas-actions { top:9px; right:9px; max-width:calc(100% - 18px); }
   .h-pan-controls button, .h-zoom-controls button { min-width:27px; min-height:27px; }
   .h-zoom-controls output { min-width:39px; }
