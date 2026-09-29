@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Jubilaciones en septiembre de 2026: aumento oficial del 2,11%</title>
+  <desc id="desc">Portada editorial azul oscuro y dorado de TB Abogados sobre la movilidad previsional confirmada por ANSES.</desc>
+  <defs>
+    <linearGradient id="background" x2="1" y2="1">
+      <stop stop-color="#202a36"/>
+      <stop offset="1" stop-color="#080e19"/>
+    </linearGradient>
+    <linearGradient id="gold" x2="1" y2="1">
+      <stop stop-color="#f3d296"/>
+      <stop offset="1" stop-color="#b88a44"/>
+    </linearGradient>
+  </defs>
+  <rect width="1536" height="1024" fill="url(#background)"/>
+  <circle cx="1290" cy="780" r="550" fill="none" stroke="#b88a44" stroke-width="2" opacity=".13"/>
+  <circle cx="1290" cy="780" r="410" fill="none" stroke="#b88a44" stroke-width="2" opacity=".13"/>
+  <path d="M110 94h1316M110 928h1316" stroke="url(#gold)" stroke-width="3" opacity=".75"/>
+  <text x="112" y="184" fill="#f7f4ef" font-family="Georgia,serif" font-size="58" letter-spacing="3">JUBILACIONES</text>
+  <text x="112" y="252" fill="#f7f4ef" font-family="Georgia,serif" font-size="58" letter-spacing="3">SEPTIEMBRE 2026</text>
+  <text x="112" y="356" fill="#d0d6dc" font-family="Arial,sans-serif" font-size="29" letter-spacing="5">MOVILIDAD OFICIAL ANSES</text>
+  <text x="100" y="710" fill="url(#gold)" font-family="Georgia,serif" font-size="330" font-weight="bold">2,11%</text>
+  <text x="112" y="823" fill="#f7f4ef" font-family="Arial,sans-serif" font-size="32" letter-spacing="1">Haberes y bono previsional de hasta $70.000</text>
+  <text x="112" y="978" fill="#e8c58b" font-family="Arial,sans-serif" font-size="25" letter-spacing="7">TB ABOGADOS</text>
+</svg>
