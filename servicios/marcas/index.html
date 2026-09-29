@@ -51,36 +51,62 @@ window.dataLayer.push({
     <meta name="twitter:image" content="https://tbabogados.com.ar/assets/img/socios-abogados-og.jpg">
 
 
-    <!-- WPO: Preconnects para recursos externos -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="preconnect" href="https://i.postimg.cc">
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-    <link rel="dns-prefetch" href="https://i.postimg.cc">
-
-    <!-- CSS (deferred to reduce critical request chains from icon webfonts) -->
-    <link href="../../css/styles.css" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript>
-        <link href="../../css/styles.css" rel="stylesheet" />
-    </noscript>
-<!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap"
-        rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap"
-            rel="stylesheet" />
-    </noscript>
-    <!-- Tailwind CSS (Static Build) -->
-    <link href="../../css/tailwind-compiled.css" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript>
-        <link href="../../css/tailwind-compiled.css" rel="stylesheet" />
-    </noscript>
+    <!-- Local fonts preserve the design without third-party font requests. -->
+    <link rel="preload" href="../../assets/fonts/marcas/inter.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../assets/fonts/marcas/playfair.woff2" as="font" type="font/woff2" crossorigin>
+    <link href="../../css/styles.css" rel="stylesheet">
+    <link href="../../css/tailwind-compiled.css" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 300 700;
+            font-display: swap;
+            src: url('../../assets/fonts/marcas/inter.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'TB Marcas Serif';
+            font-style: normal;
+            font-weight: 400 700;
+            font-display: swap;
+            src: url('../../assets/fonts/marcas/playfair.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'TB Marcas Solid';
+            font-style: normal;
+            font-weight: 900;
+            font-display: swap;
+            src: url('../../assets/fonts/marcas/fa-solid.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'TB Marcas Regular';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('../../assets/fonts/marcas/fa-regular.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'TB Marcas Brands';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('../../assets/fonts/marcas/fa-brands.woff2') format('woff2');
+        }
+        .font-serif, .final-contact-professional-name { font-family: 'TB Marcas Serif', serif; }
+        /* Skip offscreen layout while retaining each section for scrolling and search. */
+        main > :nth-child(n + 3) {
+            content-visibility: auto;
+            contain-intrinsic-size: auto 700px;
+        }
+
+        #mob-menu .mob-menu-inner > a:first-child::before,
+        #mob-menu #mob-servicios-btn::before,
+        #mob-menu #mob-calculadoras-btn::before,
+        #mob-menu a[href]::before { font-family: 'TB Marcas Solid'; }
+        .fa, .fas, .fa-solid { font-family: 'TB Marcas Solid'; }
+        .far, .fa-regular { font-family: 'TB Marcas Regular'; }
+        .fab, .fa-brands { font-family: 'TB Marcas Brands'; }
+
         /* Infinite Scrolling Carousel */
         .scroller {
             max-width: 100%;
@@ -190,7 +216,7 @@ window.dataLayer.push({
         .final-contact-professional-name {
             display: block;
             margin-bottom: 0.2rem;
-            font-family: 'Playfair Display', serif;
+            font-family: 'TB Marcas Serif', serif;
             font-size: 1.2rem;
             line-height: 1.25;
         }
@@ -586,7 +612,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <a href="../../" class="flex-shrink-0 flex items-center">
-                    <div class="logo-shine"><img src="../../assets/img/logo-tb-blanco.svg" alt="Logo TB Abogados"
+                    <div class="logo-shine"><img src="../../assets/img/logo-tb-marcas-96.webp" alt="Logo TB Abogados"
                             width="48" height="48" fetchpriority="high"
                             class="h-12 w-12 rounded-full border border-gold mr-3 object-cover shadow-sm"></div>
                     <span class="font-serif text-white text-2xl font-semibold tracking-wide">TB ABOGADOS</span>
@@ -805,7 +831,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <h3 class="font-serif text-xl text-darkblue-900 leading-snug">Registrar mi marca en Argentina</h3>
                     </div>
                     <span class="block text-gray-500 text-sm leading-relaxed">Para personas y empresas en Argentina que necesitan presentar su marca ante el INPI.</span>
-                    <span class="inline-flex items-center gap-2 mt-5 text-gold font-semibold">Ver registro nacional <i
+                    <span class="inline-flex items-center gap-2 mt-5 text-gold-dark font-semibold">Ver registro nacional <i
                             class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
                 </a>
                 <a href="https://wa.me/5491122511243?text=Hola!%20Quiero%20registrar%20mi%20marca%20en%20el%20exterior"
@@ -817,7 +843,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <h3 class="font-serif text-xl text-darkblue-900 leading-snug">Estoy en Argentina y quiero registrar en el exterior</h3>
                     </div>
                     <span class="block text-gray-500 text-sm leading-relaxed">Para titulares argentinos que buscan protección en otros países o regiones.</span>
-                    <span class="inline-flex items-center gap-2 mt-5 text-gold font-semibold">Consultar por WhatsApp <i
+                    <span class="inline-flex items-center gap-2 mt-5 text-gold-dark font-semibold">Consultar por WhatsApp <i
                             class="fa-brands fa-whatsapp" aria-hidden="true"></i></span>
                 </a>
                 <a href="./registro-en-argentina-desde-el-exterior/"
@@ -828,7 +854,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <h3 class="font-serif text-xl text-darkblue-900 leading-snug">Estoy en el exterior y quiero registrar en Argentina</h3>
                     </div>
                     <span class="block text-gray-500 text-sm leading-relaxed">Para personas y empresas extranjeras que necesitan representación ante el INPI.</span>
-                    <span class="inline-flex items-center gap-2 mt-5 text-gold font-semibold">Registrar desde el exterior <i
+                    <span class="inline-flex items-center gap-2 mt-5 text-gold-dark font-semibold">Registrar desde el exterior <i
                             class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
                 </a>
             </div>
@@ -934,7 +960,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             aria-hidden="true"></i>
                         Vigilancia marcaria (alcance y duración según propuesta)</li>
                 </ul>
-                <a class="block text-center bg-gold hover:bg-[#c5a059] text-white font-bold text-lg py-4 rounded-xl transition-all hover:scale-105 shadow-lg"
+                <a class="block text-center bg-gold hover:bg-[#c5a059] text-darkblue-900 font-bold text-lg py-4 rounded-xl transition-all hover:scale-105 shadow-lg"
                     href="https://wa.me/5491122511243?text=Hola!%20Quiero%20registrar%20mi%20marca%20en%201%20clase"
                     target="_blank">
                     Quiero registrar mi marca
@@ -1076,8 +1102,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="final-contact-photo overflow-hidden">
                     <img src="../../assets/img/dra-bulgheroni-portada.avif" alt="Dra. Florencia Bulgheroni"
                         class="final-contact-img w-full h-full object-cover" loading="lazy" decoding="async">
-                    <a href="../../dra-bulgheroni/" class="final-contact-professional"
-                        aria-label="Conocé el perfil profesional de la Dra. Florencia Bulgheroni">
+                    <a href="../../dra-bulgheroni/" class="final-contact-professional">
                         <span class="final-contact-professional-name">Dra. Florencia Bulgheroni</span>
                         <span class="final-contact-professional-credentials">CPACF Tº 137 Fº 145 · Agente INPI 2971</span>
                     </a>
@@ -1361,7 +1386,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div
                     style="background:#075E54;color:#fff;padding:12px;display:flex;align-items:center;position:relative;">
                     <div style="position:relative;">
-                        <img alt="Perfil" id="chat-profile-img" src="../../assets/img/logo-tb-blanco.svg" width="40"
+                        <img alt="Perfil" id="chat-profile-img" src="../../assets/img/logo-tb-marcas-96.webp" width="40"
                             height="40"
                             style="height:40px;width:40px;border-radius:50%;border:2px solid #fff;object-fit:cover;" />
                         <span
