@@ -1,0 +1,7 @@
+/* Font Awesome 6.4 icons used by the consumer pages, served with the local subset. */
+.fa-calendar-xmark:before { content: "\f273"; }
+.fa-ticket:before { content: "\f145"; }
+.fa-hashtag:before { content: "\23"; }
+.fa-suitcase-rolling:before { content: "\f5c1"; }
+.fa-credit-card:before { content: "\f09d"; }
+.fa-message:before { content: "\f27a"; }
