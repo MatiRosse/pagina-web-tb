@@ -1,16 +1,23 @@
 // Run after changing utility classes or custom styles on these standalone pages:
 // node scripts/build-secondary-page-styles.cjs
-// The shared stylesheets and the legal guides are left untouched.
+// To rebuild only the legal-guides index, pass guias-legales/index.html.
+// The shared stylesheets and the individual legal guides are left untouched.
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { execFileSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
-const pages = ['contacto', 'nosotros', 'dr-bulgheroni', 'dra-bulgheroni', 'dra-tassara']
+const defaults = ['contacto', 'nosotros', 'dr-bulgheroni', 'dra-bulgheroni', 'dra-tassara']
     .flatMap(slug => ['', '/en', '/pt'].map(language => `${slug}${language}/index.html`))
     .concat(['servicios', 'servicios/accidente-de-trabajo', 'servicios/accidente-de-transito',
         'servicios/consumo', 'servicios/consumo/aerolineas', 'servicios/consumo/bancos-finanzas',
         'politica-privacidad', 'terminos-y-condiciones'].map(slug => `${slug}/index.html`));
+const pages = process.argv.length > 2 ? process.argv.slice(2) : defaults;
+for (const page of pages) {
+    if (![...defaults, 'guias-legales/index.html'].includes(page)) {
+        throw new Error(`Unsupported standalone page: ${page}`);
+    }
+}
 const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'tb-secondary-css-'));
 const cli = path.join(root, 'node_modules/tailwindcss/lib/cli.js');
 function compile(input, output, content) {
@@ -37,8 +44,10 @@ try {
         let customLocal = custom.replaceAll('../assets/', prefix + 'assets/')
             + fs.readFileSync(path.join(root, 'css/secondary-page-icons.css'), 'utf8');
         for (const [kind, weight] of [['solid', 900], ['regular', 400], ['brands', 400]]) {
+            const fontDirectory = file === 'guias-legales/index.html' && kind !== 'brands'
+                ? 'guias-index' : 'secondary-pages';
             customLocal = customLocal.replace(new RegExp(`src:url\\([^}]*?fa-${kind}-${weight}\\.woff2[^}]+`),
-                `src:url("${prefix}assets/fonts/secondary-pages/fa-${kind}.woff2") format("woff2")`);
+                `src:url("${prefix}assets/fonts/${fontDirectory}/fa-${kind}.woff2") format("woff2")`);
         }
         const sheets = { 'styles.css': customLocal, 'tailwind-compiled.css': utilities };
         html = html.replace(/<noscript>\s*<link\b[^>]*>\s*<\/noscript>/g, '');
