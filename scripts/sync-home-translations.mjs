@@ -3,6 +3,7 @@
 // --check verifies that the published copies still match the source and translations.
 import fs from 'node:fs';
 import path from 'node:path';
+import { syncNavbar } from './navbar-template.mjs';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -268,7 +269,7 @@ function translate(source, lang) {
     'Ana S.', 'Claudio B.', 'Elvis A.', 'Paraná 439,', '+54 9 11 2251-1243', 'consultas@tbabogados.com.ar',
     '×', 'Español', 'English', 'Português']);
   const protectedBlocks = [];
-  let html = source.replace(/<(script|style)\b[\s\S]*?<\/\1>/gi, block => {
+  let html = source.replace(/<(script|style|nav)\b[\s\S]*?<\/\1>/gi, block => {
     protectedBlocks.push(block);
     return `<tb-protected data-block="${protectedBlocks.length - 1}"></tb-protected>`;
   });
@@ -342,7 +343,7 @@ function translate(source, lang) {
     // The firm has one stable identity shared by all language versions.
     return `<script type="application/ld+json">\n${JSON.stringify(translated, null, 2)}\n    </script>`;
   });
-  return html;
+  return syncNavbar(html, `${lang}/index.html`);
 }
 
 const source = homeOnly(fs.readFileSync(path.join(root, 'index.html'), 'utf8'));

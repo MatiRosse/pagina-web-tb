@@ -1,0 +1,132 @@
+/* Shared navbar: independent of page-specific Tailwind builds and legacy inline styles. */
+@font-face {
+    font-family: 'TB Nav Inter';
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: swap;
+    src: url('../assets/fonts/marcas/inter.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'TB Nav Playfair';
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+    src: url('../assets/fonts/marcas/playfair.woff2') format('woff2');
+}
+.tb-navbar {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    width: 100%;
+    color: #d1d5db;
+    background: rgba(51, 51, 51, .95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(197, 160, 89, .2);
+    font-family: 'TB Nav Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+.tb-navbar *, .tb-navbar *::before, .tb-navbar *::after { box-sizing: border-box; }
+.tb-navbar a { color: inherit; text-decoration: none; }
+.tb-navbar button { font: inherit; cursor: pointer; }
+.tb-navbar :is(a, button):focus-visible { outline: 2px solid #c5a059; outline-offset: 3px; }
+.tb-navbar .hidden { display: none; }
+/* Retire the old per-page Font Awesome pseudo-icons; every navbar uses the same SVG sprite. */
+.tb-navbar #mob-menu :is(a, button)::before { content: none !important; display: none !important; }
+.tb-nav-container { max-width: 1280px; margin: 0 auto; padding: 0 16px; }
+.tb-nav-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 80px; }
+.tb-nav-brand { display: flex; flex: 0 0 auto; align-items: center; gap: 12px; }
+.tb-nav-logo-frame { position: relative; flex: 0 0 48px; }
+.tb-nav-logo { display: block; width: 48px; height: 48px; border: 1px solid #c5a059; border-radius: 50%; object-fit: cover; }
+.tb-nav-logo-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.12) 42%, rgba(255,255,255,.58) 50%, rgba(215,182,103,.24) 58%, transparent 70%);
+    background-position: 140% 0;
+    background-size: 300% 100%;
+    opacity: 0;
+    pointer-events: none;
+    animation: tb-nav-logo-shine 10s ease-in-out infinite;
+}
+@keyframes tb-nav-logo-shine {
+    0%, 14% { background-position: 140% 0; opacity: 0; }
+    15% { opacity: .72; }
+    25% { background-position: -40% 0; opacity: .72; }
+    26%, 100% { background-position: -40% 0; opacity: 0; }
+}
+.tb-nav-brand-name { color: #fff; font-family: 'TB Nav Playfair', serif; font-size: 24px; font-weight: 600; letter-spacing: .025em; white-space: nowrap; }
+.tb-nav-desktop { display: none; align-items: center; gap: 8px; }
+.tb-navbar .tb-nav-link { display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border: 0; background: transparent; font-weight: 500; white-space: nowrap; transition: color .2s; }
+.tb-navbar .tb-nav-link:hover, .tb-navbar .tb-nav-link[aria-current="page"] { color: #c5a059; }
+.tb-navbar .tb-nav-contact { margin-left: 8px; padding: 8px 24px; border-radius: 9999px; color: #333; background: #c5a059; box-shadow: 0 8px 12px -8px rgba(0,0,0,.3); }
+.tb-navbar .tb-nav-contact:hover, .tb-navbar .tb-nav-contact[aria-current="page"] { color: #fff; background: #b08d4b; }
+.tb-nav-dropdown { position: relative; }
+.tb-nav-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 288px;
+    padding: 8px 0;
+    border: 1px solid rgba(0,0,0,.05);
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 10px 20px -5px rgba(0,0,0,.25);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4px);
+    transition: opacity .18s, transform .18s;
+}
+.tb-nav-dropdown[data-open="true"] > .tb-nav-panel { opacity: 1; visibility: visible; transform: translateY(0); }
+.tb-navbar .tb-nav-option { display: flex; align-items: center; gap: 8px; padding: 8px 16px; color: #374151; font-weight: 400; line-height: 1.4; }
+.tb-navbar .tb-nav-option:hover, .tb-navbar .tb-nav-option[aria-current="page"] { color: #c5a059; background: #f9f6f0; }
+.tb-nav-icon { display: inline-block; flex: 0 0 20px; width: 20px; height: 20px; color: #c5a059; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.tb-nav-link > .tb-nav-icon { flex-basis: 12px; width: 12px; height: 12px; color: currentColor; }
+.tb-nav-consumer-row { display: flex; align-items: center; }
+.tb-nav-consumer-row > a { flex: 1; min-width: 0; }
+.tb-nav-consumer-toggle { display: flex; flex: 0 0 36px; align-items: center; justify-content: center; align-self: stretch; width: 36px; padding: 6px; border: 0; background: transparent; }
+.tb-nav-consumer-toggle .tb-nav-icon { width: 14px; height: 14px; flex-basis: 14px; }
+.tb-nav-consumer-panel { top: 0; left: 100%; width: 264px; }
+.tb-nav-consumer-panel::before { content: ''; position: absolute; inset: 0 100% 0 auto; width: 8px; }
+.tb-nav-consumer > .tb-nav-consumer-row .tb-nav-icon:last-child { transform: rotate(-90deg); }
+.tb-nav-calculators-panel { width: 320px; max-height: calc(100dvh - 88px); overflow-y: auto; }
+.tb-nav-languages-panel { right: 0; left: auto; width: 176px; }
+.tb-nav-flag { display: inline-block; flex: 0 0 22px; width: 22px; height: 15px; border: 1px solid rgba(148,163,184,.45); border-radius: 2px; object-fit: cover; box-shadow: 0 1px 2px rgba(15,23,42,.16); }
+.tb-navbar .tb-nav-language-button { gap: 6px; font-size: 14px; }
+.tb-navbar .tb-nav-all { margin-top: 4px; border-top: 1px solid rgba(197,160,89,.2); color: #8a6a2f; font-size: 14px; }
+.tb-nav-menu-button { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 8px; border: 0; border-radius: 6px; background: transparent; }
+.tb-nav-menu-button .tb-nav-icon { width: 24px; height: 24px; flex-basis: 24px; color: #d1d5db; }
+.tb-navbar #mob-menu { max-height: calc(100dvh - 80px); overflow-y: auto; overscroll-behavior: contain; padding: 0 16px; border-top: 1px solid rgba(197,160,89,.2); background: #333; }
+.tb-nav-mobile-inner { display: flex; flex-direction: column; gap: 24px; max-width: 1216px; margin: 0 auto; padding: 24px 0; }
+.tb-navbar .tb-nav-mobile-link { display: flex; align-items: center; gap: 8px; width: fit-content; max-width: 100%; padding: 0; border: 0; background: transparent; font-size: 18px; font-weight: 500; line-height: 1.5; text-align: left; }
+.tb-navbar .tb-nav-mobile-link:hover, .tb-navbar .tb-nav-mobile-link[aria-current="page"], .tb-navbar .tb-nav-mobile-link[aria-expanded="true"] { color: #c5a059; }
+.tb-nav-mobile-link .tb-nav-icon:last-child:not(:first-child) { flex-basis: 14px; width: 14px; height: 14px; }
+.tb-nav-mobile-group { display: flex; flex-direction: column; gap: 12px; }
+.tb-nav-mobile-services, .tb-nav-mobile-submenu, .tb-nav-mobile-consumer-submenu { display: grid; gap: 8px 16px; padding-left: 16px; border-left: 1px solid rgba(197,160,89,.2); }
+.tb-nav-mobile-services { grid-template-columns: repeat(2, minmax(0,1fr)); }
+.tb-nav-mobile-services > .tb-nav-all, .tb-nav-mobile-consumer { grid-column: 1 / -1; }
+.tb-nav-mobile-consumer-submenu { margin-top: 8px; }
+.tb-nav-mobile-option, .tb-nav-mobile-language { display: flex; align-items: flex-start; gap: 8px; min-width: 0; padding: 4px 0; font-size: 16px; line-height: 1.4; }
+.tb-nav-mobile-option > span { overflow-wrap: anywhere; }
+.tb-navbar .tb-nav-mobile-option:hover, .tb-navbar .tb-nav-mobile-option[aria-current="page"], .tb-navbar .tb-nav-mobile-language:hover, .tb-navbar .tb-nav-mobile-language[aria-current="page"] { color: #c5a059; }
+.tb-navbar .tb-nav-mobile-option.tb-nav-all { color: #c5a059; }
+.tb-nav-mobile-language { align-items: center; }
+.tb-nav-mobile-link > .tb-nav-flag { margin: 0; }
+.tb-nav-mobile-link .tb-nav-icon { transition: transform .2s; }
+@media (min-width: 640px) { .tb-nav-container { padding: 0 24px; } .tb-navbar #mob-menu { padding: 0 24px; } }
+@media (min-width: 1024px) { .tb-nav-container { padding: 0 32px; } .tb-navbar #mob-menu { padding: 0 32px; } }
+@media (min-width: 1280px) {
+    .tb-nav-desktop { display: flex; }
+    .tb-nav-menu-button, .tb-navbar #mob-menu { display: none; }
+}
+@media (max-width: 1279px) { .tb-navbar { background: rgba(30,30,30,.92); } }
+@media (max-width: 359px) { .tb-nav-brand-name { font-size: 20px; } }
+@media (max-height: 650px) and (min-width: 1280px) {
+    .tb-navbar .tb-nav-option { padding-top: 5px; padding-bottom: 5px; font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .tb-nav-logo-frame::after { animation: none; }
+    .tb-nav-panel, .tb-nav-mobile-link .tb-nav-icon { transition: none; }
+}

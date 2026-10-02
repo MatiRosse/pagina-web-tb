@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { syncNavbar } from './navbar-template.mjs';
 
 const root = process.cwd();
 
@@ -531,7 +532,7 @@ for (const page of pages) {
     if (page.family === 'marcas') html = removeTrademarkPricing(html);
     html = setActiveLanguage(html, lang);
     fs.mkdirSync(path.dirname(path.join(root, target)), { recursive: true });
-    fs.writeFileSync(path.join(root, target), html);
+    fs.writeFileSync(path.join(root, target), syncNavbar(html, target));
   }
 }
 

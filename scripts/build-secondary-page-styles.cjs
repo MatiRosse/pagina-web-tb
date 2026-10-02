@@ -62,6 +62,7 @@ try {
             if (href.startsWith('http')) return match;
             href = href.split('?')[0];
             const name = path.basename(href);
+            if (name === 'navbar.css') return match;
             return block(name, sheets[name] || fs.readFileSync(path.resolve(path.dirname(target), href), 'utf8')
                 .replaceAll('../assets/', prefix + 'assets/'));
         });

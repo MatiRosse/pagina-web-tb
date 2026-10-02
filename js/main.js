@@ -29,7 +29,8 @@ function storeLanguage(language) {
 }
 
 function localizeAvailableLink(anchor, language) {
-    if (anchor.dataset.language) return;
+    // The shared navbar already resolves every link in the page's actual language.
+    if (anchor.dataset.language || anchor.closest('.tb-navbar')) return;
 
     let url;
     try {
@@ -42,7 +43,7 @@ function localizeAvailableLink(anchor, language) {
     if (url.protocol !== 'file:' && url.origin !== window.location.origin) return;
 
     // Resolve the homepage from this shared script, including local previews and subdirectory hosting.
-    const mainScript = document.querySelector('script[src$="/js/main.js"]');
+    const mainScript = document.querySelector('script[src*="/js/main.js"]');
     const siteRoot = mainScript ? new URL('../', mainScript.src) : new URL('/', window.location.href);
     const homePaths = [siteRoot.pathname, `${siteRoot.pathname}index.html`, `${siteRoot.pathname}en/`, `${siteRoot.pathname}pt/`];
     if (homePaths.includes(url.pathname)) {
@@ -231,6 +232,12 @@ function animateMobileMenu(openMenu) {
     if (openMenu && !isHidden) return;
     if (!openMenu && isHidden) return;
 
+    const menuButton = document.getElementById('mob-menu-btn');
+    if (menuButton) {
+        menuButton.setAttribute('aria-expanded', openMenu ? 'true' : 'false');
+        menuButton.setAttribute('aria-label', openMenu ? menuButton.dataset.closeLabel : menuButton.dataset.openLabel);
+    }
+
     removeMobileMenuTransitionHandler(mobileMenu);
     clearMobileMenuInlineStyles(mobileMenu);
 
@@ -247,7 +254,7 @@ function animateMobileMenu(openMenu) {
 
     if (openMenu) {
         mobileMenu.classList.remove('hidden');
-        const targetHeight = mobileMenu.scrollHeight;
+        const targetHeight = Math.min(mobileMenu.scrollHeight, window.innerHeight - 80);
         mobileMenu.style.overflow = 'hidden';
         mobileMenu.style.transition = 'none';
         mobileMenu.style.height = '0px';
@@ -271,7 +278,7 @@ function animateMobileMenu(openMenu) {
         return;
     }
 
-    const currentHeight = mobileMenu.scrollHeight;
+    const currentHeight = mobileMenu.getBoundingClientRect().height;
     mobileMenu.style.overflow = 'hidden';
     mobileMenu.style.transition = 'none';
     mobileMenu.style.height = `${currentHeight}px`;
@@ -333,6 +340,90 @@ function bindCloseMobileMenuOnLinkActivation() {
         const target = event.target;
         if (!(target instanceof Element) || !target.closest('a')) return;
         closeMobileMenu();
+    });
+}
+
+function initNavbarInteractions() {
+    const navbar = document.querySelector('.tb-navbar');
+    if (!navbar) return;
+    const dropdowns = Array.from(navbar.querySelectorAll('[data-nav-dropdown]')).map(element => ({
+        element,
+        trigger: element.querySelector(':scope > [data-nav-trigger], :scope > .tb-nav-consumer-row > [data-nav-trigger]'),
+        panel: element.querySelector(':scope > .tb-nav-panel')
+    }));
+
+    const setOpen = (dropdown, open) => {
+        dropdown.element.dataset.open = String(open);
+        dropdown.trigger.setAttribute('aria-expanded', String(open));
+        dropdown.panel.inert = !open;
+        if (!open) {
+            dropdown.element.dataset.pinned = 'false';
+            dropdowns.filter(child => child !== dropdown && dropdown.element.contains(child.element))
+                .forEach(child => setOpen(child, false));
+        }
+    };
+    const openDropdown = dropdown => {
+        dropdowns.filter(other => other !== dropdown
+            && !other.element.contains(dropdown.element)
+            && !dropdown.element.contains(other.element)).forEach(other => setOpen(other, false));
+        setOpen(dropdown, true);
+    };
+
+    dropdowns.forEach(dropdown => {
+        dropdown.element.addEventListener('pointerenter', () => {
+            if (window.matchMedia('(hover: hover)').matches) openDropdown(dropdown);
+        });
+        dropdown.element.addEventListener('pointerleave', () => {
+            if (dropdown.element.dataset.pinned !== 'true'
+                && !dropdown.panel.contains(document.activeElement)) setOpen(dropdown, false);
+        });
+        dropdown.trigger.addEventListener('click', () => {
+            const pinned = dropdown.element.dataset.pinned !== 'true';
+            if (pinned) openDropdown(dropdown);
+            else setOpen(dropdown, false);
+            dropdown.element.dataset.pinned = String(pinned);
+        });
+        dropdown.trigger.addEventListener('keydown', event => {
+            if (!['ArrowDown', 'ArrowUp'].includes(event.key)) return;
+            event.preventDefault();
+            openDropdown(dropdown);
+            dropdown.element.dataset.pinned = 'true';
+            const links = dropdown.panel.querySelectorAll('a');
+            const target = event.key === 'ArrowDown' ? links[0] : links[links.length - 1];
+            target?.focus();
+        });
+        dropdown.element.addEventListener('focusout', event => {
+            if (!dropdown.element.contains(event.relatedTarget)) setOpen(dropdown, false);
+        });
+        dropdown.element.addEventListener('keydown', event => {
+            if (event.key !== 'Escape') return;
+            event.preventDefault();
+            event.stopPropagation();
+            setOpen(dropdown, false);
+            dropdown.trigger.focus();
+        });
+    });
+    document.addEventListener('pointerdown', event => {
+        dropdowns.filter(dropdown => !dropdown.element.contains(event.target))
+            .forEach(dropdown => setOpen(dropdown, false));
+    });
+    document.addEventListener('keydown', event => {
+        const menu = getMobileMenuElement();
+        if (event.key !== 'Escape' || !menu || menu.classList.contains('hidden')) return;
+        closeMobileMenu();
+        document.getElementById('mob-menu-btn')?.focus();
+    });
+    const desktop = window.matchMedia('(min-width: 1280px)');
+    desktop.addEventListener('change', () => {
+        dropdowns.forEach(dropdown => setOpen(dropdown, false));
+        const menu = getMobileMenuElement();
+        removeMobileMenuTransitionHandler(menu);
+        clearMobileMenuInlineStyles(menu);
+        menu.classList.add('hidden');
+        resetMobileSubmenus();
+        const button = document.getElementById('mob-menu-btn');
+        button.setAttribute('aria-expanded', 'false');
+        button.setAttribute('aria-label', button.dataset.openLabel);
     });
 }
 
@@ -718,6 +809,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const initialScrollY = getScrollY();
 
     initLanguagePreference();
+    initNavbarInteractions();
     bindCloseMobileMenuOnOutsideTap();
     bindCloseMobileMenuOnLinkActivation();
     initWhyChooseUsMobileToggle();
