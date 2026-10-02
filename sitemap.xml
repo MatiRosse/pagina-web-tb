@@ -3,9 +3,21 @@
     <!-- Main Pages -->
     <url>
         <loc>https://tbabogados.com.ar/</loc>
-        <lastmod>2026-03-12</lastmod>
+        <lastmod>2026-10-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://tbabogados.com.ar/en/</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://tbabogados.com.ar/pt/</loc>
+        <lastmod>2026-10-02</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
     </url>
     <url>
         <loc>https://tbabogados.com.ar/servicios/</loc>

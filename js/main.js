@@ -41,6 +41,24 @@ function localizeAvailableLink(anchor, language) {
     if (!['http:', 'https:', 'file:'].includes(url.protocol)) return;
     if (url.protocol !== 'file:' && url.origin !== window.location.origin) return;
 
+    // Resolve the homepage from this shared script, including local previews and subdirectory hosting.
+    const mainScript = document.querySelector('script[src$="/js/main.js"]');
+    const siteRoot = mainScript ? new URL('../', mainScript.src) : new URL('/', window.location.href);
+    const homePaths = [siteRoot.pathname, `${siteRoot.pathname}index.html`, `${siteRoot.pathname}en/`, `${siteRoot.pathname}pt/`];
+    if (homePaths.includes(url.pathname)) {
+        if (url.hash === '#marcas') {
+            url.pathname = `${siteRoot.pathname}servicios/marcas/${language}/`;
+            url.hash = '';
+        } else if (url.hash === '#calculadoras') {
+            url.pathname = `${siteRoot.pathname}servicios/calculadoras/`;
+            url.hash = '';
+        } else {
+            url.pathname = `${siteRoot.pathname}${language}/`;
+        }
+        anchor.href = url.href;
+        return;
+    }
+
     for (const base of LOCALIZED_ROUTE_BASES) {
         const translatedSuffixes = [`${base}en/`, `${base}pt/`];
         const matchedSuffix = translatedSuffixes.find((suffix) => url.pathname.endsWith(suffix));
@@ -328,9 +346,15 @@ function setWhyChooseItemState(item, isOpen, isMobile) {
 
     if (isMobile) {
         const title = item.querySelector('h3')?.textContent.trim() || 'Este valor';
+        const pageLanguage = document.documentElement.lang.toLowerCase();
+        const description = pageLanguage.startsWith('en')
+            ? `${isOpen ? 'hide' : 'show'} description`
+            : pageLanguage.startsWith('pt')
+                ? `${isOpen ? 'ocultar' : 'mostrar'} descrição`
+                : `${isOpen ? 'ocultar' : 'mostrar'} descripción`;
         front.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
         back.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
-        item.setAttribute('aria-label', `${title}: ${isOpen ? 'ocultar' : 'mostrar'} descripción`);
+        item.setAttribute('aria-label', `${title}: ${description}`);
     } else {
         front.removeAttribute('aria-hidden');
         back.removeAttribute('aria-hidden');
@@ -491,6 +515,13 @@ function initReviewCarousels() {
 
     ensureReviewCarouselStyles();
 
+    const pageLanguage = document.documentElement.lang.toLowerCase();
+    const copy = pageLanguage.startsWith('en')
+        ? { carousel: 'carousel', reviews: 'Client reviews', choose: 'Choose a review', slide: 'slide', of: 'of', view: 'View review' }
+        : pageLanguage.startsWith('pt')
+            ? { carousel: 'carrossel', reviews: 'Avaliações de clientes', choose: 'Escolher avaliação', slide: 'slide', of: 'de', view: 'Ver avaliação' }
+            : { carousel: 'carrusel', reviews: 'Opiniones de clientes', choose: 'Elegir opinión', slide: 'diapositiva', of: 'de', view: 'Ver opinión' };
+
     tracks.forEach((track, carouselIndex) => {
         if (track.dataset.reviewCarouselReady === 'true') return;
 
@@ -500,23 +531,23 @@ function initReviewCarousels() {
         track.dataset.reviewCarouselReady = 'true';
         track.classList.add('reviews-carousel-track');
         track.setAttribute('role', 'region');
-        track.setAttribute('aria-roledescription', 'carrusel');
-        track.setAttribute('aria-label', 'Opiniones de clientes');
+        track.setAttribute('aria-roledescription', copy.carousel);
+        track.setAttribute('aria-label', copy.reviews);
         track.setAttribute('tabindex', '0');
 
         const dots = document.createElement('div');
         dots.className = 'reviews-carousel-dots';
-        dots.setAttribute('aria-label', 'Elegir opinión');
+        dots.setAttribute('aria-label', copy.choose);
 
         const dotButtons = slides.map((slide, slideIndex) => {
             slide.setAttribute('role', 'group');
-            slide.setAttribute('aria-roledescription', 'diapositiva');
-            slide.setAttribute('aria-label', `${slideIndex + 1} de ${slides.length}`);
+            slide.setAttribute('aria-roledescription', copy.slide);
+            slide.setAttribute('aria-label', `${slideIndex + 1} ${copy.of} ${slides.length}`);
 
             const dot = document.createElement('button');
             dot.type = 'button';
             dot.className = 'reviews-carousel-dot';
-            dot.setAttribute('aria-label', `Ver opinión ${slideIndex + 1}`);
+            dot.setAttribute('aria-label', `${copy.view} ${slideIndex + 1}`);
             dot.setAttribute('aria-current', slideIndex === 0 ? 'true' : 'false');
             dot.addEventListener('click', () => {
                 slides[slideIndex].scrollIntoView({
@@ -581,6 +612,7 @@ function setMobSubmenuState(submenuId, isOpen) {
     submenu.classList.toggle('hidden', !isOpen);
     if (icon) icon.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
     if (btn) {
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         btn.classList.toggle('text-gold', isOpen);
         btn.classList.toggle('text-gray-300', !isOpen);
     }
