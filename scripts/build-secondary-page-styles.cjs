@@ -1,6 +1,7 @@
 // Run after changing utility classes or custom styles on these standalone pages:
 // node scripts/build-secondary-page-styles.cjs
 // To rebuild only the legal-guides index, pass guias-legales/index.html.
+// Published guides and drafts can also be rebuilt individually with their HTML path.
 // The shared stylesheets and the individual legal guides are left untouched.
 const fs = require('node:fs');
 const os = require('node:os');
@@ -14,7 +15,8 @@ const defaults = ['contacto', 'nosotros', 'dr-bulgheroni', 'dra-bulgheroni', 'dr
         'politica-privacidad', 'terminos-y-condiciones'].map(slug => `${slug}/index.html`));
 const pages = process.argv.length > 2 ? process.argv.slice(2) : defaults;
 for (const page of pages) {
-    if (![...defaults, 'guias-legales/index.html'].includes(page)) {
+    if (![...defaults, 'guias-legales/index.html'].includes(page)
+        && !/^guias-legales\/[a-z0-9-]+\/index\.html$/.test(page)) {
         throw new Error(`Unsupported standalone page: ${page}`);
     }
 }
@@ -44,8 +46,9 @@ try {
         let customLocal = custom.replaceAll('../assets/', prefix + 'assets/')
             + fs.readFileSync(path.join(root, 'css/secondary-page-icons.css'), 'utf8');
         for (const [kind, weight] of [['solid', 900], ['regular', 400], ['brands', 400]]) {
-            const fontDirectory = file === 'guias-legales/index.html' && kind !== 'brands'
-                ? 'guias-index' : 'secondary-pages';
+            const fontDirectory = file.startsWith('guias-legales/') && kind !== 'brands'
+                ? (file !== 'guias-legales/index.html' && kind === 'solid' ? 'guias-legales' : 'guias-index')
+                : 'secondary-pages';
             customLocal = customLocal.replace(new RegExp(`src:url\\([^}]*?fa-${kind}-${weight}\\.woff2[^}]+`),
                 `src:url("${prefix}assets/fonts/${fontDirectory}/fa-${kind}.woff2") format("woff2")`);
         }
