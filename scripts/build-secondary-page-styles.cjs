@@ -10,7 +10,7 @@ const { execFileSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
 const defaults = ['contacto', 'nosotros', 'dr-bulgheroni', 'dra-bulgheroni', 'dra-tassara']
     .flatMap(slug => ['', '/en', '/pt'].map(language => `${slug}${language}/index.html`))
-    .concat(['servicios', 'servicios/accidente-de-trabajo', 'servicios/accidente-de-transito',
+    .concat(['servicios', 'servicios/traducciones-publicas', 'servicios/accidente-de-trabajo', 'servicios/accidente-de-transito',
         'servicios/consumo', 'servicios/consumo/aerolineas', 'servicios/consumo/bancos-finanzas',
         'politica-privacidad', 'terminos-y-condiciones'].map(slug => `${slug}/index.html`));
 const pages = process.argv.length > 2 ? process.argv.slice(2) : defaults;

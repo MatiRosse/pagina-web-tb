@@ -51,7 +51,7 @@ const common = {
     'Abogada y Agente de la Propiedad Industrial': 'Attorney and Industrial Property Agent',
     'Matrícula profesional': 'Professional Registration',
     'Agente de la Propiedad Industrial': 'Industrial Property Agent',
-    'Dr. Daniel Bulgheroni': 'Daniel Bulgheroni', 'Abogado': 'Attorney',
+    'Dr. Daniel Bulgheroni': 'Daniel Bulgheroni', 'Abogado': 'Attorney', 'Abogado y traductor público de inglés': 'Attorney and English public translator', 'Traducciones públicas y jurídicas de inglés y español': 'Public and legal translations between English and Spanish',
     'Dra. Victoria Tassara': 'Victoria Tassara', 'Abogada y mediadora': 'Attorney and Mediator',
     'Ciudad Autónoma de Buenos Aires': 'Buenos Aires, Argentina', 'Spanish': 'English',
     'Gracias por la confidencialidad, profesionalismo y dedicación. Hacen un gran equipo! Excelente servicio': 'Thank you for your confidentiality, professionalism and dedication. You make a great team! Excellent service.',
@@ -104,7 +104,7 @@ const common = {
     'Abogada y Agente de la Propiedad Industrial': 'Advogada e Agente da Propriedade Industrial',
     'Matrícula profesional': 'Registro Profissional',
     'Agente de la Propiedad Industrial': 'Agente da Propriedade Industrial',
-    'Dr. Daniel Bulgheroni': 'Daniel Bulgheroni', 'Abogado': 'Advogado',
+    'Dr. Daniel Bulgheroni': 'Daniel Bulgheroni', 'Abogado': 'Advogado', 'Abogado y traductor público de inglés': 'Advogado e tradutor público de inglês', 'Traducciones públicas y jurídicas de inglés y español': 'Traduções públicas e jurídicas entre inglês e espanhol',
     'Dra. Victoria Tassara': 'Victoria Tassara', 'Abogada y mediadora': 'Advogada e Mediadora',
     'Ciudad Autónoma de Buenos Aires': 'Buenos Aires, Argentina', 'Spanish': 'Portuguese',
     'Gracias por la confidencialidad, profesionalismo y dedicación. Hacen un gran equipo! Excelente servicio': 'Obrigado pela confidencialidade, profissionalismo e dedicação. Vocês formam uma grande equipe! Excelente serviço.',
@@ -234,31 +234,31 @@ const familyText = {
   daniel: {
     en: {
       'SOCIO ABOGADO': 'PARTNER ATTORNEY', 'Dr. Daniel Bulgheroni': 'Daniel Bulgheroni',
-      'Matrícula CPACF: Tº 135 Fº 166': 'CPACF Registration: Tº 135 Fº 166', 'Matrícula CTPCBA:': 'CTPCBA Registration:', 'perfil oficial': 'official profile',
+      'Matrícula CPACF: Tº 135 Fº 166': 'CPACF Registration: Tº 135 Fº 166', 'Matrícula CTPCBA: 9562 · Tº XXIII Fº 472 ·': 'CTPCBA Registration: 9562 · Tº XXIII Fº 472 ·', 'perfil oficial': 'official profile',
       'Resumen Profesional': 'Professional Summary',
       'El Dr. Daniel Bulgheroni es un profesional con doble titulación, desempeñándose como Abogado y Traductor Público de idioma Inglés, ambas carreras cursadas en la Universidad de Buenos Aires (UBA). Como socio del Estudio Tassara & Bulgheroni, aporta una vasta experiencia en el asesoramiento jurídico integral a empresas y particulares, combinando la precisión legal con la pericia técnica en cuestiones bilingües.': 'Daniel Bulgheroni holds degrees in law and English public translation from the University of Buenos Aires (UBA). As a partner at Tassara & Bulgheroni, he provides comprehensive legal advice to companies and individuals, combining legal precision with technical expertise in bilingual matters.',
       'Traducción Pública Legal': 'Legal Public Translation',
-      'Especialista en traducción oficial de documentos legales, contratos, poderes y documentación corporativa del idioma inglés al español y viceversa, garantizando la validez legal internacional de los instrumentos.': 'Official translation of legal documents, contracts, powers of attorney and corporate documents between English and Spanish, supporting their international legal validity.',
+      'Traducción pública de documentos legales, contratos, poderes y documentación corporativa del inglés al español y viceversa. Las formalidades se evalúan según el documento y el organismo destinatario.': 'Public translation of legal documents, contracts, powers of attorney and corporate documents between English and Spanish. Formal requirements are assessed for each document and receiving authority.',
       'Asesoramiento Civil y Comercial': 'Civil and Commercial Advice',
       'Asesoría sólida en la prevención y resolución de conflictos contractuales, operaciones civiles y defensa del patrimonio en un entorno de negocios dinámico, brindando seguridad jurídica a las transacciones.': 'Advice on preventing and resolving contractual disputes, civil transactions and asset protection in a dynamic business environment.',
       'Educación y Credenciales': 'Education and Credentials', 'Título de Abogado': 'Law Degree',
       ', Universidad de Buenos Aires (UBA).': ', University of Buenos Aires (UBA).', 'Traductor Público de Inglés': 'English Public Translator',
       'Matriculación CABA': 'CABA Bar Admission', ', Colegio Público de Abogados de la Capital Federal (CPACF).': ', Public Bar Association of the Federal Capital (CPACF).',
-      'Matriculación CTPCBA': 'CTPCBA Registration', ', Colegio de Traductores Públicos de la Ciudad de Buenos Aires.': ', Buenos Aires Association of Public Translators.', 'Ver perfil oficial': 'View Official Profile'
+      'Matriculación CTPCBA': 'CTPCBA Registration', ', Colegio de Traductores Públicos de la Ciudad de Buenos Aires.': ', Buenos Aires Association of Public Translators.', 'Ver perfil oficial': 'View Official Profile', 'Ver servicio y solicitar presupuesto de traducción': 'View translation service and request a quote'
     },
     pt: {
       'SOCIO ABOGADO': 'SÓCIO ADVOGADO', 'Dr. Daniel Bulgheroni': 'Daniel Bulgheroni',
-      'Matrícula CPACF: Tº 135 Fº 166': 'Registro CPACF: Tº 135 Fº 166', 'Matrícula CTPCBA:': 'Registro CTPCBA:', 'perfil oficial': 'perfil oficial',
+      'Matrícula CPACF: Tº 135 Fº 166': 'Registro CPACF: Tº 135 Fº 166', 'Matrícula CTPCBA: 9562 · Tº XXIII Fº 472 ·': 'Registro CTPCBA: 9562 · Tº XXIII Fº 472 ·', 'perfil oficial': 'perfil oficial',
       'Resumen Profesional': 'Resumo Profissional',
       'El Dr. Daniel Bulgheroni es un profesional con doble titulación, desempeñándose como Abogado y Traductor Público de idioma Inglés, ambas carreras cursadas en la Universidad de Buenos Aires (UBA). Como socio del Estudio Tassara & Bulgheroni, aporta una vasta experiencia en el asesoramiento jurídico integral a empresas y particulares, combinando la precisión legal con la pericia técnica en cuestiones bilingües.': 'Daniel Bulgheroni possui formação em Direito e Tradução Pública de Inglês pela Universidade de Buenos Aires (UBA). Como sócio do Escritório Tassara & Bulgheroni, oferece assessoria jurídica integral a empresas e particulares, combinando precisão jurídica e experiência técnica em questões bilíngues.',
       'Traducción Pública Legal': 'Tradução Pública Jurídica',
-      'Especialista en traducción oficial de documentos legales, contratos, poderes y documentación corporativa del idioma inglés al español y viceversa, garantizando la validez legal internacional de los instrumentos.': 'Tradução oficial de documentos jurídicos, contratos, procurações e documentos corporativos entre inglês e espanhol, garantindo sua validade jurídica internacional.',
+      'Traducción pública de documentos legales, contratos, poderes y documentación corporativa del inglés al español y viceversa. Las formalidades se evalúan según el documento y el organismo destinatario.': 'Tradução pública de documentos jurídicos, contratos, procurações e documentos corporativos entre inglês e espanhol. Os requisitos formais são avaliados conforme o documento e o órgão destinatário.',
       'Asesoramiento Civil y Comercial': 'Assessoria Civil e Comercial',
       'Asesoría sólida en la prevención y resolución de conflictos contractuales, operaciones civiles y defensa del patrimonio en un entorno de negocios dinámico, brindando seguridad jurídica a las transacciones.': 'Assessoria na prevenção e resolução de conflitos contratuais, operações civis e proteção patrimonial em um ambiente empresarial dinâmico.',
       'Educación y Credenciales': 'Formação e Credenciais', 'Título de Abogado': 'Graduação em Direito',
       ', Universidad de Buenos Aires (UBA).': ', Universidade de Buenos Aires (UBA).', 'Traductor Público de Inglés': 'Tradutor Público de Inglês',
       'Matriculación CABA': 'Registro CABA', ', Colegio Público de Abogados de la Capital Federal (CPACF).': ', Colégio Público de Advogados da Capital Federal (CPACF).',
-      'Matriculación CTPCBA': 'Registro CTPCBA', ', Colegio de Traductores Públicos de la Ciudad de Buenos Aires.': ', Colégio de Tradutores Públicos da Cidade de Buenos Aires.', 'Ver perfil oficial': 'Ver Perfil Oficial'
+      'Matriculación CTPCBA': 'Registro CTPCBA', ', Colegio de Traductores Públicos de la Ciudad de Buenos Aires.': ', Colégio de Tradutores Públicos da Cidade de Buenos Aires.', 'Ver perfil oficial': 'Ver Perfil Oficial', 'Ver servicio y solicitar presupuesto de traducción': 'Ver serviço e solicitar orçamento de tradução'
     }
   },
   victoria: {

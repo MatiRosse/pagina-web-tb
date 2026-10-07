@@ -39,6 +39,7 @@ const copy = {
 // A single ordered list is used for both desktop and mobile, in all three languages.
 const services = [
   ['marcas', 'trademark', 'Marcas', 'Trademarks', 'Marcas'],
+  ['traducciones-publicas', 'language', 'Traducciones públicas', 'Public Translations', 'Traduções públicas'],
   ['despidos', 'document', 'Despidos', 'Dismissals', 'Rescisões'],
   ['diferencia-salarial', 'salary', 'Diferencias Salariales', 'Salary Differences', 'Diferenças Salariais'],
   ['sucesiones', 'scales', 'Sucesiones', 'Probate', 'Sucessões'],
