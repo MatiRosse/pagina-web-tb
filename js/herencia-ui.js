@@ -14,9 +14,48 @@
     let mobileStep = 'testament';
     let mobileHistory = [];
     let mobileBlock = null;
+    let mode = null;
+    const modeSessions = {};
     const id = () => 'person-' + (++sequence);
     const $ = name => document.getElementById(name);
     const isMobile = () => Boolean(window.matchMedia && window.matchMedia('(max-width: 780px)').matches);
+    function saveModeSession() {
+        if (mode) modeSessions[mode] = { state, basis, hasSimulated, mobileStep, mobileHistory, mobileBlock, zoom, zoomBeforeResult };
+    }
+    function syncMode() {
+        $('simulation-mode-picker').hidden = Boolean(mode);
+        $('simulation-mode-navigation').hidden = !mode;
+        $('simulation-builder').hidden = !mode;
+        app.classList.toggle('h-mode-questionnaire', mode === 'questionnaire');
+        $('simulation-mode-label').textContent = mode === 'tree' ? 'Árbol familiar interactivo' : 'Cuestionario paso a paso';
+    }
+    function selectMode(next, focus = true) {
+        if (!['tree', 'questionnaire'].includes(next)) return;
+        saveModeSession();
+        mode = next;
+        if (focus) {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({ event:'inheritance_mode_select', inheritance_mode:next });
+        }
+        const saved = modeSessions[mode];
+        state = saved ? saved.state : mode === 'questionnaire' ? mobileInitialState() : example('married');
+        basis = saved ? saved.basis : 'common';
+        hasSimulated = saved ? saved.hasSimulated : false;
+        mobileStep = saved ? saved.mobileStep : 'testament';
+        mobileHistory = saved ? saved.mobileHistory : [];
+        mobileBlock = saved ? saved.mobileBlock : null;
+        zoomBeforeResult = saved ? saved.zoomBeforeResult : 1;
+        refresh();
+        setZoom(saved ? saved.zoom : 1);
+        $('example-picker').value = saved ? 'custom' : 'married';
+        window.requestAnimationFrame(() => {
+            if (mode === 'tree') { scheduleConnections(); positionTree('instant'); }
+            if (focus) {
+                const heading = hasSimulated && result.ok ? $('simulation-result-title') : mode === 'tree' ? $('tree-builder-title') : $('mobile-wizard-title');
+                heading.focus({ preventScroll:true });
+            }
+        });
+    }
     const escape = value => String(value).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' })[c]);
     const pct = value => new Intl.NumberFormat('es-AR', { maximumFractionDigits:2 }).format(value * 100) + ' %';
     const avatar = '<span class="h-avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="3.5"/><path d="M5 21v-3a7 7 0 0 1 14 0v3"/></svg></span>';
@@ -144,6 +183,9 @@
         else if (mobileStep === 'blocked') content.innerHTML = mobileQuestion('REQUIERE REVISIÓN', mobileBlock ? mobileBlock.title : 'Este caso necesita revisión profesional', '', '<div class="h-mobile-alert"><strong>No es seguro calcular porcentajes automáticamente.</strong>' + escape(mobileBlock ? mobileBlock.message : 'Hay datos que pueden modificar quién hereda o la base del reparto.') + '</div>');
         else if (mobileStep === 'issues') content.innerHTML = mobileQuestion('NO SE PUDO COMPLETAR', 'Necesitamos revisar algunos datos', 'El motor no devuelve porcentajes si una respuesta puede cambiar el resultado.', '<ul class="h-mobile-issue-list">' + result.issues.map(issue => '<li>' + escape(issue.message) + '</li>').join('') + '</ul>');
         else content.innerHTML = '';
+        if (mobileStep === 'blocked' || mobileStep === 'issues') {
+            content.insertAdjacentHTML('beforeend', '<a class="h-consult-review" href="https://wa.me/5491122511243?text=Hola%2C%20quiero%20revisar%20mi%20caso%20del%20simulador%20de%20herencia" target="_blank" rel="noopener noreferrer">Consultar este caso con TB Abogados →</a>');
+        }
     }
     function rememberMobileStep() {
         mobileHistory.push({ step:mobileStep, state:JSON.parse(JSON.stringify(state)), block:mobileBlock });
@@ -600,6 +642,7 @@
         }
     }
     function refresh(focusId) {
+        syncMode();
         syncFields();
         result = E.calculate(state);
         if (result.ok && state.mobileWarnings) result.notes = Object.values(state.mobileWarnings).filter(Boolean).concat(result.notes);
@@ -645,6 +688,14 @@
     app.addEventListener('click', event => {
         const button = event.target.closest('button');
         if (!button) return;
+        if (button.dataset.simulationMode) { selectMode(button.dataset.simulationMode); return; }
+        if (button.dataset.action === 'choose-mode') {
+            saveModeSession();
+            mode = null;
+            syncMode();
+            $('simulation-mode-title').focus({ preventScroll:true });
+            return;
+        }
         if (button.dataset.mobileAnswer !== undefined) { answerMobile(button.dataset.mobileAnswer); return; }
         if (button.dataset.mobileNumber !== undefined) { readMobileNumber(button.dataset.mobileNumber); return; }
         if (button.dataset.mobileAction === 'back') { backMobile(); return; }
@@ -662,7 +713,7 @@
         const action = button.dataset.action, key = button.dataset.id;
         if (!action) return;
         if (action === 'edit-simulation') {
-            if (isMobile()) { backMobile(); return; }
+            if (mode === 'questionnaire') { backMobile(); return; }
             hasSimulated = false;
             refresh();
             setZoom(zoomBeforeResult);
@@ -728,7 +779,7 @@
     window.addEventListener('resize', () => { scheduleConnections(); positionActiveTree('instant'); });
     if (window.ResizeObserver) new window.ResizeObserver(scheduleConnections).observe($('family-tree'));
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleConnections);
-    state = isMobile() ? mobileInitialState() : example('married');
-    refresh();
+    if (isMobile()) selectMode('questionnaire', false);
+    else { state = example('married'); refresh(); }
     window.requestAnimationFrame(() => { scheduleConnections(); positionTree('instant'); });
 })();

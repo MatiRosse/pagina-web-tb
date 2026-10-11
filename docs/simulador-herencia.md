@@ -86,6 +86,26 @@ columnas diferenciadas en pantallas con ancho suficiente y una sola en móvil.
 El motor conserva sus funciones internas de la primera versión y sus pruebas
 monetarias de regresión; ninguna está expuesta en la interfaz actual.
 
+## Entrada y modos de uso
+
+En escritorio, la página presenta dos tarjetas antes de abrir el simulador:
+«Árbol familiar interactivo · Recomendado» y «Cuestionario paso a paso · Opción
+simple». En celular se abre directamente el cuestionario. «Cambiar forma de
+simular» vuelve a las tarjetas; cada modo conserva por separado los datos,
+el resultado y el avance mientras la página permanezca abierta. El modo elegido
+se mantiene al redimensionar la ventana.
+
+El cuestionario utiliza el mismo motor de porcentajes en todos los tamaños de
+pantalla. «Modificar datos» vuelve a la última pregunta. Los casos bloqueados
+incluyen un enlace para consultar a TB Abogados. La selección de modo emite
+`inheritance_mode_select` con `inheritance_mode` (`tree` o `questionnaire`) al
+`dataLayer`; configurar su recepción en GTM si se desea medirla.
+
+El título SEO es «Simulador de herencia en Argentina gratis | TB Abogados».
+El H1, las descripciones y los metadatos sociales explican el reparto sin
+testamento, ambos modos y el informe gratuito. La fecha de revisión jurídica
+se conserva porque esta actualización cambia la presentación.
+
 ## Relaciones y navegación
 
 - Padres encima; cónyuge/conviviente a la izquierda; hermanos a la derecha;

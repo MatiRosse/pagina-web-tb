@@ -54,7 +54,13 @@ const simulate = () => click('[data-action="simulate"]');
 const edge = (from, to, relation) => document.querySelector('path[data-from="' + from + '"][data-to="' + to + '"][data-relation="' + relation + '"]');
 
 assert.equal(document.querySelectorAll('input[type=number], [data-state=amounts], [data-state=currency]').length, 0);
-assert.match(document.querySelector('.h-hero').textContent, /Simulador de Sucesión/);
+assert.match(document.querySelector('.h-hero').textContent, /Simulador de herencia en Argentina/);
+assert.equal(document.getElementById('simulation-mode-picker').hidden, false);
+assert.equal(document.getElementById('simulation-builder').hidden, true);
+assert.equal(document.querySelectorAll('[data-simulation-mode]').length, 2);
+click('[data-simulation-mode="tree"]');
+assert.equal(document.getElementById('simulation-mode-picker').hidden, true);
+assert.equal(document.getElementById('simulation-builder').hidden, false);
 assert.match(document.querySelector('.h-benefits').textContent, /Informe descargable/);
 assert.ok(document.querySelector('.h-builder #diagram-workspace'));
 assert.ok(document.querySelector('.h-builder .h-questions [data-state="testament"]'));
@@ -144,4 +150,30 @@ assert.doesNotMatch(result(), /porcentajes están redondeados/i);
 const ids = Array.from(document.querySelectorAll('[id]')).map(element => element.id);
 assert.equal(new Set(ids).size, ids.length);
 
-console.log('OK: layout 70/30 para preguntas y 50/50 para resultado, panel alternado, autozoom, descarga PDF, relaciones y 14 hijos.');
+// The questionnaire works on desktop and mode changes preserve each scenario.
+click('[data-action="choose-mode"]');
+assert.equal(document.getElementById('simulation-builder').hidden, true);
+click('[data-simulation-mode="questionnaire"]');
+assert.ok(document.getElementById('inheritance-app').classList.contains('h-mode-questionnaire'));
+assert.match(document.getElementById('mobile-wizard-content').textContent, /¿Hay testamento\?/);
+click('[data-mobile-answer="no"]');
+click('[data-mobile-answer="single"]');
+click('[data-mobile-answer="no"]');
+click('[data-mobile-answer="mother"]');
+assert.equal(document.getElementById('simulation-result').hidden, false);
+assert.match(result(), /Madre.*100 %/);
+click('[data-action="edit-simulation"]');
+assert.match(document.getElementById('mobile-wizard-content').textContent, /¿Vivía alguno de sus padres\?/);
+click('[data-action="choose-mode"]');
+click('[data-simulation-mode="tree"]');
+assert.equal(document.querySelectorAll('[data-child]').length, 14);
+assert.equal(document.getElementById('simulation-result').hidden, false);
+click('[data-action="choose-mode"]');
+click('[data-simulation-mode="questionnaire"]');
+assert.match(document.getElementById('mobile-wizard-content').textContent, /¿Vivía alguno de sus padres\?/);
+click('[data-mobile-action="reset"]');
+click('[data-mobile-answer="yes"]');
+assert.equal(document.getElementById('simulation-result').hidden, true);
+assert.ok(document.querySelector('#mobile-wizard-content .h-consult-review'));
+
+console.log('OK: selección de modo, cuestionario desktop, conservación de datos, layout 70/30 y 50/50, PDF, relaciones y 14 hijos.');
