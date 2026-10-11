@@ -58,6 +58,15 @@ El validador general `scripts/validate-static-translations.mjs` devuelve 28 erro
 
 Publicación autorizada por el usuario: envío de los cambios a la rama `main` para desplegar en GitHub Pages. La URL pública se verifica después de enviar los cambios al repositorio.
 
+## Versión en inglés — 11 de octubre de 2026
+
+- Página preparada en `servicios/traducciones-publicas/en/index.html`, con el diseño de la versión española y traducción completa de contenido, formulario, referencias, pie y metadatos. Se usa “sworn translation” y se explica el término argentino “traductor público”.
+- Canonical propio, enlaces `hreflang` recíprocos y entrada en sitemap. El selector de idioma conecta español e inglés; portugués conserva el destino del inicio en portugués.
+- Menús compartidos, tarjeta del inicio en inglés y enlace del perfil inglés de Daniel apuntan al servicio traducido. Los generadores del inicio y de páginas estáticas conservan esos destinos al regenerar.
+- El formulario compartido prepara el mensaje de WhatsApp en el idioma de la página, incluidas las fechas y la opción sin fecha.
+- Verificados escritorio y móvil de 390 px, fotografía, ausencia de desbordamiento horizontal, selector de idiomas, recursos locales, anclas, JSON-LD, sitemap y generación de mensajes en español e inglés. Controles de sincronización de navbar e inicio correctos. El validador general mantiene los mismos 28 errores ya documentados arriba.
+- Publicación autorizada por el usuario el 11 de octubre de 2026 para desplegar esta versión en GitHub Pages.
+
 ## Fuentes
 
 - [Google: guía básica de SEO](https://developers.google.com/search/docs/fundamentals/seo-starter-guide).

@@ -25,7 +25,7 @@ const copy = {
     about: 'About Us', contact: 'Contact', language: 'Language', selectLanguage: 'Select language',
     navigation: 'Main navigation', openMenu: 'Open navigation menu', closeMenu: 'Close navigation menu',
     allServices: 'View all services', allCalculators: 'View all calculators',
-    consumerSubmenu: 'Show consumer claims', fallback: {}
+    consumerSubmenu: 'Show consumer claims', fallback: { pt: 'Go to the Portuguese homepage' }
   },
   pt: {
     home: 'Início', services: 'Serviços', calculators: 'Calculadoras', guides: 'Guias Jurídicos',
@@ -39,7 +39,7 @@ const copy = {
 // A single ordered list is used for both desktop and mobile, in all three languages.
 const services = [
   ['marcas', 'trademark', 'Marcas', 'Trademarks', 'Marcas'],
-  ['traducciones-publicas', 'language', 'Traducciones públicas', 'Public Translations', 'Traduções públicas'],
+  ['traducciones-publicas', 'language', 'Traducciones públicas', 'Sworn Translations', 'Traduções públicas'],
   ['despidos', 'document', 'Despidos', 'Dismissals', 'Rescisões'],
   ['diferencia-salarial', 'salary', 'Diferencias Salariales', 'Salary Differences', 'Diferenças Salariais'],
   ['sucesiones', 'scales', 'Sucesiones', 'Probate', 'Sucessões'],
@@ -81,6 +81,9 @@ function languageRoutes(page) {
     }
   }
   const trademarks = { es: 'servicios/marcas/', en: 'servicios/marcas/en/', pt: 'servicios/marcas/pt/' };
+  if (['servicios/traducciones-publicas/', 'servicios/traducciones-publicas/en/'].includes(route)) {
+    return { es: 'servicios/traducciones-publicas/', en: 'servicios/traducciones-publicas/en/', pt: 'pt/', fallbackLanguages: ['pt'] };
+  }
   if (route === trademarks.es) return trademarks;
   if ([trademarks.en, trademarks.pt, 'servicios/marcas/registro-en-argentina-desde-el-exterior/'].includes(route)) {
     return { ...trademarks, es: 'servicios/marcas/registro-en-argentina-desde-el-exterior/' };
@@ -104,12 +107,13 @@ export function renderNavbar(page, language = 'es') {
   const currentAttribute = route => route === activeRoute ? ' aria-current="page"' : '';
   const icon = (name, id = '') => `<svg class="tb-nav-icon" viewBox="0 0 24 24"${id ? ` id="${id}"` : ''} aria-hidden="true" focusable="false"><use href="${prefix}assets/img/navbar-icons.svg#${name}"></use></svg>`;
   const flag = lang => `<img class="tb-nav-flag" src="${prefix}assets/img/flags/${languages[lang].flag}.svg" width="22" height="15" alt="" aria-hidden="true">`;
-  const serviceRoute = item => `servicios/${item[0]}/` + (item[0] === 'marcas' && language !== 'es' ? `${language}/` : '');
+  const serviceRoute = item => `servicios/${item[0]}/` + (item[0] === 'marcas' && language !== 'es' ? `${language}/` : item[0] === 'traducciones-publicas' && language === 'en' ? 'en/' : '');
   const link = (route, text, classes, iconName = '') => `<a href="${href(route)}" class="${classes}"${currentAttribute(route)}>${iconName ? icon(iconName) : ''}<span>${text}</span></a>`;
   const routes = languageRoutes(page);
   const languageLinks = mobile => Object.keys(languages).map(lang => {
     const option = languages[lang];
-    const title = routes.fallback && lang !== 'es' ? ` title="${t.fallback[lang]}"` : '';
+    const title = (routes.fallback && lang !== 'es') || routes.fallbackLanguages?.includes(lang)
+      ? ` title="${t.fallback[lang] || copy.es.fallback[lang]}"` : '';
     return `<a data-language="${lang}" href="${href(routes[lang])}" hreflang="${option.locale}" lang="${option.locale}" class="${mobile ? 'tb-nav-mobile-language' : 'tb-nav-option'}"${lang === language ? ' aria-current="page"' : ''}${title}>${flag(lang)}<span>${option.name}</span></a>`;
   }).join('\n');
   const desktopServices = services.map(item => {

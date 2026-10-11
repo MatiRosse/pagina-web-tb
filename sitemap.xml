@@ -65,7 +65,13 @@
     <!-- Services Pages -->
     <url>
         <loc>https://tbabogados.com.ar/servicios/traducciones-publicas/</loc>
-        <lastmod>2026-10-07</lastmod>
+        <lastmod>2026-10-11</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://tbabogados.com.ar/servicios/traducciones-publicas/en/</loc>
+        <lastmod>2026-10-11</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>

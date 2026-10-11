@@ -10,7 +10,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const translations = {
   'Inicio': ['Home', 'Início'],
   'Servicios': ['Services', 'Serviços'],
-  'Traducciones públicas': ['Public translations', 'Traduções públicas'],
+  'Traducciones públicas': ['Sworn translations', 'Traduções públicas'],
   'Traducciones de contratos, poderes y documentación personal entre inglés y español para toda Argentina, con Daniel Bulgheroni, abogado y traductor público UBA.': ['Translations of contracts, powers of attorney and personal documents between English and Spanish for clients throughout Argentina by Daniel Bulgheroni, attorney and UBA public translator.', 'Traduções de contratos, procurações e documentos pessoais entre inglês e espanhol para toda a Argentina, com Daniel Bulgheroni, advogado e tradutor público formado pela UBA.'],
   'Marcas': ['Trademarks', 'Marcas'],
   'Despidos': ['Dismissals', 'Demissões'],
@@ -300,6 +300,7 @@ function translate(source, lang) {
   html = html.replace("window.location.replace('./servicios/calculadoras/')", "window.location.replace('../servicios/calculadoras/')");
 
   const localized = new Set(['', 'nosotros', 'contacto', 'dra-bulgheroni', 'dr-bulgheroni', 'dra-tassara', 'servicios/marcas']);
+  if (lang === 'en') localized.add('servicios/traducciones-publicas');
   html = html.replace(/<a\b[^>]*>/g, tag => {
     if (/\bdata-language=/.test(tag)) return tag;
     return tag.replace(/href="\.\.\/([^"?#]*)([?#][^"]*)?"/, (match, pathname, suffix = '') => {

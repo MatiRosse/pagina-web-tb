@@ -381,6 +381,7 @@ function localizeInternalReferences(html, targetFile, lang) {
     'dra-tassara',
     'servicios/marcas'
   ]);
+  if (lang === 'en') localizablePaths.add('servicios/traducciones-publicas');
 
   return html.replace(/<a\b([^>]*?)href="([^"]+)"([^>]*)>([\s\S]*?)<\/a>/gi, (match, before, value, after, content) => {
     const label = content.replace(/<[^>]+>/g, '').trim().replace(/\s+/g, ' ');
