@@ -1,0 +1,14 @@
+{
+  "source": "https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias/27",
+  "verifiedAt": "2026-10-26",
+  "observations": [
+    {
+      "month": "2026-08",
+      "rate": 1.7
+    },
+    {
+      "month": "2026-09",
+      "rate": 1.9
+    }
+  ]
+}

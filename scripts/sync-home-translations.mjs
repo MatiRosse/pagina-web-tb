@@ -10,6 +10,8 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const translations = {
   'Inicio': ['Home', 'Início'],
   'Servicios': ['Services', 'Serviços'],
+  'Trámites de documentos': ['Document services', 'Trâmites de documentos'],
+  'Partidas, apostillas, informes de dominio y documentación en toda Argentina. Buscá tu trámite, conocé los precios y consultanos por WhatsApp.': ['Civil records, apostilles, property reports and documents throughout Argentina. Find your procedure, check prices and contact us on WhatsApp.', 'Certidões, apostilas, relatórios de imóveis e documentos em toda a Argentina. Encontre seu trâmite, confira os preços e fale conosco pelo WhatsApp.'],
   'Traducciones públicas': ['Sworn translations', 'Traduções públicas'],
   'Traducciones de contratos, poderes y documentación personal entre inglés y español para toda Argentina, con Daniel Bulgheroni, abogado y traductor público UBA.': ['Translations of contracts, powers of attorney and personal documents between English and Spanish for clients throughout Argentina by Daniel Bulgheroni, attorney and UBA public translator.', 'Traduções de contratos, procurações e documentos pessoais entre inglês e espanhol para toda a Argentina, com Daniel Bulgheroni, advogado e tradutor público formado pela UBA.'],
   'Marcas': ['Trademarks', 'Marcas'],
@@ -21,7 +23,6 @@ const translations = {
   'Jubilaciones': ['Retirement', 'Aposentadorias'],
   'Alquileres': ['Leases', 'Locações'],
   'Reclamos de Consumo': ['Consumer Claims', 'Reclamações de Consumo'],
-  'Aerolíneas': ['Airlines', 'Companhias Aéreas'],
   'Bancos y Finanzas': ['Banking and Finance', 'Bancos e Finanças'],
   'Accidentes de Tránsito': ['Traffic Accidents', 'Acidentes de Trânsito'],
   'Accidentes de Trabajo': ['Workplace Accidents', 'Acidentes de Trabalho'],
@@ -124,7 +125,7 @@ const translations = {
     'We analyze your case and advise you on making a claim against the occupational risk insurer (ART) or your employer to obtain the compensation you are entitled to.',
     'Analisamos seu caso e orientamos você para apresentar uma reclamação perante a seguradora de riscos do trabalho (ART) ou o empregador e obter a indenização a que tem direito.'
   ],
-  'Aerolíneas y servicios bancarios o financieros.': ['Airlines and banking or financial services.', 'Companhias aéreas e serviços bancários ou financeiros.'],
+  'Servicios bancarios o financieros.': ['Banking or financial services.', 'Serviços bancários ou financeiros.'],
   'Te acompañamos en cada etapa del alquiler. Si sos propietario o inquilino, te asesoramos en contratos, renovaciones y conflictos locativos. Evitá problemas legales con documentos claros y seguros.': [
     'We support you at every stage of a lease. Whether you are a landlord or a tenant, we advise you on contracts, renewals and rental disputes. Avoid legal problems with clear and secure documents.',
     'Acompanhamos você em cada etapa da locação. Se você é proprietário ou inquilino, orientamos sobre contratos, renovações e conflitos locatícios. Evite problemas jurídicos com documentos claros e seguros.'

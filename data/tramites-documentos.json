@@ -1,0 +1,1194 @@
+{
+  "source": {
+    "url": "https://www.gestoriauno.com.ar/tarifas/",
+    "consultedAt": "2026-10-07",
+    "tariffMonth": "2026-10"
+  },
+  "baseMonth": "2026-08",
+  "currency": "ARS",
+  "rounding": 1,
+  "categories": {
+    "partidas": "Partidas y Registro Civil",
+    "apostillas": "Apostillas y legalizaciones",
+    "inmuebles": "Informes de inmuebles",
+    "catastro": "Catastro, ARBA y AGIP",
+    "escrituras": "Escrituras y testamentos",
+    "automotor": "Automotor",
+    "judiciales": "Cédulas y oficios",
+    "personas": "Informes personales"
+  },
+  "jurisdictions": {
+    "caba": "CABA",
+    "pba": "Provincia de Buenos Aires",
+    "nacional": "Nacional"
+  },
+  "services": [
+    {
+      "id": "dominio-inmueble-caba",
+      "title": "Informe de dominio de inmueble",
+      "category": "inmuebles",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 23437,
+          "time": "5–6 días",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 38722,
+          "time": "2–3 días",
+          "note": ""
+        }
+      ],
+      "description": "Consultá la titularidad y las anotaciones registrales de una propiedad.",
+      "keywords": "matricula garantía alquiler hipoteca embargo registro propiedad",
+      "extras": []
+    },
+    {
+      "id": "inhibicion-caba",
+      "title": "Informe de inhibición",
+      "category": "inmuebles",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 23437,
+          "time": "5–6 días",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 32608,
+          "time": "2–3 días",
+          "note": ""
+        }
+      ],
+      "description": "Verificá las restricciones registrales de una persona para disponer de sus bienes.",
+      "keywords": "anotaciones personales garantía alquiler",
+      "extras": []
+    },
+    {
+      "id": "titularidad-caba",
+      "title": "Índice de titularidad de inmuebles",
+      "category": "inmuebles",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 15285,
+          "time": "4–5 días",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 25475,
+          "time": "2–3 días",
+          "note": ""
+        }
+      ],
+      "description": "Averiguá si una persona tiene propiedades en la jurisdicción consultada.",
+      "keywords": "libre catastro procrear crédito hipotecario informe 3 755",
+      "extras": []
+    },
+    {
+      "id": "dominio-inmueble-pba",
+      "title": "Informe de dominio de inmueble",
+      "category": "inmuebles",
+      "jurisdiction": "pba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 48912,
+          "time": "10–12 días",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 89672,
+          "time": "4–6 días",
+          "note": ""
+        }
+      ],
+      "description": "Consultá la titularidad y las anotaciones registrales de una propiedad.",
+      "keywords": "matricula garantía alquiler hipoteca embargo registro propiedad",
+      "extras": []
+    },
+    {
+      "id": "inhibicion-pba",
+      "title": "Informe de inhibición",
+      "category": "inmuebles",
+      "jurisdiction": "pba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 48912,
+          "time": "10–12 días",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 89672,
+          "time": "4–6 días",
+          "note": ""
+        }
+      ],
+      "description": "Verificá las restricciones registrales de una persona para disponer de sus bienes.",
+      "keywords": "anotaciones personales garantía alquiler",
+      "extras": []
+    },
+    {
+      "id": "titularidad-pba",
+      "title": "Índice de titularidad de inmuebles",
+      "category": "inmuebles",
+      "jurisdiction": "pba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 35665,
+          "time": "8–10 días",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 71330,
+          "time": "3–6 días",
+          "note": ""
+        }
+      ],
+      "description": "Averiguá si una persona tiene propiedades en la jurisdicción consultada.",
+      "keywords": "libre catastro procrear crédito hipotecario informe 3 755",
+      "extras": []
+    },
+    {
+      "id": "busqueda-inmueble-caba",
+      "title": "Búsqueda de inscripción de inmueble",
+      "category": "inmuebles",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 28532,
+          "time": "10–12 días",
+          "note": ""
+        }
+      ],
+      "description": "Localizá los datos de inscripción registral de una propiedad.",
+      "keywords": "matricula informe 4",
+      "extras": []
+    },
+    {
+      "id": "consorcio-caba",
+      "title": "Titularidad de un consorcio",
+      "category": "inmuebles",
+      "jurisdiction": "caba",
+      "options": [],
+      "description": "Consultá las titularidades de las unidades de un edificio.",
+      "keywords": "unidades funcionales informe 4b",
+      "extras": []
+    },
+    {
+      "id": "frecuencia-caba",
+      "title": "Informe de frecuencia",
+      "category": "inmuebles",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 23437,
+          "time": "2–3 días",
+          "note": ""
+        }
+      ],
+      "description": "Consultá las solicitudes recientes de informes de dominio.",
+      "keywords": "garantía alquiler",
+      "extras": []
+    },
+    {
+      "id": "garantia-alquiler-caba",
+      "title": "Informes para garantía de alquiler",
+      "category": "inmuebles",
+      "jurisdiction": "caba",
+      "options": [],
+      "description": "Pedí un presupuesto según los informes que exige tu contrato.",
+      "keywords": "dominio inhibicion frecuencia locacion",
+      "extras": []
+    },
+    {
+      "id": "inscripcion-cautelar-caba",
+      "title": "Inscripción o ampliación de medida cautelar",
+      "category": "inmuebles",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 147755,
+          "time": "2 meses",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 208895,
+          "time": "1 mes",
+          "note": ""
+        }
+      ],
+      "description": "Tramitá la anotación de un embargo, inhibición u otra medida judicial.",
+      "keywords": "embargo cautelar",
+      "extras": [
+        {
+          "label": "Adicional sobre el monto de la medida",
+          "percent": 0.1
+        }
+      ]
+    },
+    {
+      "id": "levantamiento-cautelar-caba",
+      "title": "Levantamiento de medida cautelar",
+      "category": "inmuebles",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 147755,
+          "time": "2 meses",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 208895,
+          "time": "1 mes",
+          "note": ""
+        }
+      ],
+      "description": "Gestioná el levantamiento registral de una medida judicial.",
+      "keywords": "embargo inhibicion",
+      "extras": []
+    },
+    {
+      "id": "caducidad-cautelar-caba",
+      "title": "Caducidad de asiento de medida cautelar",
+      "category": "inmuebles",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 173230,
+          "time": "2 meses",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 244560,
+          "time": "1 mes",
+          "note": ""
+        }
+      ],
+      "description": "Consultá la gestión de caducidad de una anotación registral.",
+      "keywords": "embargo inhibicion litis",
+      "extras": []
+    },
+    {
+      "id": "caducidad-hipoteca-caba",
+      "title": "Caducidad de asiento de hipoteca",
+      "category": "inmuebles",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 224180,
+          "time": "2 meses",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 326080,
+          "time": "1 mes",
+          "note": ""
+        }
+      ],
+      "description": "Consultá la documentación para tramitar la caducidad registral de una hipoteca.",
+      "keywords": "prescripcion",
+      "extras": []
+    },
+    {
+      "id": "declaratoria-caba",
+      "title": "Inscripción de declaratoria de herederos",
+      "category": "inmuebles",
+      "jurisdiction": "caba",
+      "options": [],
+      "description": "Solicitá presupuesto según el expediente, los bienes y la jurisdicción.",
+      "keywords": "sucesion testamento",
+      "extras": []
+    },
+    {
+      "id": "frecuencia-pba",
+      "title": "Informe de frecuencia",
+      "category": "inmuebles",
+      "jurisdiction": "pba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 48912,
+          "time": "10–12 días",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 89672,
+          "time": "4–6 días",
+          "note": ""
+        }
+      ],
+      "description": "Consultá las solicitudes recientes de informes de dominio.",
+      "keywords": "garantía alquiler",
+      "extras": []
+    },
+    {
+      "id": "garantia-alquiler-pba",
+      "title": "Informes para garantía de alquiler",
+      "category": "inmuebles",
+      "jurisdiction": "pba",
+      "options": [],
+      "description": "Pedí un presupuesto según los informes que exige tu contrato.",
+      "keywords": "dominio inhibicion frecuencia locacion",
+      "extras": []
+    },
+    {
+      "id": "inscripcion-cautelar-pba",
+      "title": "Inscripción o ampliación de medida cautelar",
+      "category": "inmuebles",
+      "jurisdiction": "pba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 137565,
+          "time": "30–40 días",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 239465,
+          "time": "12–15 días",
+          "note": ""
+        }
+      ],
+      "description": "Tramitá la anotación de un embargo, inhibición u otra medida judicial.",
+      "keywords": "embargo cautelar",
+      "extras": [
+        {
+          "label": "Juzgado de otra jurisdicción: visado del 0,4% del capital; mínimo de referencia",
+          "price": 75940,
+          "percent": 0.4
+        }
+      ]
+    },
+    {
+      "id": "levantamiento-cautelar-pba",
+      "title": "Levantamiento de medida cautelar",
+      "category": "inmuebles",
+      "jurisdiction": "pba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 137565,
+          "time": "30–40 días",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 239465,
+          "time": "12–15 días",
+          "note": ""
+        }
+      ],
+      "description": "Gestioná el levantamiento registral de una medida judicial.",
+      "keywords": "embargo inhibicion",
+      "extras": [
+        {
+          "label": "Juzgado de otra jurisdicción: visado del 0,2% del capital; mínimo de referencia",
+          "price": 75940,
+          "percent": 0.2
+        }
+      ]
+    },
+    {
+      "id": "caducidad-cautelar-pba",
+      "title": "Caducidad de asiento de medida cautelar",
+      "category": "inmuebles",
+      "jurisdiction": "pba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 183420,
+          "time": "30–40 días",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 285320,
+          "time": "12–15 días",
+          "note": ""
+        }
+      ],
+      "description": "Consultá la gestión de caducidad de una anotación registral.",
+      "keywords": "embargo inhibicion litis",
+      "extras": [
+        {
+          "label": "Puede corresponder visado por juzgado de otra jurisdicción; consultar importe."
+        }
+      ]
+    },
+    {
+      "id": "caducidad-hipoteca-pba",
+      "title": "Caducidad de asiento de hipoteca",
+      "category": "inmuebles",
+      "jurisdiction": "pba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 234370,
+          "time": "30–40 días",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 356650,
+          "time": "12–15 días",
+          "note": ""
+        }
+      ],
+      "description": "Consultá la documentación para tramitar la caducidad registral de una hipoteca.",
+      "keywords": "prescripcion",
+      "extras": [
+        {
+          "label": "Puede corresponder visado por juzgado de otra jurisdicción; consultar importe."
+        }
+      ]
+    },
+    {
+      "id": "cesiones-pba",
+      "title": "Informe de cesiones",
+      "category": "inmuebles",
+      "jurisdiction": "pba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 48912,
+          "time": "10–12 días",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 89672,
+          "time": "4–6 días",
+          "note": ""
+        }
+      ],
+      "description": "Consultá las cesiones registradas a nombre de una persona.",
+      "keywords": "anotaciones personales 753",
+      "extras": []
+    },
+    {
+      "id": "busqueda-dominio-caba",
+      "title": "Búsqueda e informe de dominio",
+      "category": "inmuebles",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 35665,
+          "time": "10–12 días",
+          "note": ""
+        }
+      ],
+      "description": "Localizá la inscripción y obtené el informe de dominio.",
+      "keywords": "matricula informe 6",
+      "extras": []
+    },
+    {
+      "id": "partida-abl",
+      "title": "Número de partida de ABL",
+      "category": "catastro",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 9171,
+          "time": "2–3 días",
+          "note": ""
+        }
+      ],
+      "description": "Identificación de la partida del inmueble ante AGIP.",
+      "keywords": "catastro arba agip abl inmueble",
+      "extras": []
+    },
+    {
+      "id": "valuacion-caba",
+      "title": "Certificado de valuación fiscal",
+      "category": "catastro",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 10190,
+          "time": "2–3 días",
+          "note": ""
+        }
+      ],
+      "description": "Valuación fiscal del inmueble ante AGIP.",
+      "keywords": "catastro arba agip abl inmueble",
+      "extras": []
+    },
+    {
+      "id": "deuda-caba",
+      "title": "Certificado de inexistencia de deuda",
+      "category": "catastro",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 11209,
+          "time": "3–4 días",
+          "note": ""
+        }
+      ],
+      "description": "Solicitud de certificado ante AGIP / ABL.",
+      "keywords": "catastro arba agip abl inmueble",
+      "extras": []
+    },
+    {
+      "id": "vir-caba",
+      "title": "Informe VIR",
+      "category": "catastro",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 5095,
+          "time": "2 días",
+          "note": ""
+        }
+      ],
+      "description": "Consulta del valor inmobiliario de referencia.",
+      "keywords": "catastro arba agip abl inmueble",
+      "extras": []
+    },
+    {
+      "id": "plancheta-pba",
+      "title": "Plancheta y partida de ARBA",
+      "category": "catastro",
+      "jurisdiction": "pba",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 11209,
+          "time": "2–3 días",
+          "note": ""
+        }
+      ],
+      "description": "Identificación de la manzana y la partida del lote.",
+      "keywords": "catastro arba agip abl inmueble",
+      "extras": []
+    },
+    {
+      "id": "valuacion-pba",
+      "title": "Valuación fiscal ARBA",
+      "category": "catastro",
+      "jurisdiction": "pba",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 16304,
+          "time": "2–3 días",
+          "note": ""
+        }
+      ],
+      "description": "Valuación fiscal del año actual o de períodos anteriores.",
+      "keywords": "catastro arba agip abl inmueble",
+      "extras": []
+    },
+    {
+      "id": "deuda-pba",
+      "title": "Certificado de inexistencia de deuda ARBA",
+      "category": "catastro",
+      "jurisdiction": "pba",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 10190,
+          "time": "2–3 días",
+          "note": ""
+        }
+      ],
+      "description": "Solicitud del certificado del inmueble.",
+      "keywords": "catastro arba agip abl inmueble",
+      "extras": []
+    },
+    {
+      "id": "itgb-pba",
+      "title": "Liquidación de declaración jurada ITGB",
+      "category": "catastro",
+      "jurisdiction": "pba",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 61140,
+          "time": "4–5 días",
+          "note": ""
+        }
+      ],
+      "description": "Gestión de la declaración del impuesto a la transmisión gratuita de bienes.",
+      "keywords": "catastro arba agip abl inmueble",
+      "extras": []
+    },
+    {
+      "id": "nacimiento-caba",
+      "title": "Partida de nacimiento",
+      "category": "partidas",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 20380,
+          "time": "10–15 días",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 37703,
+          "time": "2–4 días",
+          "note": ""
+        },
+        {
+          "label": "Con búsqueda",
+          "price": 28532,
+          "time": "15–20 días",
+          "note": "Para solicitudes sin todos los datos."
+        }
+      ],
+      "description": "Gestioná la partida según el registro donde está asentada.",
+      "keywords": "acta ciudadania",
+      "extras": []
+    },
+    {
+      "id": "defuncion-caba",
+      "title": "Partida de defunción",
+      "category": "partidas",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 20380,
+          "time": "10–15 días",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 37703,
+          "time": "2–4 días",
+          "note": ""
+        },
+        {
+          "label": "Con búsqueda",
+          "price": 28532,
+          "time": "15–20 días",
+          "note": "Para solicitudes sin todos los datos."
+        }
+      ],
+      "description": "Gestioná la partida según el registro donde está asentada.",
+      "keywords": "acta fallecimiento",
+      "extras": []
+    },
+    {
+      "id": "matrimonio-caba",
+      "title": "Partida de matrimonio",
+      "category": "partidas",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 20380,
+          "time": "10–15 días",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 37703,
+          "time": "2–4 días",
+          "note": ""
+        },
+        {
+          "label": "Con búsqueda",
+          "price": 28532,
+          "time": "15–20 días",
+          "note": "Para solicitudes sin todos los datos."
+        }
+      ],
+      "description": "Gestioná la partida según el registro donde está asentada.",
+      "keywords": "acta casamiento",
+      "extras": []
+    },
+    {
+      "id": "nacimiento-pba",
+      "title": "Partida de nacimiento",
+      "category": "partidas",
+      "jurisdiction": "pba",
+      "options": [
+        {
+          "label": "Solicitar acta",
+          "price": 27513,
+          "time": "8–10 días",
+          "note": "Con los datos completos."
+        },
+        {
+          "label": "Servicio de búsqueda",
+          "price": 20380,
+          "time": "15–30 días",
+          "note": "Solo búsqueda; la solicitud del acta se cotiza por separado."
+        }
+      ],
+      "description": "Gestioná la partida según el registro donde está asentada.",
+      "keywords": "acta ciudadania",
+      "extras": []
+    },
+    {
+      "id": "defuncion-pba",
+      "title": "Partida de defunción",
+      "category": "partidas",
+      "jurisdiction": "pba",
+      "options": [
+        {
+          "label": "Solicitar acta",
+          "price": 27513,
+          "time": "8–10 días",
+          "note": "Con los datos completos."
+        },
+        {
+          "label": "Servicio de búsqueda",
+          "price": 20380,
+          "time": "15–30 días",
+          "note": "Solo búsqueda; la solicitud del acta se cotiza por separado."
+        }
+      ],
+      "description": "Gestioná la partida según el registro donde está asentada.",
+      "keywords": "acta fallecimiento",
+      "extras": []
+    },
+    {
+      "id": "matrimonio-pba",
+      "title": "Partida de matrimonio",
+      "category": "partidas",
+      "jurisdiction": "pba",
+      "options": [
+        {
+          "label": "Solicitar acta",
+          "price": 27513,
+          "time": "8–10 días",
+          "note": "Con los datos completos."
+        },
+        {
+          "label": "Servicio de búsqueda",
+          "price": 20380,
+          "time": "15–30 días",
+          "note": "Solo búsqueda; la solicitud del acta se cotiza por separado."
+        }
+      ],
+      "description": "Gestioná la partida según el registro donde está asentada.",
+      "keywords": "acta casamiento",
+      "extras": []
+    },
+    {
+      "id": "divorcio-caba",
+      "title": "Inscripción de divorcio",
+      "category": "partidas",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Oficio de juzgado de CABA",
+          "price": 122280,
+          "time": "20–25 días",
+          "note": ""
+        },
+        {
+          "label": "Oficio de otra jurisdicción",
+          "price": 152850,
+          "time": "20–25 días",
+          "note": ""
+        }
+      ],
+      "description": "Registrá la sentencia de divorcio en el acta de matrimonio.",
+      "keywords": "anotacion marginal",
+      "extras": []
+    },
+    {
+      "id": "apostilla",
+      "title": "Apostilla de La Haya",
+      "category": "apostillas",
+      "jurisdiction": "nacional",
+      "options": [
+        {
+          "label": "Común",
+          "price": 40760,
+          "time": "15–20 días",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 76425,
+          "time": "1–2 días",
+          "note": ""
+        }
+      ],
+      "description": "Prepará tus documentos para presentarlos en el exterior. Consultá su aptitud antes de iniciar.",
+      "keywords": "legalizacion cancilleria acta caba provincia nacimiento matrimonio titulo",
+      "extras": []
+    },
+    {
+      "id": "legalizacion",
+      "title": "Legalización ante el Ministerio del Interior",
+      "category": "apostillas",
+      "jurisdiction": "nacional",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 30570,
+          "time": "10–20 días",
+          "note": ""
+        }
+      ],
+      "description": "Consultá si tu documento requiere esta legalización y qué formato corresponde.",
+      "keywords": "partida acta",
+      "extras": []
+    },
+    {
+      "id": "oficio-registro-civil-caba",
+      "title": "Oficios al Registro Civil",
+      "category": "judiciales",
+      "jurisdiction": "caba",
+      "options": [],
+      "description": "Cotizá el diligenciamiento según el oficio y la solicitud judicial.",
+      "keywords": "juzgado",
+      "extras": []
+    },
+    {
+      "id": "sucesiones-caba",
+      "title": "Informe sobre sucesiones",
+      "category": "judiciales",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 30570,
+          "time": "7–10 días",
+          "note": ""
+        }
+      ],
+      "description": "Consultá la existencia de actuaciones sucesorias.",
+      "keywords": "juicios universales",
+      "extras": []
+    },
+    {
+      "id": "quiebras-caba",
+      "title": "Informe sobre concursos y quiebras",
+      "category": "judiciales",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 30570,
+          "time": "7–10 días",
+          "note": ""
+        }
+      ],
+      "description": "Solicitud de informe de juicios universales comerciales.",
+      "keywords": "juicios universales",
+      "extras": []
+    },
+    {
+      "id": "renaper",
+      "title": "Oficio a RENAPER",
+      "category": "judiciales",
+      "jurisdiction": "nacional",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 56045,
+          "time": "10–15 días",
+          "note": ""
+        }
+      ],
+      "description": "Gestión por oficio judicial. Precio por persona consultada.",
+      "keywords": "personas domicilio",
+      "extras": []
+    },
+    {
+      "id": "testimonio-particular-caba",
+      "title": "Segundo testimonio o reglamento · Particular",
+      "category": "escrituras",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Común",
+          "price": 377030,
+          "time": "20 días",
+          "note": ""
+        },
+        {
+          "label": "Urgente",
+          "price": 519690,
+          "time": "10 días",
+          "note": ""
+        }
+      ],
+      "description": "Obtené el testimonio a través del archivo de protocolos notariales.",
+      "keywords": "escritura copia ulterior",
+      "extras": [
+        {
+          "label": "Cada bloque de 50 fojas adicionales, a partir de 30: común",
+          "price": 23131
+        },
+        {
+          "label": "Cada bloque de 50 fojas adicionales, a partir de 30: urgente",
+          "price": 36786
+        },
+        {
+          "label": "Protocolo en delegación Chorroarín",
+          "price": 32200
+        },
+        {
+          "label": "Legalización para otra jurisdicción",
+          "price": 81520
+        },
+        {
+          "label": "La inscripción registral del testimonio se presupuesta por separado."
+        }
+      ]
+    },
+    {
+      "id": "testimonio-judicial-caba",
+      "title": "Segundo testimonio o reglamento · Oficio judicial",
+      "category": "escrituras",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 343403,
+          "time": "20 días",
+          "note": ""
+        }
+      ],
+      "description": "Solicitud al archivo de protocolos mediante oficio judicial.",
+      "keywords": "escritura ulterior",
+      "extras": [
+        {
+          "label": "Protocolo en delegación Chorroarín",
+          "price": 32200
+        },
+        {
+          "label": "Legalización para otra jurisdicción",
+          "price": 81520
+        },
+        {
+          "label": "La inscripción registral del testimonio se presupuesta por separado."
+        }
+      ]
+    },
+    {
+      "id": "copia-escritura-caba",
+      "title": "Copia simple de escritura o reglamento",
+      "category": "escrituras",
+      "jurisdiction": "caba",
+      "options": [
+        {
+          "label": "Con todos los datos",
+          "price": 163040,
+          "time": "10–15 días",
+          "note": ""
+        },
+        {
+          "label": "Sin todos los datos",
+          "price": 188515,
+          "time": "15–20 días",
+          "note": ""
+        }
+      ],
+      "description": "Pedí una copia simple e indicá los datos disponibles de la escritura.",
+      "keywords": "protocolo escribano",
+      "extras": []
+    },
+    {
+      "id": "copia-escritura-pba",
+      "title": "Copia simple de escritura o reglamento",
+      "category": "escrituras",
+      "jurisdiction": "pba",
+      "options": [
+        {
+          "label": "Con todos los datos",
+          "price": 163040,
+          "time": "15–20 días",
+          "note": ""
+        },
+        {
+          "label": "Sin todos los datos",
+          "price": 188515,
+          "time": "20–25 días",
+          "note": ""
+        }
+      ],
+      "description": "Pedí una copia simple e indicá los datos disponibles de la escritura.",
+      "keywords": "protocolo escribano",
+      "extras": []
+    },
+    {
+      "id": "testamentos-pba",
+      "title": "Informe del Registro de Testamentos",
+      "category": "escrituras",
+      "jurisdiction": "pba",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 81520,
+          "time": "20–25 días",
+          "note": ""
+        }
+      ],
+      "description": "Solicitud de informe ante el registro correspondiente.",
+      "keywords": "sucesion",
+      "extras": []
+    },
+    {
+      "id": "automotor-dominio",
+      "title": "Informe de dominio automotor",
+      "category": "automotor",
+      "jurisdiction": "nacional",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 16304,
+          "time": "2–3 días",
+          "note": ""
+        }
+      ],
+      "description": "Consultá el estado registral de un vehículo por su patente.",
+      "keywords": "auto moto patente nominal dnrpa",
+      "extras": []
+    },
+    {
+      "id": "automotor-inhibicion",
+      "title": "Informe de inhibición automotor",
+      "category": "automotor",
+      "jurisdiction": "nacional",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 16304,
+          "time": "2–3 días",
+          "note": ""
+        }
+      ],
+      "description": "Consultá las anotaciones personales de una persona.",
+      "keywords": "auto moto patente nominal dnrpa",
+      "extras": []
+    },
+    {
+      "id": "automotor-titularidad",
+      "title": "Índice de titularidad automotor",
+      "category": "automotor",
+      "jurisdiction": "nacional",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 16304,
+          "time": "2–3 días",
+          "note": ""
+        }
+      ],
+      "description": "Averiguá si una persona registra vehículos a su nombre.",
+      "keywords": "auto moto patente nominal dnrpa",
+      "extras": []
+    },
+    {
+      "id": "automotor-historico",
+      "title": "Informe histórico de dominio automotor",
+      "category": "automotor",
+      "jurisdiction": "nacional",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 17323,
+          "time": "2–3 días",
+          "note": ""
+        }
+      ],
+      "description": "Consultá el historial registral del vehículo.",
+      "keywords": "auto moto patente nominal dnrpa",
+      "extras": []
+    },
+    {
+      "id": "automotor-inscripcion",
+      "title": "Inscripción automotor · Declaratoria, divorcio y otras",
+      "category": "automotor",
+      "jurisdiction": "nacional",
+      "options": [],
+      "description": "Cotizá la inscripción según el vehículo y la documentación judicial.",
+      "keywords": "auto moto dnrpa",
+      "extras": []
+    },
+    {
+      "id": "domicilio-cne",
+      "title": "Informe de domicilio · Cámara Nacional Electoral",
+      "category": "personas",
+      "jurisdiction": "nacional",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 28532,
+          "time": "15–20 días",
+          "note": ""
+        }
+      ],
+      "description": "Solicitud de informe de datos personales según los requisitos del organismo.",
+      "keywords": "nacimiento defuncion ultimo domicilio",
+      "extras": []
+    },
+    {
+      "id": "nosis",
+      "title": "Informe Nosis",
+      "category": "personas",
+      "jurisdiction": "nacional",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 27513,
+          "time": "1 día",
+          "note": ""
+        }
+      ],
+      "description": "Solicitud de un reporte comercial, sujeto a los requisitos de acceso.",
+      "keywords": "antecedentes comerciales credito",
+      "extras": []
+    },
+    {
+      "id": "veraz",
+      "title": "Informe Veraz",
+      "category": "personas",
+      "jurisdiction": "nacional",
+      "options": [
+        {
+          "label": "Estándar",
+          "price": 27513,
+          "time": "1 día",
+          "note": ""
+        }
+      ],
+      "description": "Solicitud de un reporte comercial, sujeto a los requisitos de acceso.",
+      "keywords": "antecedentes comerciales credito",
+      "extras": []
+    }
+  ],
+  "factor": 1.019,
+  "ipcMonth": "2026-09",
+  "verifiedAt": "2026-10-26"
+}

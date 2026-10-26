@@ -11,11 +11,11 @@ const root = path.resolve(__dirname, '..');
 const defaults = ['contacto', 'nosotros', 'dr-bulgheroni', 'dra-bulgheroni', 'dra-tassara']
     .flatMap(slug => ['', '/en', '/pt'].map(language => `${slug}${language}/index.html`))
     .concat(['servicios', 'servicios/traducciones-publicas', 'servicios/accidente-de-trabajo', 'servicios/accidente-de-transito',
-        'servicios/consumo', 'servicios/consumo/aerolineas', 'servicios/consumo/bancos-finanzas',
+        'servicios/consumo', 'servicios/consumo/bancos-finanzas',
         'politica-privacidad', 'terminos-y-condiciones'].map(slug => `${slug}/index.html`));
 const pages = process.argv.length > 2 ? process.argv.slice(2) : defaults;
 for (const page of pages) {
-    if (![...defaults, 'guias-legales/index.html'].includes(page)
+    if (![...defaults, 'guias-legales/index.html', 'servicios/marcas/index.html'].includes(page)
         && !/^guias-legales\/[a-z0-9-]+\/index\.html$/.test(page)) {
         throw new Error(`Unsupported standalone page: ${page}`);
     }
@@ -66,7 +66,7 @@ try {
             return block(name, sheets[name] || fs.readFileSync(path.resolve(path.dirname(target), href), 'utf8')
                 .replaceAll('../assets/', prefix + 'assets/'));
         });
-        if (!html.includes('<!-- TB local fonts -->')) {
+        if (!html.includes('<!-- TB local fonts -->') && file !== 'servicios/marcas/index.html') {
             const fonts = `\n<!-- TB local fonts -->
 <link rel="preload" href="${prefix}assets/fonts/marcas/inter.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${prefix}assets/fonts/marcas/playfair.woff2" as="font" type="font/woff2" crossorigin>

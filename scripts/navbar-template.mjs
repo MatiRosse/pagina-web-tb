@@ -39,6 +39,7 @@ const copy = {
 // A single ordered list is used for both desktop and mobile, in all three languages.
 const services = [
   ['marcas', 'trademark', 'Marcas', 'Trademarks', 'Marcas'],
+  ['tramites-documentos', 'document', 'Trámites de documentos', 'Document Services', 'Trâmites de documentos'],
   ['traducciones-publicas', 'language', 'Traducciones públicas', 'Sworn Translations', 'Traduções públicas'],
   ['despidos', 'document', 'Despidos', 'Dismissals', 'Rescisões'],
   ['diferencia-salarial', 'salary', 'Diferencias Salariales', 'Salary Differences', 'Diferenças Salariais'],
@@ -52,7 +53,6 @@ const services = [
   ['accidente-de-trabajo', 'medical', 'Accidentes de Trabajo', 'Workplace Accidents', 'Acidentes de Trabalho']
 ];
 const consumerServices = [
-  ['consumo/aerolineas', 'plane', 'Aerolíneas', 'Airlines', 'Companhias Aéreas'],
   ['consumo/bancos-finanzas', 'bank', 'Bancos y Finanzas', 'Banking and Finance', 'Bancos e Finanças']
 ];
 const calculators = [

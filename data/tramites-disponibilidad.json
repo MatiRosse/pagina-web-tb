@@ -1,0 +1,29 @@
+{
+  "reviewedAt": "2026-10-26",
+  "excludedServiceIds": [
+    "cedula-ley",
+    "oficios-caba",
+    "certificado-catastro-pba",
+    "quiebras-pba",
+    "sucesiones-pba",
+    "oficio-registro-civil-pba",
+    "no-ciudadano",
+    "cedula-caba",
+    "plano-caba",
+    "croquis-caba",
+    "perimetro-caba",
+    "plancheta-caba",
+    "far-pba",
+    "cedula-pba",
+    "plano-pba",
+    "inscripcion-testimonio-caba",
+    "declaratoria-pba",
+    "sellos-pba",
+    "divorcio-pba-pba",
+    "divorcio-pba-otra",
+    "testimonio-judicial-pba",
+    "testimonio-particular-pba",
+    "inscripcion-testimonio-pba"
+  ],
+  "pendingServiceIds": []
+}

@@ -6,6 +6,9 @@ __pycache__/
 # Node / JS
 node_modules/
 
+# Borradores locales: nunca publicar ni incorporar a Git
+/.borradores/
+
 # Codex / agent instructions
 AGENTS.md
 PLAN.md

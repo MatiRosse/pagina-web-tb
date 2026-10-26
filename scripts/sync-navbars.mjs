@@ -2,8 +2,9 @@ import fs from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { syncNavbar } from './navbar-template.mjs';
 
-// Only tracked pages: unpublished, untracked drafts are deliberately left alone.
-const pages = execFileSync('git', ['ls-files', '-z', '--', '*.html'], { encoding: 'utf8' }).split('\0').filter(Boolean);
+// Only existing tracked pages: unpublished drafts and removed pages are left alone.
+const pages = execFileSync('git', ['ls-files', '-z', '--', '*.html'], { encoding: 'utf8' })
+  .split('\0').filter(page => page && fs.existsSync(page));
 let changed = 0;
 for (const page of pages) {
   const previous = fs.readFileSync(page, 'utf8');

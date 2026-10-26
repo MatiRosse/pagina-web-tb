@@ -1,0 +1,57 @@
+name: Publicar sitio y actualizar precios de documentos
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Una consulta diaria; el BCRA publica el IPC con frecuencia mensual.
+    - cron: '15 12 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verificar el cálculo y las condiciones del tarifario
+        run: node --test tests/tramites-pricing.test.mjs
+      - name: Actualizar IPC y generar catálogo con precios indexables
+        # Si la API falla o su serie es incompleta, el trabajo falla y el sitio
+        # publicado conserva la última versión. No se inventan nuevos importes.
+        run: node scripts/build-tramites-documentos.mjs --update --published
+      - name: Verificar catálogo generado y selección comercial
+        run: node --test tests/tramites-pricing.test.mjs
+      - name: Preparar archivos públicos
+        run: |
+          mkdir -p _site
+          cp index.html CNAME robots.txt sitemap.xml _site/
+          cp -R assets css js contacto nosotros dr-bulgheroni dra-bulgheroni dra-tassara en pt guias-legales servicios politica-privacidad terminos-y-condiciones sueldo-neto _site/
+          mkdir -p _site/data
+          cp data/tramites-documentos.json data/tramites-ipc.json _site/data/
+          touch _site/.nojekyll
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Publicar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

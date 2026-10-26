@@ -36,18 +36,18 @@ window.dataLayer.push({
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Servicios Legales en Argentina | Abogados Especialistas | TB Abogados ⚖️</title>
-        <meta name="description" content="Servicios jurídicos y traducciones públicas inglés-español en Argentina. Derecho laboral, familia, sucesiones, alquileres, daños, mediaciones y marcas.">
+        <meta name="description" content="Servicios jurídicos, trámites de documentos y traducciones públicas en Argentina. Partidas, apostillas, informes, derecho laboral, familia, sucesiones y marcas.">
 <link href="https://tbabogados.com.ar/servicios/" rel="canonical" />
     <meta property="og:type" content="website">
     <meta property="og:locale" content="es_AR">
     <meta property="og:site_name" content="TB Abogados">
     <meta property="og:title" content="Servicios Legales en Argentina | Abogados Especialistas | TB Abogados ⚖️">
-    <meta property="og:description" content="Servicios jurídicos y traducciones públicas inglés-español en Argentina. Derecho laboral, familia, sucesiones, alquileres, daños, mediaciones y marcas.">
+    <meta property="og:description" content="Servicios jurídicos, trámites de documentos y traducciones públicas en Argentina. Partidas, apostillas, informes, derecho laboral, familia, sucesiones y marcas.">
     <meta property="og:url" content="https://tbabogados.com.ar/servicios/">
     <meta property="og:image" content="https://tbabogados.com.ar/assets/img/socios-abogados-og.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Servicios Legales en Argentina | Abogados Especialistas | TB Abogados ⚖️">
-    <meta name="twitter:description" content="Servicios jurídicos y traducciones públicas inglés-español en Argentina. Derecho laboral, familia, sucesiones, alquileres, daños, mediaciones y marcas.">
+    <meta name="twitter:description" content="Servicios jurídicos, trámites de documentos y traducciones públicas en Argentina. Partidas, apostillas, informes, derecho laboral, familia, sucesiones y marcas.">
     <meta name="twitter:image" content="https://tbabogados.com.ar/assets/img/socios-abogados-og.jpg">
 
 
@@ -85,6 +85,11 @@ window.dataLayer.push({
             color: #333333;
         }
 
+        footer a[href^="mailto:"] {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+
         /* Ajuste de separación solo para el bloque Mediaciones/Previsional */
         .areas-pareadas-spacing {
             row-gap: 4.5rem;
@@ -95,8 +100,14 @@ window.dataLayer.push({
                 row-gap: 1.5rem;
             }
 
+            .areas-pareadas-spacing > div {
+                display: flex;
+                flex-direction: column;
+            }
+
             .paired-service-card {
-                height: 100%;
+                flex: 1;
+                height: auto;
             }
         }
 
@@ -332,6 +343,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="tb-nav-dropdown" data-nav-dropdown>
           <button type="button" class="tb-nav-link" data-nav-trigger aria-expanded="false" aria-controls="nav-servicios"><span>Servicios</span><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#chevron"></use></svg></button>
           <div id="nav-servicios" class="tb-nav-panel" inert><a href="../servicios/marcas/" class="tb-nav-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#trademark"></use></svg><span>Marcas</span></a>
+<a href="../servicios/tramites-documentos/" class="tb-nav-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#document"></use></svg><span>Trámites de documentos</span></a>
 <a href="../servicios/traducciones-publicas/" class="tb-nav-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#language"></use></svg><span>Traducciones públicas</span></a>
 <a href="../servicios/despidos/" class="tb-nav-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#document"></use></svg><span>Despidos</span></a>
 <a href="../servicios/diferencia-salarial/" class="tb-nav-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#salary"></use></svg><span>Diferencias Salariales</span></a>
@@ -342,8 +354,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="../servicios/alquileres/" class="tb-nav-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#building"></use></svg><span>Alquileres</span></a>
 <div class="tb-nav-dropdown tb-nav-consumer" data-nav-dropdown>
       <div class="tb-nav-consumer-row"><a href="../servicios/consumo/" class="tb-nav-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#scales"></use></svg><span>Reclamos de Consumo</span></a><button type="button" class="tb-nav-consumer-toggle" data-nav-trigger aria-label="Mostrar reclamos de consumo" aria-expanded="false" aria-controls="nav-consumo"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#chevron"></use></svg></button></div>
-      <div id="nav-consumo" class="tb-nav-panel tb-nav-consumer-panel" inert><a href="../servicios/consumo/aerolineas/" class="tb-nav-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#plane"></use></svg><span>Aerolíneas</span></a>
-<a href="../servicios/consumo/bancos-finanzas/" class="tb-nav-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#bank"></use></svg><span>Bancos y Finanzas</span></a></div>
+      <div id="nav-consumo" class="tb-nav-panel tb-nav-consumer-panel" inert><a href="../servicios/consumo/bancos-finanzas/" class="tb-nav-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#bank"></use></svg><span>Bancos y Finanzas</span></a></div>
     </div>
 <a href="../servicios/accidente-de-transito/" class="tb-nav-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#car"></use></svg><span>Accidentes de Tránsito</span></a>
 <a href="../servicios/accidente-de-trabajo/" class="tb-nav-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#medical"></use></svg><span>Accidentes de Trabajo</span></a>
@@ -381,6 +392,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="tb-nav-mobile-group">
         <button id="mob-servicios-btn" type="button" onclick="toggleMobSubmenu('mob-servicios')" class="tb-nav-mobile-link" aria-expanded="false" aria-controls="mob-servicios"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#briefcase"></use></svg><span>Servicios</span><svg class="tb-nav-icon" viewBox="0 0 24 24" id="mob-servicios-icon" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#chevron"></use></svg></button>
         <div id="mob-servicios" class="tb-nav-mobile-services hidden"><a href="../servicios/marcas/" class="tb-nav-mobile-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#trademark"></use></svg><span>Marcas</span></a>
+<a href="../servicios/tramites-documentos/" class="tb-nav-mobile-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#document"></use></svg><span>Trámites de documentos</span></a>
 <a href="../servicios/traducciones-publicas/" class="tb-nav-mobile-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#language"></use></svg><span>Traducciones públicas</span></a>
 <a href="../servicios/despidos/" class="tb-nav-mobile-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#document"></use></svg><span>Despidos</span></a>
 <a href="../servicios/diferencia-salarial/" class="tb-nav-mobile-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#salary"></use></svg><span>Diferencias Salariales</span></a>
@@ -391,8 +403,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="../servicios/alquileres/" class="tb-nav-mobile-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#building"></use></svg><span>Alquileres</span></a>
 <div class="tb-nav-mobile-consumer">
       <div class="tb-nav-consumer-row"><a href="../servicios/consumo/" class="tb-nav-mobile-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#scales"></use></svg><span>Reclamos de Consumo</span></a><button id="mob-consumo-btn" type="button" onclick="toggleMobSubmenu('mob-consumo')" class="tb-nav-consumer-toggle" aria-label="Mostrar reclamos de consumo" aria-expanded="false" aria-controls="mob-consumo"><svg class="tb-nav-icon" viewBox="0 0 24 24" id="mob-consumo-icon" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#chevron"></use></svg></button></div>
-      <div id="mob-consumo" class="tb-nav-mobile-consumer-submenu hidden"><a href="../servicios/consumo/aerolineas/" class="tb-nav-mobile-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#plane"></use></svg><span>Aerolíneas</span></a>
-<a href="../servicios/consumo/bancos-finanzas/" class="tb-nav-mobile-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#bank"></use></svg><span>Bancos y Finanzas</span></a></div>
+      <div id="mob-consumo" class="tb-nav-mobile-consumer-submenu hidden"><a href="../servicios/consumo/bancos-finanzas/" class="tb-nav-mobile-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#bank"></use></svg><span>Bancos y Finanzas</span></a></div>
     </div>
 <a href="../servicios/accidente-de-transito/" class="tb-nav-mobile-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#car"></use></svg><span>Accidentes de Tránsito</span></a>
 <a href="../servicios/accidente-de-trabajo/" class="tb-nav-mobile-option"><svg class="tb-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="../assets/img/navbar-icons.svg#medical"></use></svg><span>Accidentes de Trabajo</span></a>
@@ -628,7 +639,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-2xl transition-all group flex flex-col justify-between items-center text-center">
                         <div>
                             <div class="flex items-center justify-center gap-4 mb-6"><div class="w-12 h-12 flex-shrink-0 bg-gold/10 text-gold flex items-center justify-center rounded-full text-xl group-hover:bg-gold group-hover:text-white transition-colors"><i class="fa-solid fa-scale-balanced"></i></div><h2 class="font-serif text-2xl text-darkblue-900 leading-tight text-left">Reclamos de Consumo</h2></div>
-                            <p class="text-gray-600 mb-8 leading-relaxed">Asesoramiento por problemas con aerolíneas y servicios bancarios o financieros.</p>
+                            <p class="text-gray-600 mb-8 leading-relaxed">Asesoramiento por problemas con servicios bancarios o financieros.</p>
                         </div>
                         <div class="flex flex-col gap-3 items-center"><a href="https://wa.me/5491122511243?text=Hola,%20quiero%20consultar%20por%20un%20reclamo%20de%20consumo." target="_blank" class="text-gold font-medium inline-flex items-center w-fit">Contactar por WhatsApp <i class="fa-solid fa-arrow-right ml-2"></i></a><a href=".././servicios/consumo/" class="btn-solid-gold text-center py-2 px-6 rounded-lg font-medium shadow-sm mt-2">Ver Reclamos de Consumo</a></div>
                     </div>
@@ -775,12 +786,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
             </div>
 
+            <!-- Gestión de documentos -->
+            <section class="mb-16" id="tramites-documentos" aria-labelledby="documents-service-title">
+                <h2 id="documents-service-title" class="font-serif text-3xl text-darkblue-900 mb-8 border-b-2 border-gold/30 pb-2 inline-block">Trámites de documentos</h2>
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+                    <div class="flex items-center gap-4 mb-4">
+                        <span class="w-12 h-12 flex-shrink-0 bg-gold/10 text-gold flex items-center justify-center rounded-full text-xl">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/img/navbar-icons.svg#document"></use></svg>
+                        </span>
+                        <h3 class="font-serif text-2xl text-darkblue-900">Partidas, apostillas e informes</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6 leading-relaxed">Gestionamos partidas, apostillas e informes en toda Argentina. Encontrá tu trámite y consultá los precios.</p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="./tramites-documentos/" class="btn-solid-gold text-center py-3 px-6 rounded-lg font-medium">Buscar trámites y ver precios</a>
+                        <a href="./tramites-documentos/#contacto-tramites" class="text-gold font-medium inline-flex items-center justify-center py-3 px-6">Consultar por un documento</a>
+                    </div>
+                </div>
+            </section>
             <!-- Complementary service led by Daniel Bulgheroni -->
             <section class="mb-16" id="traducciones-publicas" aria-labelledby="translation-service-title">
                 <h2 id="translation-service-title" class="font-serif text-3xl text-darkblue-900 mb-8 border-b-2 border-gold/30 pb-2 inline-block">Traducciones públicas y jurídicas</h2>
                 <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
-                    <h3 class="font-serif text-2xl text-darkblue-900 mb-4">Inglés y español · Dr. Daniel Bulgheroni</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">Traducción de contratos, poderes, documentación societaria, partidas, certificados y títulos para clientes de toda Argentina. Un servicio complementario del estudio, a cargo de Daniel Bulgheroni, abogado y traductor público de inglés egresado de la UBA y matriculado en el CTPCBA.</p>
+                    <h3 class="font-serif text-2xl text-darkblue-900 mb-4">Inglés y español</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">Traducciones públicas de contratos y documentos personales entre inglés y español, para toda Argentina.</p>
                     <div class="flex flex-col sm:flex-row gap-4">
                         <a href="./traducciones-publicas/" class="btn-solid-gold text-center py-3 px-6 rounded-lg font-medium">Ver el servicio de traducciones públicas</a>
                         <a href="./traducciones-publicas/#presupuesto" class="text-gold font-medium inline-flex items-center justify-center py-3 px-6">Solicitar presupuesto de traducción</a>
