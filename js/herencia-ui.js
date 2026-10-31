@@ -184,7 +184,7 @@
         else if (mobileStep === 'issues') content.innerHTML = mobileQuestion('NO SE PUDO COMPLETAR', 'Necesitamos revisar algunos datos', 'El motor no devuelve porcentajes si una respuesta puede cambiar el resultado.', '<ul class="h-mobile-issue-list">' + result.issues.map(issue => '<li>' + escape(issue.message) + '</li>').join('') + '</ul>');
         else content.innerHTML = '';
         if (mobileStep === 'blocked' || mobileStep === 'issues') {
-            content.insertAdjacentHTML('beforeend', '<a class="h-consult-review" href="https://wa.me/5491122511243?text=Hola%2C%20quiero%20revisar%20mi%20caso%20del%20simulador%20de%20herencia" target="_blank" rel="noopener noreferrer">Consultar este caso con TB Abogados →</a>');
+            content.insertAdjacentHTML('beforeend', '<a class="h-consult-review" href="https://wa.me/5491127804770?text=Hola%2C%20quiero%20revisar%20mi%20caso%20del%20simulador%20de%20herencia" target="_blank" rel="noopener noreferrer">Consultar este caso con TB Abogados →</a>');
         }
     }
     function rememberMobileStep() {

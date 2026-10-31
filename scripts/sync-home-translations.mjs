@@ -269,7 +269,7 @@ function translate(source, lang) {
   const dictionary = Object.fromEntries(Object.entries(translations).map(([key, values]) => [key, values[index]]));
   dictionary[source.match(/<title>([^<]+)<\/title>/)[1]] = metadata[lang].title;
   const unchanged = new Set(['TB ABOGADOS', 'TB Abogados', 'Tassara', '&amp;', 'Bulgheroni', '+30', '.',
-    'Ana S.', 'Claudio B.', 'Elvis A.', 'Paraná 439,', '+54 9 11 2251-1243', 'consultas@tbabogados.com.ar',
+    'Ana S.', 'Claudio B.', 'Elvis A.', 'Paraná 439,', '+54 9 11 2780-4770', 'consultas@tbabogados.com.ar',
     '×', 'Español', 'English', 'Português']);
   const protectedBlocks = [];
   let html = source.replace(/<(script|style|nav)\b[\s\S]*?<\/\1>/gi, block => {

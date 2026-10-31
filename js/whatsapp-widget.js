@@ -85,7 +85,7 @@
     };
     const t = (text) => localizedCopy[activeLanguage]?.[text] || text;
 
-    const currentWA = "5491122511243";
+    const currentWA = "5491127804770";
     const contactFormEndpoint = "https://formspree.io/f/xdawoyea";
     const argentinaTimeZone = "America/Argentina/Buenos_Aires";
     const defaultInputPlaceholder = t("Escribí tu mensaje acá...");
