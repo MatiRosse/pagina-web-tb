@@ -58,11 +58,11 @@ function card(service) {
   const options=service.options.map(o=>`<div class="doc-option"><span>${esc(o.label)}</span><strong>${money(o.price)}</strong><small>${esc(o.time)}${o.time.includes('días')?' hábiles':''}${o.note?' · '+esc(o.note):''}</small></div>`).join('');
   const extras=service.extras.length?`<p class="doc-extras-heading">Adicionales y condiciones</p><ul class="doc-extras">${service.extras.map(e=>`<li>${esc(e.label)}${e.price===undefined?e.percent?' · '+esc(String(e.percent).replace('.',','))+'%':'':': '+money(e.price)}</li>`).join('')}</ul>`:'';
   const details=(options||extras)?`<details class="doc-options"><summary>Ver ${service.options.length>1?'modalidades y detalles':'plazo y detalles'}</summary>${options}${extras}</details>`:'';
-  const message=`Hola, quiero consultar por ${service.title} (${jurisdiction}). ¿Me confirman requisitos, modalidad y presupuesto final?`;
+  const inquiry=`../../contacto/?${new URLSearchParams({tramite:service.title,jurisdiccion:jurisdiction})}#consulta`;
   return `<article class="doc-card" id="${service.id}" data-tramite data-category="${service.category}" data-jurisdiction="${service.jurisdiction}" data-title="${esc(service.title)}" data-price="${cheapest?.price??999999999}" data-search="${esc([service.title,service.description,service.keywords,data.categories[service.category],jurisdiction].join(' '))}">
 <div class="doc-card-meta"><span>${esc(data.categories[service.category])}</span><span class="doc-jurisdiction">${esc(jurisdiction)}</span></div>
 <h3 tabindex="-1">${esc(service.title)}</h3><p class="doc-card-description">${esc(service.description)}</p><div class="doc-price">${price}</div>${details}
-<a class="doc-btn" href="${esc(whatsapp(message))}" target="_blank" rel="noopener noreferrer" aria-label="Consultar por ${esc(service.title)} en ${esc(jurisdiction)}">Consultar este trámite ${waIcon}</a>
+<a class="doc-btn" href="${esc(inquiry)}" aria-label="Consultar por ${esc(service.title)} en ${esc(jurisdiction)}">Consultar este trámite ${icon('mail')}</a>
 </article>`;
 }
 const catalog = {
@@ -75,7 +75,7 @@ const catalog = {
 };
 const schema={'@context':'https://schema.org','@graph':[
   {'@type':'LegalService','@id':'https://tbabogados.com.ar/#organization',name:'TB Abogados',url:'https://tbabogados.com.ar/',telephone:'+5491122511243',image:'https://tbabogados.com.ar/assets/img/socios-abogados-og.jpg',address:{'@type':'PostalAddress',streetAddress:'Paraná 439',addressLocality:'Ciudad Autónoma de Buenos Aires',postalCode:'C1017',addressCountry:'AR'}},
-  {'@type':'WebPage','@id':url+'#webpage',url,name:'Trámites de documentos, partidas y apostillas | TB Abogados',description:'Gestión de partidas, apostillas, informes de dominio y documentos en toda Argentina. Buscador, precios por modalidad y consulta por WhatsApp.',inLanguage:'es-AR',dateModified:modifiedAt,mainEntity:{'@id':url+'#service'}},
+  {'@type':'WebPage','@id':url+'#webpage',url,name:'Trámites de documentos, partidas y apostillas | TB Abogados',description:'Gestión de partidas, apostillas, informes de dominio y documentos en toda Argentina. Buscador, precios por modalidad y formulario de consulta.',inLanguage:'es-AR',dateModified:modifiedAt,mainEntity:{'@id':url+'#service'}},
   {'@type':'Service','@id':url+'#service',name:'Gestión de trámites de documentos',url,provider:{'@id':'https://tbabogados.com.ar/#organization'},areaServed:{'@type':'Country',name:'Argentina'},hasOfferCatalog:{'@id':url+'#catalogo'}},
   catalog
 ]};
@@ -85,7 +85,7 @@ const footerMatch=footerSource.match(/<footer\b[^>]*>[\s\S]*?<\/footer>/);
 if (!footerMatch) throw new Error('No se encontró el pie de página compartido');
 const sharedFooter=footerMatch[0].replace('<footer class="','<footer class="doc-site-footer ');
 const title='Trámites de documentos, partidas y apostillas | TB Abogados';
-const description='Partidas, apostillas e informes de dominio en toda Argentina. Buscá tu trámite, compará precios y consultá por WhatsApp con TB Abogados.';
+const description='Partidas, apostillas e informes de dominio en toda Argentina. Buscá tu trámite, compará precios y enviá tu consulta a TB Abogados.';
 let html=`<!DOCTYPE html>
 <html lang="es-AR">
 <head>
@@ -111,7 +111,7 @@ ${renderNavbar('servicios/tramites-documentos/index.html')}
 <section id="catalogo" aria-labelledby="catalogo-title"><div class="doc-catalog-heading"><div><p class="doc-eyebrow">Encontrá lo que necesitás</p><h2 id="catalogo-title">Trámites y precios</h2><p>Elegí el documento y la jurisdicción donde se realiza el trámite.</p></div></div>
 <form id="tramites-filters" class="doc-filters" role="search" aria-label="Buscar trámites de documentos" hidden><div class="doc-filter-row"><div class="doc-field"><label for="tramites-search">¿Qué documento necesitás?</label><div class="doc-search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><input type="search" id="tramites-search" name="buscar" placeholder="Ej.: nacimiento, apostilla, dominio…" autocomplete="off" aria-controls="tramites-grid"></div></div><div class="doc-field"><label for="tramites-jurisdiction">Jurisdicción del trámite</label><select id="tramites-jurisdiction" name="jurisdiccion"><option value="">Todas las jurisdicciones</option><option value="caba">CABA</option><option value="pba">Provincia de Buenos Aires</option><option value="nacional">Nacional</option></select></div><div class="doc-field"><label for="tramites-sort">Ordenar por</label><select id="tramites-sort" name="orden"><option value="relevancia">Más consultados</option><option value="precio">Menor precio base</option><option value="nombre">Nombre: A a Z</option></select></div></div>
 <fieldset class="doc-categories"><legend>Filtrar por categoría</legend><button class="doc-category" type="button" data-category="todos" aria-pressed="true">Todos</button>${categoryOrder.map(key=>`<button class="doc-category" type="button" data-category="${key}" aria-pressed="false">${esc(data.categories[key])}</button>`).join('')}</fieldset></form>
-<noscript><p class="doc-noscript">Podés recorrer el catálogo completo y consultar cualquier trámite por WhatsApp. Para utilizar el buscador, habilitá JavaScript en tu navegador.</p></noscript>
+<noscript><p class="doc-noscript">Podés recorrer el catálogo completo y consultar cualquier trámite desde el formulario de contacto. Indicá allí el documento y la jurisdicción. Para utilizar el buscador, habilitá JavaScript en tu navegador.</p></noscript>
 <div class="doc-results-line"><span id="tramites-count" role="status" aria-live="polite" aria-atomic="true">${services.length} trámites disponibles</span><button id="tramites-reset" class="doc-reset" type="button" hidden>Limpiar filtros</button></div>
 <div id="tramites-grid" class="doc-grid">${services.map(card).join('\n')}</div>
 <div id="tramites-empty" class="doc-empty" hidden><h3>No encontramos ese trámite</h3><p>Probá con otra palabra o consultanos. Te ayudamos a identificar el documento.</p><a class="doc-btn doc-btn-gold" href="${contact}" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp ${waIcon}</a></div>

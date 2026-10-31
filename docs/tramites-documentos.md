@@ -1,8 +1,24 @@
 # Trámites de documentos
 
 Página: `/servicios/tramites-documentos/`. Catálogo estático de 57 trámites,
-con buscador local, filtros, orden por precio y consulta contextual por WhatsApp.
+con buscador local, filtros, orden por precio y consulta contextual por formulario.
 El HTML completo y los precios están disponibles sin JavaScript.
+
+## Consultas de trámites
+
+Cada botón «Consultar este trámite» abre `/contacto/` en la misma pestaña, con
+`tramite` y `jurisdiccion` en la URL y el ancla `#consulta`. El script
+`js/contacto-tramites.js` precarga un asunto específico y un mensaje editable.
+El visitante completa su nombre y al menos un teléfono o correo, y envía desde
+el formulario existente. Sin JavaScript, puede completar esos datos manualmente.
+
+Se reutiliza el endpoint de Formspree `https://formspree.io/f/xdawoyea` que ya
+utilizan Contacto y el widget. El destinatario se administra en la cuenta de
+Formspree. El usuario confirmó el 31/10/2026 que las consultas del formulario
+actual llegan a `consultas@tbabogados.com.ar`. El destinatario no se cambia
+desde el HTML ni agregando campos al formulario. Las pruebas locales no envían
+consultas reales ni confirman por sí mismas la entrega al buzón.
+Los enlaces identificados expresamente como WhatsApp siguen disponibles.
 
 ## Selección comercial
 

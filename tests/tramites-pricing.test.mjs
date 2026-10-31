@@ -85,3 +85,24 @@ test('los trámites descartados no reaparecen en el catálogo, el JSON ni el Sch
   }
   for (const id of availability.pendingServiceIds) assert.ok(data.services.some(service=>service.id===id),id);
 });
+
+test('cada consulta abre el formulario de contacto con el trámite y la jurisdicción correctos',()=>{
+  const html=fs.readFileSync(new URL('../servicios/tramites-documentos/index.html',import.meta.url),'utf8');
+  const contact=fs.readFileSync(new URL('../contacto/index.html',import.meta.url),'utf8');
+  const cards=[...html.matchAll(/<article class="doc-card" id="([^"]+)"[^>]*>([\s\S]*?)<\/article>/g)];
+  assert.equal(cards.length,available.length);
+  assert.match(contact,/id="consulta"/);
+  assert.match(contact,/src="\.\.\/js\/contacto-tramites\.js"/);
+  assert.match(contact,/<form id="contactForm" action="https:\/\/formspree\.io\/f\/xdawoyea"[^>]*method="POST"/);
+  for (const [,id,card] of cards) {
+    const service=available.find(service=>service.id===id);
+    const link=card.match(/<a class="doc-btn" href="([^"]+)"([^>]*)>/);
+    const destination=new URL(link[1].replaceAll('&amp;','&'),'https://tbabogados.com.ar/servicios/tramites-documentos/');
+    assert.equal(destination.origin,'https://tbabogados.com.ar');
+    assert.equal(destination.pathname,'/contacto/');
+    assert.equal(destination.hash,'#consulta');
+    assert.equal(destination.searchParams.get('tramite'),service.title);
+    assert.equal(destination.searchParams.get('jurisdiccion'),base.jurisdictions[service.jurisdiction]);
+    assert.doesNotMatch(link[2],/target=/);
+  }
+});
