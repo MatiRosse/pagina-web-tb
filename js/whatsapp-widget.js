@@ -130,12 +130,6 @@
             suggestedSubject: "Actualización de alquiler",
         },
         {
-            matches: ["/servicios/calculadoras/calculadora-jubilacion"],
-            message: "¿Necesitás ayuda para cobrar tu jubilación?",
-            fallback: "Hola, necesito ayuda para saber si puedo cobrar mi jubilación",
-            suggestedSubject: "Jubilaciones / Previsional",
-        },
-        {
             matches: ["/servicios/calculadoras/accidente-trabajo-calculadora"],
             message: "¿Necesitás ayuda con tu accidente de trabajo?",
             fallback: "Hola, necesito ayuda con mi accidente de trabajo y el cálculo de indemnización",
@@ -188,12 +182,6 @@
             message: "¿Necesitás iniciar una mediación?",
             fallback: "Hola, necesito asesoramiento para una mediación",
             suggestedSubject: "Consulta legal",
-        },
-        {
-            matches: ["/servicios/jubilaciones", "/servicios/calculadoras/calculadora-jubilacion"],
-            message: "¿Necesitas asesoramiento sobre jubilaciones?",
-            fallback: "Hola, necesito asesoramiento para jubilarme",
-            suggestedSubject: "Jubilaciones / Previsional",
         },
         {
             matches: ["/servicios/alquileres"],

@@ -17,7 +17,6 @@ const copy = {
     about: 'Nosotros', contact: 'Contacto', language: 'Idioma', selectLanguage: 'Seleccionar idioma',
     navigation: 'Navegación principal', openMenu: 'Abrir menú de navegación', closeMenu: 'Cerrar menú de navegación',
     allServices: 'Ver todos los servicios', allCalculators: 'Ver todas las calculadoras',
-    consumerSubmenu: 'Mostrar reclamos de consumo',
     fallback: { en: 'Ir al Inicio en inglés', pt: 'Ir al Inicio en portugués' }
   },
   en: {
@@ -25,14 +24,14 @@ const copy = {
     about: 'About Us', contact: 'Contact', language: 'Language', selectLanguage: 'Select language',
     navigation: 'Main navigation', openMenu: 'Open navigation menu', closeMenu: 'Close navigation menu',
     allServices: 'View all services', allCalculators: 'View all calculators',
-    consumerSubmenu: 'Show consumer claims', fallback: { pt: 'Go to the Portuguese homepage' }
+    fallback: { pt: 'Go to the Portuguese homepage' }
   },
   pt: {
     home: 'Início', services: 'Serviços', calculators: 'Calculadoras', guides: 'Guias Jurídicos',
     about: 'Sobre Nós', contact: 'Contato', language: 'Idioma', selectLanguage: 'Selecionar idioma',
     navigation: 'Navegação principal', openMenu: 'Abrir menu de navegação', closeMenu: 'Fechar menu de navegação',
     allServices: 'Ver todos os serviços', allCalculators: 'Ver todas as calculadoras',
-    consumerSubmenu: 'Mostrar reclamações de consumo', fallback: {}
+    fallback: {}
   }
 };
 
@@ -46,14 +45,9 @@ const services = [
   ['sucesiones', 'scales', 'Sucesiones', 'Probate', 'Sucessões'],
   ['divorcios', 'family', 'Divorcios', 'Divorce', 'Divórcios'],
   ['mediaciones', 'handshake', 'Mediaciones', 'Mediation', 'Mediações'],
-  ['jubilaciones', 'clock', 'Jubilaciones', 'Retirement', 'Aposentadorias'],
   ['alquileres', 'building', 'Alquileres', 'Leases', 'Locações'],
-  ['consumo', 'scales', 'Reclamos de Consumo', 'Consumer Claims', 'Reclamações de Consumo'],
   ['accidente-de-transito', 'car', 'Accidentes de Tránsito', 'Traffic Accidents', 'Acidentes de Trânsito'],
   ['accidente-de-trabajo', 'medical', 'Accidentes de Trabajo', 'Workplace Accidents', 'Acidentes de Trabalho']
-];
-const consumerServices = [
-  ['consumo/bancos-finanzas', 'bank', 'Bancos y Finanzas', 'Banking and Finance', 'Bancos e Finanças']
 ];
 const calculators = [
   ['calculadora-sueldo-bruto-a-neto', 'calculator', 'Sueldo Bruto a Neto', 'Gross-to-Net Salary', 'Salário Bruto para Líquido'],
@@ -116,22 +110,8 @@ export function renderNavbar(page, language = 'es') {
       ? ` title="${t.fallback[lang] || copy.es.fallback[lang]}"` : '';
     return `<a data-language="${lang}" href="${href(routes[lang])}" hreflang="${option.locale}" lang="${option.locale}" class="${mobile ? 'tb-nav-mobile-language' : 'tb-nav-option'}"${lang === language ? ' aria-current="page"' : ''}${title}>${flag(lang)}<span>${option.name}</span></a>`;
   }).join('\n');
-  const desktopServices = services.map(item => {
-    const anchor = link(serviceRoute(item), item[index], 'tb-nav-option', item[1]);
-    if (item[0] !== 'consumo') return anchor;
-    return `<div class="tb-nav-dropdown tb-nav-consumer" data-nav-dropdown>
-      <div class="tb-nav-consumer-row">${anchor}<button type="button" class="tb-nav-consumer-toggle" data-nav-trigger aria-label="${t.consumerSubmenu}" aria-expanded="false" aria-controls="nav-consumo">${icon('chevron')}</button></div>
-      <div id="nav-consumo" class="tb-nav-panel tb-nav-consumer-panel" inert>${consumerServices.map(child => link(serviceRoute(child), child[index], 'tb-nav-option', child[1])).join('\n')}</div>
-    </div>`;
-  }).join('\n');
-  const mobileServices = services.map(item => {
-    const anchor = link(serviceRoute(item), item[index], 'tb-nav-mobile-option', item[1]);
-    if (item[0] !== 'consumo') return anchor;
-    return `<div class="tb-nav-mobile-consumer">
-      <div class="tb-nav-consumer-row">${anchor}<button id="mob-consumo-btn" type="button" onclick="toggleMobSubmenu('mob-consumo')" class="tb-nav-consumer-toggle" aria-label="${t.consumerSubmenu}" aria-expanded="false" aria-controls="mob-consumo">${icon('chevron', 'mob-consumo-icon')}</button></div>
-      <div id="mob-consumo" class="tb-nav-mobile-consumer-submenu hidden">${consumerServices.map(child => link(serviceRoute(child), child[index], 'tb-nav-mobile-option', child[1])).join('\n')}</div>
-    </div>`;
-  }).join('\n');
+  const desktopServices = services.map(item => link(serviceRoute(item), item[index], 'tb-nav-option', item[1])).join('\n');
+  const mobileServices = services.map(item => link(serviceRoute(item), item[index], 'tb-nav-mobile-option', item[1])).join('\n');
   const desktopCalculators = calculators.map(item => link(`servicios/calculadoras/${item[0]}/`, item[index], 'tb-nav-option', item[1])).join('\n');
   const mobileCalculators = calculators.map(item => link(`servicios/calculadoras/${item[0]}/`, item[index], 'tb-nav-mobile-option', item[1])).join('\n');
   const desktopButton = (label, id) => `<button type="button" class="tb-nav-link" data-nav-trigger aria-expanded="false" aria-controls="${id}"><span>${label}</span>${icon('chevron')}</button>`;

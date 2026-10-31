@@ -101,9 +101,9 @@ const translations = {
     'Our team combines experience with new generations of attorneys to offer clear and effective legal solutions.',
     'Nossa equipe combina experiência e novas gerações de advogados para oferecer soluções jurídicas claras e eficazes.'
   ],
-  'Intervenimos en asuntos laborales, sucesiones, derecho civil y comercial, jubilaciones y pensiones, mediaciones y registro de marcas.': [
-    'We handle labor matters, probate, civil and commercial law, retirement and pensions, mediation and trademark registration.',
-    'Atuamos em assuntos trabalhistas, sucessões, direito civil e comercial, aposentadorias e pensões, mediações e registro de marcas.'
+  'Intervenimos en asuntos laborales, sucesiones, derecho civil y comercial, mediaciones y registro de marcas.': [
+    'We handle labor matters, probate, civil and commercial law, mediation and trademark registration.',
+    'Atuamos em assuntos trabalhistas, sucessões, direito civil e comercial, mediações e registro de marcas.'
   ],
   'Conocé a todo': ['Meet all of', 'Conheça toda'],
   'nuestro equipo de especialistas': ['our team of specialists', 'nossa equipe de especialistas'],
@@ -238,12 +238,12 @@ const metadata = {
   en: {
     title: 'Full-Service Law Firm | More than 30 years of experience | TB Abogados ⚖️',
     description: 'Full-service law firm in Argentina with more than 30 years of experience. Attorneys specializing in labor law, family law, probate, trademarks and damages.',
-    socialDescription: 'Full-service law firm in Argentina with more than 30 years of experience. Specialists in labor law, family law, probate, trademarks, retirement, mediation and damages.'
+    socialDescription: 'Full-service law firm in Argentina with more than 30 years of experience. Specialists in labor law, family law, probate, trademarks, mediation and damages.'
   },
   pt: {
     title: 'Escritório de Advocacia Integral | Mais de 30 anos de experiência | TB Abogados ⚖️',
     description: 'Escritório de advocacia integral na Argentina com mais de 30 anos de experiência. Advogados especializados em direito do trabalho, família, sucessões, marcas e danos.',
-    socialDescription: 'Escritório de advocacia integral na Argentina com mais de 30 anos de experiência. Especialistas em direito do trabalho, família, sucessões, marcas, aposentadorias, mediações e danos.'
+    socialDescription: 'Escritório de advocacia integral na Argentina com mais de 30 anos de experiência. Especialistas em direito do trabalho, família, sucessões, marcas, mediações e danos.'
   }
 };
 

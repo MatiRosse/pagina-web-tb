@@ -873,7 +873,6 @@ window.addEventListener('hashchange', () => {
 // --- Hero Carousel Logic ---
 let currentSlide = 0;
 let carouselInterval;
-const slideCount = 6;
 const SWIPE_THRESHOLD_PX = 40;
 
 function bindHorizontalSwipe(element, onSwipeLeft, onSwipeRight) {
@@ -970,12 +969,16 @@ function goToSlide(index, manual = true) {
 }
 
 function nextSlide(manual = true) {
+    const slideCount = document.querySelectorAll('#hero-carousel .carousel-slide').length;
+    if (!slideCount) return;
     currentSlide = (currentSlide + 1) % slideCount;
     updateCarouselDOM();
     if (manual) startCarousel();
 }
 
 function prevSlide(manual = true) {
+    const slideCount = document.querySelectorAll('#hero-carousel .carousel-slide').length;
+    if (!slideCount) return;
     currentSlide = (currentSlide - 1 + slideCount) % slideCount;
     updateCarouselDOM();
     if (manual) startCarousel();

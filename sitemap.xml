@@ -130,12 +130,6 @@
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://tbabogados.com.ar/servicios/jubilaciones/</loc>
-        <lastmod>2026-04-14</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
         <loc>https://tbabogados.com.ar/servicios/alquileres/</loc>
         <lastmod>2026-03-12</lastmod>
         <changefreq>monthly</changefreq>
@@ -150,18 +144,6 @@
     <url>
         <loc>https://tbabogados.com.ar/servicios/accidente-de-trabajo/</loc>
         <lastmod>2026-03-12</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://tbabogados.com.ar/servicios/consumo/</loc>
-        <lastmod>2026-07-26</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://tbabogados.com.ar/servicios/consumo/bancos-finanzas/</loc>
-        <lastmod>2026-07-26</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
