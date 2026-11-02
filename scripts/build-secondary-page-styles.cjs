@@ -15,7 +15,7 @@ const defaults = ['contacto', 'nosotros', 'dr-bulgheroni', 'dra-bulgheroni', 'dr
 const pages = process.argv.length > 2 ? process.argv.slice(2) : defaults;
 for (const page of pages) {
     if (![...defaults, 'guias-legales/index.html', 'servicios/marcas/index.html'].includes(page)
-        && !/^guias-legales\/[a-z0-9-]+\/index\.html$/.test(page)) {
+        && !/^guias-legales\/[a-z0-9-]+\/(?:en\/|pt\/)?index\.html$/.test(page)) {
         throw new Error(`Unsupported standalone page: ${page}`);
     }
 }

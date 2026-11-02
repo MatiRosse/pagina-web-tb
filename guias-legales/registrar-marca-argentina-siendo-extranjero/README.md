@@ -41,3 +41,9 @@ Prompt: “Create a polished editorial cover illustration for TB Abogados legal 
 Medición previa a la edición abreviada, **Lighthouse local 13.5.0**, Chrome headless: móvil rendimiento 95, accesibilidad 100, buenas prácticas 100, LCP 2,9 s; escritorio 100/100/100, LCP 0,7 s. El SEO previo era 69 por la restricción de indexación entonces vigente; esa restricción se retiró y esa puntuación no describe la versión final. No son métricas públicas de PageSpeed ni CrUX. Tras desplegar corresponde verificar la URL y volver a medir.
 
 Informes y capturas locales: `/private/tmp/tb-foreign-qa/`. Los temporales pueden borrarse. URL final: https://tbabogados.com.ar/guias-legales/registrar-marca-argentina-siendo-extranjero/.
+
+## Traducciones — 2/11/2026
+
+Versiones completas EN y PT-BR en `en/` y `pt/`, conservando el contenido abreviado aprobado. Canonical propio, hreflang recíproco ES/EN/PT y x-default, banderas, sitemap y enlaces desde índice y servicios localizados. Portada internacional sin texto editorial, generada a partir de la original con imagegen, conserva ilustración y logo. Autoría INPI 2971 y enlaces al perfil correspondiente; CTA, WhatsApp, footer y fuentes traducidos.
+
+CSS regenerado para ambas rutas; builder ampliado a subrutas de idiomas. JSON-LD, XML, enlaces locales y navbar validados. Responsive 360/390/428/1440 sin desbordes. Publicación y mediciones públicas se verifican al desplegar.

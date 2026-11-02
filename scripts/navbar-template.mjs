@@ -74,6 +74,10 @@ function languageRoutes(page) {
       return { es: `${section}/`, en: `${section}/en/`, pt: `${section}/pt/` };
     }
   }
+  const foreignTrademarkGuide = 'guias-legales/registrar-marca-argentina-siendo-extranjero/';
+  if ([foreignTrademarkGuide, `${foreignTrademarkGuide}en/`, `${foreignTrademarkGuide}pt/`].includes(route)) {
+    return { es: foreignTrademarkGuide, en: `${foreignTrademarkGuide}en/`, pt: `${foreignTrademarkGuide}pt/` };
+  }
   const trademarks = { es: 'servicios/marcas/', en: 'servicios/marcas/en/', pt: 'servicios/marcas/pt/' };
   if (['servicios/traducciones-publicas/', 'servicios/traducciones-publicas/en/'].includes(route)) {
     return { es: 'servicios/traducciones-publicas/', en: 'servicios/traducciones-publicas/en/', pt: 'pt/', fallbackLanguages: ['pt'] };
