@@ -15,6 +15,7 @@ const defaults = ['contacto', 'nosotros', 'dr-bulgheroni', 'dra-bulgheroni', 'dr
 const pages = process.argv.length > 2 ? process.argv.slice(2) : defaults;
 for (const page of pages) {
     if (![...defaults, 'guias-legales/index.html', 'servicios/marcas/index.html'].includes(page)
+        && !/^(?:en\/legal-guides|pt\/guias-juridicos)\/(?:[a-z0-9-]+\/)?index\.html$/.test(page)
         && !/^guias-legales\/[a-z0-9-]+\/(?:en\/|pt\/)?index\.html$/.test(page)) {
         throw new Error(`Unsupported standalone page: ${page}`);
     }
@@ -45,8 +46,10 @@ try {
         let customLocal = custom.replaceAll('../assets/', prefix + 'assets/')
             + fs.readFileSync(path.join(root, 'css/secondary-page-icons.css'), 'utf8');
         for (const [kind, weight] of [['solid', 900], ['regular', 400], ['brands', 400]]) {
-            const fontDirectory = file.startsWith('guias-legales/') && kind !== 'brands'
-                ? (file !== 'guias-legales/index.html' && kind === 'solid' ? 'guias-legales' : 'guias-index')
+            const isGuide = /^(?:guias-legales|en\/legal-guides|pt\/guias-juridicos)\//.test(file);
+            const isGuideIndex = /^(?:guias-legales|en\/legal-guides|pt\/guias-juridicos)\/index\.html$/.test(file);
+            const fontDirectory = isGuide && kind !== 'brands'
+                ? (!isGuideIndex && kind === 'solid' ? 'guias-legales' : 'guias-index')
                 : 'secondary-pages';
             customLocal = customLocal.replace(new RegExp(`src:url\\([^}]*?fa-${kind}-${weight}\\.woff2[^}]+`),
                 `src:url("${prefix}assets/fonts/${fontDirectory}/fa-${kind}.woff2") format("woff2")`);

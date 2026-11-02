@@ -27,6 +27,8 @@ jobs:
           node-version: '22'
       - name: Verificar el cálculo y las condiciones del tarifario
         run: node --test tests/tramites-pricing.test.mjs
+      - name: Verificar índices y rutas de guías traducidas
+        run: node --test tests/legal-guide-locales.test.mjs
       - name: Actualizar IPC y generar catálogo con precios indexables
         # Si la API falla o su serie es incompleta, el trabajo falla y el sitio
         # publicado conserva la última versión. No se inventan nuevos importes.

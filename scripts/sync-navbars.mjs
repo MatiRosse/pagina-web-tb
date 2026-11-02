@@ -8,6 +8,7 @@ const pages = execFileSync('git', ['ls-files', '-z', '--', '*.html'], { encoding
 let changed = 0;
 for (const page of pages) {
   const previous = fs.readFileSync(page, 'utf8');
+  if (previous.includes('<!-- TB legacy guide redirect -->')) continue;
   const next = syncNavbar(previous, page);
   if (next === previous) continue;
   if (process.argv.includes('--check')) throw new Error(`Navbar out of date: ${page}`);

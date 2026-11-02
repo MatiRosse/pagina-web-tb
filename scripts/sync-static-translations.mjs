@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { syncNavbar } from './navbar-template.mjs';
+import { syncNavbar, guideIndexes } from './navbar-template.mjs';
 
 const root = process.cwd();
 
@@ -392,6 +392,10 @@ function localizeInternalReferences(html, targetFile, lang) {
     const suffix = suffixMatch ? suffixMatch[1] : '';
     const pathname = suffix ? value.slice(0, -suffix.length) : value;
     const resolved = path.posix.normalize(path.posix.join(targetDir, pathname)).replace(/\/$/, '');
+    if (resolved === 'guias-legales') {
+      const relative = path.posix.relative(targetDir, guideIndexes[lang]) + '/';
+      return `<a${before}href="${relative}${suffix}"${after}>${content}</a>`;
+    }
     if (!localizablePaths.has(resolved)) return match;
 
     let relative = path.posix.relative(targetDir, path.posix.join(resolved, lang));

@@ -393,15 +393,17 @@
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://tbabogados.com.ar/guias-legales/registrar-marca-argentina-siendo-extranjero/en/</loc>
+        <loc>https://tbabogados.com.ar/en/legal-guides/register-trademark-argentina/</loc>
         <lastmod>2026-11-02</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://tbabogados.com.ar/guias-legales/registrar-marca-argentina-siendo-extranjero/pt/</loc>
+        <loc>https://tbabogados.com.ar/pt/guias-juridicos/registrar-marca-argentina/</loc>
         <lastmod>2026-11-02</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+  <url><loc>https://tbabogados.com.ar/en/legal-guides/</loc><lastmod>2026-11-02</lastmod></url>
+  <url><loc>https://tbabogados.com.ar/pt/guias-juridicos/</loc><lastmod>2026-11-02</lastmod></url>
 </urlset>

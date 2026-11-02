@@ -3,7 +3,7 @@
 // --check verifies that the published copies still match the source and translations.
 import fs from 'node:fs';
 import path from 'node:path';
-import { syncNavbar } from './navbar-template.mjs';
+import { syncNavbar, guideIndexes } from './navbar-template.mjs';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -306,6 +306,7 @@ function translate(source, lang) {
     if (/\bdata-language=/.test(tag)) return tag;
     return tag.replace(/href="\.\.\/([^"?#]*)([?#][^"]*)?"/, (match, pathname, suffix = '') => {
       const base = pathname.replace(/\/$/, '');
+      if (base === 'guias-legales') return `href="../${guideIndexes[lang]}${suffix}"`;
       return localized.has(base) ? `href="../${base ? `${base}/` : ''}${lang}/${suffix}"` : match;
     });
   });

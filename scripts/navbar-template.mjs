@@ -58,6 +58,13 @@ const calculators = [
   ['calculadora-alquiler', 'building', 'Calculadora Alquiler', 'Rent Calculator', 'Calculadora de Aluguel'],
   ['calculadora-jubilacion', 'clock', 'Calculadora Jubilación', 'Retirement Calculator', 'Calculadora de Aposentadoria']
 ];
+export const guideIndexes = { es: 'guias-legales/', en: 'en/legal-guides/', pt: 'pt/guias-juridicos/' };
+export const foreignTrademarkGuides = {
+  es: 'guias-legales/registrar-marca-argentina-siendo-extranjero/',
+  en: 'en/legal-guides/register-trademark-argentina/',
+  pt: 'pt/guias-juridicos/registrar-marca-argentina/'
+};
+
 const localizedSections = ['nosotros', 'contacto', 'dra-bulgheroni', 'dr-bulgheroni', 'dra-tassara'];
 
 export function pageLanguage(html) {
@@ -74,10 +81,8 @@ function languageRoutes(page) {
       return { es: `${section}/`, en: `${section}/en/`, pt: `${section}/pt/` };
     }
   }
-  const foreignTrademarkGuide = 'guias-legales/registrar-marca-argentina-siendo-extranjero/';
-  if ([foreignTrademarkGuide, `${foreignTrademarkGuide}en/`, `${foreignTrademarkGuide}pt/`].includes(route)) {
-    return { es: foreignTrademarkGuide, en: `${foreignTrademarkGuide}en/`, pt: `${foreignTrademarkGuide}pt/` };
-  }
+  if (Object.values(guideIndexes).includes(route)) return guideIndexes;
+  if (Object.values(foreignTrademarkGuides).includes(route)) return foreignTrademarkGuides;
   const trademarks = { es: 'servicios/marcas/', en: 'servicios/marcas/en/', pt: 'servicios/marcas/pt/' };
   if (['servicios/traducciones-publicas/', 'servicios/traducciones-publicas/en/'].includes(route)) {
     return { es: 'servicios/traducciones-publicas/', en: 'servicios/traducciones-publicas/en/', pt: 'pt/', fallbackLanguages: ['pt'] };
@@ -142,7 +147,7 @@ export function renderNavbar(page, language = 'es') {
             ${link('servicios/calculadoras/', t.allCalculators, 'tb-nav-option tb-nav-all')}
           </div>
         </div>
-        ${link('guias-legales/', t.guides, 'tb-nav-link')}
+        ${link(guideIndexes[language], t.guides, 'tb-nav-link')}
         ${link(localized('nosotros/'), t.about, 'tb-nav-link')}
         ${link(localized('contacto/'), t.contact, 'tb-nav-link tb-nav-contact')}
         <div class="tb-nav-dropdown" data-nav-dropdown>
@@ -168,7 +173,7 @@ export function renderNavbar(page, language = 'es') {
           ${link('servicios/calculadoras/', t.allCalculators, 'tb-nav-mobile-option tb-nav-all')}
         </div>
       </div>
-      ${link('guias-legales/', t.guides, 'tb-nav-mobile-link', 'book')}
+      ${link(guideIndexes[language], t.guides, 'tb-nav-mobile-link', 'book')}
       ${link(localized('nosotros/'), t.about, 'tb-nav-mobile-link', 'users')}
       ${link(localized('contacto/'), t.contact, 'tb-nav-mobile-link', 'mail')}
       <div class="tb-nav-mobile-group">

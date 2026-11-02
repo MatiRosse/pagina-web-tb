@@ -47,3 +47,11 @@ Informes y capturas locales: `/private/tmp/tb-foreign-qa/`. Los temporales puede
 Versiones completas EN y PT-BR en `en/` y `pt/`, conservando el contenido abreviado aprobado. Canonical propio, hreflang recíproco ES/EN/PT y x-default, banderas, sitemap y enlaces desde índice y servicios localizados. Portada internacional sin texto editorial, generada a partir de la original con imagegen, conserva ilustración y logo. Autoría INPI 2971 y enlaces al perfil correspondiente; CTA, WhatsApp, footer y fuentes traducidos.
 
 CSS regenerado para ambas rutas; builder ampliado a subrutas de idiomas. JSON-LD, XML, enlaces locales y navbar validados. Responsive 360/390/428/1440 sin desbordes. Publicación y mediciones públicas se verifican al desplegar.
+
+## Índices y URLs por idioma — 2/11/2026
+
+La guía en inglés pasa a `/en/legal-guides/register-trademark-argentina/` y la portuguesa a `/pt/guias-juridicos/registrar-marca-argentina/`. Cada idioma dispone de índice propio, con solo sus traducciones publicadas. Se actualizaron canonical, hreflang, datos estructurados, sitemap, banderas y enlaces.
+
+Las dos URLs anteriores permanecen como páginas mínimas de redirección inmediata mediante meta refresh, con canonical al destino y noindex. GitHub Pages no ofrece configuración de redirecciones HTTP 301 por ruta; no se presentan estas páginas como respuestas 301. Las páginas de redirección quedan excluidas de la sincronización de navbars.
+
+Validación automatizada: `node --test tests/legal-guide-locales.test.mjs`. Cubre idioma, canonical/hreflang recíproco, navbar, recursos locales, concordancia tarjetas/ItemList y destinos anteriores.
