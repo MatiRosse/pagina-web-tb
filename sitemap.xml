@@ -207,7 +207,7 @@
     <!-- Legal Guides -->
     <url>
         <loc>https://tbabogados.com.ar/guias-legales/</loc>
-        <lastmod>2026-11-02</lastmod>
+        <lastmod>2026-11-04</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -382,7 +382,7 @@
   </url>
   <url>
     <loc>https://tbabogados.com.ar/servicios/calculadoras/simulador-herencia/</loc>
-    <lastmod>2026-10-11</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -406,4 +406,10 @@
     </url>
   <url><loc>https://tbabogados.com.ar/en/legal-guides/</loc><lastmod>2026-11-02</lastmod></url>
   <url><loc>https://tbabogados.com.ar/pt/guias-juridicos/</loc><lastmod>2026-11-02</lastmod></url>
+    <url>
+        <loc>https://tbabogados.com.ar/guias-legales/como-usar-simulador-herencia/</loc>
+        <lastmod>2026-11-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
 </urlset>
