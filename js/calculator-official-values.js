@@ -3,19 +3,23 @@
 
     const SERIES_API_BASE = 'https://apis.datos.gob.ar/series/api/series/';
     const IPC_SERIES_ID = '148.3_INIVELNAL_DICI_M_26';
+    const IPC_SNAPSHOT_URL = new URL('../data/calculator-ipc.json', document.currentScript.src).href;
+    const IPC_SOURCE_URL = 'https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv';
     const RIPTE_SERIES_ID = '158.1_REPTE_0_0_5';
     const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
 
     const CONTRIBUTION_CAP_BASE = {
-        value: 4769631.49,
-        effectiveMonth: '2026-10',
-        ipcMonth: '2026-08'
+        // Resolución ANSES 304/2026, art. 3.
+        value: 4861685.38,
+        effectiveMonth: '2026-11',
+        ipcMonth: '2026-09'
     };
 
     const CONTRIBUTION_CAP_FALLBACKS = {
         '2026-08': 4594798.23,
         '2026-09': 4691748.47,
-        '2026-10': 4769631.49
+        '2026-10': 4769631.49,
+        [CONTRIBUTION_CAP_BASE.effectiveMonth]: CONTRIBUTION_CAP_BASE.value
     };
 
     const ART_FLOOR_BASE = {
@@ -106,27 +110,58 @@
         }
     }
 
-    async function fetchSeries(seriesId, limit) {
+    async function fetchJson(url, timeoutMs = 8000) {
         const controller = typeof AbortController === 'function' ? new AbortController() : null;
-        const timeout = controller ? setTimeout(() => controller.abort(), 8000) : null;
+        const timeout = controller ? setTimeout(() => controller.abort(), timeoutMs) : null;
 
         try {
-            const url = `${SERIES_API_BASE}?ids=${encodeURIComponent(seriesId)}&sort=desc&limit=${limit}&format=json`;
             const response = await fetch(url, controller ? { signal: controller.signal } : undefined);
             if (!response.ok) throw new Error(`La API oficial respondió ${response.status}.`);
-            const json = await response.json();
-            const values = {};
-
-            (json.data || []).forEach((point) => {
-                if (!Array.isArray(point) || typeof point[0] !== 'string') return;
-                const value = Number(point[1]);
-                if (Number.isFinite(value) && value > 0) values[point[0].slice(0, 7)] = value;
-            });
-
-            return values;
+            return await response.json();
         } finally {
             if (timeout) clearTimeout(timeout);
         }
+    }
+
+    async function fetchSeries(seriesId, limit) {
+        const url = `${SERIES_API_BASE}?ids=${encodeURIComponent(seriesId)}&sort=desc&limit=${limit}&format=json`;
+        const json = await fetchJson(url);
+        const values = {};
+
+        (json.data || []).forEach((point) => {
+            if (!Array.isArray(point) || typeof point[0] !== 'string') return;
+            const value = Number(point[1]);
+            if (Number.isFinite(value) && value > 0) values[point[0].slice(0, 7)] = value;
+        });
+
+        return values;
+    }
+
+    function continuousIpc(values, baseMonth, targetMonth) {
+        const range = {};
+        for (let month = baseMonth; month <= targetMonth; month = addMonths(month, 1)) {
+            const value = values?.[month];
+            if (!Number.isFinite(value) || value <= 0) break;
+            range[month] = value;
+        }
+        return range;
+    }
+
+    async function getNationalIpc(baseMonth, targetMonth) {
+        if (targetMonth < baseMonth) return {};
+
+        const snapshot = await fetchJson(IPC_SNAPSHOT_URL, 4000).catch(() => null);
+        const local = continuousIpc(
+            snapshot?.source === IPC_SOURCE_URL ? snapshot.values : null,
+            baseMonth,
+            targetMonth
+        );
+        if (local[targetMonth]) return local;
+
+        const series = await fetchSeries(IPC_SERIES_ID, 36).catch(() => null);
+        const remote = continuousIpc(series, baseMonth, targetMonth);
+        // Ambas series se comparan por cobertura. El cálculo usa los niveles de una sola.
+        return Object.keys(remote).length > Object.keys(local).length ? remote : local;
     }
 
     function initialContributionCap(date = new Date()) {
@@ -142,39 +177,31 @@
 
     async function getContributionCap(date = new Date()) {
         const requestedMonth = argentinaYearMonth(date);
-        const cacheKey = `tb-contribution-cap:${requestedMonth}`;
+        const fallback = initialContributionCap(date);
+        if (requestedMonth <= CONTRIBUTION_CAP_BASE.effectiveMonth) return fallback;
+
+        const cacheKey = `tb-contribution-cap:${CONTRIBUTION_CAP_BASE.effectiveMonth}:${requestedMonth}`;
         const cached = readCache(cacheKey);
         if (cached) return cached;
 
-        const fallback = initialContributionCap(date);
-        if (requestedMonth < CONTRIBUTION_CAP_BASE.effectiveMonth) return fallback;
+        const baseMonth = CONTRIBUTION_CAP_BASE.ipcMonth;
+        const targetMonth = addMonths(requestedMonth, -2);
+        const ipcValues = await getNationalIpc(baseMonth, targetMonth);
+        const ipcMonth = Object.keys(ipcValues).at(-1);
+        if (!ipcMonth || ipcMonth <= baseMonth) return fallback;
 
-        try {
-            const ipcValues = await fetchSeries(IPC_SERIES_ID, 36);
-            const baseIpc = ipcValues[CONTRIBUTION_CAP_BASE.ipcMonth];
-            let ipcMonth = addMonths(requestedMonth, -2);
+        const value = Math.round(CONTRIBUTION_CAP_BASE.value * (ipcValues[ipcMonth] / ipcValues[baseMonth]) * 100) / 100;
+        if (!Number.isFinite(value) || value <= 0) return fallback;
 
-            while (!ipcValues[ipcMonth] && ipcMonth > CONTRIBUTION_CAP_BASE.ipcMonth) {
-                ipcMonth = addMonths(ipcMonth, -1);
-            }
-
-            if (!baseIpc || !ipcValues[ipcMonth] || ipcMonth < CONTRIBUTION_CAP_BASE.ipcMonth) return fallback;
-
-            const value = Math.round(CONTRIBUTION_CAP_BASE.value * (ipcValues[ipcMonth] / baseIpc) * 100) / 100;
-            if (!Number.isFinite(value) || value <= 0) return fallback;
-
-            const effectiveMonth = addMonths(ipcMonth, 2);
-            const result = {
-                value,
-                effectiveMonth,
-                effectiveLabel: monthLabel(effectiveMonth),
-                source: 'official-api-ipc'
-            };
-            writeCache(cacheKey, result);
-            return result;
-        } catch (error) {
-            return fallback;
-        }
+        const effectiveMonth = addMonths(ipcMonth, 2);
+        const result = {
+            value,
+            effectiveMonth,
+            effectiveLabel: monthLabel(effectiveMonth),
+            source: 'estimated-ipc'
+        };
+        if (ipcMonth === targetMonth) writeCache(cacheKey, result);
+        return result;
     }
 
     function initialArtFloor(date = new Date()) {
@@ -229,6 +256,7 @@
     global.TBOfficialCalculatorValues = {
         getContributionCap,
         getArtFloor,
+        getNationalIpc,
         initialContributionCap,
         initialArtFloor
     };

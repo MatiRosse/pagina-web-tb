@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   schedule:
-    # Una consulta diaria; el BCRA publica el IPC con frecuencia mensual.
+    # Actualización diaria de las series mensuales de IPC.
     - cron: '15 12 * * *'
   workflow_dispatch:
 
@@ -35,13 +35,15 @@ jobs:
         run: node scripts/build-tramites-documentos.mjs --update --published
       - name: Verificar catálogo generado y selección comercial
         run: node --test tests/tramites-pricing.test.mjs
+      - name: Actualizar la serie nacional de IPC de las calculadoras
+        run: node scripts/update-calculator-ipc.mjs
       - name: Preparar archivos públicos
         run: |
           mkdir -p _site
           cp index.html CNAME robots.txt sitemap.xml _site/
           cp -R assets css js contacto nosotros dr-bulgheroni dra-bulgheroni dra-tassara en pt guias-legales servicios politica-privacidad terminos-y-condiciones sueldo-neto _site/
           mkdir -p _site/data
-          cp data/tramites-documentos.json data/tramites-ipc.json _site/data/
+          cp data/tramites-documentos.json data/tramites-ipc.json data/calculator-ipc.json _site/data/
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

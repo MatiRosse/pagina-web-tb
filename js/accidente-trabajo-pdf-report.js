@@ -157,12 +157,13 @@
         text(ctx, 'Mayor entre: VIB × 53 × incapacidad × (65 ÷ edad) y piso SRT × incapacidad', 112, 1273, 21, 700, COLORS.ink);
     }
 
-    function drawDisclaimer(ctx) {
+    function drawDisclaimer(ctx, report) {
         roundedRect(ctx, 82, 1360, 1076, 212, 18, COLORS.soft, COLORS.line);
         text(ctx, 'ALCANCE DEL INFORME', 112, 1404, 16, 700, COLORS.muted);
         ctx.font = '400 17px Inter, Arial, sans-serif';
         ctx.fillStyle = COLORS.ink;
-        wrapText(ctx, 'Esta estimación se limita a incapacidad permanente parcial de hasta el 50% y aplica el piso SRT vigente del 1/3/2026 al 31/8/2026. El VIB debe estar actualizado con RIPTE e intereses. El monto real puede variar por fecha de primera manifestación invalidante, prestaciones adicionales, dictamen de Comisión Médica e instancia judicial.', 112, 1445, 1010, 28, 4);
+        const period = report.floorPeriod ? ` para primeras manifestaciones invalidantes entre el ${report.floorPeriod}` : '';
+        wrapText(ctx, `Esta estimación se limita a incapacidad permanente parcial de hasta el 50% y aplica el piso SRT${period}. El VIB debe estar actualizado con RIPTE e intereses. El monto real puede variar por prestaciones adicionales, dictamen de Comisión Médica e instancia judicial.`, 112, 1445, 1010, 28, 4);
     }
 
     function drawFooter(ctx) {
@@ -188,7 +189,7 @@
         drawMetadata(ctx, report);
         drawSummary(ctx, report);
         drawCalculation(ctx, report);
-        drawDisclaimer(ctx);
+        drawDisclaimer(ctx, report);
         drawFooter(ctx);
         return canvas;
     }
