@@ -150,7 +150,7 @@
             { value:'yes', label:'Sí, tuvo uno o más hijos' },
             { value:'no', label:'No tuvo hijos' }
         ]));
-        else if (mobileStep === 'children-count') content.innerHTML = mobileNumberQuestion(questionNumber, '¿Cuántos hijos o ramas de hijos dejó?', 'Cada hijo forma una rama. Si falleció antes y dejó descendientes, sigue contando como una rama.', 'Cantidad de ramas', 1, Math.max(1, state.children.length || 1), 'children');
+        else if (mobileStep === 'children-count') content.innerHTML = mobileNumberQuestion(questionNumber, '¿Cuántos hijos tuvo?', 'Incluí también a los hijos que fallecieron antes que la persona cuya herencia estás simulando.', 'Cantidad de hijos', 1, Math.max(1, state.children.length || 1), 'children');
         else if (mobileStep.startsWith('branch-')) {
             const index = Number(mobileStep.split('-')[1]);
             content.innerHTML = mobileQuestion('Hijo/a n.º ' + (index + 1) + ' de ' + state.children.length, '¿El hijo/a n.º ' + (index + 1) + ' vivía cuando falleció la persona?', '', mobileChoices([
