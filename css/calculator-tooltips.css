@@ -1,0 +1,30 @@
+@media (max-width: 767px), (hover: none) {
+    .method-card:hover {
+        transform: none;
+    }
+
+    .calc-info-wrap:hover .calc-info-tooltip,
+    .calc-info-wrap:focus-within .calc-info-tooltip,
+    .context-info-wrap:hover .context-tooltip,
+    .context-info-wrap:focus-within .context-tooltip {
+        display: none;
+    }
+
+    .calc-info-wrap.is-open .calc-info-tooltip,
+    .context-info-wrap.is-open .context-tooltip {
+        position: fixed;
+        top: var(--info-top, 0px);
+        left: var(--info-left, 12px);
+        right: auto;
+        display: block;
+        max-width: var(--info-max-width, calc(100% - 24px));
+        max-height: var(--info-max-height, calc(100% - 24px));
+        overflow: auto;
+        font-size: .875rem;
+    }
+
+    .calc-info-tooltip::before,
+    .context-tooltip::before {
+        display: none;
+    }
+}

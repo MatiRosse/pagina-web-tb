@@ -1090,6 +1090,7 @@ main .bg-darkblue-900 p.text-gray-400 { color: #b4b9c2; }
 main a[class~="bg-[#25D366]"] { background-color: #128247; }
 main .method-card-copy { color: #626977; }
 </style>
+<link rel="stylesheet" href="../../../css/calculator-tooltips.css">
 <link rel="stylesheet" href="../../../css/navbar.css?v=18ef8ee6d266">
 </head>
 
@@ -1279,12 +1280,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                     onkeydown="handleMethodCardKey(event, 'icl')">
                                     <div class="method-card-header">
                                         <div class="method-card-title">ICL</div>
-                                        <span class="context-info-wrap" role="button" tabindex="0"
-                                            aria-label="Información sobre ICL" onclick="toggleInfoPopover(event, this)"
-                                            onkeydown="handleInfoKey(event, this)">
+                                        <button type="button" class="context-info-wrap" aria-label="Información sobre ICL" aria-describedby="icl-ayuda">
                                             <span class="context-info-letter" aria-hidden="true">i</span>
-                                            <span class="context-tooltip" role="tooltip">Índice para Contratos de Locación publicado diariamente por el BCRA.</span>
-                                        </span>
+                                            <span id="icl-ayuda" class="context-tooltip" role="tooltip">Índice para Contratos de Locación publicado diariamente por el BCRA.</span>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="method-card" data-method-card="ipc" role="radio"
@@ -1292,12 +1291,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                     onkeydown="handleMethodCardKey(event, 'ipc')">
                                     <div class="method-card-header">
                                         <div class="method-card-title">IPC</div>
-                                        <span class="context-info-wrap" role="button" tabindex="0"
-                                            aria-label="Información sobre IPC" onclick="toggleInfoPopover(event, this)"
-                                            onkeydown="handleInfoKey(event, this)">
+                                        <button type="button" class="context-info-wrap" aria-label="Información sobre IPC" aria-describedby="ipc-ayuda">
                                             <span class="context-info-letter" aria-hidden="true">i</span>
-                                            <span class="context-tooltip" role="tooltip">Variación mensual del Índice de Precios al Consumidor. Para fracciones de mes se aplica una tasa diaria equivalente.</span>
-                                        </span>
+                                            <span id="ipc-ayuda" class="context-tooltip" role="tooltip">Variación mensual del Índice de Precios al Consumidor. Para fracciones de mes se aplica una tasa diaria equivalente.</span>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="method-card" data-method-card="uva" role="radio"
@@ -1305,12 +1302,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                     onkeydown="handleMethodCardKey(event, 'uva')">
                                     <div class="method-card-header">
                                         <div class="method-card-title">UVA</div>
-                                        <span class="context-info-wrap" role="button" tabindex="0"
-                                            aria-label="Información sobre UVA" onclick="toggleInfoPopover(event, this)"
-                                            onkeydown="handleInfoKey(event, this)">
+                                        <button type="button" class="context-info-wrap" aria-label="Información sobre UVA" aria-describedby="uva-ayuda">
                                             <span class="context-info-letter" aria-hidden="true">i</span>
-                                            <span class="context-tooltip" role="tooltip">Unidad de Valor Adquisitivo publicada diariamente por el BCRA. Puede actualizar pesos o valorizar una cantidad fija de UVA.</span>
-                                        </span>
+                                            <span id="uva-ayuda" class="context-tooltip" role="tooltip">Unidad de Valor Adquisitivo publicada diariamente por el BCRA. Puede actualizar pesos o valorizar una cantidad fija de UVA.</span>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="method-card" data-method-card="cer" role="radio"
@@ -1318,12 +1313,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                     onkeydown="handleMethodCardKey(event, 'cer')">
                                     <div class="method-card-header">
                                         <div class="method-card-title">CER</div>
-                                        <span class="context-info-wrap" role="button" tabindex="0"
-                                            aria-label="Información sobre CER" onclick="toggleInfoPopover(event, this)"
-                                            onkeydown="handleInfoKey(event, this)">
+                                        <button type="button" class="context-info-wrap" aria-label="Información sobre CER" aria-describedby="cer-ayuda">
                                             <span class="context-info-letter" aria-hidden="true">i</span>
-                                            <span class="context-tooltip" role="tooltip">Coeficiente de Estabilización de Referencia publicado diariamente por el BCRA.</span>
-                                        </span>
+                                            <span id="cer-ayuda" class="context-tooltip" role="tooltip">Coeficiente de Estabilización de Referencia publicado diariamente por el BCRA.</span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -1403,17 +1396,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <div class="result-source-row">
                             <span id="fuentePill" class="status-pill"><i class="fa-solid fa-building-columns text-gold"></i>ICL oficial BCRA</span>
                             <div class="source-meta-copy" id="fuenteDetalle">Datos oficiales del BCRA.</div>
-                            <span class="context-info-wrap calculation-info-wrap hidden" id="fuenteMetaWrap"
-                                role="button" tabindex="0" aria-label="Aclaraciones del cálculo"
-                                onclick="toggleInfoPopover(event, this)" onkeydown="handleInfoKey(event, this)">
+                            <button type="button" class="context-info-wrap calculation-info-wrap hidden" id="fuenteMetaWrap"
+                                aria-label="Aclaraciones del cálculo" aria-describedby="calculo-ayuda">
                                 <span class="context-info-letter" aria-hidden="true">i</span>
-                                <span class="context-tooltip" role="tooltip">
+                                <span id="calculo-ayuda" class="context-tooltip" role="tooltip">
                                     <span id="fuenteDetalleExtendido"></span>
                                     <span class="hidden mt-1" id="fuenteNotaWrap">
                                         <span id="fuenteNota"></span>
                                     </span>
                                 </span>
-                            </span>
+                            </button>
                         </div>
 
                         <details class="result-disclosure" id="evolutionDetails" ontoggle="handleResultDisclosure(this)">
@@ -1988,40 +1980,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }
 
         function handleMethodCardKey(event, methodKey) {
-            if (event.key !== 'Enter' && event.key !== ' ') return;
+            if (event.target !== event.currentTarget || (event.key !== 'Enter' && event.key !== ' ')) return;
             event.preventDefault();
             setMethod(methodKey);
-        }
-
-        function closeInfoPopovers(except = null) {
-            document.querySelectorAll('.context-info-wrap.is-open').forEach((item) => {
-                if (item !== except) {
-                    item.classList.remove('is-open');
-                    const card = item.closest('.method-card');
-                    if (card) card.classList.remove('has-open-popover');
-                }
-            });
-        }
-
-        function toggleInfoPopover(event, element) {
-            event.stopPropagation();
-            const willOpen = !element.classList.contains('is-open');
-            closeInfoPopovers(element);
-            element.classList.toggle('is-open', willOpen);
-            const card = element.closest('.method-card');
-            if (card) card.classList.toggle('has-open-popover', willOpen);
-        }
-
-        function handleInfoKey(event, element) {
-            if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                toggleInfoPopover(event, element);
-            } else if (event.key === 'Escape') {
-                element.classList.remove('is-open');
-                const card = element.closest('.method-card');
-                if (card) card.classList.remove('has-open-popover');
-                element.blur();
-            }
         }
 
         function setAdjustmentPeriod(months) {
@@ -2799,11 +2760,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             setMethod('icl');
             setAdjustmentPeriod(4);
             setDefaultDates();
-            document.addEventListener('click', () => closeInfoPopovers());
         });
     </script>
     <script defer src="../../../js/whatsapp-widget.js"></script>
     <script defer src="../../../js/main.js?v=0e8cbb0d6789"></script>
+    <script defer src="../../../js/calculator-tooltips.js"></script>
 </body>
 
 </html>
