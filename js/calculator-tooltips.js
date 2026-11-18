@@ -1,5 +1,6 @@
 (() => {
     const compact = window.matchMedia('(max-width: 767px), (hover: none)');
+    const navbar = document.querySelector('.tb-navbar');
     const margin = 12;
     const gap = 8;
     let active;
@@ -23,22 +24,30 @@
         const width = viewport?.width ?? root.clientWidth;
         const height = viewport?.height ?? root.clientHeight;
         const bounds = trigger.getBoundingClientRect();
+        const navbarBottom = navbar?.getBoundingClientRect().bottom ?? 0;
+        const topLimit = Math.max(topEdge, navbarBottom) + margin;
+        const bottomLimit = topEdge + height - margin;
 
-        if (!bounds.height || bounds.bottom < topEdge || bounds.top > topEdge + height) {
+        if (!bounds.height || bounds.bottom <= Math.max(topEdge, navbarBottom) || bounds.top >= topEdge + height) {
             closeTooltip();
             return;
         }
 
+        const below = Math.max(topLimit, bounds.bottom + gap);
+        const above = Math.min(bottomLimit, bounds.top - gap);
+        const roomBelow = bottomLimit - below;
+        const roomAbove = above - topLimit;
+        const availableHeight = Math.floor(Math.max(roomAbove, roomBelow));
+        if (availableHeight < 24) {
+            closeTooltip();
+            return;
+        }
         tooltip.style.setProperty('--info-max-width', `${width - 2 * margin}px`);
-        tooltip.style.setProperty('--info-max-height', `${height - 2 * margin}px`);
+        tooltip.style.setProperty('--info-max-height', `${availableHeight}px`);
 
-        const tooltipWidth = tooltip.offsetWidth;
-        const tooltipHeight = tooltip.offsetHeight;
+        const { width: tooltipWidth, height: tooltipHeight } = tooltip.getBoundingClientRect();
         const left = Math.max(leftEdge + margin, Math.min(bounds.left, leftEdge + width - margin - tooltipWidth));
-        const below = bounds.bottom + gap;
-        const above = bounds.top - gap - tooltipHeight;
-        const bottomLimit = topEdge + height - margin - tooltipHeight;
-        const top = below <= bottomLimit ? below : Math.max(topEdge + margin, above);
+        const top = tooltipHeight <= roomBelow ? below : Math.max(topLimit, above - tooltipHeight);
 
         tooltip.style.setProperty('--info-left', `${left}px`);
         tooltip.style.setProperty('--info-top', `${top}px`);

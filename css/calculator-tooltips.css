@@ -3,6 +3,10 @@
         transform: none;
     }
 
+    .method-card.has-open-popover {
+        z-index: auto;
+    }
+
     .calc-info-wrap:hover .calc-info-tooltip,
     .calc-info-wrap:focus-within .calc-info-tooltip,
     .context-info-wrap:hover .context-tooltip,
@@ -16,6 +20,7 @@
         top: var(--info-top, 0px);
         left: var(--info-left, 12px);
         right: auto;
+        z-index: 10000;
         display: block;
         max-width: var(--info-max-width, calc(100% - 24px));
         max-height: var(--info-max-height, calc(100% - 24px));
